@@ -9,6 +9,16 @@ const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
 
+// /api/spots
+// Get all spots
+router.get('/', async (req, res) => {
+    let spots = await Spot.findAll()
+    return res.json(spots)
+})
+
+
+
+
 
 
 
