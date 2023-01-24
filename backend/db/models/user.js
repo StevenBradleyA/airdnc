@@ -41,9 +41,8 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     static associate(models) {
-
       // User relationship to Booking OwnerId
-      User.hasMany(models.Booking, {foreignKey: 'ownerId'})
+      User.hasMany(models.Booking, { foreignKey: "ownerId" });
       // User relationship to Spots via Booking
       User.belongsToMany(models.Spot, {
         through: models.Booking,
@@ -56,12 +55,6 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "userId",
         otherKey: "spotId",
       });
-
-      
-
-
-
-
     }
   }
 
@@ -71,14 +64,14 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-          len: [1, 69],
+          len: [1, 40],
         },
       },
       lastName: {
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-          len: [1, 69],
+          len: [1, 40],
         },
       },
       username: {
