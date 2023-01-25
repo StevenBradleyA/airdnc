@@ -20,6 +20,7 @@ module.exports = {
           lat: 37.7645358,
           lng: -122.4730327,
           name: "App Academy",
+          description: "wow, this place is awesome",
           price: 123,
         },
         {
@@ -31,6 +32,7 @@ module.exports = {
           lat: 37.7645358,
           lng: -122.4730327,
           name: "App Academy",
+          description: "wow, this place is awesome",
           price: 123,
         },
         {
@@ -42,6 +44,7 @@ module.exports = {
           lat: 37.7645358,
           lng: -122.4730327,
           name: "App Academy",
+          description: "wow, this place is awesome",
           price: 123,
         },
         {
@@ -53,6 +56,7 @@ module.exports = {
           lat: 37.7645358,
           lng: -122.4730327,
           name: "App Academy",
+          description: "wow, this place is awesome",
           price: 123,
         },
         {
@@ -64,6 +68,7 @@ module.exports = {
           lat: 37.7645358,
           lng: -122.4730327,
           name: "App Academy",
+          description: "wow, this place is awesome",
           price: 123,
         },
       ],
