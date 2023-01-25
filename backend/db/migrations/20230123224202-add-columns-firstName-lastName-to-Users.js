@@ -7,35 +7,21 @@ if (process.env.NODE_ENV === "production") {
 }
 module.exports = {
   async up(queryInterface, Sequelize) {
-    /**
-     * Add altering commands here.
-     *
-     * Example:
-     * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
-     */
-    await queryInterface.addColumn(
-      "Users",
-      "firstName",
-      {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      options
-    );
-    await queryInterface.addColumn(
-      "Users",
-      "lastName",
-      {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      options
-    );
+    options.tableName = "Users";
+    await queryInterface.addColumn(options, "firstName", {
+      type: Sequelize.STRING,
+      allowNull: false,
+    });
+    await queryInterface.addColumn(options, "lastName", {
+      type: Sequelize.STRING,
+      allowNull: false,
+    });
   },
 
   down: async (queryInterface, Sequelize) => {
     options.tableName = "Users";
-    return queryInterface.removeColumn(options);
+    await queryInterface.removeColumn(options, "firstName");
+    await queryInterface.removeColumn(options, "lastName");
   },
   // await queryInterface.removeColumn("Users", "firstName");
   // await queryInterface.removeColumn("Users", "lastName");
