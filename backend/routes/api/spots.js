@@ -11,17 +11,17 @@ const { handleValidationErrors } = require('../../utils/validation');
 
 // /api/spots
 // Get all spots
-router.get('/', async (req, res) => {
-    let spots = await Spot.findAll({
-        include: [{model: Review, as:"avgRating"}, {model: ReviewImage, as: "previewImage"}]
+// router.get('/', async (req, res) => {
+//     let spots = await Spot.findAll({
+//         include: [{model: Review, as:"avgRating"}, {model: ReviewImage, as: "previewImage"}]
 
         
-        // add avg stars for all reviews for a spotid
-        // add preview Image 
+//         // add avg stars for all reviews for a spotid
+//         // add preview Image 
 
-    })
-    return res.json(spots)
-})
+//     })
+//     return res.json(spots)
+// })
 
 
 // /api/spots/current
