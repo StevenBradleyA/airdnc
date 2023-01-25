@@ -31,7 +31,7 @@ module.exports = {
           country: "United States of America",
           lat: 37.7645358,
           lng: -122.4730327,
-          name: "App Academy",
+          name: "Red House",
           description: "wow, this place is awesome",
           price: 123,
         },
@@ -43,7 +43,7 @@ module.exports = {
           country: "United States of America",
           lat: 37.7645358,
           lng: -122.4730327,
-          name: "App Academy",
+          name: "Blue House",
           description: "wow, this place is awesome",
           price: 123,
         },
@@ -55,7 +55,7 @@ module.exports = {
           country: "United States of America",
           lat: 37.7645358,
           lng: -122.4730327,
-          name: "App Academy",
+          name: "Green House",
           description: "wow, this place is awesome",
           price: 123,
         },
@@ -67,7 +67,7 @@ module.exports = {
           country: "United States of America",
           lat: 37.7645358,
           lng: -122.4730327,
-          name: "App Academy",
+          name: "Yellow House",
           description: "wow, this place is awesome",
           price: 123,
         },
@@ -82,7 +82,15 @@ module.exports = {
     return queryInterface.bulkDelete(
       options,
       {
-        ownerId: { [Op.in]: [1, 2, 3, 4, 5] },
+        name: {
+          [Op.in]: [
+            "App Academy",
+            "Red House",
+            "Blue House",
+            "Green House",
+            "Yellow House",
+          ],
+        },
       },
       {}
     );
