@@ -31,9 +31,7 @@ const validateSignup = [
   handleValidationErrors
 ];
 
-router.get('/', async (req,res)=>{
-  
-})
+
 
   router.post(
     '/',
