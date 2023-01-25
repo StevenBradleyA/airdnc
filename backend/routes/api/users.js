@@ -48,7 +48,10 @@ const validateSignup = [
     }
   );
 
-
+    router.get('/current', requireAuth, async(req, res)=> {
+      const user = req.user
+      return res.json(user)
+    })
 
 
 
