@@ -42,7 +42,7 @@ module.exports = (sequelize, DataTypes) => {
 
     static associate(models) {
       // User relationship to Spot OwnerId
-      User.hasMany(models.Spot, { foreignKey: "ownerId" });
+      User.hasMany(models.Spot, { as: 'owner', foreignKey: "ownerId" });
       // User relationship to Booking
       User.hasMany(models.Booking, { foreignKey: "userId" });
       // User relationship to Reviews

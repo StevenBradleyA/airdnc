@@ -18,43 +18,51 @@ const { handleValidationErrors } = require("../../utils/validation");
 // requires auth
 // returns all the spots owned by the current user aka via owner id.
 // router.get("/current", requireAuth, async (req, res, next) => {
-
-
+//     const spots = await Spot.findAll({
+//         where: {
+//             ownerId:
+//         }
+//     })
+// return res.json(spots)
 // });
-
 
 //  /api/spots/:spotId
 // Returns the details of a spot specified by its id.
-// router.get('/:spotId', async (req, res)=> {
+router.get("/:id", async (req, res) => {
+  const spot = await Spot.findByPk(req.params.id);
+  include: [
+    {
+      model: SpotImage,
+    },
+    {
+      model: User,
+      as: "Owner",
+    },
+  ];
 
-// })
+  return res.json(spot);
+});
 
-
-router.delete('/:id', requireAuth, async (req, res, next)=>{
-    const spot = await Spot.findByPk(req.params.id)
-    if(!spot){
-        let err = {}
-        err.message = "Spot couldn't be found"
-        err.status = 404
-        return next(err)
-    }
-    if(spot.ownerId !== req.user.id){
-        let err = {}
-        err.message = "Forbidden"
-        err.status = 403
-        return next(err)
-    }
-    await spot.destroy()
-    return res.json({
-        message: "Successfully deleted",
-        statusCode: 200
-    })
-
-
-})
-
-
-
+router.delete("/:id", requireAuth, async (req, res, next) => {
+  const spot = await Spot.findByPk(req.params.id);
+  if (!spot) {
+    let err = {};
+    err.message = "Spot couldn't be found";
+    err.status = 404;
+    return next(err);
+  }
+  if (spot.ownerId !== req.user.id) {
+    let err = {};
+    err.message = "Forbidden";
+    err.status = 403;
+    return next(err);
+  }
+  await spot.destroy();
+  return res.json({
+    message: "Successfully deleted",
+    statusCode: 200,
+  });
+});
 
 // /api/spots
 // Get all spots
@@ -104,9 +112,6 @@ router.get("/", async (req, res, next) => {
 
   return res.json(spots);
 });
-
-
-
 
 // /api/spots
 // Creates and returns a new spot.
