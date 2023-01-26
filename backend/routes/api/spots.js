@@ -22,6 +22,7 @@ const { handleValidationErrors } = require('../../utils/validation');
 //     })
 //     return res.json(spots)
 // })
+// need an aggregate function to grab the average of the rating values for all of the reviews related to a particular spot id
 
 
 // /api/spots/current

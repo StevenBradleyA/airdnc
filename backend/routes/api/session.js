@@ -1,11 +1,12 @@
 // backend/routes/api/session.js
 const express = require("express");
 // backend/routes/api/session.js
-const { setTokenCookie, restoreUser } = require("../../utils/auth");
+const { setTokenCookie, restoreUser, requireAuth } = require("../../utils/auth");
 const { User } = require("../../db/models");
 const router = express.Router();
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
+
 
 const validateLogin = [
   check('credential')
@@ -52,8 +53,9 @@ router.delete("/", (_req, res) => {
   return res.json({ message: "success" });
 });
 
+
 // Restore session user
-router.get("/", restoreUser, (req, res) => {
+router.get("/", restoreUser, requireAuth, (req, res) => {
   const { user } = req;
   if (user) {
     return res.json({
@@ -61,10 +63,6 @@ router.get("/", restoreUser, (req, res) => {
     });
   } else return res.json({ user: null });
 });
-
-
-
-
 
 
 module.exports = router;
