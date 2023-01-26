@@ -71,7 +71,7 @@ const requireAuth = function (req, _res, next) {
   
 // Authorization function to keep code droyyyy
 
-const requireAuthorization = async (req, res, next) => {
+const ownerAuthorization = async (req, res, next) => {
   let spot = await Spot.findByPk(req.params.spotId);
   if (spot.ownerId !== req.user.id) {
     res.statusCode = 403;
@@ -91,4 +91,3 @@ const homeless = async (req, res, next) => {
     return next(err);
   }
 };
-

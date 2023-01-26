@@ -5,8 +5,7 @@ const router = express.Router();
 const {
   setTokenCookie,
   requireAuth,
-  requireAuthorization,
-  homeless,
+  ownerAuthorization,
 } = require("../../utils/auth");
 const {
   User,
@@ -37,7 +36,7 @@ const imageless = async (req, res, next) => {
 router.delete(
   "/:id",
   requireAuth,
-  requireAuthorization,
+  ownerAuthorization,
   imageless,
   async (req, res, next) => {
     const spotImage = await SpotImage.findByPk(req.params.id);

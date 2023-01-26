@@ -1,7 +1,7 @@
 // backend/routes/api/spots.js
 const express = require("express");
 const router = express.Router();
-const { setTokenCookie, requireAuth, requireAuthorization, homeless } = require("../../utils/auth");
+const { setTokenCookie, requireAuth, ownerAuthorization, homeless } = require("../../utils/auth");
 const {
   User,
   Spot,
@@ -53,7 +53,7 @@ router.get("/:id", async (req, res) => {
 router.put =
   ("/id",
   requireAuth,
-  requireAuthorization,
+  ownerAuthorization,
   homeless,
   async (req, res, next) => {
     const spot = await Spot.findByPk(req.params.id);
@@ -109,7 +109,7 @@ router.put =
 router.delete(
   "/:id",
   requireAuth,
-  requireAuthorization,
+  ownerAuthorization,
   homeless,
   async (req, res, next) => {
     const spot = await Spot.findByPk(req.params.id);
