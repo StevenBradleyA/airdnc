@@ -10,9 +10,11 @@ const {
   Review,
   ReviewImage,
   SpotImage,
+  sequelize
 } = require("../../db/models");
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
+const { Op } = require('sequelize');
 
 // /api/spots/current
 // requires auth
@@ -67,51 +69,96 @@ router.delete("/:id", requireAuth, async (req, res, next) => {
 // /api/spots
 // Get all spots
 router.get("/", async (req, res, next) => {
-  let spots = await Spot.findAll({
-    include: [
-      {
-        model: Review,
-      },
-      {
-        model: SpotImage,
-      },
-    ],
+  let spots = await Spot.findAll()
+    // the eager way --------
+    // include: [
+    //   {
+    //     model: Review,
+    //   },
+    //   {
+    //     model: SpotImage,
+    //   },
+    // ],
+    // Lazy loading attempt
+    
+    let spotsList = [];
+    for (let currentSpot of spots){
+      let spot = currentSpot.toJSON()
+      console.log('wowowowowowowowow', spot)
+
+    let averageRating = await Review.findAll({
+      where: {
+        spotId: spot.id,
+        // attributes: need to find avg stars
+        attributes: 
+      }
+
+    })
+
+
+    let previewImage = await SpotImage.findAll({
+      where: {
+        spotId: spot.id, 
+        preview: true
+      }
+    })
+
+
+// if (previewImage.preview === true) {
+  //     spotsList.previewImage = SpotImage.url;
+  // } else {
+  //     spotsList.previewImage = null
+  // }
+
+
+
+
+
+
+
+    spotsList.push(spot)
+    }
+    
+    
+    
+    
+    
+    
+    
+    return res.json(spotsList);
   });
+
+  
+
+
+  
   // needs to be replaced with lazy loading loop with queries etc
 
-  //   let spotList = [];
-  //   spots.forEach((spot) => {
+  ////   spots.forEach((spot) => {
 
-  // const starSum = Review.sum('stars', {
-  //     where: {
-  //         spotId:spotList.id
-  //     }
-  // })
-  // const starCount = Review.count({
-  //     where: {
-  //         spotId: spotList.id
-  //     }
-  // })
-  // if (starCount > 0){
-  //     spotList.avgRating = starSum / starCount
-  // }
+  //// const starSum = Review.sum('stars', {
+  ////     where: {
+  ////         spotId:spotsList.id
+  ////     }
+  //// })
+  //// const starCount = Review.count({
+  ////     where: {
+  ////         spotId: spotsList.id
+  ////     }
+  //// })
+  //// if (starCount > 0){
+  ////     spotsList.avgRating = starSum / starCount
+  //// }
 
-  // const spotImage =  SpotImage.findOne({
-  //     where: {
-  //         spotId: spotList.id
-  //     }
-  // })
-  // if (SpotImage.preview === true) {
-  //     spotList.previewImage = SpotImage.url;
-  // } else {
-  //     spotList.previewImage = null
-  // }
-  // spotList.push(spot.toJSON());
+  //// const spotImage =  SpotImage.findOne({
+  ////     where: {
+  ////         spotId: spotsList.id
+  ////     }
+  //// })
+  //// spotsList.push(spot.toJSON());
   // });
-  //   return res.json({ Spots: spotList });
+  ////   return res.json({ Spots: spotsList });
 
-  return res.json(spots);
-});
 
 // /api/spots
 // Creates and returns a new spot.
