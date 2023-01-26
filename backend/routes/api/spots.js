@@ -16,6 +16,12 @@ const { handleValidationErrors } = require("../../utils/validation");
 const { Op } = require('sequelize');
 
 
+// requireAuthorization function
+
+
+
+
+
 //*GET /:spotId/bookings
 
 //todo POST /:spotId/bookings
@@ -53,7 +59,48 @@ router.get("/:id", async (req, res) => {
 
 
 //todo PUT /:spotId
+router.put = ('/id', requireAuth, requireAuthorization, async (req, res, next)=> {
+  const spot = await Spot.findByPk(req.params.id);
+  if(!spot){
+    res.send('This property doesnt exist')
+  }
+  const {address, city, state, country, lat, lng, name, description, price } = req.body
 
+  if(address !== undefined){
+    spot.address = address
+  }
+  if(city !== undefined){
+    spot.city = city
+  }
+  if(state !== undefined){
+    spot.state = state
+  }
+  if(country !== undefined){
+    spot.country = country
+  }
+  if(lat !== undefined){
+    spot.lat = lat
+  }
+  if(lng !== undefined){
+    spot.lng = lng
+  }
+  if(name !== undefined){
+    spot.name = name
+  }
+  if(description !== undefined){
+    spot.description = description
+  }
+  if(price !== undefined){
+    spot.price = price
+  }
+
+
+
+
+
+res.json(spot)
+
+})
 
 
 //todo POST /:spotId/images
