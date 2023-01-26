@@ -15,7 +15,14 @@ const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
 const { Op } = require('sequelize');
 
-// /api/spots/current
+
+//*GET /:spotId/bookings
+
+//todo POST /:spotId/bookings
+
+
+
+//* GET /current
 // requires auth
 // returns all the spots owned by the current user aka via owner id.
 router.get("/current", requireAuth, async (req, res, next) => {
@@ -27,7 +34,7 @@ router.get("/current", requireAuth, async (req, res, next) => {
 return res.json(spots)
 });
 
-//  /api/spots/:spotId
+//* GET /:spotId
 // Returns the details of a spot specified by its id.
 router.get("/:id", async (req, res) => {
   const spot = await Spot.findByPk(req.params.id);
@@ -44,6 +51,18 @@ router.get("/:id", async (req, res) => {
   return res.json(spot);
 });
 
+
+//todo PUT /:spotId
+
+
+
+//todo POST /:spotId/images
+
+// todo POST /:spotId/reviews
+
+
+
+//! DELETE /:spotId
 router.delete("/:id", requireAuth, async (req, res, next) => {
   const spot = await Spot.findByPk(req.params.id);
   if (!spot) {
@@ -65,7 +84,7 @@ router.delete("/:id", requireAuth, async (req, res, next) => {
   });
 });
 
-// /api/spots
+//* GET /
 // Get all spots
 router.get("/", async (req, res, next) => {
   let spots = await Spot.findAll()
@@ -144,7 +163,7 @@ router.get("/", async (req, res, next) => {
   ////   return res.json({ Spots: spotsList });
 
 
-// /api/spots
+//todo POST /
 // Creates and returns a new spot.
 router.post('/', requireAuth, async (req, res, next)=> {
   const{ address, city, state, country, lat, lng, name, description, price} = req.body
