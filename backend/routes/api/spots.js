@@ -11,18 +11,38 @@ const { handleValidationErrors } = require('../../utils/validation');
 
 // /api/spots
 // Get all spots
-// router.get('/', async (req, res) => {
-//     let spots = await Spot.findAll({
-//         include: [{model: Review, as:"avgRating"}, {model: ReviewImage, as: "previewImage"}]
-
+router.get('/', async (req, res) => {
+    let spots = await Spot.findAll({
         
-//         // add avg stars for all reviews for a spotid
-//         // add preview Image 
+    })
+    const starSum = await Review.sum('stars')
+    
+    // total number of review records
+    // const starCount = await Review.count()
+    // variable that returns the sum of all reviews
 
-//     })
-//     return res.json(spots)
-// })
-// need an aggregate function to grab the average of the rating values for all of the reviews related to a particular spot id
+
+    return res.json({spots})
+})
+// // need an aggregate function to grab the average of the rating values for all of the reviews related to a particular spot id
+// should be lazy loading
+// router.get('/', async (req, res) => {
+    //     let spots = await Spot.findAll({
+    //         include: [{model: Review, as:"avgRating"}, {model: ReviewImage, as: "previewImage"}]
+    
+            
+    //         // add avg stars for all reviews for a spotid
+    //         // add preview Image 
+    
+    //     })
+    //     return res.json(spots)
+    // })
+    // // need
+
+
+
+
+
 
 
 // /api/spots/current
