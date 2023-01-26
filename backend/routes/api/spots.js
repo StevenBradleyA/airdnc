@@ -1,7 +1,6 @@
 // backend/routes/api/spots.js
 const express = require("express");
 const router = express.Router();
-
 const { setTokenCookie, requireAuth } = require("../../utils/auth");
 const {
   User,
@@ -19,14 +18,14 @@ const { Op } = require('sequelize');
 // /api/spots/current
 // requires auth
 // returns all the spots owned by the current user aka via owner id.
-// router.get("/current", requireAuth, async (req, res, next) => {
-//     const spots = await Spot.findAll({
-//         where: {
-//             ownerId:
-//         }
-//     })
-// return res.json(spots)
-// });
+router.get("/current", requireAuth, async (req, res, next) => {
+    const spots = await Spot.findAll({
+        where: {
+            'ownerId': req.user.id
+        }
+    })
+return res.json(spots)
+});
 
 //  /api/spots/:spotId
 // Returns the details of a spot specified by its id.
@@ -70,15 +69,6 @@ router.delete("/:id", requireAuth, async (req, res, next) => {
 // Get all spots
 router.get("/", async (req, res, next) => {
   let spots = await Spot.findAll()
-    // the eager way --------
-    // include: [
-    //   {
-    //     model: Review,
-    //   },
-    //   {
-    //     model: SpotImage,
-    //   },
-    // ],
     // Lazy loading attempt
     
     let spotsList = [];
@@ -90,7 +80,9 @@ router.get("/", async (req, res, next) => {
       where: {
         spotId: spot.id,
         // attributes: need to find avg stars
-        attributes: 
+        attributes: [
+          [sequelize.fn('AVG', sequelize.col('stars')), 'avgRating']
+        ], 
       }
 
     })
@@ -103,25 +95,17 @@ router.get("/", async (req, res, next) => {
       }
     })
 
-
-// if (previewImage.preview === true) {
-  //     spotsList.previewImage = SpotImage.url;
-  // } else {
-  //     spotsList.previewImage = null
-  // }
-
-
-
+    if (previewImage) {
+          spot.previewImage = previewImage.url;
+      } else {
+          spotsList.previewImage = null
+      }
 
 
 
 
     spotsList.push(spot)
     }
-    
-    
-    
-    
     
     
     
@@ -162,9 +146,71 @@ router.get("/", async (req, res, next) => {
 
 // /api/spots
 // Creates and returns a new spot.
-// router.post('/', async (req, res)=> {
+router.post('/', requireAuth, async (req, res, next)=> {
+  const{ address, city, state, country, lat, lng, name, description, price} = req.body
+  const ownerId = req.user.id
+  const errors = []
 
-// })
+  if(!address){
+    errors.push("Street address is required")
+  }
+  if(!city){
+    errors.push("City is required")
+  }
+  if(!state){
+    errors.push("State is required")
+  }
+  if(!country){
+    errors.push("Country is required")
+  }
+  if(!lat){
+    errors.push("Latitude is not valid")
+  }
+  if(!lng){
+    errors.push("Longitude is not valid")
+  }
+  if(!name){
+    errors.push(("Name must be less than 50 characters"))
+  }
+  if(!description){
+    errors.push("Description is required")
+  }
+  if(!price){
+    errors.push("Price per day is required")
+  }
+
+  if(errors.length > 0){
+    res.statusCode = 400
+    res.json({
+      message:"Validation Error",
+      status: res.statusCode,
+      errors: errors
+    })
+  }
+
+const createSpot = await Spot.create({
+  ownerId: ownerId,
+  ...req.body
+})
+
+await createSpot.save()
+
+const showNewSpot = await Spot.findOne({
+  where:{
+    "name": name
+  }
+})
+res.statusCode = 201
+req.json(showNewSpot)
+
+})
+
+
+
+
+
+
+
 
 // /api/spots/:spotId
 // Updates and returns an existing spot.
