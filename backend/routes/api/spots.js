@@ -30,7 +30,28 @@ const { handleValidationErrors } = require("../../utils/validation");
 // })
 
 
+router.delete('/:id', requireAuth, async (req, res, next)=>{
+    const spot = await Spot.findByPk(req.params.id)
+    if(!spot){
+        let err = {}
+        err.message = "Spot couldn't be found"
+        err.status = 404
+        return next(err)
+    }
+    if(spot.ownerId !== req.user.id){
+        let err = {}
+        err.message = "Forbidden"
+        err.status = 403
+        return next(err)
+    }
+    await spot.destroy()
+    return res.json({
+        message: "Successfully deleted",
+        statusCode: 200
+    })
 
+
+})
 
 
 
