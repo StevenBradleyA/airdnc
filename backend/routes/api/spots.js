@@ -62,7 +62,8 @@ router.get("/:id", async (req, res) => {
 router.put = ('/id', requireAuth, requireAuthorization, async (req, res, next)=> {
   const spot = await Spot.findByPk(req.params.id);
   if(!spot){
-    res.send('This property doesnt exist')
+    res.send("Spot couldn't be found")
+    res.statusCode(404)
   }
   const {address, city, state, country, lat, lng, name, description, price } = req.body
 
@@ -93,11 +94,7 @@ router.put = ('/id', requireAuth, requireAuthorization, async (req, res, next)=>
   if(price !== undefined){
     spot.price = price
   }
-
-
-
-
-
+await spot.save()
 res.json(spot)
 
 })
