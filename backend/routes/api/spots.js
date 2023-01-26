@@ -2,58 +2,25 @@
 const express = require("express");
 const router = express.Router();
 
-
-const { setTokenCookie, requireAuth } = require('../../utils/auth');
-const { User, Spot, Booking, Review, ReviewImage, SpotImage } = require('../../db/models');
-const { check } = require('express-validator');
-const { handleValidationErrors } = require('../../utils/validation');
-
-
-
-
-
-
-// /api/spots
-// Get all spots
-router.get('/', async (req, res, next) => {
-    let spots = await Spot.findAll()
-   
-    
-    // total number of review records
-    // const starCount = await Review.count()
-    // variable that returns the sum of all reviews
-
-
-    return res.json({spots})
-})
-// // need an aggregate function to grab the average of the rating values for all of the reviews related to a particular spot id
-// should be lazy loading
-// router.get('/', async (req, res) => {
-    //     let spots = await Spot.findAll({
-    //         include: [{model: Review, as:"avgRating"}, {model: ReviewImage, as: "previewImage"}]
-    
-            
-    //         // add avg stars for all reviews for a spotid
-    //         // add preview Image 
-    
-    //     })
-    //     return res.json(spots)
-    // })
-    // // need
-
-
-
-
-
-
+const { setTokenCookie, requireAuth } = require("../../utils/auth");
+const {
+  User,
+  Spot,
+  Booking,
+  Review,
+  ReviewImage,
+  SpotImage,
+} = require("../../db/models");
+const { check } = require("express-validator");
+const { handleValidationErrors } = require("../../utils/validation");
 
 // /api/spots/current
-// requires Auth
-// Returns all the spots owned (created) by the current user.
-// router.get('/current', async (req, res)=> {
+// requires auth
+// returns all the spots owned by the current user aka via owner id.
+// router.get("/current", requireAuth, async (req, res, next) => {
 
-// })
 
+// });
 
 
 //  /api/spots/:spotId
@@ -63,12 +30,68 @@ router.get('/', async (req, res, next) => {
 // })
 
 
+
+
+
+
+
+// /api/spots
+// Get all spots
+router.get("/", async (req, res, next) => {
+  let spots = await Spot.findAll({
+    include: [
+      {
+        model: Review,
+      },
+      {
+        model: SpotImage,
+      },
+    ],
+  });
+  // needs to be replaced with lazy loading loop with queries etc
+
+  //   let spotList = [];
+  //   spots.forEach((spot) => {
+
+  // const starSum = Review.sum('stars', {
+  //     where: {
+  //         spotId:spotList.id
+  //     }
+  // })
+  // const starCount = Review.count({
+  //     where: {
+  //         spotId: spotList.id
+  //     }
+  // })
+  // if (starCount > 0){
+  //     spotList.avgRating = starSum / starCount
+  // }
+
+  // const spotImage =  SpotImage.findOne({
+  //     where: {
+  //         spotId: spotList.id
+  //     }
+  // })
+  // if (SpotImage.preview === true) {
+  //     spotList.previewImage = SpotImage.url;
+  // } else {
+  //     spotList.previewImage = null
+  // }
+  // spotList.push(spot.toJSON());
+  // });
+  //   return res.json({ Spots: spotList });
+
+  return res.json(spots);
+});
+
+
+
+
 // /api/spots
 // Creates and returns a new spot.
 // router.post('/', async (req, res)=> {
 
-    // })
-
+// })
 
 // /api/spots/:spotId
 // Updates and returns an existing spot.
@@ -77,13 +100,6 @@ router.get('/', async (req, res, next) => {
 
 // })
 
-
-
 // /api/spots/:spotId
-
-
-
-
-
 
 module.exports = router;
