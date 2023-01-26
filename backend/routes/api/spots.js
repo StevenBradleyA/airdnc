@@ -9,13 +9,15 @@ const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
 
+
+
+
+
 // /api/spots
 // Get all spots
-router.get('/', async (req, res) => {
-    let spots = await Spot.findAll({
-        
-    })
-    const starSum = await Review.sum('stars')
+router.get('/', async (req, res, next) => {
+    let spots = await Spot.findAll()
+   
     
     // total number of review records
     // const starCount = await Review.count()
