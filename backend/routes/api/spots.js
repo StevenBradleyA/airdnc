@@ -1,7 +1,7 @@
 // backend/routes/api/spots.js
 const express = require("express");
 const router = express.Router();
-const { setTokenCookie, requireAuth } = require("../../utils/auth");
+const { setTokenCookie, requireAuth, requireAuthorization, homeless } = require("../../utils/auth");
 const {
   User,
   Spot,
@@ -15,28 +15,6 @@ const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
 const { Op } = require("sequelize");
 
-// Authorization function to keep code droyyyy
-
-const requireAuthorization = async (req, res, next) => {
-  let spot = await Spot.findByPk(req.params.spotId);
-  if (spot.ownerId !== req.user.id) {
-    res.statusCode = 403;
-    return res.json({
-      message: "Forbidden",
-      statusCode: 403,
-    });
-  }
-};
-
-const homeless = async (req, res, next) => {
-  let spot = await Spot.findByPk(req.params.spotId);
-  if (!spot) {
-    let err = {};
-    err.message = "Spot couldn't be found";
-    err.status = 404;
-    return next(err);
-  }
-};
 
 //*GET /:spotId/bookings
 
