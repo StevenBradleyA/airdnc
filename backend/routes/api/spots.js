@@ -1,7 +1,12 @@
 // backend/routes/api/spots.js
 const express = require("express");
 const router = express.Router();
-const { setTokenCookie, requireAuth, ownerAuthorization, homeless } = require("../../utils/auth");
+const {
+  setTokenCookie,
+  requireAuth,
+  ownerAuthorization,
+  homeless,
+} = require("../../utils/auth");
 const {
   User,
   Spot,
@@ -14,10 +19,11 @@ const {
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
 const { Op } = require("sequelize");
+const { consolePog } = require("../../utils/custom");
 
 //*GET /:spotId/bookings
 // if you are the owner you should see Bookings with minor info
-// if you are not the owner you should see bookings with more info 
+// if you are not the owner you should see bookings with more info
 // const checkNotHomeOwner = async (req, res, next)=> {
 //   let spot = await Spot.findByPk(req.params.spotId)
 //   if(spot.ownerId === req.user.id){
@@ -26,15 +32,11 @@ const { Op } = require("sequelize");
 
 // }
 
-
-
 // router.get('/:id/bookings', requireAuth, homeless, ownerAuthorization, async(req, res, next) => {
 
 // if(ownerAuthorization){
-  
+
 // }
-
-
 
 //   if(!ownerAuthorization){
 //     let bookings = await Booking.findAll({
@@ -44,22 +46,10 @@ const { Op } = require("sequelize");
 
 //   };
 
-
-
-
-
-
-
-
 // })
 
 //todo POST /:spotId/bookings
 // spot cant belong to current User
-
-
-
-
-
 
 //* GET /current
 // requires auth
@@ -89,15 +79,6 @@ const { Op } = require("sequelize");
 
 //   return res.json(spot);
 // });
-
-
-
-
-
-
-
-
-
 
 //todo PUT /:spotId
 // router.put =
@@ -174,70 +155,53 @@ const { Op } = require("sequelize");
 
 //* GET /
 // Get all spots
-// router.get("/", async (req, res, next) => {
-//   let spots = await Spot.findAll();
-//   // Lazy loading attempt
+router.get("/", async (req, res, next) => {
+  const spots = await Spot.findAll();
+  const spotData = [];
+  for (const currentSpot of spots) {
+    const spot = currentSpot.toJSON();
+    const allReviews = await Review.findAll({
+      attributes: ["stars"],
+      where: {
+        spotId: spot.id,
+      },
+    });
 
-//   let spotsList = [];
-//   for (let currentSpot of spots) {
-//     let spot = currentSpot.toJSON();
-//     console.log("wowowowowowowowow", spot);
+    // let totalScore = 0;
+    // for(const currentReview of allReviews){
+    //   // consolePog(currentReview)
+    //   const review = currentReview.toJSON()
+    //   totalScore += review.stars
 
-//     let averageRating = await Review.findAll({
-//       where: {
-//         spotId: spot.id,
-//         // attributes: need to find avg stars
-//         attributes: [
-//           [sequelize.fn("AVG", sequelize.col("stars")), "avgRating"],
-//         ],
-//       },
-//     });
+    // }
+    // consolePog(sumReview)
+    const totalScore = allReviews.reduce((sumReview, currentReview) => {
+      currentReview = currentReview.toJSON();
+      sumReview += currentReview.stars;
+      return sumReview;
+    }, 0);
+    const avgRating = totalScore / allReviews.length;
 
-//     let previewImage = await SpotImage.findAll({
-//       where: {
-//         spotId: spot.id,
-//         preview: true,
-//       },
-//     });
+    spot.avgRating = avgRating;
 
-//     if (previewImage) {
-//       spot.previewImage = previewImage.url;
-//     } else {
-//       spotsList.previewImage = null;
-//     }
+    const spotImage = await SpotImage.findOne({
+      attributes: ["url"],
+      where: {
+        spotId: spot.id,
+        preview: true,
+      },
+    });
+    consolePog(spotImage);
 
-//     spotsList.push(spot);
-//   }
+    const url = spotImage.toJSON();
 
-//   return res.json(spotsList);
-// });
+    const previewImage = url.url;
+    spot.previewImage = previewImage;
+    consolePog(spot);
+  }
 
-// needs to be replaced with lazy loading loop with queries etc
-
-////   spots.forEach((spot) => {
-
-//// const starSum = Review.sum('stars', {
-////     where: {
-////         spotId:spotsList.id
-////     }
-//// })
-//// const starCount = Review.count({
-////     where: {
-////         spotId: spotsList.id
-////     }
-//// })
-//// if (starCount > 0){
-////     spotsList.avgRating = starSum / starCount
-//// }
-
-//// const spotImage =  SpotImage.findOne({
-////     where: {
-////         spotId: spotsList.id
-////     }
-//// })
-//// spotsList.push(spot.toJSON());
-// });
-////   return res.json({ Spots: spotsList });
+  return res.json(spots);
+});
 
 //todo POST /
 // Creates and returns a new spot.
