@@ -1,7 +1,8 @@
 // backend/utils/auth.js
 const jwt = require('jsonwebtoken');
 const { jwtConfig } = require('../config');
-const { User } = require('../db/models');
+const { User, Spot, Booking, Review, ReviewImage, SpotImage, sequelize } = require('../../db/models');
+
 
 const { secret, expiresIn } = jwtConfig;
 
@@ -68,3 +69,25 @@ const requireAuth = function (req, _res, next) {
   module.exports = { setTokenCookie, restoreUser, requireAuth };
 
   
+// Authorization function to keep code droyyyy
+
+const ownerAuthorization = async (req, res, next) => {
+  let spot = await Spot.findByPk(req.params.spotId);
+  if (spot.ownerId !== req.user.id) {
+    res.statusCode = 403;
+    return res.json({
+      message: "Forbidden",
+      statusCode: 403,
+    });
+  }
+};
+
+const homeless = async (req, res, next) => {
+  let spot = await Spot.findByPk(req.params.spotId);
+  if (!spot) {
+    let err = {};
+    err.message = "Spot couldn't be found";
+    err.status = 404;
+    return next(err);
+  }
+};
