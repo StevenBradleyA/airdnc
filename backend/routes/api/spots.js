@@ -15,6 +15,7 @@ const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
 const { Op } = require("sequelize");
 const { consolePog } = require("../../utils/custom");
+const { ResultWithContext } = require("express-validator/src/chain");
 
 //* GET /
 // Get all spots
@@ -172,41 +173,41 @@ router.post("/", requireAuth, async (req, res, next) => {
   const { address, city, state, country, lat, lng, name, description, price } =
     req.body;
 
-  const errors = [];
+  const errors = {};
 
   if (!address) {
-    errors.push("Street address is required");
+    errors.address = "Street address is required";
   }
   if (!city) {
-    errors.push("City is required");
+    errors.city = "City is required";
   }
   if (!state) {
-    errors.push("State is required");
+    errors.state = "State is required";
   }
   if (!country) {
-    errors.push("Country is required");
+    errors.country = "Country is required";
   }
   if (!lat) {
-    errors.push("Latitude is not valid");
+    errors.lat = "Latitude is not valid";
   }
   if (!lng) {
-    errors.push("Longitude is not valid");
+    errors.lng = "Longitude is not valid";
   }
   if (!name) {
-    errors.push("Name must be less than 50 characters");
+    errors.name = "Name must be less than 50 characters";
   }
   if (!description) {
-    errors.push("Description is required");
+    errors.description = "Description is required";
   }
   if (!price) {
-    errors.push("Price per day is required");
+    errors.price = "Price per day is required";
   }
 
-  if (errors.length > 0) {
+  if (errors.address || errors.city || errors.state || errors.country || errors.lat || errors.lng || errors.name || errors.description || errors.price) {
     return res.status(400).json({
       message: "Validation Error",
       statusCode: 400,
-      errors: errors,
+      errors
     });
   }
 
@@ -261,41 +262,41 @@ router.put("/:id", requireAuth, async (req, res, next) => {
   const { address, city, state, country, lat, lng, name, description, price } =
     req.body;
 
-  const errors = [];
+  const errors = {};
 
   if (!address) {
-    errors.push("Street address is required");
+    errors.address = "Street address is required";
   }
   if (!city) {
-    errors.push("City is required");
+    errors.city = "City is required";
   }
   if (!state) {
-    errors.push("State is required");
+    errors.state = "State is required";
   }
   if (!country) {
-    errors.push("Country is required");
+    errors.country = "Country is required";
   }
   if (!lat) {
-    errors.push("Latitude is not valid");
+    errors.lat = "Latitude is not valid";
   }
   if (!lng) {
-    errors.push("Longitude is not valid");
+    errors.lng = "Longitude is not valid";
   }
   if (!name) {
-    errors.push("Name must be less than 50 characters");
+    errors.name = "Name must be less than 50 characters";
   }
   if (!description) {
-    errors.push("Description is required");
+    errors.description = "Description is required";
   }
   if (!price) {
-    errors.push("Price per day is required");
+    errors.price = "Price per day is required";
   }
 
-  if (errors.length > 0) {
+  if (errors.address || errors.city || errors.state || errors.country || errors.lat || errors.lng || errors.name || errors.description || errors.price) {
     return res.status(400).json({
       message: "Validation Error",
       statusCode: 400,
-      errors: errors,
+      errors
     });
   }
 
@@ -398,6 +399,89 @@ router.get("/:id/reviews", async (req, res, next) => {
 });
 
 //todo POST /:spotId/reviews
+
+router.post("/:id/reviews", requireAuth, async (req, res, next) => {
+
+
+  const { review, stars } = req.body;
+
+
+
+  const spot = await Spot.findByPk(req.params.id);
+  if (!spot) {
+    return res.status(404).json({
+      message: "Spot couldn't be found",
+      statusCode: 404,
+    });
+  }
+
+
+  const checkExistingReview = await Review.findAll({
+    where: {
+      spotId: req.params.id,
+      userId: req.user.id,
+    },
+  });
+  if (checkExistingReview.length > 0) {
+    return res.status(403).json({
+      message: "User already has a review for this spot",
+      statusCode: 403,
+    });
+  }
+  const errors = {};
+  
+  if (!review) {
+    errors.review = "Review text is required"
+  }
+  if (!stars) {
+    errors.stars = "Stars must be an integer from 1 to 5";
+  }
+  if (errors.review || errors.stars) {
+    return res.status(400).json({
+      message: "Validation Error",
+      statusCode: 400,
+      errors
+    });
+  }
+
+  const newReview = await Review.create({
+    userId: req.user.id,
+    spotId: Number(req.params.id),
+    review,
+    stars,
+  });
+
+  return res.status(201).json(newReview);
+});
+
+
+
+
+// const errors = {}
+// if (findUsername) {
+// errors.username = "User with that username already exists"
+// }
+// if (findEmail) {
+// errors.email = "User with that email already exists"
+// }
+
+// if(errors.username || errors.email){
+//   return res.status(403).json({
+//     message: "User already exists",
+//     statusCode: 403,
+//     errors
+//   });
+
+// }
+
+
+
+
+
+
+
+
+
 
 //*GET /:spotId/bookings
 
