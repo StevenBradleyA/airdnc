@@ -93,15 +93,15 @@ const requireAuth = function (req, _res, next) {
 // };
 
 
-const homeless = async (req, res, next) => {
-  let spot = await Spot.findByPk(req.params.id);
-  if (!spot) {
-    return res.status(404).json({
-      message: "Spot couldn't be found",
-      statusCode: 404,
-    });
-  }
-};
+// const homeless = async (req, res, next) => {
+//   let spot = await Spot.findByPk(req.params.id);
+//   if (!spot) {
+//     return res.status(404).json({
+//       message: "Spot couldn't be found",
+//       statusCode: 404,
+//     });
+//   }
+// };
 
 module.exports = {
   setTokenCookie,

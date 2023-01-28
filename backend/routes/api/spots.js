@@ -251,18 +251,40 @@ router.post("/:id/images", requireAuth, async (req, res, next) => {
   }
 });
 
-
 //todo PUT /:spotId
-router.put('/:id', requireAuth, async (req, res, next)=> {
-  
+router.put("/:id", requireAuth, async (req, res, next) => {
+  const { address, city, state, country, lat, lng, name, description, price } =
+    req.body;
+  const spot = await Spot.findByPk(req.params.id);
+  if (!spot) {
+    return res.status(404).json({
+      message: "Spot couldn't be found",
+      statusCode: 404,
+    });
+  }
+  if (spot && spot.ownerId !== req.user.id) {
+    return res.status(403).json({
+      message: "Forbidden",
+      statusCode: 403,
+    });
+  } else {
+    spot.set({
+      address,
+      city,
+      state,
+      country,
+      lat,
+      lng,
+      name,
+      description,
+      price,
+    });
 
-
-
-
-})
-
-
-
+    await spot.save();
+    consolePog(spot)
+    res.json(spot);
+  }
+});
 
 //! DELETE /:spotId
 router.delete("/:id", requireAuth, async (req, res, next) => {
