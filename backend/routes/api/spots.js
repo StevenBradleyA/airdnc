@@ -118,7 +118,12 @@ router.get("/current", requireAuth, async (req, res, next) => {
 // Returns the details of a spot specified by its id.
 router.get("/:id", async (req, res) => {
   const spot = await Spot.findByPk(req.params.id);
-
+  if (!spot) {
+    return res.status(404).json({
+      message: "Spot couldn't be found",
+      statusCode: 404,
+    });
+  }
   const spotData = [];
 
   const currentSpot = spot.toJSON();
@@ -350,6 +355,47 @@ router.delete("/:id", requireAuth, async (req, res, next) => {
 });
 
 //*GET /:spotId/reviews
+// returns all the reviews that belong to a spot specified by id
+
+router.get("/:id/reviews", async (req, res, next) => {
+  const spot = await Spot.findByPk(req.params.id);
+  if (!spot) {
+    return res.status(404).json({
+      message: "Spot couldn't be found",
+      statusCode: 404,
+    });
+  }
+  const reviews = await Review.findAll({
+    where: {
+      spotId: req.params.id,
+    },
+  });
+
+  const reviewData = [];
+  for (const currentReview of reviews) {
+    const review = currentReview.toJSON();
+
+    const user = await User.findOne({
+      attributes: ["id", "firstName", "lastName"],
+      where: {
+        id: review.userId,
+      },
+    });
+    review.User = user.toJSON();
+    const reviewImage = await ReviewImage.findAll({
+      attributes: ["id", "url"],
+      where: {
+        id: review.id,
+      },
+    });
+
+    review.ReviewImages = reviewImage;
+
+    reviewData.push(review);
+  }
+  consolePog(reviewData);
+  return res.json(reviewData);
+});
 
 //todo POST /:spotId/reviews
 
