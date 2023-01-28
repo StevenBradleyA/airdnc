@@ -1,12 +1,7 @@
 // backend/routes/api/spots.js
 const express = require("express");
 const router = express.Router();
-const {
-  setTokenCookie,
-  requireAuth,
-  ownerAuthorization,
-  homeless,
-} = require("../../utils/auth");
+const { setTokenCookie, requireAuth } = require("../../utils/auth");
 const {
   User,
   Spot,
@@ -25,6 +20,7 @@ const { consolePog } = require("../../utils/custom");
 // Get all spots
 router.get("/", async (req, res, next) => {
   const spots = await Spot.findAll();
+  consolePog(spots);
   const spotData = [];
   for (const currentSpot of spots) {
     const spot = currentSpot.toJSON();
@@ -59,7 +55,6 @@ router.get("/", async (req, res, next) => {
         preview: true,
       },
     });
-
     const url = spotImage.toJSON();
 
     const previewImage = url.url;
@@ -203,10 +198,9 @@ router.post("/", requireAuth, async (req, res, next) => {
   }
 
   if (errors.length > 0) {
-    res.statusCode = 400;
-    return res.json({
+    return res.status(400).json({
       message: "Validation Error",
-      status: res.statusCode,
+      statusCode: 400,
       errors: errors,
     });
   }
@@ -223,70 +217,116 @@ router.post("/", requireAuth, async (req, res, next) => {
     description,
     price,
   });
-  
+
   // consolePog(newSpot);
   return res.status(201).json(newSpot);
 });
 
- //todo POST /:spotId/images
+//todo POST /:spotId/images
+
+router.post("/:id/images", requireAuth, async (req, res, next) => {
+  const { url, preview } = req.body;
+  const spot = await Spot.findByPk(req.params.id);
+  if (!spot) {
+    return res.status(404).json({
+      message: "Spot couldn't be found",
+      statusCode: 404,
+    });
+  }
+  if (spot && spot.ownerId !== req.user.id) {
+    return res.status(403).json({
+      message: "Forbidden",
+      statusCode: 403,
+    });
+  } else {
+    const addImage = await SpotImage.create({
+      url,
+      preview,
+    });
+    const addImageView = await SpotImage.findOne({
+      attributes: ["id", "url", "preview"],
+      where: addImage,
+    });
+    return res.json(addImageView);
+  }
+});
 
 
-router.post('/:id/images', requireAuth, ownerAuthorization, async (req, res, next) => {
-
-  const { url, preview }= req.body
-
-
-  const addImage = await SpotImage.create({
-  url, 
-  preview
-  });
+//todo PUT /:spotId
+router.put('/:id', requireAuth, async (req, res, next)=> {
+  
 
 
-  return res.json(addImage)
+
+
 })
 
 
 
 
+//! DELETE /:spotId
+router.delete("/:id", requireAuth, async (req, res, next) => {
+  const spot = await Spot.findByPk(req.params.id);
+
+  if (!spot) {
+    return res.status(404).json({
+      message: "Spot couldn't be found",
+      statusCode: 404,
+    });
+  }
+  if (spot && spot.ownerId !== req.user.id) {
+    return res.status(403).json({
+      message: "Forbidden",
+      statusCode: 403,
+    });
+  } else {
+    await spot.destroy();
+    return res.json({
+      message: "Successfull deleted",
+      statusCode: 200,
+    });
+  }
+});
+
 //*GET /:spotId/bookings
 // if you are the owner you should see Bookings with minor info
 // if you are not the owner you should see bookings with more info
 // const checkNotHomeOwner = async (req, res, next)=> {
-  //   let spot = await Spot.findByPk(req.params.spotId)
-  //   if(spot.ownerId === req.user.id){
-    
-    //   }
-    
-    // }
-    
-    // router.get('/:id/bookings', requireAuth, homeless, ownerAuthorization, async(req, res, next) => {
-      
-      // if(ownerAuthorization){
-        
-        // }
-        
-        //   if(!ownerAuthorization){
-          //     let bookings = await Booking.findAll({
-            //       attributes: ["spotId", "startDate", "endDate"]
-            //     })
-            //     return res.json({bookings})
-            
-            //   };
-            
-            // })
-            
-            //todo POST /:spotId/bookings
-            // spot cant belong to current User
-            
-            //todo PUT /:spotId
-            // router.put =
-            //   ("/id",
-            //   requireAuth,
-            //   ownerAuthorization,
-            //   homeless,
-            //   async (req, res, next) => {
-              //     const spot = await Spot.findByPk(req.params.id);
-              
+//   let spot = await Spot.findByPk(req.params.spotId)
+//   if(spot.ownerId === req.user.id){
+
+//   }
+
+// }
+
+// router.get('/:id/bookings', requireAuth, homeless, ownerAuthorization, async(req, res, next) => {
+
+// if(ownerAuthorization){
+
+// }
+
+//   if(!ownerAuthorization){
+//     let bookings = await Booking.findAll({
+//       attributes: ["spotId", "startDate", "endDate"]
+//     })
+//     return res.json({bookings})
+
+//   };
+
+// })
+
+//todo POST /:spotId/bookings
+// spot cant belong to current User
+
+//todo PUT /:spotId
+// router.put =
+//   ("/id",
+//   requireAuth,
+//   ownerAuthorization,
+//   homeless,
+//   async (req, res, next) => {
+//     const spot = await Spot.findByPk(req.params.id);
+
 //     const {
 //       address,
 //       city,
@@ -329,34 +369,5 @@ router.post('/:id/images', requireAuth, ownerAuthorization, async (req, res, nex
 //     await spot.save();
 //     res.json(spot);
 //   });
-
-
-// todo POST /:spotId/reviews
-
-//! DELETE /:spotId
-// router.delete(
-//   "/:id",
-//   requireAuth,
-//   ownerAuthorization,
-//   homeless,
-//   async (req, res, next) => {
-//     const spot = await Spot.findByPk(req.params.id);
-
-//     await spot.destroy();
-//     return res.json({
-//       message: "Successfully deleted",
-//       statusCode: 200,
-//     });
-//   }
-// );
-
-// /api/spots/:spotId
-// Updates and returns an existing spot.
-// Require proper authorization: Spot must belong to the current user
-// router.put('/:spotId', async (req, res)=> {
-
-// })
-
-// /api/spots/:spotId
 
 module.exports = router;

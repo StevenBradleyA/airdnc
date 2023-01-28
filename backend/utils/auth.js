@@ -74,23 +74,24 @@ const requireAuth = function (req, _res, next) {
 // Authorization function to keep code droyyyy
 // current: could not get response, trying to authorize owner
 // goal is to console.log line by line to solve where the response is lost
-const ownerAuthorization = async (req, res, next) => {
-  consolePog(req.params.id);
-  let spot = await Spot.findByPk(req.params.id);
-  consolePog(spot);
-  if (!spot) {
-    return res.status(404).json({
-      message: "Spot couldn't be found",
-      statusCode: 404,
-    });
-  }
-  if (spot && spot.ownerId !== req.user.id) {
-    return res.status(403).json({
-      message: "Forbidden",
-      statusCode: 403,
-    });
-  }
-};
+// const ownerAuthorization = async (req, res, next) => {
+//   consolePog(req.params.id);
+//   let spot = await Spot.findByPk(req.params.id);
+//   consolePog(spot);
+//   if (!spot) {
+//     return res.status(404).json({
+//       message: "Spot couldn't be found",
+//       statusCode: 404,
+//     });
+//   }
+//   if (spot && spot.ownerId !== req.user.id) {
+//     return res.status(403).json({
+//       message: "Forbidden",
+//       statusCode: 403,
+//     });
+//   }
+// };
+
 
 const homeless = async (req, res, next) => {
   let spot = await Spot.findByPk(req.params.id);
@@ -106,6 +107,4 @@ module.exports = {
   setTokenCookie,
   restoreUser,
   requireAuth,
-  ownerAuthorization,
-  homeless,
 };
