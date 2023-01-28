@@ -166,6 +166,70 @@ router.get("/:id", async (req, res) => {
   return res.json(spotData);
 });
 
+//todo POST /
+
+router.post("/", requireAuth, async (req, res, next) => {
+  const { address, city, state, country, lat, lng, name, description, price } =
+    req.body;
+
+  const errors = [];
+
+  if (!address) {
+    errors.push("Street address is required");
+  }
+  if (!city) {
+    errors.push("City is required");
+  }
+  if (!state) {
+    errors.push("State is required");
+  }
+  if (!country) {
+    errors.push("Country is required");
+  }
+  if (!lat) {
+    errors.push("Latitude is not valid");
+  }
+  if (!lng) {
+    errors.push("Longitude is not valid");
+  }
+  if (!name) {
+    errors.push("Name must be less than 50 characters");
+  }
+  if (!description) {
+    errors.push("Description is required");
+  }
+  if (!price) {
+    errors.push("Price per day is required");
+  }
+
+  if (errors.length > 0) {
+    res.statusCode = 400;
+    return res.json({
+      message: "Validation Error",
+      status: res.statusCode,
+      errors: errors,
+    });
+  }
+
+  const newSpot = await Spot.create({
+    ownerId: req.user.id,
+    address,
+    city,
+    state,
+    country,
+    lat,
+    lng,
+    name,
+    description,
+    price,
+  });
+
+  consolePog(newSpot);
+  return res.status(201).json(newSpot);
+});
+
+
+
 //*GET /:spotId/bookings
 // if you are the owner you should see Bookings with minor info
 // if you are not the owner you should see bookings with more info
@@ -268,67 +332,6 @@ router.get("/:id", async (req, res) => {
 //     });
 //   }
 // );
-
-//todo POST /
-// Creates and returns a new spot.
-// router.post("/", requireAuth, async (req, res, next) => {
-//   const { address, city, state, country, lat, lng, name, description, price } =
-//     req.body;
-//   const ownerId = req.user.id;
-//   const errors = [];
-
-//   if (!address) {
-//     errors.push("Street address is required");
-//   }
-//   if (!city) {
-//     errors.push("City is required");
-//   }
-//   if (!state) {
-//     errors.push("State is required");
-//   }
-//   if (!country) {
-//     errors.push("Country is required");
-//   }
-//   if (!lat) {
-//     errors.push("Latitude is not valid");
-//   }
-//   if (!lng) {
-//     errors.push("Longitude is not valid");
-//   }
-//   if (!name) {
-//     errors.push("Name must be less than 50 characters");
-//   }
-//   if (!description) {
-//     errors.push("Description is required");
-//   }
-//   if (!price) {
-//     errors.push("Price per day is required");
-//   }
-
-//   if (errors.length > 0) {
-//     res.statusCode = 400;
-//     res.json({
-//       message: "Validation Error",
-//       status: res.statusCode,
-//       errors: errors,
-//     });
-//   }
-
-//   const createSpot = await Spot.create({
-//     ownerId: ownerId,
-//     ...req.body,
-//   });
-
-//   await createSpot.save();
-
-//   const showNewSpot = await Spot.findOne({
-//     where: {
-//       name: name,
-//     },
-//   });
-//   res.statusCode = 201;
-//   req.json(showNewSpot);
-// });
 
 // /api/spots/:spotId
 // Updates and returns an existing spot.
