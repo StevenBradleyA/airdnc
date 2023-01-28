@@ -51,17 +51,57 @@ const { consolePog } = require("../../utils/custom");
 //todo POST /:spotId/bookings
 // spot cant belong to current User
 
+
 //* GET /current
 // requires auth
 // returns all the spots owned by the current user aka via owner id.
-// router.get("/current", requireAuth, async (req, res, next) => {
-//   const spots = await Spot.findAll({
-//     where: {
-//       ownerId: req.user.id,
-//     },
-//   });
-//   return res.json(spots);
-// });
+router.get("/current", requireAuth, async (req, res, next) => {
+  const spots = await Spot.findAll(
+    {
+    where: {
+      ownerId: req.user.id
+    },
+  }
+  );
+
+  const spotData = [];
+  for (const currentSpot of spots) {
+    const spot = currentSpot.toJSON();
+    const allReviews = await Review.findAll({
+      attributes: ["stars"],
+      where: {
+        spotId: spot.id,
+      },
+    });
+
+    const totalScore = allReviews.reduce((sumReview, currentReview) => {
+      currentReview = currentReview.toJSON();
+      sumReview += currentReview.stars;
+      return sumReview;
+    }, 0);
+    const avgRating = totalScore / allReviews.length;
+
+    spot.avgRating = avgRating;
+
+    const spotImage = await SpotImage.findOne({
+      attributes: ["url"],
+      where: {
+        spotId: spot.id,
+        preview: true,
+      },
+    });
+
+    const url = spotImage.toJSON();
+
+    const previewImage = url.url;
+    spot.previewImage = previewImage;
+
+
+    spotData.push(spot);
+  }
+
+  return res.json(spotData);
+});
 
 //* GET /:spotId
 // Returns the details of a spot specified by its id.
@@ -79,6 +119,7 @@ const { consolePog } = require("../../utils/custom");
 
 //   return res.json(spot);
 // });
+
 
 //todo PUT /:spotId
 // router.put =
@@ -191,17 +232,18 @@ router.get("/", async (req, res, next) => {
         preview: true,
       },
     });
-    consolePog(spotImage);
 
     const url = spotImage.toJSON();
 
     const previewImage = url.url;
     spot.previewImage = previewImage;
-    consolePog(spot);
+
+    spotData.push(spot);
   }
 
-  return res.json(spots);
+  return res.json(spotData);
 });
+
 
 //todo POST /
 // Creates and returns a new spot.
