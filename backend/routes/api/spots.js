@@ -21,48 +21,65 @@ const { handleValidationErrors } = require("../../utils/validation");
 const { Op } = require("sequelize");
 const { consolePog } = require("../../utils/custom");
 
-//*GET /:spotId/bookings
-// if you are the owner you should see Bookings with minor info
-// if you are not the owner you should see bookings with more info
-// const checkNotHomeOwner = async (req, res, next)=> {
-//   let spot = await Spot.findByPk(req.params.spotId)
-//   if(spot.ownerId === req.user.id){
+//* GET /
+// Get all spots
+router.get("/", async (req, res, next) => {
+  const spots = await Spot.findAll();
+  const spotData = [];
+  for (const currentSpot of spots) {
+    const spot = currentSpot.toJSON();
+    const allReviews = await Review.findAll({
+      attributes: ["stars"],
+      where: {
+        spotId: spot.id,
+      },
+    });
 
-//   }
+    // let totalScore = 0;
+    // for(const currentReview of allReviews){
+    //   // consolePog(currentReview)
+    //   const review = currentReview.toJSON()
+    //   totalScore += review.stars
 
-// }
+    // }
+    // consolePog(sumReview)
+    const totalScore = allReviews.reduce((sumReview, currentReview) => {
+      currentReview = currentReview.toJSON();
+      sumReview += currentReview.stars;
+      return sumReview;
+    }, 0);
+    const avgRating = totalScore / allReviews.length;
 
-// router.get('/:id/bookings', requireAuth, homeless, ownerAuthorization, async(req, res, next) => {
+    spot.avgRating = avgRating;
 
-// if(ownerAuthorization){
+    const spotImage = await SpotImage.findOne({
+      attributes: ["url"],
+      where: {
+        spotId: spot.id,
+        preview: true,
+      },
+    });
 
-// }
+    const url = spotImage.toJSON();
 
-//   if(!ownerAuthorization){
-//     let bookings = await Booking.findAll({
-//       attributes: ["spotId", "startDate", "endDate"]
-//     })
-//     return res.json({bookings})
+    const previewImage = url.url;
+    spot.previewImage = previewImage;
 
-//   };
+    spotData.push(spot);
+  }
 
-// })
-
-//todo POST /:spotId/bookings
-// spot cant belong to current User
-
+  return res.json(spotData);
+});
 
 //* GET /current
 // requires auth
 // returns all the spots owned by the current user aka via owner id.
 router.get("/current", requireAuth, async (req, res, next) => {
-  const spots = await Spot.findAll(
-    {
+  const spots = await Spot.findAll({
     where: {
-      ownerId: req.user.id
+      ownerId: req.user.id,
     },
-  }
-  );
+  });
 
   const spotData = [];
   for (const currentSpot of spots) {
@@ -96,7 +113,6 @@ router.get("/current", requireAuth, async (req, res, next) => {
     const previewImage = url.url;
     spot.previewImage = previewImage;
 
-
     spotData.push(spot);
   }
 
@@ -105,21 +121,80 @@ router.get("/current", requireAuth, async (req, res, next) => {
 
 //* GET /:spotId
 // Returns the details of a spot specified by its id.
-// router.get("/:id", async (req, res) => {
-//   const spot = await Spot.findByPk(req.params.id);
-//   include: [
-//     {
-//       model: SpotImage,
-//     },
-//     {
-//       model: User,
-//       as: "Owner",
-//     },
-//   ];
+router.get("/:id", async (req, res) => {
+  const spot = await Spot.findByPk(req.params.id);
 
-//   return res.json(spot);
-// });
+  const spotData = [];
 
+  const currentSpot = spot.toJSON();
+
+  const allReviews = await Review.findAll({
+    attributes: ["stars"],
+    where: {
+      spotId: spot.id,
+    },
+  });
+
+  const totalScore = allReviews.reduce((sumReview, currentReview) => {
+    currentReview = currentReview.toJSON();
+    sumReview += currentReview.stars;
+    return sumReview;
+  }, 0);
+  const avgRating = totalScore / allReviews.length;
+  const numReviews = allReviews.length;
+  currentSpot.numReviews = numReviews;
+  currentSpot.avgRating = avgRating;
+
+  const spotImages = await SpotImage.findAll({
+    attributes: ["id", "url", "preview"],
+    where: {
+      spotId: spot.id,
+    },
+  });
+  currentSpot.spotImages = spotImages;
+
+  const user = await User.findOne({
+    attributes: ["id", "firstName", "lastName"],
+    where: {
+      id: spot.ownerId,
+    },
+  });
+  currentSpot.Owner = user;
+
+  spotData.push(currentSpot);
+
+  return res.json(spotData);
+});
+
+//*GET /:spotId/bookings
+// if you are the owner you should see Bookings with minor info
+// if you are not the owner you should see bookings with more info
+// const checkNotHomeOwner = async (req, res, next)=> {
+//   let spot = await Spot.findByPk(req.params.spotId)
+//   if(spot.ownerId === req.user.id){
+
+//   }
+
+// }
+
+// router.get('/:id/bookings', requireAuth, homeless, ownerAuthorization, async(req, res, next) => {
+
+// if(ownerAuthorization){
+
+// }
+
+//   if(!ownerAuthorization){
+//     let bookings = await Booking.findAll({
+//       attributes: ["spotId", "startDate", "endDate"]
+//     })
+//     return res.json({bookings})
+
+//   };
+
+// })
+
+//todo POST /:spotId/bookings
+// spot cant belong to current User
 
 //todo PUT /:spotId
 // router.put =
@@ -193,57 +268,6 @@ router.get("/current", requireAuth, async (req, res, next) => {
 //     });
 //   }
 // );
-
-//* GET /
-// Get all spots
-router.get("/", async (req, res, next) => {
-  const spots = await Spot.findAll();
-  const spotData = [];
-  for (const currentSpot of spots) {
-    const spot = currentSpot.toJSON();
-    const allReviews = await Review.findAll({
-      attributes: ["stars"],
-      where: {
-        spotId: spot.id,
-      },
-    });
-
-    // let totalScore = 0;
-    // for(const currentReview of allReviews){
-    //   // consolePog(currentReview)
-    //   const review = currentReview.toJSON()
-    //   totalScore += review.stars
-
-    // }
-    // consolePog(sumReview)
-    const totalScore = allReviews.reduce((sumReview, currentReview) => {
-      currentReview = currentReview.toJSON();
-      sumReview += currentReview.stars;
-      return sumReview;
-    }, 0);
-    const avgRating = totalScore / allReviews.length;
-
-    spot.avgRating = avgRating;
-
-    const spotImage = await SpotImage.findOne({
-      attributes: ["url"],
-      where: {
-        spotId: spot.id,
-        preview: true,
-      },
-    });
-
-    const url = spotImage.toJSON();
-
-    const previewImage = url.url;
-    spot.previewImage = previewImage;
-
-    spotData.push(spot);
-  }
-
-  return res.json(spotData);
-});
-
 
 //todo POST /
 // Creates and returns a new spot.
