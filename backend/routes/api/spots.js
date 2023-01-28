@@ -223,10 +223,28 @@ router.post("/", requireAuth, async (req, res, next) => {
     description,
     price,
   });
-
-  consolePog(newSpot);
+  
+  // consolePog(newSpot);
   return res.status(201).json(newSpot);
 });
+
+ //todo POST /:spotId/images
+
+
+router.post('/:id/images', requireAuth, ownerAuthorization, async (req, res, next) => {
+
+  const { url, preview }= req.body
+
+
+  const addImage = await SpotImage.create({
+  url, 
+  preview
+  });
+
+
+  return res.json(addImage)
+})
+
 
 
 
@@ -234,41 +252,41 @@ router.post("/", requireAuth, async (req, res, next) => {
 // if you are the owner you should see Bookings with minor info
 // if you are not the owner you should see bookings with more info
 // const checkNotHomeOwner = async (req, res, next)=> {
-//   let spot = await Spot.findByPk(req.params.spotId)
-//   if(spot.ownerId === req.user.id){
-
-//   }
-
-// }
-
-// router.get('/:id/bookings', requireAuth, homeless, ownerAuthorization, async(req, res, next) => {
-
-// if(ownerAuthorization){
-
-// }
-
-//   if(!ownerAuthorization){
-//     let bookings = await Booking.findAll({
-//       attributes: ["spotId", "startDate", "endDate"]
-//     })
-//     return res.json({bookings})
-
-//   };
-
-// })
-
-//todo POST /:spotId/bookings
-// spot cant belong to current User
-
-//todo PUT /:spotId
-// router.put =
-//   ("/id",
-//   requireAuth,
-//   ownerAuthorization,
-//   homeless,
-//   async (req, res, next) => {
-//     const spot = await Spot.findByPk(req.params.id);
-
+  //   let spot = await Spot.findByPk(req.params.spotId)
+  //   if(spot.ownerId === req.user.id){
+    
+    //   }
+    
+    // }
+    
+    // router.get('/:id/bookings', requireAuth, homeless, ownerAuthorization, async(req, res, next) => {
+      
+      // if(ownerAuthorization){
+        
+        // }
+        
+        //   if(!ownerAuthorization){
+          //     let bookings = await Booking.findAll({
+            //       attributes: ["spotId", "startDate", "endDate"]
+            //     })
+            //     return res.json({bookings})
+            
+            //   };
+            
+            // })
+            
+            //todo POST /:spotId/bookings
+            // spot cant belong to current User
+            
+            //todo PUT /:spotId
+            // router.put =
+            //   ("/id",
+            //   requireAuth,
+            //   ownerAuthorization,
+            //   homeless,
+            //   async (req, res, next) => {
+              //     const spot = await Spot.findByPk(req.params.id);
+              
 //     const {
 //       address,
 //       city,
@@ -312,7 +330,6 @@ router.post("/", requireAuth, async (req, res, next) => {
 //     res.json(spot);
 //   });
 
-//todo POST /:spotId/images
 
 // todo POST /:spotId/reviews
 
