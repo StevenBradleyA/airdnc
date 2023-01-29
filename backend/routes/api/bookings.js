@@ -13,7 +13,6 @@ const {
 } = require("../../db/models");
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
-const { consolePog } = require("../../utils/custom");
 
 //* GET /current
 // Return all the bookings that the current user has made.
@@ -41,7 +40,7 @@ router.get("/current", requireAuth, async (req, res, next) => {
         "price",
       ],
       where: {
-        id: booking.spotId
+        id: booking.spotId,
       },
     });
 
@@ -64,8 +63,6 @@ router.get("/current", requireAuth, async (req, res, next) => {
 
     bookingData.push(booking);
   }
-
-
 
   return res.json(bookingData);
 });

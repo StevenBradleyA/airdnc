@@ -14,14 +14,13 @@ const {
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
 const { Op } = require("sequelize");
-const { consolePog } = require("../../utils/custom");
 const { ResultWithContext } = require("express-validator/src/chain");
 
 //* GET /
 // Get all spots
 router.get("/", async (req, res, next) => {
   const spots = await Spot.findAll();
-  consolePog(spots);
+  spots;
   const spotData = [];
   for (const currentSpot of spots) {
     const spot = currentSpot.toJSON();
@@ -34,12 +33,12 @@ router.get("/", async (req, res, next) => {
 
     // let totalScore = 0;
     // for(const currentReview of allReviews){
-    //   // consolePog(currentReview)
+    //   // (currentReview)
     //   const review = currentReview.toJSON()
     //   totalScore += review.stars
 
     // }
-    // consolePog(sumReview)
+    // (sumReview)
     const totalScore = allReviews.reduce((sumReview, currentReview) => {
       currentReview = currentReview.toJSON();
       sumReview += currentReview.stars;
@@ -234,7 +233,7 @@ router.post("/", requireAuth, async (req, res, next) => {
     price,
   });
 
-  // consolePog(newSpot);
+  // (newSpot);
   return res.status(201).json(newSpot);
 });
 
@@ -346,7 +345,7 @@ router.put("/:id", requireAuth, async (req, res, next) => {
     });
 
     await spot.save();
-    // consolePog(spot);
+    // (spot);
     res.json(spot);
   }
 });
@@ -414,7 +413,7 @@ router.get("/:id/reviews", async (req, res, next) => {
 
     reviewData.push(review);
   }
-  consolePog(reviewData);
+  reviewData;
   return res.json(reviewData);
 });
 
@@ -469,6 +468,52 @@ router.post("/:id/reviews", requireAuth, async (req, res, next) => {
 });
 
 //*GET /:spotId/bookings
+router.get("/:id/bookings", requireAuth, async (req, res, next) => {
+  const spot = await Spot.findByPk(req.params.id);
+  if (!spot) {
+    return res.status(404).json({
+      message: "Spot couldn't be found",
+      statusCode: 404,
+    });
+  }
+
+  if (spot && spot.ownerId !== req.user.id) {
+    const bookingInfo = {};
+    const bookings = await Booking.findAll({
+      attributes: ["spotId", "startDate", "endDate"],
+      where: {
+        spotId: req.params.id,
+      },
+    });
+    bookingInfo.Bookings = bookings;
+    return res.json(bookingInfo);
+  }
+
+  if (spot && spot.ownerId === req.user.id) {
+    const bookingInfo = {};
+    let bookings = await Booking.findAll({
+      where: {
+        spotId: req.params.id,
+      },
+    });
+
+    const user = await User.findOne({
+      attributes: ["id", "firstName", "lastName"],
+      where: {
+        id: req.user.id,
+      },
+    });
+
+    bookingInfo.Bookings = bookings.map((currentBooking) => {
+      const bookingObj = currentBooking.toJSON();
+
+      bookingObj.User = user;
+      return bookingObj;
+    });
+
+    return res.json(bookingInfo);
+  }
+});
 
 //todo POST /:spotId/bookings
 

@@ -13,7 +13,6 @@ const {
 } = require("../../db/models");
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
-const { consolePog } = require("../../utils/custom");
 
 //* GET /current
 // returns all reviews written by the current user
@@ -114,7 +113,7 @@ router.post("/:id/images", requireAuth, async (req, res, next) => {
     url,
   });
 
-  consolePog(newReviewImage);
+  newReviewImage;
   const viewNewReviewImage = await ReviewImage.findOne({
     attributes: ["id", "url"],
     where: {

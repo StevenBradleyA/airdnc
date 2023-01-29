@@ -7,7 +7,6 @@ const { User } = require("../../db/models");
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
 const user = require("../../db/models/user");
-const { consolePog } = require("../../utils/custom");
 
 const validateSignup = [
   check("firstName")
@@ -39,23 +38,22 @@ router.post("/", validateSignup, async (req, res) => {
   const findEmail = await User.findOne({
     where: { email },
   });
-  const errors = {}
+  const errors = {};
   if (findUsername) {
-  errors.username = "User with that username already exists"
+    errors.username = "User with that username already exists";
   }
   if (findEmail) {
-  errors.email = "User with that email already exists"
+    errors.email = "User with that email already exists";
   }
 
-  if(errors.username || errors.email){
+  if (errors.username || errors.email) {
     return res.status(403).json({
       message: "User already exists",
       statusCode: 403,
-      errors
+      errors,
     });
-
   }
-  
+
   const user = await User.signup({
     firstName,
     lastName,

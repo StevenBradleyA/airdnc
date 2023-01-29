@@ -10,7 +10,6 @@ const {
   SpotImage,
   sequelize,
 } = require("../db/models");
-const { consolePog } = require("./custom");
 
 const { secret, expiresIn } = jwtConfig;
 
@@ -75,9 +74,9 @@ const requireAuth = function (req, _res, next) {
 // current: could not get response, trying to authorize owner
 // goal is to console.log line by line to solve where the response is lost
 // const ownerAuthorization = async (req, res, next) => {
-//   consolePog(req.params.id);
+//   (req.params.id);
 //   let spot = await Spot.findByPk(req.params.id);
-//   consolePog(spot);
+//   (spot);
 //   if (!spot) {
 //     return res.status(404).json({
 //       message: "Spot couldn't be found",
@@ -91,7 +90,6 @@ const requireAuth = function (req, _res, next) {
 //     });
 //   }
 // };
-
 
 // const homeless = async (req, res, next) => {
 //   let spot = await Spot.findByPk(req.params.id);
