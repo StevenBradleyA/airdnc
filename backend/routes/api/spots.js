@@ -203,11 +203,21 @@ router.post("/", requireAuth, async (req, res, next) => {
     errors.price = "Price per day is required";
   }
 
-  if (errors.address || errors.city || errors.state || errors.country || errors.lat || errors.lng || errors.name || errors.description || errors.price) {
+  if (
+    errors.address ||
+    errors.city ||
+    errors.state ||
+    errors.country ||
+    errors.lat ||
+    errors.lng ||
+    errors.name ||
+    errors.description ||
+    errors.price
+  ) {
     return res.status(400).json({
       message: "Validation Error",
       statusCode: 400,
-      errors
+      errors,
     });
   }
 
@@ -292,11 +302,21 @@ router.put("/:id", requireAuth, async (req, res, next) => {
     errors.price = "Price per day is required";
   }
 
-  if (errors.address || errors.city || errors.state || errors.country || errors.lat || errors.lng || errors.name || errors.description || errors.price) {
+  if (
+    errors.address ||
+    errors.city ||
+    errors.state ||
+    errors.country ||
+    errors.lat ||
+    errors.lng ||
+    errors.name ||
+    errors.description ||
+    errors.price
+  ) {
     return res.status(400).json({
       message: "Validation Error",
       statusCode: 400,
-      errors
+      errors,
     });
   }
 
@@ -326,7 +346,7 @@ router.put("/:id", requireAuth, async (req, res, next) => {
     });
 
     await spot.save();
-    consolePog(spot);
+    // consolePog(spot);
     res.json(spot);
   }
 });
@@ -401,12 +421,7 @@ router.get("/:id/reviews", async (req, res, next) => {
 //todo POST /:spotId/reviews
 
 router.post("/:id/reviews", requireAuth, async (req, res, next) => {
-
-
   const { review, stars } = req.body;
-
-
-
   const spot = await Spot.findByPk(req.params.id);
   if (!spot) {
     return res.status(404).json({
@@ -414,7 +429,6 @@ router.post("/:id/reviews", requireAuth, async (req, res, next) => {
       statusCode: 404,
     });
   }
-
 
   const checkExistingReview = await Review.findAll({
     where: {
@@ -429,9 +443,9 @@ router.post("/:id/reviews", requireAuth, async (req, res, next) => {
     });
   }
   const errors = {};
-  
+
   if (!review) {
-    errors.review = "Review text is required"
+    errors.review = "Review text is required";
   }
   if (!stars) {
     errors.stars = "Stars must be an integer from 1 to 5";
@@ -440,7 +454,7 @@ router.post("/:id/reviews", requireAuth, async (req, res, next) => {
     return res.status(400).json({
       message: "Validation Error",
       statusCode: 400,
-      errors
+      errors,
     });
   }
 
@@ -453,35 +467,6 @@ router.post("/:id/reviews", requireAuth, async (req, res, next) => {
 
   return res.status(201).json(newReview);
 });
-
-
-
-
-// const errors = {}
-// if (findUsername) {
-// errors.username = "User with that username already exists"
-// }
-// if (findEmail) {
-// errors.email = "User with that email already exists"
-// }
-
-// if(errors.username || errors.email){
-//   return res.status(403).json({
-//     message: "User already exists",
-//     statusCode: 403,
-//     errors
-//   });
-
-// }
-
-
-
-
-
-
-
-
-
 
 //*GET /:spotId/bookings
 
