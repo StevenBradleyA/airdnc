@@ -170,7 +170,6 @@ router.put("/:id", requireAuth, async (req, res, next) => {
 });
 
 //! DELETE /:reviewId
-
 router.delete("/:id", requireAuth, async (req, res, next) => {
   const deleteReview = await Review.findByPk(req.params.id);
 
