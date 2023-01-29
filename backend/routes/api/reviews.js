@@ -113,27 +113,87 @@ router.post("/:id/images", requireAuth, async (req, res, next) => {
     reviewId: review.id,
     url,
   });
-  
-consolePog(newReviewImage)
+
+  consolePog(newReviewImage);
   const viewNewReviewImage = await ReviewImage.findOne({
     attributes: ["id", "url"],
     where: {
-        id: newReviewImage.id
-    }
+      id: newReviewImage.id,
+    },
   });
   return res.json(viewNewReviewImage);
 });
 
-
 //todo PUT /:reviewId
-    router.put('/:id', requireAuth, async (req, res, next)=> {
-        
+router.put("/:id", requireAuth, async (req, res, next) => {
+  const { review, stars } = req.body;
+  const errors = {};
 
+  if (!review) {
+    errors.review = "Review text is required";
+  }
+  if (!stars) {
+    errors.stars = "Stars must be an integer from 1 to 5";
+  }
 
+  if (errors.review || errors.stars) {
+    return res.status(400).json({
+      message: "Validation Error",
+      statusCode: 400,
+      errors,
+    });
+  }
+  const editReview = await Review.findByPk(req.params.id);
 
-    })
+  if (!editReview) {
+    return res.status(404).json({
+      message: "Review couldn't be found",
+      statusCode: 404,
+    });
+  }
+
+  if (editReview && editReview.userId !== req.user.id) {
+    return res.status(403).json({
+      message: "Forbidden",
+      statusCode: 403,
+    });
+  } else {
+    editReview.set({
+      review,
+      stars,
+    });
+
+    await editReview.save();
+
+    res.json(editReview);
+  }
+});
 
 //! DELETE /:reviewId
 
+router.delete("/:id", requireAuth, async (req, res, next) => {
+  const deleteReview = await Review.findByPk(req.params.id);
+
+  if (!deleteReview) {
+    return res.status(404).json({
+      message: "Review couldn't be found",
+      statusCode: 404,
+    });
+  }
+
+  if (deleteReview && deleteReview.userId !== req.user.id) {
+    return res.status(403).json({
+      message: "Forbidden",
+      statusCode: 403,
+    });
+  } else {
+    deleteReview.destroy();
+
+    return res.json({
+      message: "Successfully deleted",
+      statusCode: 200,
+    });
+  }
+});
 
 module.exports = router;
