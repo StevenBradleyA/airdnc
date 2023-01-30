@@ -73,7 +73,7 @@ router.get("/current", requireAuth, async (req, res, next) => {
     bookingData.push(booking);
   }
 
-  return res.json(bookingData);
+  return res.json({Bookings:bookingData});
 });
 
 //! DELETE /:bookingId
@@ -126,7 +126,6 @@ router.delete("/:id", requireAuth, async (req, res, next) => {
 // todo /:bookingId
 router.put("/:id", requireAuth, async (req, res, next) => {
   const { startDate, endDate } = req.body;
-  console.pog(startDate);
   const booking = await Booking.findByPk(req.params.id);
   if (booking && booking.userId !== req.user.id) {
     return res.status(404).json({
@@ -193,8 +192,11 @@ router.put("/:id", requireAuth, async (req, res, next) => {
     });
 
     await booking.save();
+    const bookingObj = booking.toJSON()
+    bookingObj.startDate = getDateString(bookingObj.startDate)
+    bookingObj.endDate = getDateString(bookingObj.endDate)
 
-    return res.json(booking);
+    return res.json(bookingObj);
   }
 });
 
