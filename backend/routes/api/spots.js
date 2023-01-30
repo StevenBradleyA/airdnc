@@ -95,6 +95,12 @@ router.get("/", async (req, res, next) => {
     query.limit = size;
     query.offset = size * (page - 1);
   }
+  if (page < 1) {
+    errors.page = "Page must be greater than or equal to 1";
+  }
+  if (size < 1) {
+    errors.size = "Size must be greater than or equal to 1";
+  }
 
   if (Object.keys(errors).length > 0) {
     return res.status(400).json({
