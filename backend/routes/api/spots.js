@@ -16,9 +16,24 @@ const { handleValidationErrors } = require("../../utils/validation");
 const { Op } = require("sequelize");
 const { ResultWithContext } = require("express-validator/src/chain");
 
+const getDateString = (date) => {
+  const month = date.getMonth() + 1;
+  const year = date.getFullYear();
+  const day = date.getDate() + 1;
+  const displayDate = `${year}-${month}-${day}`;
+  return displayDate;
+};
+
 //* GET /
 // Get all spots
 router.get("/", async (req, res, next) => {
+  // //!Query and Pagination time
+  // let query = {
+  //   where: {},
+  //   include: [],
+  // };
+  // const {lat, lng, price} = req.query
+
   const spots = await Spot.findAll();
   spots;
   const spotData = [];
@@ -506,15 +521,76 @@ router.get("/:id/bookings", requireAuth, async (req, res, next) => {
 
     bookingInfo.Bookings = bookings.map((currentBooking) => {
       const bookingObj = currentBooking.toJSON();
+      const startDate = bookingObj.startDate;
+      const endDate = bookingObj.endDate;
 
+      bookingObj.startDate = getDateString(startDate);
+      bookingObj.endDate = getDateString(endDate);
       bookingObj.User = user;
       return bookingObj;
     });
-
     return res.json(bookingInfo);
   }
 });
 
 //todo POST /:spotId/bookings
+
+// getTime()
+
+router.post("/:id/bookings", requireAuth, async (req, res, next) => {
+  const { startDate, endDate } = req.body;
+
+  // neeed to check if a booking already exists for a day
+
+  // const bookings = await Booking.findAll({
+  //   attributes: ["startDate", "endDate"],
+  //   where: {
+  //     spotId: req.params.id,
+  //   },
+  // });
+  // console.pog(bookings);
+  // // return me a list of all the bookings with start date and end date
+  // if (startDate) {
+  //   // Start date conflicts with an existing booking
+  // }
+  // if (endDate) {
+  //   // end date conflicts with an existing booking
+  // }
+
+  const spot = await Spot.findByPk(req.params.id);
+  if (!spot) {
+    return res.status(404).json({
+      message: "Spot couldn't be found",
+      statusCode: 404,
+    });
+  }
+  if (spot && spot.ownerId === req.user.id) {
+    return res.status(404).json({
+      message: "Forbidden",
+      statusCode: 404,
+    });
+  }
+  const errors = {};
+
+  // if (startDate.getTime() >= endDate.getTime()) {
+  //   errors.endDate = "endDate cannot be on or before startDate";
+  // }
+  if (errors.endDate) {
+    return res.status(400).json({
+      message: "Validation Error",
+      statusCode: 400,
+      errors,
+    });
+  } else {
+    const newBooking = await Booking.create({
+      spotId: Number(req.params.id),
+      userId: req.user.id,
+      startDate,
+      endDate,
+    });
+
+    return res.status(200).json(newBooking);
+  }
+});
 
 module.exports = router;

@@ -15,6 +15,19 @@ const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
 const { ResultWithContext } = require("express-validator/src/chain");
 
+
+const getDateString = (date) => {
+  const month = date.getMonth() + 1;
+  const year = date.getFullYear();
+  const day = date.getDate() + 1;
+  const displayDate = `${year}-${month}-${day}`;
+  return displayDate;
+};
+
+
+
+
+
 //* GET /current
 // Return all the bookings that the current user has made.
 router.get("/current", requireAuth, async (req, res, next) => {
@@ -61,7 +74,11 @@ router.get("/current", requireAuth, async (req, res, next) => {
 
     const previewImage = url.url;
     spotObj.previewImage = previewImage;
+    const startDate = booking.startDate;
+    const endDate = booking.endDate;
 
+    booking.startDate = getDateString(startDate);
+    booking.endDate = getDateString(endDate);
     bookingData.push(booking);
   }
 
@@ -114,5 +131,10 @@ router.delete("/:id", requireAuth, async (req, res, next) => {
     });
   }
 });
+
+
+// todo /:bookingId
+
+
 
 module.exports = router;
