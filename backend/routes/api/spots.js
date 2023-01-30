@@ -145,10 +145,16 @@ router.get("/", async (req, res, next) => {
         preview: true,
       },
     });
-    const url = spotImage.toJSON();
+    if(spotImage){
+   
+      const url = spotImage.toJSON();
 
-    const previewImage = url.url;
-    spot.previewImage = previewImage;
+      const previewImage = url.url;
+      spot.previewImage = previewImage;
+    }else{
+      spot.previewImage = "No preview image found"
+    }
+
 
     spotData.push(spot);
   }
@@ -197,11 +203,16 @@ router.get("/current", requireAuth, async (req, res, next) => {
         preview: true,
       },
     });
+    // console.log(spotImage)
+    if(spotImage){
+      const url = spotImage.toJSON();
+      const previewImage = url.url;
+      spot.previewImage = previewImage;
 
-    const url = spotImage.toJSON();
+    }else{
+      spot.previewImage = "No preview image found"
+    }
 
-    const previewImage = url.url;
-    spot.previewImage = previewImage;
 
     spotData.push(spot);
   }
@@ -349,6 +360,7 @@ router.post("/:id/images", requireAuth, async (req, res, next) => {
     });
   } else {
     const addImage = await SpotImage.create({
+      spotId: spot.id,
       url,
       preview,
     });
@@ -578,7 +590,15 @@ router.get("/:id/bookings", requireAuth, async (req, res, next) => {
         spotId: req.params.id,
       },
     });
-    bookingInfo.Bookings = bookings;
+    bookingInfo.Bookings = bookings.map((currentBooking) => {
+      const bookingObj = currentBooking.toJSON();
+      const startDate = bookingObj.startDate;
+      const endDate = bookingObj.endDate;
+
+      bookingObj.startDate = getDateString(startDate);
+      bookingObj.endDate = getDateString(endDate);
+      return bookingObj;
+    });
     return res.json(bookingInfo);
   }
 

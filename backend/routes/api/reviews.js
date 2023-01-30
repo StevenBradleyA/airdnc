@@ -62,10 +62,15 @@ router.get("/current", requireAuth, async (req, res, next) => {
         preview: true,
       },
     });
-    const url = spotImage.toJSON();
+    if(spotImage){
+      const url = spotImage.toJSON();
+      const previewImage = url.url;
+      spotObj.previewImage = previewImage;
 
-    const previewImage = url.url;
-    spotObj.previewImage = previewImage;
+    }else{
+      spotObj.previewImage = "No preview image found"
+    }
+    
 
     const reviewImage = await ReviewImage.findAll({
       attributes: ["id", "url"],

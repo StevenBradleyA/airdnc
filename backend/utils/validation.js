@@ -10,11 +10,11 @@ const handleValidationErrors = (req, _res, next) => {
     const errors = {};
 
     for (const curr of validationErrors.array()) {
+      console.log(curr)
       const key = curr.param;
       const value = curr.msg;
       errors[key] = value;
     }
-
     const err = Error("Bad request.");
     err.errors = errors;
     err.status = 400;
