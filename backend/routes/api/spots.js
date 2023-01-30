@@ -507,7 +507,7 @@ router.get("/:id/reviews", async (req, res, next) => {
     reviewData.push(review);
   }
   reviewData;
-  return res.json(reviewData);
+  return res.json({ Reviews: reviewData });
 });
 
 //todo POST /:spotId/reviews

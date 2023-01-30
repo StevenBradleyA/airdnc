@@ -96,7 +96,12 @@ router.post("/:id/images", requireAuth, async (req, res, next) => {
       statusCode: 404,
     });
   }
-
+  if (review && review.userId !== req.user.id) {
+    return res.status(403).json({
+      message: "Forbidden",
+      statusCode: 403,
+    });
+  }
   const checkExistingReviewImages = await ReviewImage.findAll({
     where: {
       reviewId: req.params.id,
