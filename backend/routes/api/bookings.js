@@ -161,7 +161,7 @@ router.put("/:id", requireAuth, async (req, res, next) => {
   const findBookings = await Booking.findAll({
     attributes: ["startDate", "endDate"],
     where: {
-      spotId: req.params.id,
+      spotId: booking.spotId
     },
   });
   for (const currentBooking of findBookings) {
