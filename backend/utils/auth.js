@@ -70,39 +70,21 @@ const requireAuth = function (req, _res, next) {
   return next(err);
 };
 
-// Authorization function to keep code droyyyy
-// current: could not get response, trying to authorize owner
-// goal is to console.log line by line to solve where the response is lost
-// const ownerAuthorization = async (req, res, next) => {
-//   (req.params.id);
-//   let spot = await Spot.findByPk(req.params.id);
-//   (spot);
-//   if (!spot) {
-//     return res.status(404).json({
-//       message: "Spot couldn't be found",
-//       statusCode: 404,
-//     });
-//   }
-//   if (spot && spot.ownerId !== req.user.id) {
-//     return res.status(403).json({
-//       message: "Forbidden",
-//       statusCode: 403,
-//     });
-//   }
-// };
 
-// const homeless = async (req, res, next) => {
-//   let spot = await Spot.findByPk(req.params.id);
-//   if (!spot) {
-//     return res.status(404).json({
-//       message: "Spot couldn't be found",
-//       statusCode: 404,
-//     });
-//   }
-// };
+const getDateString = (date) => {
+  const month = date.getMonth() + 1;
+  const year = date.getFullYear();
+  const day = date.getDate() + 1;
+  const displayDate = `${year}-${month}-${day}`;
+  return displayDate;
+};
+
+
+
 
 module.exports = {
   setTokenCookie,
   restoreUser,
   requireAuth,
+  getDateString
 };

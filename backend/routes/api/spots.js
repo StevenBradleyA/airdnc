@@ -1,7 +1,11 @@
 // backend/routes/api/spots.js
 const express = require("express");
 const router = express.Router();
-const { setTokenCookie, requireAuth } = require("../../utils/auth");
+const {
+  setTokenCookie,
+  requireAuth,
+  getDateString,
+} = require("../../utils/auth");
 const {
   User,
   Spot,
@@ -15,14 +19,6 @@ const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
 const { Op } = require("sequelize");
 const { ResultWithContext } = require("express-validator/src/chain");
-
-const getDateString = (date) => {
-  const month = date.getMonth() + 1;
-  const year = date.getFullYear();
-  const day = date.getDate() + 1;
-  const displayDate = `${year}-${month}-${day}`;
-  return displayDate;
-};
 
 //* GET /
 // Get all spots
