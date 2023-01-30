@@ -79,22 +79,28 @@ router.get("/current", requireAuth, async (req, res, next) => {
 //! DELETE /:bookingId
 router.delete("/:id", requireAuth, async (req, res, next) => {
   const deleteBooking = await Booking.findByPk(req.params.id);
-
-  startDateObj = deleteBooking.toJSON().startDate;
-  const compareStartDate = startDateObj.getTime();
-  if (Date.now() > compareStartDate) {
-    return res.status(403).json({
-      message: "Bookings that have been started can't be deleted",
-      statusCode: 403,
-    });
-  }
-
   if (!deleteBooking) {
     return res.status(404).json({
       message: "Booking couldn't be found",
       statusCode: 404,
     });
   }
+  const startDateObj = deleteBooking.toJSON().startDate;
+  const endDateObj = deleteBooking.toJSON().endDate;
+
+  const compareStartDate = startDateObj.getTime();
+  const compareEndDate = endDateObj.getTime();
+
+  console.pog(compareStartDate)
+  console.pog(Date.now())
+  if (Date.now() > compareStartDate && Date.now() < compareEndDate) {
+    return res.status(403).json({
+      message: "Bookings that have been started can't be deleted",
+      statusCode: 403,
+    });
+  }
+
+ 
   const spot = await Spot.findOne({
     where: {
       ownerId: req.user.id,
