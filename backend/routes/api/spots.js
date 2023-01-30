@@ -145,10 +145,16 @@ router.get("/", async (req, res, next) => {
         preview: true,
       },
     });
-    const url = spotImage.toJSON();
+    if(spotImage){
+   
+      const url = spotImage.toJSON();
 
-    const previewImage = url.url;
-    spot.previewImage = previewImage;
+      const previewImage = url.url;
+      spot.previewImage = previewImage;
+    }else{
+      spot.previewImage = "No preview image found"
+    }
+
 
     spotData.push(spot);
   }
@@ -197,7 +203,7 @@ router.get("/current", requireAuth, async (req, res, next) => {
         preview: true,
       },
     });
-    console.log(spotImage)
+    // console.log(spotImage)
     if(spotImage){
       const url = spotImage.toJSON();
       const previewImage = url.url;
