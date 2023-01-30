@@ -77,9 +77,11 @@ router.get("/current", requireAuth, async (req, res, next) => {
     review.ReviewImages = reviewImage;
 
     reviewData.push(review);
+    // console.pog(reviewData)
   }
 
-  return res.json(reviewData);
+  return res.json({
+    Reviews:reviewData});
 });
 
 //todo POST /:reviewId/images

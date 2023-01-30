@@ -207,7 +207,8 @@ router.get("/current", requireAuth, async (req, res, next) => {
   }
 
   return res.json({
-    Spots:spotData});
+    Spots: spotData,
+  });
 });
 
 //* GET /:spotId
@@ -220,7 +221,6 @@ router.get("/:id", async (req, res) => {
       statusCode: 404,
     });
   }
-
 
   const currentSpot = spot.toJSON();
 
@@ -239,7 +239,7 @@ router.get("/:id", async (req, res) => {
   const avgRating = totalScore / allReviews.length;
   const numReviews = allReviews.length;
   currentSpot.numReviews = numReviews;
-  currentSpot.avgRating = avgRating;
+  currentSpot.avgStarRating = avgRating;
 
   const spotImages = await SpotImage.findAll({
     attributes: ["id", "url", "preview"],
@@ -247,7 +247,7 @@ router.get("/:id", async (req, res) => {
       spotId: spot.id,
     },
   });
-  currentSpot.spotImages = spotImages;
+  currentSpot.SpotImages = spotImages;
 
   const user = await User.findOne({
     attributes: ["id", "firstName", "lastName"],
@@ -256,8 +256,6 @@ router.get("/:id", async (req, res) => {
     },
   });
   currentSpot.Owner = user;
-
-
 
   return res.json(currentSpot);
 });
