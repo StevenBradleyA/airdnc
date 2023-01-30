@@ -16,8 +16,8 @@ const { handleValidationErrors } = require("../../utils/validation");
 
 //!DELETE /:imageId
 router.delete("/:id", requireAuth, async (req, res, next) => {
-  const deleteReviewImage = await SpotImage.findByPk(req.params.id);
-
+  const deleteReviewImage = await ReviewImage.findByPk(req.params.id);
+  console.pog(deleteReviewImage);
   if (!deleteReviewImage) {
     return res.status(404).json({
       message: "Review Image couldn't be found",
@@ -26,9 +26,10 @@ router.delete("/:id", requireAuth, async (req, res, next) => {
   }
   const review = await Review.findOne({
     where: {
-      userId: req.user.id,
+      id: deleteReviewImage.reviewId,
     },
   });
+  console.pog(review);
 
   if (review && review.userId !== req.user.id) {
     return res.status(403).json({
@@ -43,6 +44,5 @@ router.delete("/:id", requireAuth, async (req, res, next) => {
     });
   }
 });
-
 
 module.exports = router;
