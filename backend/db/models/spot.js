@@ -12,10 +12,10 @@ module.exports = (sequelize, DataTypes) => {
       Spot.belongsTo(models.User, { foreignKey: "ownerId" });
 
       // Spot relationship to Booking
-      Spot.hasMany(models.Booking, {foreignKey: "spotId"});
+      Spot.hasMany(models.Booking, { foreignKey: "spotId" });
 
       // Spot relationship to Review
-      Spot.hasMany(models.Review, {ReviewKey: "spotId"});
+      Spot.hasMany(models.Review, { ReviewKey: "spotId" });
 
       // Spot relationship to SpotImage
       Spot.hasMany(models.SpotImage, { foreignKey: "spotId" });
@@ -40,10 +40,18 @@ module.exports = (sequelize, DataTypes) => {
       lat: {
         type: DataTypes.DECIMAL,
         allowNull: false,
+        validate: {
+          min: -90,
+          max: 90,
+        },
       },
       lng: {
         type: DataTypes.DECIMAL,
         allowNull: false,
+        validate: {
+          min: -180,
+          max: 180,
+        },
       },
       name: {
         type: DataTypes.STRING,

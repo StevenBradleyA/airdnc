@@ -1,3 +1,4 @@
+require('./bigPogTimeNow')()
 const express = require("express");
 require("express-async-errors");
 const morgan = require("morgan");
@@ -68,6 +69,7 @@ app.use((err, _req, res, _next) => {
   res.json({
     title: err.title || "Server Error",
     message: err.message,
+    statusCode: err.status || err.statusCode,
     errors: err.errors,
     stack: isProduction ? null : err.stack,
   });
