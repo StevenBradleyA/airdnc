@@ -128,7 +128,7 @@ router.delete("/:id", requireAuth, async (req, res, next) => {
   }
 });
 
-// todo /:bookingId
+// todo PUT /:bookingId
 router.put("/:id", requireAuth, async (req, res, next) => {
   const { startDate, endDate } = req.body;
   const booking = await Booking.findByPk(req.params.id);
@@ -175,12 +175,7 @@ router.put("/:id", requireAuth, async (req, res, next) => {
     if (compareEndDate === testExistingEndDate) {
       errors.endDate = "End date conflicts with an existing booking";
     }
-    if (Date.now() > testExistingEndDate) {
-      return res.status(403).json({
-        message: "Past bookings can't be modified",
-        statusCode: 403,
-      });
-    }
+   
     if (errors.startDate || errors.endDate) {
       return res.status(403).json({
         message: "Sorry, this spot is already booked for the specified dates",
@@ -188,6 +183,13 @@ router.put("/:id", requireAuth, async (req, res, next) => {
         errors,
       });
     }
+  }
+
+  if (Date.now() > booking.endDate.getTime()) {
+    return res.status(403).json({
+      message: "Past bookings can't be modified",
+      statusCode: 403,
+    });
   }
 
   if (booking && booking.userId === req.user.id) {
