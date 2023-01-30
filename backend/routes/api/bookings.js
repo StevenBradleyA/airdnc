@@ -73,7 +73,7 @@ router.get("/current", requireAuth, async (req, res, next) => {
     bookingData.push(booking);
   }
 
-  return res.json({Bookings:bookingData});
+  return res.json({ Bookings: bookingData });
 });
 
 //! DELETE /:bookingId
@@ -170,7 +170,7 @@ router.put("/:id", requireAuth, async (req, res, next) => {
     if (compareEndDate === testExistingEndDate) {
       errors.endDate = "End date conflicts with an existing booking";
     }
-    if (Date.now > testExistingEndDate) {
+    if (Date.now() > testExistingEndDate) {
       return res.status(403).json({
         message: "Past bookings can't be modified",
         statusCode: 403,
@@ -192,9 +192,9 @@ router.put("/:id", requireAuth, async (req, res, next) => {
     });
 
     await booking.save();
-    const bookingObj = booking.toJSON()
-    bookingObj.startDate = getDateString(bookingObj.startDate)
-    bookingObj.endDate = getDateString(bookingObj.endDate)
+    const bookingObj = booking.toJSON();
+    bookingObj.startDate = getDateString(bookingObj.startDate);
+    bookingObj.endDate = getDateString(bookingObj.endDate);
 
     return res.json(bookingObj);
   }
