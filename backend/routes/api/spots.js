@@ -531,27 +531,48 @@ router.get("/:id/bookings", requireAuth, async (req, res, next) => {
 
 //todo POST /:spotId/bookings
 
-// getTime()
 
 router.post("/:id/bookings", requireAuth, async (req, res, next) => {
   const { startDate, endDate } = req.body;
+  const compareStartDate = new Date(startDate).getTime();
+  const compareEndDate = new Date(endDate).getTime();
 
-  // neeed to check if a booking already exists for a day
 
-  // const bookings = await Booking.findAll({
-  //   attributes: ["startDate", "endDate"],
-  //   where: {
-  //     spotId: req.params.id,
-  //   },
-  // });
-  // console.pog(bookings);
-  // // return me a list of all the bookings with start date and end date
-  // if (startDate) {
-  //   // Start date conflicts with an existing booking
-  // }
-  // if (endDate) {
-  //   // end date conflicts with an existing booking
-  // }
+  if (compareStartDate >= compareEndDate) {
+    const errors = {};
+    errors.endDate = "endDate cannot be on or before startDate";
+    return res.status(400).json({
+      message: "Validation Error",
+      statusCode: 400,
+      errors,
+    });
+  }
+
+  const bookings = await Booking.findAll({
+    attributes: ["startDate", "endDate"],
+    where: {
+      spotId: req.params.id,
+    },
+  });
+  for (const currentBooking of bookings) {
+    const bookingObj = currentBooking.toJSON();
+    const testExistingStartDate = bookingObj.startDate.getTime();
+    const testExistingEndDate = bookingObj.endDate.getTime();
+    const errors = {};
+    if (compareStartDate === testExistingStartDate) {
+      errors.startDate = "Start date conflicts with an existing booking";
+    }
+    if (compareEndDate === testExistingEndDate) {
+      errors.endDate = "End date conflicts with an existing booking";
+    }
+    if (errors.startDate || errors.endDate) {
+      return res.status(403).json({
+        message: "Sorry, this spot is already booked for the specified dates",
+        statusCode: 403,
+        errors,
+      });
+    }
+  }
 
   const spot = await Spot.findByPk(req.params.id);
   if (!spot) {
@@ -565,18 +586,6 @@ router.post("/:id/bookings", requireAuth, async (req, res, next) => {
       message: "Forbidden",
       statusCode: 404,
     });
-  }
-  const errors = {};
-
-  // if (startDate.getTime() >= endDate.getTime()) {
-  //   errors.endDate = "endDate cannot be on or before startDate";
-  // }
-  if (errors.endDate) {
-    return res.status(400).json({
-      message: "Validation Error",
-      statusCode: 400,
-      errors,
-    });
   } else {
     const newBooking = await Booking.create({
       spotId: Number(req.params.id),
@@ -584,8 +593,11 @@ router.post("/:id/bookings", requireAuth, async (req, res, next) => {
       startDate,
       endDate,
     });
+    const createdBooking = newBooking.toJSON()
+    createdBooking.startDate = startDate
+    createdBooking.endDate = endDate
 
-    return res.status(200).json(newBooking);
+    return res.status(200).json(createdBooking);
   }
 });
 
