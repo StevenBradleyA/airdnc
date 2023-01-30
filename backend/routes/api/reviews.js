@@ -164,7 +164,7 @@ router.put("/:id", requireAuth, async (req, res, next) => {
 
     await editReview.save();
 
-    res.json(editReview);
+    return res.json(editReview);
   }
 });
 

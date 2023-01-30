@@ -356,8 +356,7 @@ router.put("/:id", requireAuth, async (req, res, next) => {
     });
 
     await spot.save();
-    // (spot);
-    res.json(spot);
+    return res.json(spot);
   }
 });
 
@@ -531,12 +530,10 @@ router.get("/:id/bookings", requireAuth, async (req, res, next) => {
 
 //todo POST /:spotId/bookings
 
-
 router.post("/:id/bookings", requireAuth, async (req, res, next) => {
   const { startDate, endDate } = req.body;
   const compareStartDate = new Date(startDate).getTime();
   const compareEndDate = new Date(endDate).getTime();
-
 
   if (compareStartDate >= compareEndDate) {
     const errors = {};
@@ -593,9 +590,9 @@ router.post("/:id/bookings", requireAuth, async (req, res, next) => {
       startDate,
       endDate,
     });
-    const createdBooking = newBooking.toJSON()
-    createdBooking.startDate = startDate
-    createdBooking.endDate = endDate
+    const createdBooking = newBooking.toJSON();
+    createdBooking.startDate = startDate;
+    createdBooking.endDate = endDate;
 
     return res.status(200).json(createdBooking);
   }
