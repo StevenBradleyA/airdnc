@@ -590,7 +590,15 @@ router.get("/:id/bookings", requireAuth, async (req, res, next) => {
         spotId: req.params.id,
       },
     });
-    bookingInfo.Bookings = bookings;
+    bookingInfo.Bookings = bookings.map((currentBooking) => {
+      const bookingObj = currentBooking.toJSON();
+      const startDate = bookingObj.startDate;
+      const endDate = bookingObj.endDate;
+
+      bookingObj.startDate = getDateString(startDate);
+      bookingObj.endDate = getDateString(endDate);
+      return bookingObj;
+    });
     return res.json(bookingInfo);
   }
 
