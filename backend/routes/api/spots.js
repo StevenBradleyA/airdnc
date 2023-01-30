@@ -158,7 +158,7 @@ router.get("/", async (req, res, next) => {
   // Spots.page = page;
   // Spots.size = size;
   // return res.json(Spots);
-  return res.json({ Spots: spots, page, size });
+  return res.json({ Spots: spotData, page, size });
 });
 
 //* GET /current
@@ -206,7 +206,8 @@ router.get("/current", requireAuth, async (req, res, next) => {
     spotData.push(spot);
   }
 
-  return res.json(spotData);
+  return res.json({
+    Spots:spotData});
 });
 
 //* GET /:spotId
@@ -219,7 +220,7 @@ router.get("/:id", async (req, res) => {
       statusCode: 404,
     });
   }
-  const spotData = [];
+
 
   const currentSpot = spot.toJSON();
 
@@ -256,9 +257,9 @@ router.get("/:id", async (req, res) => {
   });
   currentSpot.Owner = user;
 
-  spotData.push(currentSpot);
 
-  return res.json(spotData);
+
+  return res.json(currentSpot);
 });
 
 //todo POST /
