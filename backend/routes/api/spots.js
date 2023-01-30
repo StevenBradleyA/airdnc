@@ -24,14 +24,88 @@ const { ResultWithContext } = require("express-validator/src/chain");
 // Get all spots
 router.get("/", async (req, res, next) => {
   // //!Query and Pagination time
-  // let query = {
-  //   where: {},
-  //   include: [],
-  // };
-  // const {lat, lng, price} = req.query
+  let query = {
+    where: {},
+    include: [],
+  };
+  const { minLat, maxLat, minLng, maxLng, minPrice, maxPrice } = req.query;
+  const errors = {};
+  if (minLat) {
+    if (minLat < -90) {
+      errors.minLat = "Minimum latitude is invalid";
+    } else {
+      query.where.lat = { [Op.gte]: [minLat] };
+    }
+  }
+  if (maxLat) {
+    if (maxLat > 90) {
+      errors.maxLat = "Maximum latitude is invalid";
+    } else {
+      if (query.where.lat) {
+        query.where.lat = { ...query.where.lat, [Op.lte]: [maxLat] };
+      } else {
+        query.where.lat = { [Op.lte]: [maxLat] };
+      }
+    }
+  }
+  if (minLng) {
+    if (minLng < -180) {
+      errors.minLng = "Minimum longitude is invalid";
+    } else {
+      query.where.lng = { [Op.gte]: [minLng] };
+    }
+  }
+  if (maxLng) {
+    if (maxLng > 180) {
+      errors.maxLng = "Maximum longitude is invalid";
+    } else {
+      if (query.where.lng) {
+        query.where.lng = { ...query.where.lng, [Op.lte]: [maxLng] };
+      } else {
+        query.where.lng = { [Op.lte]: [maxLng] };
+      }
+    }
+  }
+  if (minPrice) {
+    if (minPrice < 0) {
+      errors.minPrice = "Minimum price must be greater than or equal to 0";
+    } else {
+      query.where.price = { [Op.gte]: [minPrice] };
+    }
+  }
+  if (maxPrice) {
+    if (maxPrice < 0) {
+      errors.maxPrice = "Maximum price must be greater than or equal to 0";
+    } else {
+      if (query.where.price) {
+        query.where.price = { ...query.where.price, [Op.lte]: [maxPrice] };
+      } else {
+        query.where.price = { [Op.gte]: [maxPrice] };
+      }
+    }
+  }
 
-  const spots = await Spot.findAll();
-  spots;
+  let { page, size } = req.query;
+
+  if (!page) page = 1;
+  if (!size) size = 20;
+
+  page = Number(page);
+  size = Number(size);
+  if (page >= 1 && size >= 1 && page <= 10 && size <= 20) {
+    query.limit = size;
+    query.offset = size * (page - 1);
+  }
+
+  if (Object.keys(errors).length > 0) {
+    return res.status(400).json({
+      message: "Validation Error",
+      statusCode: 400,
+      errors,
+    });
+  }
+
+  const spots = await Spot.findAll(query);
   const spotData = [];
   for (const currentSpot of spots) {
     const spot = currentSpot.toJSON();
@@ -74,7 +148,12 @@ router.get("/", async (req, res, next) => {
     spotData.push(spot);
   }
 
-  return res.json(spotData);
+  // const Spots = {};
+  // Spots.Spots = spots;
+  // Spots.page = page;
+  // Spots.size = size;
+  // return res.json(Spots);
+  return res.json({ Spots: spots, page, size });
 });
 
 //* GET /current
