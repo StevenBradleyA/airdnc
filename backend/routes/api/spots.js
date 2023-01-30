@@ -23,7 +23,6 @@ const { ResultWithContext } = require("express-validator/src/chain");
 //* GET /
 // Get all spots
 router.get("/", async (req, res, next) => {
-  // //!Query and Pagination time
   let query = {
     where: {},
     include: [],
