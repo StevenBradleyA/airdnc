@@ -80,6 +80,15 @@ router.get("/current", requireAuth, async (req, res, next) => {
 router.delete("/:id", requireAuth, async (req, res, next) => {
   const deleteBooking = await Booking.findByPk(req.params.id);
 
+  startDateObj = deleteBooking.toJSON().startDate;
+  const compareStartDate = startDateObj.getTime();
+  if (Date.now() > compareStartDate) {
+    return res.status(403).json({
+      message: "Bookings that have been started can't be deleted",
+      statusCode: 403,
+    });
+  }
+
   if (!deleteBooking) {
     return res.status(404).json({
       message: "Booking couldn't be found",
@@ -91,15 +100,20 @@ router.delete("/:id", requireAuth, async (req, res, next) => {
       ownerId: req.user.id,
     },
   });
-  const booking = await Booking.findOne({
-    where: {
-      userId: req.user.id,
-    },
-  });
+
+  if (
+    (spot && spot.ownerId !== req.user.id) ||
+    (deleteBooking && deleteBooking.userId !== req.user.id)
+  ) {
+    return res.status(403).json({
+      message: "Forbidden",
+      statusCode: 403,
+    });
+  }
 
   if (
     (spot && spot.ownerId === req.user.id) ||
-    (booking && booking.userId === req.user.id)
+    (deleteBooking && deleteBooking.userId === req.user.id)
   ) {
     deleteBooking.destroy();
     return res.json({
@@ -107,26 +121,12 @@ router.delete("/:id", requireAuth, async (req, res, next) => {
       statusCode: 200,
     });
   }
-  if (
-    (spot && spot.ownerId === req.user.id) ||
-    (booking && booking.userId === req.user.id)
-  ) {
-    return res.status(403).json({
-      message: "Forbidden",
-      statusCode: 403,
-    });
-  } else {
-    return res.status(403).json({
-      message: "Bookings that have been started can't be deleted",
-      statusCode: 403,
-    });
-  }
 });
 
 // todo /:bookingId
 router.put("/:id", requireAuth, async (req, res, next) => {
   const { startDate, endDate } = req.body;
-
+  console.pog(startDate);
   const booking = await Booking.findByPk(req.params.id);
   if (booking && booking.userId !== req.user.id) {
     return res.status(404).json({
@@ -197,6 +197,5 @@ router.put("/:id", requireAuth, async (req, res, next) => {
     return res.json(booking);
   }
 });
-
 
 module.exports = router;
