@@ -145,16 +145,14 @@ router.get("/", async (req, res, next) => {
         preview: true,
       },
     });
-    if(spotImage){
-   
+    if (spotImage) {
       const url = spotImage.toJSON();
 
       const previewImage = url.url;
       spot.previewImage = previewImage;
-    }else{
-      spot.previewImage = "No preview image found"
+    } else {
+      spot.previewImage = "No preview image found";
     }
-
 
     spotData.push(spot);
   }
@@ -204,15 +202,13 @@ router.get("/current", requireAuth, async (req, res, next) => {
       },
     });
     // console.log(spotImage)
-    if(spotImage){
+    if (spotImage) {
       const url = spotImage.toJSON();
       const previewImage = url.url;
       spot.previewImage = previewImage;
-
-    }else{
-      spot.previewImage = "No preview image found"
+    } else {
+      spot.previewImage = "No preview image found";
     }
-
 
     spotData.push(spot);
   }
@@ -364,9 +360,12 @@ router.post("/:id/images", requireAuth, async (req, res, next) => {
       url,
       preview,
     });
+
     const addImageView = await SpotImage.findOne({
       attributes: ["id", "url", "preview"],
-      where: addImage,
+      where: {
+        id: addImage.id,
+      },
     });
     return res.json(addImageView);
   }
