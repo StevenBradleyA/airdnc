@@ -136,7 +136,7 @@ router.get("/", async (req, res, next) => {
     }, 0);
     const avgRating = totalScore / allReviews.length;
 
-    spot.avgRating = avgRating;
+    spot.avgRating = avgRating.toFixed(2);
 
     const spotImage = await SpotImage.findOne({
       attributes: ["url"],
@@ -145,16 +145,14 @@ router.get("/", async (req, res, next) => {
         preview: true,
       },
     });
-    if(spotImage){
-   
+    if (spotImage) {
       const url = spotImage.toJSON();
 
       const previewImage = url.url;
       spot.previewImage = previewImage;
-    }else{
-      spot.previewImage = "No preview image found"
+    } else {
+      spot.previewImage = "No preview image found";
     }
-
 
     spotData.push(spot);
   }
@@ -192,10 +190,12 @@ router.get("/current", requireAuth, async (req, res, next) => {
       sumReview += currentReview.stars;
       return sumReview;
     }, 0);
-    const avgRating = totalScore / allReviews.length;
-
-    spot.avgRating = avgRating;
-
+    if (!totalScore) {
+      spot.avgRating = "There are no reviews for this spot yet :O";
+    } else {
+      const avgRating = totalScore / allReviews.length;
+      spot.avgRating = avgRating.toFixed(2);
+    }
     const spotImage = await SpotImage.findOne({
       attributes: ["url"],
       where: {
@@ -204,15 +204,13 @@ router.get("/current", requireAuth, async (req, res, next) => {
       },
     });
     // console.log(spotImage)
-    if(spotImage){
+    if (spotImage) {
       const url = spotImage.toJSON();
       const previewImage = url.url;
       spot.previewImage = previewImage;
-
-    }else{
-      spot.previewImage = "No preview image found"
+    } else {
+      spot.previewImage = "No preview image found";
     }
-
 
     spotData.push(spot);
   }
@@ -250,7 +248,7 @@ router.get("/:id", async (req, res) => {
   const avgRating = totalScore / allReviews.length;
   const numReviews = allReviews.length;
   currentSpot.numReviews = numReviews;
-  currentSpot.avgStarRating = avgRating;
+  currentSpot.avgStarRating = avgRating.toFixed(2);
 
   const spotImages = await SpotImage.findAll({
     attributes: ["id", "url", "preview"],
@@ -364,9 +362,12 @@ router.post("/:id/images", requireAuth, async (req, res, next) => {
       url,
       preview,
     });
+
     const addImageView = await SpotImage.findOne({
       attributes: ["id", "url", "preview"],
-      where: addImage,
+      where: {
+        id: addImage.id,
+      },
     });
     return res.json(addImageView);
   }
