@@ -511,7 +511,7 @@ router.get("/:id/reviews", async (req, res, next) => {
     const reviewImage = await ReviewImage.findAll({
       attributes: ["id", "url"],
       where: {
-        id: review.id,
+        reviewId: review.id,
       },
     });
 
