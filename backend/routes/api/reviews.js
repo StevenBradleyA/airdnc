@@ -71,7 +71,7 @@ router.get("/current", requireAuth, async (req, res, next) => {
       spotObj.previewImage = "No preview image found"
     }
     
-    console.log(review.id)
+    // console.log(review.id)
     const allCheck = await ReviewImage.findAll()
     console.log(allCheck)
     const reviewImage = await ReviewImage.findAll({
@@ -80,7 +80,7 @@ router.get("/current", requireAuth, async (req, res, next) => {
         reviewId: review.id,
       },
     });
-    console.log(reviewImage)
+    // console.log(reviewImage)
     review.ReviewImages = reviewImage;
 
     reviewData.push(review);
