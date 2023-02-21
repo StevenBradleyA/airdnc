@@ -30,9 +30,10 @@ router.delete("/:id", requireAuth, async (req, res, next) => {
     });
   }
 
+
   const spot = await Spot.findOne({
     where: {
-      ownerId: req.user.id,
+      id: deleteSpotImage.spotId,
     },
   });
 
