@@ -203,7 +203,7 @@ router.get("/current", requireAuth, async (req, res, next) => {
         preview: true,
       },
     });
-    // console.log(spotImage)
+
     if (spotImage) {
       const url = spotImage.toJSON();
       const previewImage = url.url;

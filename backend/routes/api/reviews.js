@@ -71,16 +71,16 @@ router.get("/current", requireAuth, async (req, res, next) => {
       spotObj.previewImage = "No preview image found"
     }
     
-    // console.log(review.id)
-    const allCheck = await ReviewImage.findAll()
-    console.log(allCheck)
+
+    // const allCheck = await ReviewImage.findAll()
+
     const reviewImage = await ReviewImage.findAll({
       attributes: ["id", "url"],
       where: {
         reviewId: review.id,
       },
     });
-    // console.log(reviewImage)
+
     review.ReviewImages = reviewImage;
 
     reviewData.push(review);
