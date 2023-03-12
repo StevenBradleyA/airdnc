@@ -28,8 +28,12 @@ export const signup = (user) => async (dispatch) => {
     }),
   });
   const data = await response.json();
-  dispatch(setUser(data.user));
-  return response;
+  if (response.ok) {
+    dispatch(setUser(data));
+    return response;
+  } else {
+    throw Error(response)
+  }
 };
 
 export const login = (user) => async (dispatch) => {

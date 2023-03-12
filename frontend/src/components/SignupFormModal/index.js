@@ -31,7 +31,18 @@ function SignupFormModal() {
         .then(closeModal)
         .catch(async (res) => {
           const data = await res.json();
-          if (data && data.errors) setErrors(data.errors);
+
+          if (data && data.errors) {
+            setErrors(
+              data.errors.map((e) => {
+                if (e.type === "Validation error") {
+                  if (e.validatorName === "isEmail") {
+                    return "Please provide a valid email.";
+                  }
+                }
+              })
+            );
+          }
         });
     }
     return setErrors([

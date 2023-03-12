@@ -54,33 +54,20 @@ router.post("/", validateSignup, async (req, res) => {
     });
   }
 
-  // router.post(
-  //   '/',
-  //   validateSignup,
-  //   async (req, res) => {
-  //     const { email, password, username } = req.body;
-  //     const user = await User.signup({ email, username, password });
-  
-  //     await setTokenCookie(res, user);
-  
-  //     return res.json({
-  //       user: user
-  //     });
-  //   }
-  // );
+  try {
+    const user = await User.signup({
+      firstName,
+      lastName,
+      email,
+      username,
+      password,
+    });
+    await setTokenCookie(res, user);
 
-
-  const user = await User.signup({
-    firstName,
-    lastName,
-    email,
-    username,
-    password,
-  });
-
-  await setTokenCookie(res, user);
-
-  return res.json(user);
+    return res.json(user);
+  } catch (e) {
+    return res.status(403).json(e);
+  }
 });
 
 module.exports = router;
