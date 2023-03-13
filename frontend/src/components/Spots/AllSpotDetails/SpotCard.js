@@ -11,7 +11,7 @@ const SpotCard = ({ spot }) => {
             <h2>{spot.avgRating}</h2>
           </div>
           <h2>{`$${spot.price} night`}</h2>
-          {/* Going to need the spot name on a hover for css */}
+          {/* Going to need the spot name on a hover css */}
         </div>
       </div>
     </div>
