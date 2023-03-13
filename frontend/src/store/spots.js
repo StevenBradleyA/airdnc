@@ -12,29 +12,34 @@ export const getAllSpotsThunk = () => async (dispatch) => {
 
   if (response.ok) {
     const allSpotData = await response.json();
-    const allSpotDataObj ={}
-      allSpotData.Spots.forEach(e => {
-        allSpotDataObj[e.id]= e
-      });
-      
+    const allSpotDataObj = {};
+    allSpotData.Spots.forEach((e) => {
+      allSpotDataObj[e.id] = e;
+    });
+
     dispatch(getSpots(allSpotDataObj));
   }
 };
 
-// export const restoreUser = () => async (dispatch) => {
-//     const response = await csrfFetch("/api/session");
-//     const data = await response.json();
-//     dispatch(setUser(data.user));
-//     return response;
-//   };
+export const getSpotByIdThunk = (spotId) => async (dispatch) => {
+  const response = await csrfFetch(`/api/spots/${spotId}`);
+
+  if (response.ok) {
+    const allSpotData = await response.json();
+    const allSpotDataObj = {};
+    allSpotData[allSpotData.id] = allSpotData;
+
+    dispatch(getSpots(allSpotDataObj));
+  }
+};
 
 const initialState = {};
 
 const spotsReducer = (state = initialState, action) => {
-  let newState = { ...state };
+  // let newState = { ...state };
   switch (action.type) {
     case GET_SPOTS:
-      newState = { ...action.payload };
+      let newState = { ...state, ...action.payload };
       return newState;
     default:
       return state;
