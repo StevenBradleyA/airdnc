@@ -10,13 +10,23 @@ const AllSpotDetails = () => {
   }, [dispatch]);
 
   const allSpots = useSelector((state) => Object.values(state.spots));
-  console.log(allSpots);
-
+//   console.log(allSpots);
+//   console.log(allSpots.map((c)=>(c)))
   return (
     <div>
       <div>
         {allSpots.map((spot) => (
-            <SpotCard spot={spot}></SpotCard>
+           
+          <div key={spot.id}>
+            <img src={`${spot.previewImage}`}></img>
+            <div>
+              <h2>{spot.city} </h2>
+              <h2>{spot.state} </h2>
+              <h2>{spot.avgRating}</h2>
+            </div>
+            <h2>{`$${spot.price} night`}</h2>
+            <h3></h3>
+          </div>
         ))}
       </div>
     </div>
