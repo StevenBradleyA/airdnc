@@ -1,7 +1,14 @@
 import "./SpotCard.css";
+import { useHistory } from "react-router-dom";
 const SpotCard = ({ spot }) => {
+  const history = useHistory();
+  const handleCardClick = (e) => {
+    e.preventDefault();
+    history.push(`/spots/${spot.id}`);
+  };
+
   return (
-    <div key={spot.id} className="spotCard">
+    <div key={spot.id} onClick={handleCardClick} className="spotCard">
       <img
         src={`${spot.previewImage}`}
         alt={`${spot.name}`}
