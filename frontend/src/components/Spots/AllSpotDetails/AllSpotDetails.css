@@ -1,0 +1,5 @@
+.spotCardsContainer {
+    width: 25%;
+    display: flex;
+    flex-wrap: wrap;
+}
