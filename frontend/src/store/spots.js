@@ -9,7 +9,7 @@ const getSpots = (allSpotData) => ({
 
 export const getAllSpotsAction = () => async (dispatch) => {
   const response = await csrfFetch("/api/spots");
-
+  console.log(response, "/n/n/n/n/n/n/n/n/nHELLOOOOOOOOOOOOOOOOOOO");
   if (response.ok) {
     const allSpotData = await response.json();
     dispatch(getSpots(allSpotData.Spots));
@@ -26,19 +26,11 @@ export const getAllSpotsAction = () => async (dispatch) => {
 const initialState = {};
 
 const spotsReducer = (state = initialState, action) => {
-    let newState = {...state}
+  let newState = { ...state };
   switch (action.type) {
     case GET_SPOTS:
-        newState = {...action.spots}
-        return newState
-        
-    //   newState = Object.assign({}, state);
-    //   newState.user = action.payload;
-    //   return newState;
-    // case REMOVE_USER:
-    //   newState = Object.assign({}, state);
-    //   newState.user = null;
-    //   return newState;
+      newState = { ...action.payload };
+      return newState;
     default:
       return state;
   }
