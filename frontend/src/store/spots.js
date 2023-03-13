@@ -1,20 +1,20 @@
 import { csrfFetch } from "./csrf";
 
-const READ_SPOTS = "spots/READ_SPOTS"
+const GET_SPOTS = "spots/GET_SPOTS";
 
-const readSpots = (allSpotData)=> ({
-    type: READ_SPOTS,
-    payload: allSpotData
-})
+const getSpots = (allSpotData) => ({
+  type: GET_SPOTS,
+  payload: allSpotData,
+});
 
-export const readAllSpotsAction = () => async (dispatch) => {
-    const response = await csrfFetch("/api/spots");
-    const data = await response.json()
-    console.log(data)
-    dispatch(readSpots(data))
+export const getAllSpotsAction = () => async (dispatch) => {
+  const response = await csrfFetch("/api/spots");
 
-
-}
+  if (response.ok) {
+    const allSpotData = await response.json();
+    dispatch(getSpots(allSpotData.Spots));
+  }
+};
 
 // export const restoreUser = () => async (dispatch) => {
 //     const response = await csrfFetch("/api/session");
@@ -26,9 +26,12 @@ export const readAllSpotsAction = () => async (dispatch) => {
 const initialState = {};
 
 const spotsReducer = (state = initialState, action) => {
-  let newState;
+    let newState = {...state}
   switch (action.type) {
-    // case SET_USER:
+    case GET_SPOTS:
+        newState = {...action.spots}
+        return newState
+        
     //   newState = Object.assign({}, state);
     //   newState.user = action.payload;
     //   return newState;
