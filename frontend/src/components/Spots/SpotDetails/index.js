@@ -13,8 +13,8 @@ const SpotDetails = () => {
   }, [dispatch]);
 
 // shouldnt this be in updated state???
-
-
+const singleSpot = useSelector((state) => state)
+console.log('well well well',singleSpot)
   const allSpots = useSelector((state) => state.spots);
   const currentSpot = allSpots[spotId];
   // how can I access the state with only one spot??? I need the images and owner info...
