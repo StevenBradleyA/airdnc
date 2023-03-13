@@ -7,12 +7,17 @@ const getSpots = (allSpotData) => ({
   payload: allSpotData,
 });
 
-export const getAllSpotsAction = () => async (dispatch) => {
+export const getAllSpotsThunk = () => async (dispatch) => {
   const response = await csrfFetch("/api/spots");
-  console.log(response, "/n/n/n/n/n/n/n/n/nHELLOOOOOOOOOOOOOOOOOOO");
+
   if (response.ok) {
     const allSpotData = await response.json();
-    dispatch(getSpots(allSpotData.Spots));
+    const allSpotDataObj ={}
+      allSpotData.Spots.forEach(e => {
+        allSpotDataObj[e.id]= e
+      });
+      
+    dispatch(getSpots(allSpotDataObj));
   }
 };
 

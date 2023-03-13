@@ -1,28 +1,26 @@
-import React, { useEffect, useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { getAllSpotsAction } from "../../../store/spots"
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllSpotsThunk } from "../../../store/spots";
 
 const AllSpotDetails = () => {
-const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-// useEffect(()=> {
-//     dispatch(getAllSpotsAction)
-// }, [dispatch])
+  useEffect(() => {
+    dispatch(getAllSpotsThunk());
+  }, [dispatch]);
 
-// const allSpots = useSelector(state => state.spots)
-// console.log(allSpots)
+  const allSpots = useSelector((state) => Object.values(state.spots));
+  console.log(allSpots);
 
-return (
+  return (
     <div>
-        
-
-
-
-
+      <div>
+        {allSpots.map((spot) => (
+            <SpotCard spot={spot}></SpotCard>
+        ))}
+      </div>
     </div>
+  );
+};
 
-)
-
-}
-
-export default AllSpotDetails
+export default AllSpotDetails;
