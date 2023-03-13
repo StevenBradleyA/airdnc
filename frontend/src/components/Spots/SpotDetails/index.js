@@ -6,15 +6,24 @@ import "./SpotDetails.css";
 
 const SpotDetails = () => {
   const dispatch = useDispatch();
+  const { spotId } = useParams();
 
   useEffect(() => {
-    dispatch(getSpotByIdThunk());
+    dispatch(getSpotByIdThunk(spotId));
   }, [dispatch]);
 
   const allSpots = useSelector((state) => state.spots);
-  console.log(allSpots);
-  // const currentSpot = allSpots[useParams]
-  return <div></div>;
+// const allSpots = useSelector((state) => Object.values(state.spots));
+console.log('yo', allSpots)
+const currentSpot = allSpots[spotId];
+// if(!currentSpot.id){return null}
+// else
+console.log(currentSpot)
+  return (
+    <div>
+      <h2>hallo</h2>
+    </div>
+  );
 };
 
 export default SpotDetails;

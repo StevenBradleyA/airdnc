@@ -11,13 +11,12 @@ const AllSpotDetails = () => {
   }, [dispatch]);
 
   const allSpots = useSelector((state) => Object.values(state.spots));
+  console.log(allSpots);
   return (
-    <div>
-      <div className="spotCardsContainer">
-        {allSpots.map((spot) => (
-          <SpotCard spot={spot} />
-        ))}
-      </div>
+    <div className="spotCardsContainer">
+      {allSpots.map((spot) => (
+        <SpotCard spot={spot} />
+      ))}
     </div>
   );
 };

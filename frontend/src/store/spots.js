@@ -26,10 +26,10 @@ export const getSpotByIdThunk = (spotId) => async (dispatch) => {
 
   if (response.ok) {
     const allSpotData = await response.json();
-    const allSpotDataObj = {};
-    allSpotData[allSpotData.id] = allSpotData;
-
-    dispatch(getSpots(allSpotDataObj));
+    const normalizedSpotData = {};
+    normalizedSpotData[allSpotData.id] = allSpotData;
+console.log(allSpotData)
+    dispatch(getSpots(normalizedSpotData));
   }
 };
 
