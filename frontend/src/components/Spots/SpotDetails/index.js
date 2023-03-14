@@ -12,35 +12,27 @@ const SpotDetails = () => {
     dispatch(getSpotByIdThunk(spotId));
   }, [dispatch]);
 
-// shouldnt this be in updated state???
-const singleSpot = useSelector((state) => state)
-console.log('well well well',singleSpot)
+  // shouldnt this be in updated state???
+
+
   const allSpots = useSelector((state) => state.spots);
   const currentSpot = allSpots[spotId];
   // how can I access the state with only one spot??? I need the images and owner info...
 
-//   if (!currentSpot.id) {
-//     return null;
-//   }
-//   if (!currentSpot.name) {
-//     return null;
-//   }
-//   if (!currentSpot.city) {
-//     return null;
-//   }
-//   if (!currentSpot.state) {
-//     return null;
-//   }
-//   if (!currentSpot.country) {
-//     return null;
-//   }
-  console.log(currentSpot);
+  if (!currentSpot) {
+    return <h1>LOADING...</h1>;
+  }
   return (
     <div>
       <h1>{currentSpot.name}</h1>
       <h2>{`${currentSpot.city}, ${currentSpot.state}, ${currentSpot.country}`}</h2>
       <div>{/* going to need to show all images from new useeffect */}</div>
-      {/* <h1>{`Hosted by ${} ${}`}</h1> */}
+      {currentSpot.Owner && currentSpot.SpotImages && (
+        <h1>{`Hosted by ${currentSpot.Owner.firstName} ${currentSpot.Owner.lastName}`}</h1>
+      )}
+      {/* {currentSpot.SpotImages && (
+        <h1>{`Hosted by ${currentSpot.Owner.firstName} ${currentSpot.Owner.lastName}`}</h1>
+      )} */}
       <p></p>
     </div>
   );

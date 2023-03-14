@@ -6,7 +6,8 @@ import OpenModalButton from "../OpenModalButton";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCouch, faBars } from "@fortawesome/free-solid-svg-icons";
+import { faCouch, faBars, faBurger } from "@fortawesome/free-solid-svg-icons";
+
 import "./Navigation.css";
 
 function Navigation({ isLoaded }) {
@@ -52,12 +53,18 @@ function Navigation({ isLoaded }) {
           airdnc
         </NavLink>
       </div>
-      <div className="menu" onClick={handleMenuClick}>
-        <FontAwesomeIcon icon={faBars} />
-        <ul className="menu-dropdown">
-          <li>Profile</li>
-          <li>{isLoaded && sessionLinks}</li>
-        </ul>
+      <div className="menu">
+        <FontAwesomeIcon
+          icon={faBurger}
+          style={{ opacity: 0.8 }}
+          onClick={handleMenuClick}
+        />
+        {openMenu && (
+          <ul className="menu-dropdown">
+            <li>Profile</li>
+            <li>{isLoaded && sessionLinks}</li>
+          </ul>
+        )}
       </div>
     </div>
   );
