@@ -6,7 +6,7 @@ import OpenModalButton from "../OpenModalButton";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCouch, faBars, faBurger } from "@fortawesome/free-solid-svg-icons";
+import { faCouch, faBurger } from "@fortawesome/free-solid-svg-icons";
 import "./Navigation.css";
 
 function Navigation({ isLoaded }) {

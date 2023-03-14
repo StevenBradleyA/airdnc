@@ -1,12 +1,12 @@
 import { useHistory } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import React, { useState, useEffect } from "react";
 import { createSpotThunk } from "../../../store/spots";
 import "./CreateSpot.css";
 
 const CreateSpotForm = () => {
   const dispatch = useDispatch();
-  // const history = useHistory();
+  const history = useHistory();
 
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
@@ -64,7 +64,8 @@ const CreateSpotForm = () => {
       previewImage,
     };
     dispatch(createSpotThunk(createSpot));
-    // history.push(`/spots/${}`)
+    history.push(`/`)
+    // not quite sure how to access new id here? /spots/newid
   };
 
   return (

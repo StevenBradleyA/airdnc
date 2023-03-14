@@ -10,11 +10,11 @@ const SpotDetails = () => {
 
   useEffect(() => {
     dispatch(getSpotByIdThunk(spotId));
-  }, [dispatch]);
+  }, [dispatch, spotId]);
 
   const allSpots = useSelector((state) => state.spots);
   const currentSpot = allSpots[spotId];
-  
+
   if (!currentSpot) {
     return <h1>LOADING...</h1>;
   }
@@ -25,9 +25,9 @@ const SpotDetails = () => {
       {currentSpot.Owner && currentSpot.SpotImages && (
         <div>
           <div>
-          {currentSpot.SpotImages.map((e) => (
-            <img alt={`Spot Image`} src={`${e.url}`}></img>
-          ))}
+            {currentSpot.SpotImages.map((e) => (
+              <img alt={`Spot`} src={`${e.url}`}></img>
+            ))}
           </div>
 
           <h1>{`Hosted by ${currentSpot.Owner.firstName} ${currentSpot.Owner.lastName}`}</h1>
