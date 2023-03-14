@@ -13,15 +13,16 @@ module.exports = {
       [
         {
           ownerId: 1,
-          address: "123 Disney Lane",
-          city: "San Francisco",
-          state: "California",
+          address: "123 Oregon Place",
+          city: "Beaverton",
+          state: "Oregon",
           country: "United States of America",
           lat: 37.7645358,
           lng: -122.4730327,
-          name: "App Academy",
-          description: "wow, this place is awesome",
-          price: 123,
+          name: "Modern Mid-Century Retreat",
+          description:
+            "Spotless, Sanitized & Stylish! Also equipped with an air sanitizer/ionizer for guests peace of mind! #StayinMyDistrict Beaverton! Mid-Century Modern retreat, built specifically w/guest comfort and convenience in mind. Colorful finishes, tasteful furnishings make for a bright, clean and stylish escape. Walk to parks, shopping, dining & weekly farmers market; 2 min shopping/entertainment district; 12 min downtown Portland.",
+          price: 170,
         },
         {
           ownerId: 2,
@@ -84,7 +85,7 @@ module.exports = {
       {
         name: {
           [Op.in]: [
-            "App Academy",
+            "Modern Mid-Century Retreat",
             "Red House",
             "Blue House",
             "Green House",

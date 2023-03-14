@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 let options = {};
 if (process.env.NODE_ENV === "production") {
@@ -6,7 +6,7 @@ if (process.env.NODE_ENV === "production") {
 }
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
+  async up(queryInterface, Sequelize) {
     options.tableName = "ReviewImages";
     return queryInterface.bulkInsert(
       options,
@@ -36,7 +36,7 @@ module.exports = {
     );
   },
 
-  async down (queryInterface, Sequelize) {
+  async down(queryInterface, Sequelize) {
     options.tableName = "ReviewImages";
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(
@@ -46,5 +46,5 @@ module.exports = {
       },
       {}
     );
-  }
+  },
 };

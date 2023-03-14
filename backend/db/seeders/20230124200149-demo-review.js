@@ -14,13 +14,13 @@ module.exports = {
         {
           spotId: 1,
           userId: 1,
-          review: "wow, this place was pog",
+          review: "Wow, this place has an awesome red couch. 10/10 would stay again!",
           stars: 5,
         },
         {
           spotId: 1,
           userId: 5,
-          review: "wow, this place was not ideal",
+          review: "This place was nice, until I realized it had a red couch. Now I'm never leaving.",
           stars: 4,
         },
         {

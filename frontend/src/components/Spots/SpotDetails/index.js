@@ -14,7 +14,6 @@ const SpotDetails = () => {
 
   // shouldnt this be in updated state???
 
-
   const allSpots = useSelector((state) => state.spots);
   const currentSpot = allSpots[spotId];
   // how can I access the state with only one spot??? I need the images and owner info...
@@ -28,12 +27,24 @@ const SpotDetails = () => {
       <h2>{`${currentSpot.city}, ${currentSpot.state}, ${currentSpot.country}`}</h2>
       <div>{/* going to need to show all images from new useeffect */}</div>
       {currentSpot.Owner && currentSpot.SpotImages && (
-        <h1>{`Hosted by ${currentSpot.Owner.firstName} ${currentSpot.Owner.lastName}`}</h1>
+        <div>
+          {currentSpot.SpotImages.map((e) => (
+            <img alt={`Spot Image`} src={`${e.url}`}></img>
+          ))}
+
+          <h1>{`Hosted by ${currentSpot.Owner.firstName} ${currentSpot.Owner.lastName}`}</h1>
+        </div>
       )}
-      {/* {currentSpot.SpotImages && (
-        <h1>{`Hosted by ${currentSpot.Owner.firstName} ${currentSpot.Owner.lastName}`}</h1>
-      )} */}
-      <p></p>
+      <div>
+        <p>{currentSpot.description}</p>
+        <div>
+          <div>
+            <h1> {`$${currentSpot.price} night `} </h1>
+            <h2>{`${currentSpot.avgStarRating} ${currentSpot.numReviews} reviews`}</h2>
+          </div>
+          <button>Reserve</button>
+        </div>
+      </div>
     </div>
   );
 };
