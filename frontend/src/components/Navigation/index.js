@@ -20,7 +20,7 @@ function Navigation({ isLoaded }) {
   };
   const handleCreateClick = (e) => {
     e.preventDefault();
-    // history('/spots/new');
+    history.push('/spots/new');
   };
   let sessionLinks;
   if (sessionUser) {
