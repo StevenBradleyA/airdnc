@@ -1,6 +1,6 @@
 import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { createSpotThunk } from "../../../store/spots";
 import "./CreateSpot.css";
 
@@ -16,9 +16,43 @@ const CreateSpotForm = () => {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [previewImage, setPreviewImage] = useState("");
+  const [errors, setErrors] = useState([]);
+
+  useEffect(() => {
+    const errorsArr = [];
+    if (country.length === 0) {
+      errorsArr.push("Country is required");
+    }
+    if (address.length === 0) {
+      errorsArr.push("Address is required");
+    }
+    if (city.length === 0) {
+      errorsArr.push("City is required");
+    }
+    if (state.length === 0) {
+      errorsArr.push("State is required");
+    }
+    if (description.length < 30) {
+      errorsArr.push("Description needs a minimum of 30 characters");
+    }
+    if (name.length === 0) {
+      errorsArr.push("Name is required");
+    }
+    if (name.length > 50) {
+      errorsArr.push("Name field must be less than 50 characters");
+    }
+    if (!price) {
+      errorsArr.push("Price is required");
+    }
+    if (previewImage.length === 0) {
+      errorsArr.push("Preview image is required");
+    }
+    setErrors(errorsArr);
+  }, [country, address, city, state, description, name, price, previewImage]);
 
   const handleCreateSpotSubmit = (e) => {
     e.preventDefault();
+    if (errors.length > 0) return;
     const createSpot = {
       address,
       city,
@@ -51,6 +85,11 @@ const CreateSpotForm = () => {
             onChange={(e) => setCountry(e.target.value)}
           />
         </label>
+        <p className="errors">
+          {errors.map((currentError) => (
+            <span key={currentError}>{currentError}</span>
+          ))}
+        </p>
         <label>
           Street Address
           <input
@@ -60,6 +99,7 @@ const CreateSpotForm = () => {
             onChange={(e) => setAddress(e.target.value)}
           />
         </label>
+        <p className="errors"></p>
         <label>
           City
           <input
@@ -69,6 +109,7 @@ const CreateSpotForm = () => {
             onChange={(e) => setCity(e.target.value)}
           />
         </label>
+        <p className="errors"></p>
         <label>
           State
           <input
@@ -78,6 +119,7 @@ const CreateSpotForm = () => {
             onChange={(e) => setState(e.target.value)}
           />
         </label>
+        <p className="errors"></p>
         <h1>Describe your place to guests</h1>
         <label>
           Mention the best features of your space, any special amentities like
@@ -88,6 +130,7 @@ const CreateSpotForm = () => {
             onChange={(e) => setDescription(e.target.value)}
           />
         </label>
+        <p className="errors"></p>
         <h1>Create a title for your spot</h1>
         <label>
           Catch guests' attention with a spot title that highlights what makes
@@ -99,17 +142,19 @@ const CreateSpotForm = () => {
             onChange={(e) => setName(e.target.value)}
           />
         </label>
+        <p className="errors"></p>
         <h1>Set a base price for your spot</h1>
         <label>
           Competitive pricing can help your listing stand out and rank higher in
           search results.
           <input
-            type="text"
+            type="number"
             placeholder="Price per night (USD)"
             value={price}
             onChange={(e) => setPrice(e.target.value)}
           />
         </label>
+        <p className="errors"></p>
         <h1>Liven up your spot with photos</h1>
         <label>
           Submit a link to at least one photo to publish your spot.
@@ -120,7 +165,12 @@ const CreateSpotForm = () => {
             onChange={(e) => setPreviewImage(e.target.value)}
           />
         </label>
-        <button type="submit" onSubmit={handleCreateSpotSubmit}>
+        <p className="errors"></p>
+        <button
+          type="submit"
+          onSubmit={handleCreateSpotSubmit}
+          disabled={errors.length > 0}
+        >
           Create Spot
         </button>
       </form>
