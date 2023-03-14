@@ -47,6 +47,7 @@ const CreateSpotForm = () => {
           <input
             type="text"
             value={country}
+            placeholder="Country"
             onChange={(e) => setCountry(e.target.value)}
           />
         </label>
@@ -55,6 +56,7 @@ const CreateSpotForm = () => {
           <input
             type="text"
             value={address}
+            placeholder="Address"
             onChange={(e) => setAddress(e.target.value)}
           />
         </label>
@@ -62,6 +64,7 @@ const CreateSpotForm = () => {
           City
           <input
             type="text"
+            placeholder="City"
             value={city}
             onChange={(e) => setCity(e.target.value)}
           />
@@ -70,6 +73,7 @@ const CreateSpotForm = () => {
           State
           <input
             type="text"
+            placeholder="State"
             value={state}
             onChange={(e) => setState(e.target.value)}
           />
@@ -79,6 +83,7 @@ const CreateSpotForm = () => {
           Mention the best features of your space, any special amentities like
           fast wifi or parking, and what you love about the neighborhood.
           <textarea
+            placeholder="Description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
@@ -89,6 +94,7 @@ const CreateSpotForm = () => {
           your place special.
           <input
             type="text"
+            placeholder="Name of your spot"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
@@ -99,6 +105,7 @@ const CreateSpotForm = () => {
           search results.
           <input
             type="text"
+            placeholder="Price per night (USD)"
             value={price}
             onChange={(e) => setPrice(e.target.value)}
           />
@@ -108,6 +115,7 @@ const CreateSpotForm = () => {
           Submit a link to at least one photo to publish your spot.
           <input
             type="url"
+            placeholder="Preview Image URL"
             value={previewImage}
             onChange={(e) => setPreviewImage(e.target.value)}
           />
