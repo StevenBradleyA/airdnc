@@ -21,7 +21,7 @@ function Navigation({ isLoaded }) {
     );
   } else {
     sessionLinks = (
-      <div className="menu">
+      <li className="menu">
         <OpenModalButton
           buttonText="Log In"
           modalComponent={<LoginFormModal />}
@@ -30,7 +30,7 @@ function Navigation({ isLoaded }) {
           buttonText="Sign Up"
           modalComponent={<SignupFormModal />}
         />
-      </div>
+      </li>
     );
   }
 
@@ -49,8 +49,8 @@ function Navigation({ isLoaded }) {
       </div>
       <div className="menu-dropdown">
         <FontAwesomeIcon icon={faBars} />
+        <ul>{isLoaded && sessionLinks}</ul>
       </div>
-      {isLoaded && sessionLinks}
     </div>
   );
 }

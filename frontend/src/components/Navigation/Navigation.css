@@ -1,29 +1,32 @@
-.navigation-bar{
-    display: grid;
-    /* grid-template-columns: 100px 100px 100px 100px 100px; */
-    /* align-items: baseline; */
+.navigation-bar {
+  display: grid;
+  /* grid-template-columns: 100px 100px 100px 100px 100px; */
+  /* align-items: baseline; */
+  height: 4rem;
+  border-bottom: 1px solid rgb(205, 202, 202);
 }
 
-.home-button{
-    color: rgb(254, 2, 2);
-
+.home-button {
+  color: rgb(254, 2, 2);
+  position: relative;
+  top: 1rem;
+  left: 5rem;
+  font-size: 25px;
 }
 
-
-
-.menu-dropdown{
-    position: absolute;
-    top: 1%;
-    right: 10%;
-
+.menu-dropdown {
+  position: absolute;
+  top: 1.75rem;
+  right: 5rem;
+  cursor: pointer;
+  font-size: 20px;
 }
 
-.log-in-button{
-    background-color: red;
-    color: blue;
+.log-in-button {
+  background-color: red;
+  color: blue;
 }
 
-.sign-up-button{
-    background-color: red;
-
+.sign-up-button {
+  background-color: red;
 }
