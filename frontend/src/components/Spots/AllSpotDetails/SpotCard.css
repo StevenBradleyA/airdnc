@@ -1,7 +1,13 @@
 .spotCard {
-  width: 10%;
+  width: 25%;
   height: 15%;
-  display: grid;
+  margin: 1rem auto;
+  display: flex;
+  flex-direction: column;
+
+
+ 
+  /* grid-template-rows: 1fr 1fr 1fr; */
   transition: filter 300ms;
 }
 
@@ -13,15 +19,19 @@
 .previewImage {
   width: 100%;
   border-radius: 10% 10%;
+  
 }
 
 .location {
   font-size: 10px;
+ 
 }
 
 .avg-rating {
   font-size: 10px;
+ 
 }
 .price {
   font-size: 10px;
+  
 }
