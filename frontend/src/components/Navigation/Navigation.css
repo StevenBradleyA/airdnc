@@ -1,13 +1,22 @@
-.header{
-    display: flex;
-    align-items: baseline;
+.navigation-bar{
+    display: grid;
+    /* grid-template-columns: 100px 100px 100px 100px 100px; */
+    /* align-items: baseline; */
 }
 
-/* .nav-bar{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-} */
+.home-button{
+    color: rgb(254, 2, 2);
+
+}
+
+
+
+.menu-dropdown{
+    position: absolute;
+    top: 1%;
+    right: 10%;
+
+}
 
 .log-in-button{
     background-color: red;

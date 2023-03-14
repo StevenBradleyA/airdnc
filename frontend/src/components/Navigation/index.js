@@ -5,6 +5,8 @@ import ProfileButton from "./ProfileButton";
 import OpenModalButton from "../OpenModalButton";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCouch, faBars } from "@fortawesome/free-solid-svg-icons";
 import "./Navigation.css";
 
 function Navigation({ isLoaded }) {
@@ -19,7 +21,7 @@ function Navigation({ isLoaded }) {
     );
   } else {
     sessionLinks = (
-      <li className="nav-bar">
+      <div className="menu">
         <OpenModalButton
           buttonText="Log In"
           modalComponent={<LoginFormModal />}
@@ -28,19 +30,28 @@ function Navigation({ isLoaded }) {
           buttonText="Sign Up"
           modalComponent={<SignupFormModal />}
         />
-      </li>
+      </div>
     );
   }
 
   return (
-    <ul className="header">
-      <li>
-        <NavLink exact to="/">
-          Home
+    <div className="navigation-bar">
+      <div className="home-button">
+        <NavLink
+          exact
+          to="/"
+          style={{ color: "inherit", textDecoration: "inherit" }}
+        >
+          <FontAwesomeIcon icon={faCouch} />
+          <> </>
+          airdnc
         </NavLink>
-      </li>
+      </div>
+      <div className="menu-dropdown">
+        <FontAwesomeIcon icon={faBars} />
+      </div>
       {isLoaded && sessionLinks}
-    </ul>
+    </div>
   );
 }
 
