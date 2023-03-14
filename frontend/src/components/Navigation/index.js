@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ProfileButton from "./ProfileButton";
@@ -11,7 +11,12 @@ import "./Navigation.css";
 
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector((state) => state.session.user);
+  const [openMenu, setOpenMenu] = useState(false);
 
+  const handleMenuClick = (e) => {
+    e.preventDefault();
+    setOpenMenu((open) => !open);
+  };
   let sessionLinks;
   if (sessionUser) {
     sessionLinks = (
@@ -47,15 +52,12 @@ function Navigation({ isLoaded }) {
           airdnc
         </NavLink>
       </div>
-      <div className="menu">
+      <div className="menu" onClick={handleMenuClick}>
         <FontAwesomeIcon icon={faBars} />
         <ul className="menu-dropdown">
           <li>Profile</li>
-          <li>
-          {isLoaded && sessionLinks}
-
-          </li>
-          </ul>
+          <li>{isLoaded && sessionLinks}</li>
+        </ul>
       </div>
     </div>
   );

@@ -30,21 +30,21 @@
   width: 110px;
   padding: 30px;
   height: 110px;
-  border-radius: 15px;
+  border-radius: 10px;
   background-color: white;
   border: 1px solid gray;
 }
-.menu-dropdown::before{
-    position: absolute;
-    transform: rotate(45deg);
-    background-color: white;
-    border-left: 1px solid gray;
-    border-top: 1px solid gray;
-    right: 2rem;
-    height: 25px;
-    width: 25px;
-    top: -0.85rem;
-    content: '';
+.menu-dropdown::before {
+  position: absolute;
+  transform: rotate(45deg);
+  background-color: white;
+  border-left: 1px solid gray;
+  border-top: 1px solid gray;
+  right: 2rem;
+  height: 25px;
+  width: 25px;
+  top: -0.85rem;
+  content: "";
 }
 
 .log-in-button {
