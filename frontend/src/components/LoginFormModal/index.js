@@ -16,12 +16,10 @@ function LoginFormModal() {
     setErrors([]);
     return dispatch(sessionActions.login({ credential, password }))
       .then(closeModal)
-      .catch(
-        async (res) => {
-          const data = await res.json();
-          if (data && data.errors) setErrors(data.errors);
-        }
-      );
+      .catch(async (res) => {
+        const data = await res.json();
+        if (data && data.errors) setErrors(data.errors);
+      });
   };
 
   return (
@@ -51,7 +49,9 @@ function LoginFormModal() {
             required
           />
         </label>
-        <button type="submit">Log In</button>
+        <button type="submit" className="logInButton">
+          Log In
+        </button>
       </form>
     </>
   );

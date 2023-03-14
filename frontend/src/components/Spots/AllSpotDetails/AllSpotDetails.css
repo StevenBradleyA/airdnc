@@ -1,4 +1,12 @@
 .spotCardsContainer {
   display: flex;
+  flex-direction: row;
+  /* justify-content: space-evenly; */
   flex-wrap: wrap;
+  align-content: flex-start;
+  gap: 5rem;
 }
+
+/* @media (min-width: 1880px){
+
+} */
