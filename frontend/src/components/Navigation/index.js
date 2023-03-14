@@ -47,9 +47,15 @@ function Navigation({ isLoaded }) {
           airdnc
         </NavLink>
       </div>
-      <div className="menu-dropdown">
+      <div className="menu">
         <FontAwesomeIcon icon={faBars} />
-        <ul>{isLoaded && sessionLinks}</ul>
+        <ul className="menu-dropdown">
+          <li>Profile</li>
+          <li>
+          {isLoaded && sessionLinks}
+
+          </li>
+          </ul>
       </div>
     </div>
   );

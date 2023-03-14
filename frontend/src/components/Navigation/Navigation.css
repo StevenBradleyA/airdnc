@@ -4,6 +4,7 @@
   /* align-items: baseline; */
   height: 4rem;
   border-bottom: 1px solid rgb(205, 202, 202);
+  padding: 1rem 1rem;
 }
 
 .home-button {
@@ -14,12 +15,36 @@
   font-size: 25px;
 }
 
-.menu-dropdown {
+.menu {
   position: absolute;
-  top: 1.75rem;
+  top: 2.5rem;
   right: 5rem;
   cursor: pointer;
   font-size: 20px;
+}
+
+.menu-dropdown {
+  position: absolute;
+  top: 2.5rem;
+  right: 5rem;
+  width: 110px;
+  padding: 30px;
+  height: 110px;
+  border-radius: 15px;
+  background-color: white;
+  border: 1px solid gray;
+}
+.menu-dropdown::before{
+    position: absolute;
+    transform: rotate(45deg);
+    background-color: white;
+    border-left: 1px solid gray;
+    border-top: 1px solid gray;
+    right: 2rem;
+    height: 25px;
+    width: 25px;
+    top: -0.85rem;
+    content: '';
 }
 
 .log-in-button {
