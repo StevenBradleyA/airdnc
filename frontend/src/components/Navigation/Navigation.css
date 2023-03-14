@@ -1,10 +1,13 @@
 .navigation-bar {
-  display: grid;
-  /* grid-template-columns: 100px 100px 100px 100px 100px; */
-  /* align-items: baseline; */
-  height: 4rem;
+  display: block;
+  
+  height: 10%;
+  width: 100%;
+  top: 0%;
   border-bottom: 1px solid rgb(205, 202, 202);
-  padding: 1rem 1rem;
+  /* padding: 0rem 0rem; */
+  position: fixed;
+  background-color: white;
 }
 
 .home-button {
@@ -46,6 +49,16 @@
   top: -0.85rem;
   content: "";
 }
+
+.new-spot-button{
+  color: red;
+  position: absolute;
+  right: 10rem;
+  top: 2.5rem;
+
+}
+
+
 
 .log-in-button {
   background-color: red;

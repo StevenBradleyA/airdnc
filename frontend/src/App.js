@@ -5,6 +5,7 @@ import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import AllSpotDetails from "./components/Spots/AllSpotDetails";
 import SpotDetails from "./components/Spots/SpotDetails";
+import CreateSpot from "./components/Spots/CreateSpot";
 
 function App() {
   const dispatch = useDispatch();
@@ -23,6 +24,9 @@ function App() {
           </Route>
           <Route path="/spots/:spotId">
             <SpotDetails />
+          </Route>
+          <Route path="/spots/new">
+            <CreateSpot />
           </Route>
           <Route>
             <p>Page Not Found ¯\_(ツ)_/¯ </p>

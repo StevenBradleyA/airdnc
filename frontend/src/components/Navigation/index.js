@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ProfileButton from "./ProfileButton";
 import OpenModalButton from "../OpenModalButton";
@@ -7,16 +7,20 @@ import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCouch, faBars, faBurger } from "@fortawesome/free-solid-svg-icons";
-
 import "./Navigation.css";
 
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector((state) => state.session.user);
   const [openMenu, setOpenMenu] = useState(false);
+  const history = useHistory()
 
   const handleMenuClick = (e) => {
     e.preventDefault();
     setOpenMenu((open) => !open);
+  };
+  const handleCreateClick = (e) => {
+    e.preventDefault();
+    // history('/spots/new');
   };
   let sessionLinks;
   if (sessionUser) {
@@ -53,6 +57,11 @@ function Navigation({ isLoaded }) {
           airdnc
         </NavLink>
       </div>
+      {sessionUser && (
+        <div className="new-spot-button">
+          <button onClick={handleCreateClick}>Create a New Spot</button>
+        </div>
+      )}
       <div className="menu">
         <FontAwesomeIcon
           icon={faBurger}
@@ -61,7 +70,7 @@ function Navigation({ isLoaded }) {
         />
         {openMenu && (
           <ul className="menu-dropdown">
-            <li>Profile</li>
+            <li>Manage Spots</li>
             <li>{isLoaded && sessionLinks}</li>
           </ul>
         )}

@@ -9,7 +9,7 @@ const getSpots = (allSpotData) => ({
 });
 
 const createSpot = (newSpotData) => ({
-  type: CREATE_SPOTS,
+  type: CREATE_SPOT,
   payload: newSpotData,
 });
 
@@ -61,7 +61,8 @@ const spotsReducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_SPOTS:
       return { ...state, ...action.payload };
-
+    case CREATE_SPOT:
+      return { ...state, ...action.payload };
     default:
       return state;
   }
