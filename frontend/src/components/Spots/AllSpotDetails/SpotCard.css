@@ -1,9 +1,27 @@
 .spotCard {
   width: 10%;
   height: 15%;
+  display: grid;
+  transition: filter 300ms;
 }
+
+.spotCard:hover {
+  filter: brightness(1.2);
+}
+/* need to add name of spot for hover */
 
 .previewImage {
   width: 100%;
   border-radius: 10% 10%;
+}
+
+.location {
+  font-size: 10px;
+}
+
+.avg-rating {
+  font-size: 10px;
+}
+.price {
+  font-size: 10px;
 }
