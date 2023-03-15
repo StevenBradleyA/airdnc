@@ -19,9 +19,11 @@ const CreateSpotForm = ({ formType }) => {
   const [nonPreviewImage2, setNonPreviewImage2] = useState("");
   const [nonPreviewImage3, setNonPreviewImage3] = useState("");
   const [nonPreviewImage4, setNonPreviewImage4] = useState("");
-
   const [errors, setErrors] = useState({});
   const [hasSubmitted, setHasSubmitted] = useState(false);
+
+  // I want to refactor non preview images in a function so somone could put as many
+  // as they would like for there home. also my code is super wet.
 
   const handleInputErrors = () => {
     const errorsObj = {};
