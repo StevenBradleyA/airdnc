@@ -327,7 +327,6 @@ router.post("/", requireAuth, async (req, res, next) => {
     errors.description ||
     errors.price
     ) {
-      console.log(`\n\n\n\n\n`, errors,`\n\n\n\n\n`)
       return res.status(400).json({
         message: "Validation Error",
       statusCode: 400,
@@ -349,26 +348,26 @@ router.post("/", requireAuth, async (req, res, next) => {
   });
   // ----------BACKEND REFACTOR TO ADD ALL IMAGES ---------------------
   // console.log(newSpot)
-  // if(previewImage){
+  if(previewImage){
 
-  //   const addImage = await SpotImage.create({
-  //     spotId: spot.id,
-  //     url,
-  //     preview,
-  //   });
+    const addImage = await SpotImage.create({
+      spotId: newSpot.id,
+      previewImage,
+      preview: true
+    });
 
-  // }
-  // if(imageArr){
+  }
+  if(imageArr){
+    imageArr.forEach(async (imageUrl) => {
+    await SpotImage.create({
+        spotId: newSpot.id,
+        imageUrl,
+        preview: false
+      });
+    });
 
-  //   const addImage = await SpotImage.create({
-  //     spotId: spot.id,
-  //     url,
-  //     preview,
-  //   });
+  }
 
-  // }
-
-  // (newSpot);
   return res.status(201).json(newSpot);
 });
 
