@@ -14,7 +14,7 @@ const CreateSpot = () => {
 
   return (
     <div className="create-container">
-      <CreateSpotForm />
+      <CreateSpotForm formType="create"/>
     </div>
   );
 };

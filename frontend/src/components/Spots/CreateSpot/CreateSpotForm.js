@@ -1,7 +1,7 @@
 import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import React, { useState, useEffect } from "react";
-import { createSpotThunk } from "../../../store/spots";
+import { createSpotThunk, updateSpotThunk } from "../../../store/spots";
 import "./CreateSpot.css";
 
 const CreateSpotForm = () => {
@@ -52,7 +52,7 @@ const CreateSpotForm = () => {
   const handleCreateSpotSubmit = (e) => {
     e.preventDefault();
     if (errors.length > 0) return;
-    const createSpot = {
+    const spotInformation = {
       address,
       city,
       state,
@@ -62,16 +62,37 @@ const CreateSpotForm = () => {
       price,
       previewImage,
     };
-    dispatch(createSpotThunk(createSpot));
+    dispatch(createSpotThunk(spotInformation));
     history.push(`/`);
     // not quite sure how to access new id here? /spots/newid
     // I also think handle submit needs to be async and await the result of the dispatch
+    // if (formType === "create") {
+    //   dispatch(createSpotThunk(spotInformation));
+    //   history.push(`/`);
+    // }
+    // if (formType === "update") {
+    //   dispatch(updateSpotThunk(spotInformation));
+    //   history.push(`/`);
+    // }
   };
+
+
+
+
   // I could set error to an obj and just call that key.
   //   errorsObj.Country {return errorsobjcountry}
+
+  // {sessionUser && (
+  //   <div className="new-spot-button">
+  //     <button onClick={handleCreateClick}>Create a New Spot</button>
+  //   </div>
+  // )}
+
+
   return (
     <div>
-      <h1>Create a new Spot</h1>
+      {formType === 'create' && (<h1>Create a Spot</h1>)}
+      {formType === 'update' && (<h1>Update your Spot</h1>)}
       <h2>Where's your place located?</h2>
       <h3>
         Guests will only get your exact address once they have booked a

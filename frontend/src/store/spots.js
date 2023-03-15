@@ -2,6 +2,7 @@ import { csrfFetch } from "./csrf";
 
 const LOAD_SPOTS = "spots/LOAD_SPOTS";
 const CREATE_SPOT = "spots/CREATE_SPOT";
+const UPDATE_SPOT = "spots/UPDATE_SPOT";
 
 const loadSpots = (allSpotData) => ({
   type: LOAD_SPOTS,
@@ -11,6 +12,11 @@ const loadSpots = (allSpotData) => ({
 const createSpot = (newSpotData) => ({
   type: CREATE_SPOT,
   payload: newSpotData,
+});
+
+const updateSpot = (updatedSpotData) => ({
+  type: UPDATE_SPOT,
+  payload: updatedSpotData,
 });
 
 export const getAllSpotsThunk = () => async (dispatch) => {
@@ -52,7 +58,6 @@ export const getOwnedSpotsThunk = (ownedSpotData) => async (dispatch) => {
   }
 };
 
-
 export const createSpotThunk = (newSpotData) => async (dispatch) => {
   const response = await csrfFetch(`/api/spots`, {
     method: "POST",
@@ -69,23 +74,21 @@ export const createSpotThunk = (newSpotData) => async (dispatch) => {
   }
 };
 
+export const updateSpotThunk = (newSpotData) => async (dispatch) => {
+  const response = await csrfFetch(`/api/spots`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(),
+  });
 
-
-// export const updateSpotThunk = (newSpotData) => async (dispatch) => {
-//   const response = await csrfFetch(`/api/spots`, {
-//     method: "PUT",
-//     headers: { "Content-Type": "application/json" },
-//     body: JSON.stringify(),
-//   });
-
-//   if (response.ok) {
-//     const newSpotData = await response.json();
-//     const normalizedSpotData = {};
-//     normalizedSpotData[newSpotData.id] = newSpotData;
-//     // console.log('hello there',normalizedSpotData)
-//     dispatch(createSpot(normalizedSpotData));
-//   }
-// };
+  if (response.ok) {
+    const newSpotData = await response.json();
+    const normalizedSpotData = {};
+    normalizedSpotData[newSpotData.id] = newSpotData;
+    // console.log('hello there',normalizedSpotData)
+    dispatch(updateSpot(normalizedSpotData));
+  }
+};
 
 const initialState = {};
 
@@ -95,6 +98,8 @@ const spotsReducer = (state = initialState, action) => {
     case LOAD_SPOTS:
       return { ...state, ...action.payload };
     case CREATE_SPOT:
+      return { ...state, ...action.payload };
+    case UPDATE_SPOT:
       return { ...state, ...action.payload };
     default:
       return state;
