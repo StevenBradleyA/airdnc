@@ -13,7 +13,7 @@ const UpdateSpot = () => {
 
   return (
     <div className="update-container">
-      <CreateSpot />
+      <CreateSpot formType='update'/>
     </div>
   );
 };

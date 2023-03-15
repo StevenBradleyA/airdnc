@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { createSpotThunk, updateSpotThunk } from "../../../store/spots";
 import "./CreateSpot.css";
 
-const CreateSpotForm = () => {
+const CreateSpotForm = ({ formType }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [address, setAddress] = useState("");
@@ -19,37 +19,47 @@ const CreateSpotForm = () => {
 
   useEffect(() => {
     const errorsArr = [];
+    const errorsObj = {};
     if (country.length === 0) {
-      errorsArr.push("Country is required");
+      errorsObj.country = "Country is required";
     }
     if (address.length === 0) {
-      errorsArr.push("Address is required");
+      errorsObj.address = "Address is required";
     }
     if (city.length === 0) {
-      errorsArr.push("City is required");
+      errorsObj.city = "City is required";
     }
     if (state.length === 0) {
-      errorsArr.push("State is required");
+      errorsObj.state = "State is required";
     }
     if (description.length < 30) {
-      errorsArr.push("Description needs a minimum of 30 characters");
+      errorsObj.description = "Description needs a minimum of 30 characters";
     }
     if (name.length === 0) {
-      errorsArr.push("Name is required");
-    }
-    if (name.length > 50) {
-      errorsArr.push("Name field must be less than 50 characters");
+      errorsObj.name = "Name is required";
     }
     if (!price) {
-      errorsArr.push("Price is required");
+      errorsObj.price = "Price is required";
     }
     if (previewImage.length === 0) {
-      errorsArr.push("Preview image is required");
+      errorsObj.previewImage = "Preview image is required";
+    }
+    if (
+      errorsObj.country ||
+      errorsObj.address ||
+      errorsObj.city ||
+      errorsObj.state ||
+      errorsObj.description ||
+      errorsObj.name ||
+      errorsObj.price ||
+      errorsObj.previewImage
+    ) {
+      errorsArr.push(errorsObj);
     }
     setErrors(errorsArr);
   }, [country, address, city, state, description, name, price, previewImage]);
 
-  const handleCreateSpotSubmit = (e) => {
+  const handleFormSubmit = (e) => {
     e.preventDefault();
     if (errors.length > 0) return;
     const spotInformation = {
@@ -76,34 +86,19 @@ const CreateSpotForm = () => {
     // }
   };
 
-
-
-
-  // I could set error to an obj and just call that key.
-  //   errorsObj.Country {return errorsobjcountry}
-
-  // {sessionUser && (
-  //   <div className="new-spot-button">
-  //     <button onClick={handleCreateClick}>Create a New Spot</button>
-  //   </div>
-  // )}
+  
 
 
   return (
     <div>
-      {formType === 'create' && (<h1>Create a Spot</h1>)}
-      {formType === 'update' && (<h1>Update your Spot</h1>)}
+      {formType === "create" && <h1>Create a Spot</h1>}
+      {formType === "update" && <h1>Update your Spot</h1>}
       <h2>Where's your place located?</h2>
       <h3>
         Guests will only get your exact address once they have booked a
         reservation.
       </h3>
-      <p className="errors">
-        {errors.map((currentError) => (
-          <span key={currentError}>{currentError}</span>
-        ))}
-      </p>
-      <form>
+      <form onSubmit={handleFormSubmit}>
         <label>
           Country
           <input
@@ -113,11 +108,7 @@ const CreateSpotForm = () => {
             onChange={(e) => setCountry(e.target.value)}
           />
         </label>
-        <p className="errors">
-          {/* {errors.find((currentError) => (
-            <span key={currentError}>{currentError.includes("Country")}</span>
-          ))} */}
-        </p>
+        {errors.length > 0 && <p className="errors">{errors[0].country}</p>}
         <label>
           Street Address
           <input
@@ -127,11 +118,8 @@ const CreateSpotForm = () => {
             onChange={(e) => setAddress(e.target.value)}
           />
         </label>
-        {/* <p className="errors">
-          {errors.find((currentError) => (
-            <span key={currentError}>{currentError.includes("Address")}</span>
-          ))}
-        </p> */}
+        {errors.length > 0 && <p className="errors">{errors[0].address}</p>}
+
         <label>
           City
           <input
@@ -141,6 +129,8 @@ const CreateSpotForm = () => {
             onChange={(e) => setCity(e.target.value)}
           />
         </label>
+        {errors.length > 0 && <p className="errors">{errors[0].city}</p>}
+
 
         <label>
           State
@@ -151,6 +141,8 @@ const CreateSpotForm = () => {
             onChange={(e) => setState(e.target.value)}
           />
         </label>
+        {errors.length > 0 && <p className="errors">{errors[0].state}</p>}
+
 
         <h1>Describe your place to guests</h1>
         <label>
@@ -162,6 +154,8 @@ const CreateSpotForm = () => {
             onChange={(e) => setDescription(e.target.value)}
           />
         </label>
+        {errors.length > 0 && <p className="errors">{errors[0].description}</p>}
+
 
         <h1>Create a title for your spot</h1>
         <label>
@@ -174,6 +168,8 @@ const CreateSpotForm = () => {
             onChange={(e) => setName(e.target.value)}
           />
         </label>
+        {errors.length > 0 && <p className="errors">{errors[0].name}</p>}
+
 
         <h1>Set a base price for your spot</h1>
         <label>
@@ -186,6 +182,8 @@ const CreateSpotForm = () => {
             onChange={(e) => setPrice(e.target.value)}
           />
         </label>
+        {errors.length > 0 && <p className="errors">{errors[0].price}</p>}
+
 
         <h1>Liven up your spot with photos</h1>
         <label>
@@ -197,14 +195,10 @@ const CreateSpotForm = () => {
             onChange={(e) => setPreviewImage(e.target.value)}
           />
         </label>
+        {errors.length > 0 && <p className="errors">{errors[0].previewImage}</p>}
+
         <p></p>
-        <button
-          type="submit"
-          onSubmit={handleCreateSpotSubmit}
-          disabled={errors.length > 0}
-        >
-          Create Spot
-        </button>
+        <input type="submit" value="Create Spot" disabled={errors.length > 0} />
       </form>
     </div>
   );
