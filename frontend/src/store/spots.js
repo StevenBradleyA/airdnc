@@ -59,18 +59,28 @@ export const getOwnedSpotsThunk = (ownedSpotData) => async (dispatch) => {
 };
 
 export const createSpotThunk = (newSpotData) => async (dispatch) => {
-  const response = await csrfFetch(`/api/spots`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(),
-  });
 
-  if (response.ok) {
-    const newSpotData = await response.json();
-    const normalizedSpotData = {};
-    normalizedSpotData[newSpotData.id] = newSpotData;
-    // console.log('hello there',normalizedSpotData)
-    dispatch(createSpot(normalizedSpotData));
+  try{
+    const response = await csrfFetch(`/api/spots/`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newSpotData),
+    });
+
+    
+      const data = await response.json();
+      const normalizedSpotData = {};
+      normalizedSpotData[data.id] = data;
+      // console.log('hello there',normalizedSpotData)
+      dispatch(createSpot(normalizedSpotData));
+      return data
+    
+  }
+  catch(error){
+    console.log(error)
+   
+      console.log('validation error')
+  
   }
 };
 

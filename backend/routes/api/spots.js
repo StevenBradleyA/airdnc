@@ -272,11 +272,22 @@ router.get("/:id", async (req, res) => {
 //todo POST /
 
 router.post("/", requireAuth, async (req, res, next) => {
-  const { address, city, state, country, lat, lng, name, description, price } =
-    req.body;
-
+  const {
+    address,
+    city,
+    state,
+    country,
+    lat,
+    lng,
+    name,
+    description,
+    price,
+    previewImage,
+    imageArr,
+  } = req.body;
+  
   const errors = {};
-
+  
   if (!address) {
     errors.address = "Street address is required";
   }
@@ -289,12 +300,12 @@ router.post("/", requireAuth, async (req, res, next) => {
   if (!country) {
     errors.country = "Country is required";
   }
-  if (!lat) {
-    errors.lat = "Latitude is not valid";
-  }
-  if (!lng) {
-    errors.lng = "Longitude is not valid";
-  }
+  // if (!lat) {
+  //   errors.lat = "Latitude is not valid";
+  // }
+  // if (!lng) {
+  //   errors.lng = "Longitude is not valid";
+  // }
   if (!name) {
     errors.name = "Name must be less than 50 characters";
   }
@@ -304,20 +315,21 @@ router.post("/", requireAuth, async (req, res, next) => {
   if (!price) {
     errors.price = "Price per day is required";
   }
-
+  
   if (
     errors.address ||
     errors.city ||
     errors.state ||
     errors.country ||
-    errors.lat ||
-    errors.lng ||
+    // errors.lat ||
+    // errors.lng ||
     errors.name ||
     errors.description ||
     errors.price
-  ) {
-    return res.status(400).json({
-      message: "Validation Error",
+    ) {
+      console.log(`\n\n\n\n\n`, errors,`\n\n\n\n\n`)
+      return res.status(400).json({
+        message: "Validation Error",
       statusCode: 400,
       errors,
     });
@@ -335,6 +347,26 @@ router.post("/", requireAuth, async (req, res, next) => {
     description,
     price,
   });
+  // ----------BACKEND REFACTOR TO ADD ALL IMAGES ---------------------
+  // console.log(newSpot)
+  // if(previewImage){
+
+  //   const addImage = await SpotImage.create({
+  //     spotId: spot.id,
+  //     url,
+  //     preview,
+  //   });
+
+  // }
+  // if(imageArr){
+
+  //   const addImage = await SpotImage.create({
+  //     spotId: spot.id,
+  //     url,
+  //     preview,
+  //   });
+
+  // }
 
   // (newSpot);
   return res.status(201).json(newSpot);
