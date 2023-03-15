@@ -71,12 +71,32 @@ const CreateSpotForm = ({ formType }) => {
   };
   useEffect(() => {
     handleInputErrors();
-  }, [country, address, city, state, description, name, price, previewImage, nonPreviewImage1, nonPreviewImage2, nonPreviewImage3, nonPreviewImage4]);
+  }, [
+    country,
+    address,
+    city,
+    state,
+    description,
+    name,
+    price,
+    previewImage,
+    nonPreviewImage1,
+    nonPreviewImage2,
+    nonPreviewImage3,
+    nonPreviewImage4,
+  ]);
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
     if (!Object.values(errors).length) {
+      const imageArr = [];
+      imageArr.push(
+        nonPreviewImage1,
+        nonPreviewImage2,
+        nonPreviewImage3,
+        nonPreviewImage4
+      );
       const spotInformation = {
         address,
         city,
@@ -86,6 +106,7 @@ const CreateSpotForm = ({ formType }) => {
         description,
         price,
         previewImage,
+        imageArr,
       };
 
       // let newSpot = await dispatch(createSpotThunk(spotInformation));

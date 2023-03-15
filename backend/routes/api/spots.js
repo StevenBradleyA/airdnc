@@ -352,7 +352,7 @@ router.post("/", requireAuth, async (req, res, next) => {
 
     const addImage = await SpotImage.create({
       spotId: newSpot.id,
-      previewImage,
+      url: previewImage,
       preview: true
     });
 
@@ -361,7 +361,7 @@ router.post("/", requireAuth, async (req, res, next) => {
     imageArr.forEach(async (imageUrl) => {
     await SpotImage.create({
         spotId: newSpot.id,
-        imageUrl,
+        url: imageUrl,
         preview: false
       });
     });

@@ -77,7 +77,7 @@ export const createSpotThunk = (newSpotData) => async (dispatch) => {
     
   }
   catch(error){
-    console.log(error)
+    console.log('hello hello hello ',error)
    
       console.log('validation error')
   
