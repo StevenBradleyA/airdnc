@@ -39,8 +39,28 @@ module.exports = {
         
         {
           spotId: 2,
-          url: "https://media.architecturaldigest.com/photos/61b0ce48dccdb75fa170f8f7/16:9/w_2560%2Cc_limit/PurpleCherry_Williams_0012.jpg",
+          url: "https://img.peerspace.com/image/upload/w_1200,c_limit/c_crop,g_custom,f_auto,q_auto,dpr_auto/l_PS-logo,g_south_east,x_20,y_20,w_175,o_75/f3d0dv6bmdnsdrlckn0e",
           preview: true,
+        },
+        {
+          spotId: 2,
+          url: "https://img.peerspace.com/image/upload/w_1200,c_limit/c_crop,g_custom,f_auto,q_auto,dpr_auto/l_PS-logo,g_south_east,x_20,y_20,w_175,o_75/qpdo4c87uns80ukze2nw",
+          preview: false,
+        },
+        {
+          spotId: 2,
+          url: "https://img.peerspace.com/image/upload/w_1200,c_limit/c_crop,g_custom,f_auto,q_auto,dpr_auto/l_PS-logo,g_south_east,x_20,y_20,w_175,o_75/ycetzoh3r7zyyg0lpllh",
+          preview: false,
+        },
+        {
+          spotId: 2,
+          url: "https://img.peerspace.com/image/upload/w_1200,c_limit/c_crop,g_custom,f_auto,q_auto,dpr_auto/l_PS-logo,g_south_east,x_20,y_20,w_175,o_75/dr8xopijhggekowpkcaq",
+          preview: false,
+        },
+        {
+          spotId: 2,
+          url: "https://img.peerspace.com/image/upload/w_1200,c_limit/c_crop,g_custom,f_auto,q_auto,dpr_auto/l_PS-logo,g_south_east,x_20,y_20,w_175,o_75/ij0hxne02kynwoubyehe",
+          preview: false,
         },
         {
           spotId: 3,
@@ -54,6 +74,11 @@ module.exports = {
         },
         {
           spotId: 5,
+          url: "https://media.architecturaldigest.com/photos/61b0ce48dccdb75fa170f8f7/16:9/w_2560%2Cc_limit/PurpleCherry_Williams_0012.jpg",
+          preview: true,
+        },
+        {
+          spotId: 6,
           url: "https://media.architecturaldigest.com/photos/61b0ce48dccdb75fa170f8f7/16:9/w_2560%2Cc_limit/PurpleCherry_Williams_0012.jpg",
           preview: true,
         },

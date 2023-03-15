@@ -31,6 +31,10 @@ module.exports = {
           reviewId: 5,
           url: "https://media.architecturaldigest.com/photos/61b0ce48dccdb75fa170f8f7/16:9/w_2560%2Cc_limit/PurpleCherry_Williams_0012.jpg",
         },
+        {
+          reviewId: 5,
+          url: "https://media.architecturaldigest.com/photos/61b0ce48dccdb75fa170f8f7/16:9/w_2560%2Cc_limit/PurpleCherry_Williams_0012.jpg",
+        },
       ],
       {}
     );

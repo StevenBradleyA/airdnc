@@ -25,6 +25,18 @@ module.exports = {
           price: 170,
         },
         {
+          ownerId: 1,
+          address: "1010 Desert Ave",
+          city: "Palm Springs",
+          state: "California",
+          country: "United States",
+          lat: 37.7645358,
+          lng: -122.4730327,
+          name: "Dazey Desert House",
+          description: "Colorful maximal home owned by interior designer Dani Dazey, designer of the Trixie Motel. A midcentury gem tucked away at the foot of the San Jacinto mountain. Cozy time capsule designed by famous architect William Krisel featuring signature butterfly roof. Relax in the orange cowboy pool or hot tub in our yard and enjoy expertly designed interiors. Perfect retreat for anyone looking to enjoy the lush desert foliage but still, want the convenience of a 5-minute drive into downtown Palm Springs.",
+          price: 300,
+        },
+        {
           ownerId: 2,
           address: "123 Disney Lane",
           city: "San Francisco",
@@ -86,6 +98,7 @@ module.exports = {
         name: {
           [Op.in]: [
             "Modern Mid-Century Retreat",
+            "Dazey Desert House",
             "Red House",
             "Blue House",
             "Green House",
