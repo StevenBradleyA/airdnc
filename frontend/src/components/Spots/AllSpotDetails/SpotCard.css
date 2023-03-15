@@ -2,11 +2,8 @@
   width: 200px;
   height: 200px;
   margin: 15px 0px;
-  /* display: flex; */
-  /* flex-direction: column; */
   transition: filter 300ms; 
 }
-/* grid-template-rows: 1fr 1fr 1fr; */
 
 .spotCard:hover {
   filter: brightness(1.2);
