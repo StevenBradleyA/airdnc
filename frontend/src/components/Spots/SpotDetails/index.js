@@ -14,7 +14,6 @@ const SpotDetails = () => {
 
   const allSpots = useSelector((state) => state.spots);
   const currentSpot = allSpots[spotId];
-
   if (!currentSpot) {
     return <h1>LOADING...</h1>;
   }
