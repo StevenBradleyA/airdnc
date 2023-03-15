@@ -7,7 +7,6 @@ import "./CreateSpot.css";
 const CreateSpotForm = () => {
   const dispatch = useDispatch();
   const history = useHistory();
-
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
@@ -64,10 +63,12 @@ const CreateSpotForm = () => {
       previewImage,
     };
     dispatch(createSpotThunk(createSpot));
-    history.push(`/`)
+    history.push(`/`);
     // not quite sure how to access new id here? /spots/newid
+    // I also think handle submit needs to be async and await the result of the dispatch
   };
-
+  // I could set error to an obj and just call that key.
+  //   errorsObj.Country {return errorsobjcountry}
   return (
     <div>
       <h1>Create a new Spot</h1>
@@ -76,6 +77,11 @@ const CreateSpotForm = () => {
         Guests will only get your exact address once they have booked a
         reservation.
       </h3>
+      <p className="errors">
+        {errors.map((currentError) => (
+          <span key={currentError}>{currentError}</span>
+        ))}
+      </p>
       <form>
         <label>
           Country
@@ -87,9 +93,9 @@ const CreateSpotForm = () => {
           />
         </label>
         <p className="errors">
-          {errors.map((currentError) => (
-            <span key={currentError}>{currentError}</span>
-          ))}
+          {/* {errors.find((currentError) => (
+            <span key={currentError}>{currentError.includes("Country")}</span>
+          ))} */}
         </p>
         <label>
           Street Address
@@ -100,7 +106,11 @@ const CreateSpotForm = () => {
             onChange={(e) => setAddress(e.target.value)}
           />
         </label>
-        <p className="errors"></p>
+        {/* <p className="errors">
+          {errors.find((currentError) => (
+            <span key={currentError}>{currentError.includes("Address")}</span>
+          ))}
+        </p> */}
         <label>
           City
           <input
@@ -110,7 +120,7 @@ const CreateSpotForm = () => {
             onChange={(e) => setCity(e.target.value)}
           />
         </label>
-        <p className="errors"></p>
+
         <label>
           State
           <input
@@ -120,7 +130,7 @@ const CreateSpotForm = () => {
             onChange={(e) => setState(e.target.value)}
           />
         </label>
-        <p className="errors"></p>
+
         <h1>Describe your place to guests</h1>
         <label>
           Mention the best features of your space, any special amentities like
@@ -131,7 +141,7 @@ const CreateSpotForm = () => {
             onChange={(e) => setDescription(e.target.value)}
           />
         </label>
-        <p className="errors"></p>
+
         <h1>Create a title for your spot</h1>
         <label>
           Catch guests' attention with a spot title that highlights what makes
@@ -143,7 +153,7 @@ const CreateSpotForm = () => {
             onChange={(e) => setName(e.target.value)}
           />
         </label>
-        <p className="errors"></p>
+
         <h1>Set a base price for your spot</h1>
         <label>
           Competitive pricing can help your listing stand out and rank higher in
@@ -155,7 +165,7 @@ const CreateSpotForm = () => {
             onChange={(e) => setPrice(e.target.value)}
           />
         </label>
-        <p className="errors"></p>
+
         <h1>Liven up your spot with photos</h1>
         <label>
           Submit a link to at least one photo to publish your spot.
@@ -166,7 +176,7 @@ const CreateSpotForm = () => {
             onChange={(e) => setPreviewImage(e.target.value)}
           />
         </label>
-        <p className="errors"></p>
+        <p></p>
         <button
           type="submit"
           onSubmit={handleCreateSpotSubmit}
