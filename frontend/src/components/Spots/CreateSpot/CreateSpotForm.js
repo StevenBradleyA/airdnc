@@ -15,10 +15,9 @@ const CreateSpotForm = ({ formType }) => {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [previewImage, setPreviewImage] = useState("");
-  const [errors, setErrors] = useState([]);
-
-  useEffect(() => {
-    const errorsArr = [];
+  const [errors, setErrors] = useState({});
+  const [hasSubmitted, setHasSubmitted] = useState(false);
+  const handleInputErrors = () => {
     const errorsObj = {};
     if (country.length === 0) {
       errorsObj.country = "Country is required";
@@ -44,50 +43,53 @@ const CreateSpotForm = ({ formType }) => {
     if (previewImage.length === 0) {
       errorsObj.previewImage = "Preview image is required";
     }
-    if (
-      errorsObj.country ||
-      errorsObj.address ||
-      errorsObj.city ||
-      errorsObj.state ||
-      errorsObj.description ||
-      errorsObj.name ||
-      errorsObj.price ||
-      errorsObj.previewImage
-    ) {
-      errorsArr.push(errorsObj);
+
+    setErrors(errorsObj);
+  };
+  useEffect(() => {
+    if (hasSubmitted) {
+      handleInputErrors()
     }
-    setErrors(errorsArr);
   }, [country, address, city, state, description, name, price, previewImage]);
+
+
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    if (errors.length > 0) return;
-    const spotInformation = {
-      address,
-      city,
-      state,
-      country,
-      name,
-      description,
-      price,
-      previewImage,
-    };
-    dispatch(createSpotThunk(spotInformation));
-    history.push(`/`);
-    // not quite sure how to access new id here? /spots/newid
-    // I also think handle submit needs to be async and await the result of the dispatch
-    // if (formType === "create") {
-    //   dispatch(createSpotThunk(spotInformation));
-    //   history.push(`/`);
-    // }
-    // if (formType === "update") {
-    //   dispatch(updateSpotThunk(spotInformation));
-    //   history.push(`/`);
-    // }
-  };
 
-  
+    if(hasSubmitted && !Object.values(errors).length){
+      
+      const spotInformation = {
+        address,
+        city,
+        state,
+        country,
+        name,
+        description,
+        price,
+        previewImage,
+      };
 
+      dispatch(createSpotThunk(spotInformation));
+      history.push(`/`);
+
+      // not quite sure how to access new id here? /spots/newid
+      // I also think handle submit needs to be async and await the result of the dispatch
+      // if (formType === "create") {
+      //   dispatch(createSpotThunk(spotInformation));
+      //   history.push(`/`);
+      // }
+      // if (formType === "update") {
+      //   dispatch(updateSpotThunk(spotInformation));
+      //   history.push(`/`);
+      // }
+
+
+
+    }
+    handleInputErrors()
+    setHasSubmitted(true)
+  }
 
   return (
     <div>
@@ -108,7 +110,7 @@ const CreateSpotForm = ({ formType }) => {
             onChange={(e) => setCountry(e.target.value)}
           />
         </label>
-        {errors.length > 0 && <p className="errors">{errors[0].country}</p>}
+        {errors.country && <p className="errors">{errors.country}</p>}
         <label>
           Street Address
           <input
@@ -118,7 +120,7 @@ const CreateSpotForm = ({ formType }) => {
             onChange={(e) => setAddress(e.target.value)}
           />
         </label>
-        {errors.length > 0 && <p className="errors">{errors[0].address}</p>}
+        {errors.address && <p className="errors">{errors.address}</p>}
 
         <label>
           City
@@ -129,8 +131,7 @@ const CreateSpotForm = ({ formType }) => {
             onChange={(e) => setCity(e.target.value)}
           />
         </label>
-        {errors.length > 0 && <p className="errors">{errors[0].city}</p>}
-
+        {errors.city && <p className="errors">{errors.city}</p>}
 
         <label>
           State
@@ -141,8 +142,7 @@ const CreateSpotForm = ({ formType }) => {
             onChange={(e) => setState(e.target.value)}
           />
         </label>
-        {errors.length > 0 && <p className="errors">{errors[0].state}</p>}
-
+        {errors.state && <p className="errors">{errors.state}</p>}
 
         <h1>Describe your place to guests</h1>
         <label>
@@ -154,8 +154,7 @@ const CreateSpotForm = ({ formType }) => {
             onChange={(e) => setDescription(e.target.value)}
           />
         </label>
-        {errors.length > 0 && <p className="errors">{errors[0].description}</p>}
-
+        {errors.description && <p className="errors">{errors.description}</p>}
 
         <h1>Create a title for your spot</h1>
         <label>
@@ -168,8 +167,7 @@ const CreateSpotForm = ({ formType }) => {
             onChange={(e) => setName(e.target.value)}
           />
         </label>
-        {errors.length > 0 && <p className="errors">{errors[0].name}</p>}
-
+        {errors.name && <p className="errors">{errors.name}</p>}
 
         <h1>Set a base price for your spot</h1>
         <label>
@@ -182,8 +180,7 @@ const CreateSpotForm = ({ formType }) => {
             onChange={(e) => setPrice(e.target.value)}
           />
         </label>
-        {errors.length > 0 && <p className="errors">{errors[0].price}</p>}
-
+        {errors.price && <p className="errors">{errors.price}</p>}
 
         <h1>Liven up your spot with photos</h1>
         <label>
@@ -195,7 +192,7 @@ const CreateSpotForm = ({ formType }) => {
             onChange={(e) => setPreviewImage(e.target.value)}
           />
         </label>
-        {errors.length > 0 && <p className="errors">{errors[0].previewImage}</p>}
+        {errors.previewImage && <p className="errors">{errors.previewImage}</p>}
 
         <p></p>
         <input type="submit" value="Create Spot" disabled={errors.length > 0} />
