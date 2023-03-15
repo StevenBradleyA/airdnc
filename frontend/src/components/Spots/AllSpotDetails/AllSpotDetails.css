@@ -1,15 +1,50 @@
-.spotCardsContainer {
-  position: absolute;
-  top: 30%;
-  display: flex;
+/* Flex attempt fail */
+/* .spotCardsContainer { */
+/* margin: 0; */
+/* width: 90%;
+  height: 90%; */
+/* display: flex;
   flex-direction: row;
-  /* justify-content: space-evenly; */
   flex-wrap: wrap;
-  align-content: flex-start;
-  gap: 2rem;
-  padding: 1rem 2rem;
+  gap: 10px;
+  padding-top: 5rem;
+  padding: 5rem 3rem;
+} */
+/* .spotCardsContainer > * { */
+/* flex-shrink: 1;
+flex-grow: 0;
+flex-basis:0; */
+/* flex: 1; */
+/* } */
+
+
+/* grid attempt */
+.spotCardsContainer {
+  
+  margin: 3rem auto;
+  padding: 2rem 1rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+
 }
 
-/* @media (min-width: 1880px){
+/* tried this 50 times still not working */
 
-} */
+@media all and (min-width: 950px) and (max-width: 1127px) {
+  .sportCardsContainer {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media screen and (min-width: 550px)and (max-width: 949px){
+  .sportCardsContainer {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (min-width: 0px) and (max-width: 549px) {
+  .sportCardsContainer {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
