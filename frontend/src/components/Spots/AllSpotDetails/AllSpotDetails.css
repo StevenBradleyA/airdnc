@@ -17,34 +17,35 @@ flex-basis:0; */
 /* flex: 1; */
 /* } */
 
-
 /* grid attempt */
 .spotCardsContainer {
-  
-  margin: 3rem auto;
-  padding: 2rem 1rem;
+  margin: 30px 30px;
+  padding: 40px 10px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 20px;
-
 }
 
-/* tried this 50 times still not working */
-
-@media all and (min-width: 950px) and (max-width: 1127px) {
+/* tried this 50 times still not working  maybe it has to have an event 
+listener or something...*/
+@media screen and (min-width: 0px) and (max-width: 549px) {
   .sportCardsContainer {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(1, 1fr);
   }
 }
-
-@media screen and (min-width: 550px)and (max-width: 949px){
+@media screen and (min-width: 550px) and (max-width: 949px) {
   .sportCardsContainer {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media screen and (min-width: 0px) and (max-width: 549px) {
+@media screen and (min-width: 950px) and (max-width: 1127px) {
   .sportCardsContainer {
-    grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media screen and (min-width: 1128px) {
+  .sportCardsContainer {
+    grid-template-columns: repeat(4, 1fr);
   }
 }

@@ -1,7 +1,7 @@
 .spotCard {
   width: 200px;
   height: 200px;
-  margin: 1rem auto;
+  margin: 15px 0px;
   /* display: flex; */
   /* flex-direction: column; */
   transition: filter 300ms; 
