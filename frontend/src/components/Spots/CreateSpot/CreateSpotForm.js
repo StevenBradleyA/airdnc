@@ -15,6 +15,11 @@ const CreateSpotForm = ({ formType }) => {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [previewImage, setPreviewImage] = useState("");
+  const [nonPreviewImage1, setNonPreviewImage1] = useState("");
+  const [nonPreviewImage2, setNonPreviewImage2] = useState("");
+  const [nonPreviewImage3, setNonPreviewImage3] = useState("");
+  const [nonPreviewImage4, setNonPreviewImage4] = useState("");
+
   const [errors, setErrors] = useState({});
   const [hasSubmitted, setHasSubmitted] = useState(false);
   const handleInputErrors = () => {
@@ -43,12 +48,30 @@ const CreateSpotForm = ({ formType }) => {
     if (previewImage.length === 0) {
       errorsObj.previewImage = "Preview image is required";
     }
+    // const totalPngWords = previewImage.split('.png')
+    // const totalJpgWords = previewImage.split('.jpg')
+    // const totalJpegWords = previewImage.split('.jpeg')
+    // if(totalPngWords.length < 2 || totalJpgWords.length < 2 || totalJpegWords.length < 2 ){
+    //     errorsObj.wrongEnding = "Image URL must end in .png, .jpg, or .jpeg"
+    // }
+    if (nonPreviewImage1.length === 0) {
+      errorsObj.nonPreviewImage1 = "Additional image 1 is required";
+    }
+    if (nonPreviewImage2.length === 0) {
+      errorsObj.nonPreviewImage2 = "Additional image 2 is required";
+    }
+    if (nonPreviewImage3.length === 0) {
+      errorsObj.nonPreviewImage3 = "Additional image 3 is required";
+    }
+    if (nonPreviewImage4.length === 0) {
+      errorsObj.nonPreviewImage4 = "Additional image 4 is required";
+    }
 
     setErrors(errorsObj);
   };
   useEffect(() => {
     handleInputErrors();
-  }, [country, address, city, state, description, name, price, previewImage]);
+  }, [country, address, city, state, description, name, price, previewImage, nonPreviewImage1, nonPreviewImage2, nonPreviewImage3, nonPreviewImage4]);
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
@@ -113,7 +136,6 @@ const CreateSpotForm = ({ formType }) => {
         {hasSubmitted && errors.address && (
           <p className="errors">{errors.address}</p>
         )}
-
         <label>
           City
           <input
@@ -124,7 +146,6 @@ const CreateSpotForm = ({ formType }) => {
           />
         </label>
         {hasSubmitted && errors.city && <p className="errors">{errors.city}</p>}
-
         <label>
           State
           <input
@@ -137,7 +158,6 @@ const CreateSpotForm = ({ formType }) => {
         {hasSubmitted && errors.state && (
           <p className="errors">{errors.state}</p>
         )}
-
         <h1>Describe your place to guests</h1>
         <label>
           Mention the best features of your space, any special amentities like
@@ -151,7 +171,6 @@ const CreateSpotForm = ({ formType }) => {
         {hasSubmitted && errors.description && (
           <p className="errors">{errors.description}</p>
         )}
-
         <h1>Create a title for your spot</h1>
         <label>
           Catch guests' attention with a spot title that highlights what makes
@@ -164,7 +183,6 @@ const CreateSpotForm = ({ formType }) => {
           />
         </label>
         {hasSubmitted && errors.name && <p className="errors">{errors.name}</p>}
-
         <h1>Set a base price for your spot</h1>
         <label>
           Competitive pricing can help your listing stand out and rank higher in
@@ -179,10 +197,10 @@ const CreateSpotForm = ({ formType }) => {
         {hasSubmitted && errors.price && (
           <p className="errors">{errors.price}</p>
         )}
-
         <h1>Liven up your spot with photos</h1>
         <label>
           Submit a link to at least one photo to publish your spot.
+          <p></p>
           <input
             type="url"
             placeholder="Preview Image URL"
@@ -193,7 +211,57 @@ const CreateSpotForm = ({ formType }) => {
         {hasSubmitted && errors.previewImage && (
           <p className="errors">{errors.previewImage}</p>
         )}
-
+        {/* {hasSubmitted && errors.wrongEnding && (
+          <p className="errors">{errors.wrongEnding}</p>
+        )} */}
+        <p></p>
+        <label>
+          <input
+            type="url"
+            placeholder="Image URL"
+            value={nonPreviewImage1}
+            onChange={(e) => setNonPreviewImage1(e.target.value)}
+          />
+        </label>
+        {hasSubmitted && errors.nonPreviewImage1 && (
+          <p className="errors">{errors.nonPreviewImage1}</p>
+        )}
+        <p></p>
+        <label>
+          <input
+            type="url"
+            placeholder="Image URL"
+            value={nonPreviewImage2}
+            onChange={(e) => setNonPreviewImage2(e.target.value)}
+          />
+        </label>
+        {hasSubmitted && errors.nonPreviewImage2 && (
+          <p className="errors">{errors.nonPreviewImage2}</p>
+        )}
+        <p></p>{" "}
+        <label>
+          <input
+            type="url"
+            placeholder="Image URL"
+            value={nonPreviewImage3}
+            onChange={(e) => setNonPreviewImage3(e.target.value)}
+          />
+        </label>
+        {hasSubmitted && errors.nonPreviewImage3 && (
+          <p className="errors">{errors.nonPreviewImage3}</p>
+        )}
+        <p></p>{" "}
+        <label>
+          <input
+            type="url"
+            placeholder="Image URL"
+            value={nonPreviewImage4}
+            onChange={(e) => setNonPreviewImage4(e.target.value)}
+          />
+        </label>
+        {hasSubmitted && errors.nonPreviewImage4 && (
+          <p className="errors">{errors.nonPreviewImage4}</p>
+        )}
         <p></p>
         <input type="submit" value="Create Spot" disabled={errors.length > 0} />
       </form>
