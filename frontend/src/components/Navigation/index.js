@@ -22,6 +22,10 @@ function Navigation({ isLoaded }) {
     e.preventDefault();
     history.push('/spots/new');
   };
+  const handleManageClick = (e) => {
+    e.preventDefault();
+    history.push('/spots/current');
+  };
   let sessionLinks;
   if (sessionUser) {
     sessionLinks = (
@@ -70,12 +74,17 @@ function Navigation({ isLoaded }) {
         />
         {openMenu && (
           <ul className="menu-dropdown">
-            <li>Manage Spots</li>
             <li>{isLoaded && sessionLinks}</li>
+            {sessionUser && (
+            <li className="manage-spot-button"> 
+              <button onClick={handleManageClick}>Manage Spots</button>
+           </li>
+            )}
           </ul>
         )}
-      </div>
+        </div>
     </div>
+
   );
 }
 

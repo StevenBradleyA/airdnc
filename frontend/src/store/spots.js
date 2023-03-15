@@ -1,10 +1,10 @@
 import { csrfFetch } from "./csrf";
 
-const GET_SPOTS = "spots/GET_SPOTS";
+const LOAD_SPOTS = "spots/LOAD_SPOTS";
 const CREATE_SPOT = "spots/CREATE_SPOT";
 
-const getSpots = (allSpotData) => ({
-  type: GET_SPOTS,
+const loadSpots = (allSpotData) => ({
+  type: LOAD_SPOTS,
   payload: allSpotData,
 });
 
@@ -23,7 +23,7 @@ export const getAllSpotsThunk = () => async (dispatch) => {
       normalizedAllSpotData[e.id] = e;
     });
 
-    dispatch(getSpots(normalizedAllSpotData));
+    dispatch(loadSpots(normalizedAllSpotData));
   }
 };
 
@@ -34,9 +34,24 @@ export const getSpotByIdThunk = (spotId) => async (dispatch) => {
     const singleSpotData = await response.json();
     const normalizedSpotData = {};
     normalizedSpotData[singleSpotData.id] = singleSpotData;
-    dispatch(getSpots(normalizedSpotData));
+    dispatch(loadSpots(normalizedSpotData));
   }
 };
+
+export const getOwnedSpotsThunk = (ownedSpotData) => async (dispatch) => {
+  const response = await csrfFetch(`/api/spots/current`);
+
+  if (response.ok) {
+    const allSpotData = await response.json();
+    const normalizedAllSpotData = {};
+    allSpotData.Spots.forEach((e) => {
+      normalizedAllSpotData[e.id] = e;
+    });
+
+    dispatch(loadSpots(normalizedAllSpotData));
+  }
+};
+
 
 export const createSpotThunk = (newSpotData) => async (dispatch) => {
   const response = await csrfFetch(`/api/spots`, {
@@ -54,12 +69,30 @@ export const createSpotThunk = (newSpotData) => async (dispatch) => {
   }
 };
 
+
+
+// export const updateSpotThunk = (newSpotData) => async (dispatch) => {
+//   const response = await csrfFetch(`/api/spots`, {
+//     method: "PUT",
+//     headers: { "Content-Type": "application/json" },
+//     body: JSON.stringify(),
+//   });
+
+//   if (response.ok) {
+//     const newSpotData = await response.json();
+//     const normalizedSpotData = {};
+//     normalizedSpotData[newSpotData.id] = newSpotData;
+//     // console.log('hello there',normalizedSpotData)
+//     dispatch(createSpot(normalizedSpotData));
+//   }
+// };
+
 const initialState = {};
 
 const spotsReducer = (state = initialState, action) => {
   // let newState;
   switch (action.type) {
-    case GET_SPOTS:
+    case LOAD_SPOTS:
       return { ...state, ...action.payload };
     case CREATE_SPOT:
       return { ...state, ...action.payload };

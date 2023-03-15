@@ -1,10 +1,9 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import CreateSpotForm from "./CreateSpotForm";
-import "./CreateSpot.css";
+import CreateSpot from "../CreateSpot/index";
 
-const CreateSpot = () => {
+const UpdateSpot = () => {
   const history = useHistory();
   const sessionUser = useSelector((state) => state.session.user);
 
@@ -13,10 +12,10 @@ const CreateSpot = () => {
   }
 
   return (
-    <div className="create-container">
-      <CreateSpotForm />
+    <div className="update-container">
+      <CreateSpot />
     </div>
   );
 };
 
-export default CreateSpot;
+export default UpdateSpot;
