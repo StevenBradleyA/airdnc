@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getSpotByIdThunk } from "../../../store/spots";
 import { useParams } from "react-router-dom";
 import "./SpotDetails.css";
+import AllReviews from "../../Reviews/AllReviews";
 
 const SpotDetails = () => {
   const dispatch = useDispatch();
@@ -41,6 +42,9 @@ const SpotDetails = () => {
           </div>
           <button>Reserve</button>
         </div>
+      </div>
+      <div>
+        <AllReviews spotId={spotId}/>
       </div>
     </div>
   );
