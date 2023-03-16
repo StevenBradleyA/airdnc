@@ -194,7 +194,7 @@ router.get("/current", requireAuth, async (req, res, next) => {
       spot.avgRating = "There are no reviews for this spot yet :O";
     } else {
       const avgRating = totalScore / allReviews.length;
-      spot.avgRating = avgRating.toFixed(2);
+      spot.avgRating = avgRating.toFixed(1);
     }
     const spotImage = await SpotImage.findOne({
       attributes: ["url"],
@@ -248,7 +248,7 @@ router.get("/:id", async (req, res) => {
   const avgRating = totalScore / allReviews.length;
   const numReviews = allReviews.length;
   currentSpot.numReviews = numReviews;
-  currentSpot.avgStarRating = avgRating.toFixed(2);
+  currentSpot.avgStarRating = avgRating.toFixed(1);
 
   const spotImages = await SpotImage.findAll({
     attributes: ["id", "url", "preview"],
