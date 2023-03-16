@@ -136,7 +136,7 @@ router.get("/", async (req, res, next) => {
     }, 0);
     const avgRating = totalScore / allReviews.length;
 
-    spot.avgRating = avgRating.toFixed(2);
+    spot.avgRating = avgRating.toFixed(1);
 
     const spotImage = await SpotImage.findOne({
       attributes: ["url"],
@@ -151,6 +151,7 @@ router.get("/", async (req, res, next) => {
       const previewImage = url.url;
       spot.previewImage = previewImage;
     } else {
+      console.log(spotImage, "what is this \n\n\n\n\n");
       spot.previewImage = "No preview image found";
     }
 
@@ -498,11 +499,12 @@ router.put("/:id", requireAuth, async (req, res, next) => {
     });
 
     if (previewImage) {
-      spotImage.forEach((e) => {
-        if (e.preview) {
+      spotImage.forEach(async (e) => {
+        if (e.dataValues.preview) {
           e.set({
             url: previewImage,
           });
+          await e.save();
         } else {
           e.destroy();
         }
@@ -512,6 +514,7 @@ router.put("/:id", requireAuth, async (req, res, next) => {
     if (imageArr) {
       imageArr.forEach((imageUrl) => {
         SpotImage.create({
+          spotId: spot.id,
           url: imageUrl,
           preview: false,
         });
