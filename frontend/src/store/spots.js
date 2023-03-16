@@ -49,7 +49,7 @@ export const getSpotByIdThunk = (spotId) => async (dispatch) => {
   }
 };
 
-export const getOwnedSpotsThunk = (ownedSpotData) => async (dispatch) => {
+export const getOwnedSpotsThunk = () => async (dispatch) => {
   const response = await csrfFetch(`/api/spots/current`);
 
   if (response.ok) {

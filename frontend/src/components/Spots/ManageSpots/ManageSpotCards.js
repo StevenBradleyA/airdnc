@@ -1,6 +1,8 @@
 import "./ManageSpots.css";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
+import DeleteFormModal from "../DeleteSpot";
+import OpenModalButton from "../../OpenModalButton";
 const ManageSpotCard = ({ spot }) => {
   const history = useHistory();
 
@@ -28,7 +30,10 @@ const ManageSpotCard = ({ spot }) => {
         {/* Going to need the spot name on a hover css */}
       </div>
       <button onClick={handleUpdateClick}>Update</button>
-      <button>Delete</button>
+      <OpenModalButton
+                buttonText="Delete"
+                modalComponent={<DeleteFormModal spot={spot}/>}
+              />
     </div>
   );
 };
