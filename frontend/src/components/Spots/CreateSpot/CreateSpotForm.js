@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { createSpotThunk, updateSpotThunk } from "../../../store/spots";
 import "./CreateSpot.css";
 
-const CreateSpotForm = ({ formType }) => {
+const CreateSpotForm = ({ formType, spotId }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const [address, setAddress] = useState("");
@@ -24,7 +24,7 @@ const CreateSpotForm = ({ formType }) => {
 
   // I want to refactor non preview images in a function so somone could put as many
   // as they would like for there home. also my code is super wet.
-console.log(formType)
+  console.log(formType);
   const handleInputErrors = () => {
     const errorsObj = {};
     if (country.length === 0) {
@@ -53,12 +53,14 @@ console.log(formType)
     }
 
     const unneccesaryUrlCheck = (image, keyName) => {
-      const totalPngWords = image.split(".png");
-      const totalJpgWords = image.split(".jpg");
-      const totalJpegWords = image.split(".jpeg");
-      if (
-        [totalPngWords, totalJpgWords, totalJpegWords].some((e) => e.length < 2)
-      ) {
+      const fileExtensions = [
+        image.split(".png"),
+        image.split(".jpg"),
+        image.split(".jpeg"),
+      ];
+      if (fileExtensions.some((e) => e.length > 1)) {
+        delete errorsObj[keyName];
+      } else {
         errorsObj[keyName] = "Image URL must end in .png .jpg or .jpeg";
       }
     };
@@ -134,7 +136,7 @@ console.log(formType)
         newSpot = await dispatch(createSpotThunk(spotInformation));
       }
       if (formType === "update") {
-        newSpot = await dispatch(updateSpotThunk(spotInformation, newSpot.id));
+        newSpot = await dispatch(updateSpotThunk(spotInformation, spotId));
       }
       history.push(`/spots/${newSpot.id}`);
     }

@@ -105,10 +105,10 @@ export const deleteSpotThunk = (spotId) => async (dispatch) => {
   });
 
   if (response.ok) {
-    const data = await response.json();
-    const normalizedSpotData = {};
-    normalizedSpotData[data.id] = data;
-    dispatch(deleteSpot(normalizedSpotData));
+    // const data = await response.json();
+    // const normalizedSpotData = {};
+    // normalizedSpotData[data.id] = data;
+    dispatch(deleteSpot(spotId));
   }
 };
 
@@ -124,6 +124,7 @@ const spotsReducer = (state = initialState, action) => {
     case UPDATE_SPOT:
       return { ...state, ...action.payload };
     case DELETE_SPOT:
+
       delete newState[action.payload];
       return newState;
     default:

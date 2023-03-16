@@ -491,17 +491,27 @@ router.put("/:id", requireAuth, async (req, res, next) => {
       price,
     });
 
-    if (previewImage) {
-      spot.set({
+    const spotImage = await SpotImage.findAll({
+      where: {
         spotId: spot.id,
-        url: previewImage,
-        preview: true,
+      },
+    });
+
+    if (previewImage) {
+      spotImage.forEach((e) => {
+        if (e.preview) {
+          e.set({
+            url: previewImage,
+          });
+        } else {
+          e.destroy();
+        }
       });
     }
+
     if (imageArr) {
       imageArr.forEach((imageUrl) => {
-        spot.set({
-          spotId: spot.id,
+        SpotImage.create({
           url: imageUrl,
           preview: false,
         });

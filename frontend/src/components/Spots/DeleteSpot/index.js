@@ -34,7 +34,7 @@ function DeleteFormModal({spot}) {
 
   const handleKeepSpot = (e) => {
     e.preventDefault();
-    return closeModal;
+     closeModal();
   };
 
   return (
