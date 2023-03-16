@@ -24,44 +24,35 @@ const deleteReview = (reviewId) => ({
   payload: reviewId,
 });
 
-export const getAllReviwesThunk = () => async (dispatch) => {
-  const response = await csrfFetch("/api/spots");
+export const getAllReviewsBySpotIdThunk = (spotId) => async (dispatch) => {
+  const response = await csrfFetch(`/api/spots/${spotId}/reviews`);
 
   if (response.ok) {
-    const allSpotData = await response.json();
-    const normalizedAllSpotData = {};
-    allSpotData.Spots.forEach((e) => {
-      normalizedAllSpotData[e.id] = e;
+    const data = await response.json();
+    const normalizedReviewData = {};
+    data.Reviews.forEach((e) => {
+      normalizedReviewData[e.id] = e;
     });
 
-    dispatch(loadSpots(normalizedAllSpotData));
+    dispatch(loadReviews(normalizedReviewData));
   }
 };
+// ****** Later profile implementation if a user wants to see all their reviews and edit them *******
+// export const getOwnedReviewsThunk = (spotId) => async (dispatch) => {
+//   const response = await csrfFetch(`/api/reviews/current`);
 
-export const getSpotByIdThunk = (spotId) => async (dispatch) => {
-  const response = await csrfFetch(`/api/spots/${spotId}`);
+//   if (response.ok) {
+//     const data = await response.json();
+//     const normalizedReviewData = {};
+//     data.Reviews.forEach((e) => {
+//       normalizedReviewData[e.id] = e;
+//     });
 
-  if (response.ok) {
-    const singleSpotData = await response.json();
-    const normalizedSpotData = {};
-    normalizedSpotData[singleSpotData.id] = singleSpotData;
-    dispatch(loadSpots(normalizedSpotData));
-  }
-};
+//     dispatch(loadReviews(normalizedReviewData));
+//   }
+// };
 
-export const getOwnedSpotsThunk = () => async (dispatch) => {
-  const response = await csrfFetch(`/api/spots/current`);
 
-  if (response.ok) {
-    const allSpotData = await response.json();
-    const normalizedAllSpotData = {};
-    allSpotData.Spots.forEach((e) => {
-      normalizedAllSpotData[e.id] = e;
-    });
-
-    dispatch(loadSpots(normalizedAllSpotData));
-  }
-};
 
 export const createSpotThunk = (newSpotData) => async (dispatch) => {
   try {
