@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import CreateSpot from "../CreateSpot/index";
+import CreateSpotForm from "../CreateSpot/CreateSpotForm";
 
 const UpdateSpot = () => {
   const history = useHistory();
@@ -13,7 +13,7 @@ const UpdateSpot = () => {
 
   return (
     <div className="update-container">
-      <CreateSpot formType='update'/>
+      <CreateSpotForm formType="update" />
     </div>
   );
 };

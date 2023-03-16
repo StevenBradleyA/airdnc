@@ -24,7 +24,7 @@ const CreateSpotForm = ({ formType }) => {
 
   // I want to refactor non preview images in a function so somone could put as many
   // as they would like for there home. also my code is super wet.
-
+console.log(formType)
   const handleInputErrors = () => {
     const errorsObj = {};
     if (country.length === 0) {
@@ -59,7 +59,7 @@ const CreateSpotForm = ({ formType }) => {
       if (
         [totalPngWords, totalJpgWords, totalJpegWords].some((e) => e.length < 2)
       ) {
-        errorsObj[keyName] = "Image URL must end in .png, .jpg, or .jpeg";
+        errorsObj[keyName] = "Image URL must end in .png .jpg or .jpeg";
       }
     };
 
@@ -134,7 +134,7 @@ const CreateSpotForm = ({ formType }) => {
         newSpot = await dispatch(createSpotThunk(spotInformation));
       }
       if (formType === "update") {
-        newSpot = await dispatch(updateSpotThunk(spotInformation));
+        newSpot = await dispatch(updateSpotThunk(spotInformation, newSpot.id));
       }
       history.push(`/spots/${newSpot.id}`);
     }
