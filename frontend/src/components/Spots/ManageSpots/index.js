@@ -11,11 +11,9 @@ const ManageSpots = () => {
   useEffect(() => {
     dispatch(getOwnedSpotsThunk());
   }, [dispatch]);
-  // do I need to check if session.user.id === owner.id
-  // or how do I access this from my new thunk. Not seeing it in state
+
   const allSpots = useSelector((state) => Object.values(state.spots));
 
-  //   spot.ownerId === sessionUser.id
   return (
     <div>
       <h1>Manage Spots</h1>

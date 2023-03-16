@@ -14,7 +14,6 @@ const SpotDetails = () => {
   }, [dispatch, spotId]);
 
   const allSpots = useSelector((state) => state.spots);
-  console.log('testing..........', allSpots)
   const currentSpot = allSpots[spotId];
   if (!currentSpot) {
     return <h1>LOADING...</h1>;

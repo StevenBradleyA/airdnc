@@ -1,40 +1,21 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useModal } from "../../../context/Modal";
 import { deleteSpotThunk } from "../../../store/spots";
 
-function DeleteFormModal({spot}) {
+function DeleteSpotFormModal({ spot }) {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
 
-//   const sessionUser = useSelector((state) => state.session.user);
-  const allSpots = useSelector((state) => Object.values(state.spots));
-
-  // not sure if I need to validate this or if the backend has it dow.
-  //   if (sessionUser.id === spot.ownerId) {
-
-  {
-    /* <div>
-        {allSpots.map((spot) => {
-          if (sessionUser.id === spot.ownerId) {
-            return <ManageSpotCards spot={spot} />;
-          } else {
-            return null;
-          }
-        })}
-      </div> */
-  }
-
   const handleDeleteSpot = async (e) => {
     e.preventDefault();
-    await dispatch(deleteSpotThunk(spot.id))
-    closeModal()
-      
+    await dispatch(deleteSpotThunk(spot.id));
+    closeModal();
   };
 
   const handleKeepSpot = (e) => {
     e.preventDefault();
-     closeModal();
+    closeModal();
   };
 
   return (
@@ -48,4 +29,4 @@ function DeleteFormModal({spot}) {
   );
 }
 
-export default DeleteFormModal;
+export default DeleteSpotFormModal;

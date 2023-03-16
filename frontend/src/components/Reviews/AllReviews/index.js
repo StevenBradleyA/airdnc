@@ -7,20 +7,17 @@ import "./AllReviews.css";
 const AllReviews = ({ spotId, currentSpot }) => {
   const dispatch = useDispatch();
 
-
   useEffect(() => {
     dispatch(getAllReviewsBySpotIdThunk(spotId));
   }, [dispatch, spotId]);
 
   const allReviews = useSelector((state) => Object.values(state.reviews));
-  console.log(useSelector((state) => (state.reviews)), 'well what is it')
-  console.log(allReviews, 'soooo weary traveler')
-//   const currentReviews = allReviews[spotId]
-//   console.log(`heyyyyyy;)`, currentReviews)
-  const currentReviews = allReviews.filter((e)=>
-    Number(spotId) === e.spotId ) 
-    console.log(1, 'ye')
-    console.log(spotId, 'ye')
+  console.log(
+    useSelector((state) => state.reviews),
+    "well what is it"
+  );
+  console.log(allReviews, "soooo weary traveler");
+  const currentReviews = allReviews.filter((e) => Number(spotId) === e.spotId);
   return (
     <div>
       {currentSpot.numReviews === 0 && <h1>New</h1>}
@@ -29,7 +26,6 @@ const AllReviews = ({ spotId, currentSpot }) => {
       {currentSpot.numReviews >= 1 && (
         <h1>{`${currentSpot.avgStarRating}  ${currentSpot.numReviews} reviews`}</h1>
       )}
-      {/* need to pass a prop from the spot detail */}
 
       <div>
         {currentReviews.map((review) => (

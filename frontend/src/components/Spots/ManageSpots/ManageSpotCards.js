@@ -1,7 +1,7 @@
 import "./ManageSpots.css";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
-import DeleteFormModal from "../DeleteSpot";
+import DeleteSpotFormModal from "../DeleteSpot";
 import OpenModalButton from "../../OpenModalButton";
 const ManageSpotCard = ({ spot }) => {
   const history = useHistory();
@@ -31,9 +31,9 @@ const ManageSpotCard = ({ spot }) => {
       </div>
       <button onClick={handleUpdateClick}>Update</button>
       <OpenModalButton
-                buttonText="Delete"
-                modalComponent={<DeleteFormModal spot={spot}/>}
-              />
+        buttonText="Delete"
+        modalComponent={<DeleteSpotFormModal spot={spot} />}
+      />
     </div>
   );
 };
