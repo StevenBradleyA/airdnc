@@ -285,9 +285,9 @@ router.post("/", requireAuth, async (req, res, next) => {
     previewImage,
     imageArr,
   } = req.body;
-  
+
   const errors = {};
-  
+
   if (!address) {
     errors.address = "Street address is required";
   }
@@ -315,7 +315,7 @@ router.post("/", requireAuth, async (req, res, next) => {
   if (!price) {
     errors.price = "Price per day is required";
   }
-  
+
   if (
     errors.address ||
     errors.city ||
@@ -326,9 +326,9 @@ router.post("/", requireAuth, async (req, res, next) => {
     errors.name ||
     errors.description ||
     errors.price
-    ) {
-      return res.status(400).json({
-        message: "Validation Error",
+  ) {
+    return res.status(400).json({
+      message: "Validation Error",
       statusCode: 400,
       errors,
     });
@@ -348,24 +348,21 @@ router.post("/", requireAuth, async (req, res, next) => {
   });
   // ----------BACKEND REFACTOR TO ADD ALL IMAGES ---------------------
   // console.log(newSpot)
-  if(previewImage){
-
+  if (previewImage) {
     const addImage = await SpotImage.create({
       spotId: newSpot.id,
       url: previewImage,
-      preview: true
+      preview: true,
     });
-
   }
-  if(imageArr){
+  if (imageArr) {
     imageArr.forEach(async (imageUrl) => {
-    await SpotImage.create({
+      await SpotImage.create({
         spotId: newSpot.id,
         url: imageUrl,
-        preview: false
+        preview: false,
       });
     });
-
   }
 
   return res.status(201).json(newSpot);
@@ -400,14 +397,26 @@ router.post("/:id/images", requireAuth, async (req, res, next) => {
         id: addImage.id,
       },
     });
+
     return res.json(addImageView);
   }
 });
 
 //todo PUT /:spotId
 router.put("/:id", requireAuth, async (req, res, next) => {
-  const { address, city, state, country, lat, lng, name, description, price } =
-    req.body;
+  const {
+    address,
+    city,
+    state,
+    country,
+    lat,
+    lng,
+    name,
+    description,
+    price,
+    previewImage,
+    imageArr,
+  } = req.body;
 
   const errors = {};
 
@@ -423,12 +432,12 @@ router.put("/:id", requireAuth, async (req, res, next) => {
   if (!country) {
     errors.country = "Country is required";
   }
-  if (!lat) {
-    errors.lat = "Latitude is not valid";
-  }
-  if (!lng) {
-    errors.lng = "Longitude is not valid";
-  }
+  // if (!lat) {
+  //   errors.lat = "Latitude is not valid";
+  // }
+  // if (!lng) {
+  //   errors.lng = "Longitude is not valid";
+  // }
   if (!name) {
     errors.name = "Name must be less than 50 characters";
   }
@@ -444,8 +453,8 @@ router.put("/:id", requireAuth, async (req, res, next) => {
     errors.city ||
     errors.state ||
     errors.country ||
-    errors.lat ||
-    errors.lng ||
+    // errors.lat ||
+    // errors.lng ||
     errors.name ||
     errors.description ||
     errors.price
@@ -481,6 +490,23 @@ router.put("/:id", requireAuth, async (req, res, next) => {
       description,
       price,
     });
+
+    if (previewImage) {
+      spot.set({
+        spotId: spot.id,
+        url: previewImage,
+        preview: true,
+      });
+    }
+    if (imageArr) {
+      imageArr.forEach((imageUrl) => {
+        spot.set({
+          spotId: spot.id,
+          url: imageUrl,
+          preview: false,
+        });
+      });
+    }
 
     await spot.save();
     return res.json(spot);
