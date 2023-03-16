@@ -1,6 +1,10 @@
 import "./SingleReview.css";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
+import DeleteReviewFormModal from "../DeleteReview";
+import OpenModalButton from "../../OpenModalButton";
+
+
 const SingleReview = ({ review }) => {
   const history = useHistory();
   const sessionUser = useSelector((state) => state.session.user);
@@ -10,7 +14,10 @@ const SingleReview = ({ review }) => {
       <h2>{`${review.User.firstName} ${review.User.lastName}`}</h2>
       <h3>{`Month and year from created at`}</h3>
       <p>{review.review}</p>
-      {review.userId === sessionUser.id && <button>Delete</button>}
+      {review.userId === sessionUser.id && <OpenModalButton
+        buttonText="Delete"
+        modalComponent={<DeleteReviewFormModal review={review} />}
+      />}
     </div>
   );
 };
