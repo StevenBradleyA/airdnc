@@ -151,7 +151,6 @@ router.get("/", async (req, res, next) => {
       const previewImage = url.url;
       spot.previewImage = previewImage;
     } else {
-      console.log(spotImage, "what is this \n\n\n\n\n");
       spot.previewImage = "No preview image found";
     }
 
@@ -348,7 +347,7 @@ router.post("/", requireAuth, async (req, res, next) => {
     price,
   });
   // ----------BACKEND REFACTOR TO ADD ALL IMAGES ---------------------
-  // console.log(newSpot)
+
   if (previewImage) {
     const addImage = await SpotImage.create({
       spotId: newSpot.id,

@@ -24,7 +24,6 @@ const CreateSpotForm = ({ formType, spotId }) => {
 
   // I want to refactor non preview images in a function so somone could put as many
   // as they would like for there home. also my code is super wet.
-  console.log(formType);
   const handleInputErrors = () => {
     const errorsObj = {};
     if (country.length === 0) {
