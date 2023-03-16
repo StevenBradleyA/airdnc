@@ -94,7 +94,7 @@ export const updateSpotThunk = (newSpotData, spotId) => async (dispatch) => {
     dispatch(updateSpot(normalizedSpotData));
     return data;
   } catch (error) {
-    console.log('hello error')
+    console.log("hello error");
   }
 };
 
@@ -104,9 +104,6 @@ export const deleteSpotThunk = (spotId) => async (dispatch) => {
   });
 
   if (response.ok) {
-    // const data = await response.json();
-    // const normalizedSpotData = {};
-    // normalizedSpotData[data.id] = data;
     dispatch(deleteSpot(spotId));
   }
 };
@@ -123,7 +120,6 @@ const spotsReducer = (state = initialState, action) => {
     case UPDATE_SPOT:
       return { ...state, ...action.payload };
     case DELETE_SPOT:
-
       delete newState[action.payload];
       return newState;
     default:
