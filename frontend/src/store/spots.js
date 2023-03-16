@@ -3,6 +3,7 @@ import { csrfFetch } from "./csrf";
 const LOAD_SPOTS = "spots/LOAD_SPOTS";
 const CREATE_SPOT = "spots/CREATE_SPOT";
 const UPDATE_SPOT = "spots/UPDATE_SPOT";
+const DELETE_SPOT = "spots/DELETE_SPOT";
 
 const loadSpots = (allSpotData) => ({
   type: LOAD_SPOTS,
@@ -17,6 +18,10 @@ const createSpot = (newSpotData) => ({
 const updateSpot = (updatedSpotData) => ({
   type: UPDATE_SPOT,
   payload: updatedSpotData,
+});
+const deleteSpot = (spotId) => ({
+  type: DELETE_SPOT,
+  payload: spotId,
 });
 
 export const getAllSpotsThunk = () => async (dispatch) => {
@@ -89,16 +94,28 @@ export const updateSpotThunk = (newSpotData, spotId) => async (dispatch) => {
     normalizedSpotData[data.id] = data;
     dispatch(updateSpot(normalizedSpotData));
     return data;
-
   } catch (error) {
     console.log("why helloooooo", error);
+  }
+};
+
+export const deleteSpotThunk = (spotId) => async (dispatch) => {
+  const response = await csrfFetch(`/api/spots/${spotId}`, {
+    method: "DELETE",
+  });
+
+  if (response.ok) {
+    const data = await response.json();
+    const normalizedSpotData = {};
+    normalizedSpotData[data.id] = data;
+    dispatch(deleteSpot(normalizedSpotData));
   }
 };
 
 const initialState = {};
 
 const spotsReducer = (state = initialState, action) => {
-  // let newState;
+  let newState = { ...state };
   switch (action.type) {
     case LOAD_SPOTS:
       return { ...state, ...action.payload };
@@ -106,6 +123,9 @@ const spotsReducer = (state = initialState, action) => {
       return { ...state, ...action.payload };
     case UPDATE_SPOT:
       return { ...state, ...action.payload };
+    case DELETE_SPOT:
+      delete newState[action.payload];
+      return newState;
     default:
       return state;
   }
