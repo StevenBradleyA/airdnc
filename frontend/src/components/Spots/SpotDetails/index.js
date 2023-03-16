@@ -14,6 +14,7 @@ const SpotDetails = () => {
   }, [dispatch, spotId]);
 
   const allSpots = useSelector((state) => state.spots);
+  console.log('testing..........', allSpots)
   const currentSpot = allSpots[spotId];
   if (!currentSpot) {
     return <h1>LOADING...</h1>;
@@ -26,7 +27,7 @@ const SpotDetails = () => {
         <div>
           <div>
             {currentSpot.SpotImages.map((e) => (
-              <img alt={`Spot`} src={`${e.url}`}></img>
+              <img alt={`Spot`} src={`${e.url}`}/>
             ))}
           </div>
 
@@ -44,7 +45,7 @@ const SpotDetails = () => {
         </div>
       </div>
       <div>
-        <AllReviews spotId={spotId}/>
+        <AllReviews spotId={spotId} currentSpot={currentSpot}/>
       </div>
     </div>
   );

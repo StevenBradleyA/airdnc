@@ -33,8 +33,8 @@ export const getAllReviewsBySpotIdThunk = (spotId) => async (dispatch) => {
     data.Reviews.forEach((e) => {
       normalizedReviewData[e.id] = e;
     });
-
     dispatch(loadReviews(normalizedReviewData));
+
   }
 };
 // ****** Later profile implementation if a user wants to see all their reviews and edit them *******

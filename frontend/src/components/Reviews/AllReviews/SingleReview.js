@@ -1,10 +1,13 @@
 import "./SingleReview.css";
 import { useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
 const SingleReview = ({ review }) => {
   const history = useHistory();
+  const sessionUser = useSelector((state) => state.session.user);
 
+    // console.log('userId', review.userId)
+    // if the logged in user viewing this has a matching id
 
-    // if the user owns this review allow a delete button.............
   return (
     <div key={review.id}>
     
@@ -12,7 +15,7 @@ const SingleReview = ({ review }) => {
     <h3>{`Month and year from created at`}</h3>
     <p>{review.review}</p>
     {/* conditional modal delete button if they own the review */}
-    {/* <button>Delete</button> */}
+    {review.userId === sessionUser.id  && (<button>Delete</button>)}
     </div>
   );
 };
