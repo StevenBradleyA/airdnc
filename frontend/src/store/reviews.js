@@ -93,9 +93,8 @@ const reviewsReducer = (state = initialState, action) => {
     // case UPDATE_REVIEW:
       return { ...state, ...action.payload };
     case DELETE_REVIEW:
-
-    //   delete newState[action.payload];
-    //   return newState;
+      delete newState[action.payload];
+      return newState;
     default:
       return state;
   }
