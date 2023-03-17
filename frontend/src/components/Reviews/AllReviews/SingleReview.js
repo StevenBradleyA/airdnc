@@ -8,7 +8,7 @@ import OpenModalButton from "../../OpenModalButton";
 const SingleReview = ({ review }) => {
   const history = useHistory();
   const sessionUser = useSelector((state) => state.session.user);
-
+  console.log('yesssssir', review)
   return (
     <div key={review.id}>
       <h2>{`${review.User.firstName} ${review.User.lastName}`}</h2>

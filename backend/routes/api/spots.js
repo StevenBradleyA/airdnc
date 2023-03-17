@@ -639,7 +639,14 @@ router.post("/:id/reviews", requireAuth, async (req, res, next) => {
     stars,
   });
 
-  return res.status(201).json(newReview);
+  const createdReview = await Review.findByPk(newReview.id, {
+    include: {
+      model: User,
+      where: { id: newReview.userId },
+    },
+  });
+
+  return res.status(201).json(createdReview);
 });
 
 //*GET /:spotId/bookings

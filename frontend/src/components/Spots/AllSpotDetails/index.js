@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getAllSpotsThunk } from "../../../store/spots";
 import SpotCard from "./SpotCard";
+
+
 import "./AllSpotDetails.css";
 const AllSpotDetails = () => {
   const dispatch = useDispatch();

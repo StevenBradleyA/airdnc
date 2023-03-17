@@ -9,46 +9,51 @@ function CreateReviewModal({ spotId }) {
   const [review, setReview] = useState("");
   const [stars, setStars] = useState(0);
   const [errors, setErrors] = useState({});
-
   const dispatch = useDispatch();
   const { closeModal } = useModal();
+
+// console.log(stars, 'This is a star')
 
   const handleInputErrors = () => {
     const errorsObj = {};
     if (review.length < 10) {
       errorsObj.review = "Review needs a minimum of 10 characters";
     }
-    if (stars > 0) {
+    if (stars < 1) {
       errorsObj.stars = "Star rating must be between 1 and 5";
     }
 
     setErrors(errorsObj);
   };
+  // console.log(errors, "hellothere");
+
   useEffect(() => {
     handleInputErrors();
   }, [review, stars]);
 
+  const onChange = (e) => {
+    console.log(e, 'yo')
+    // console.log(e.target)
+    setStars(e)
+  };
+
   const handleReviewSubmit = async (e) => {
     e.preventDefault();
 
-    const reviewInformation = {
-      review,
-      stars,
-    };
-    await dispatch(createReviewThunk(reviewInformation, spotId));
-    closeModal();
+    if (!Object.values(errors).length) {
+      const reviewInformation = {
+        review,
+        stars,
+      };
+      await dispatch(createReviewThunk(reviewInformation, spotId));
+      closeModal();
+    }
   };
-  const handleSetRating = (e) => {
-    const number = e.target.value;
-    setStars(parseInt(number));
-  };
-
   return (
     <div>
       <h1>How was your stay?</h1>
       <p></p>
-      <form>
-        onSubmit={handleReviewSubmit}
+      <form onSubmit={handleReviewSubmit}>
         <input
           type="text"
           value={review}
@@ -64,7 +69,7 @@ function CreateReviewModal({ spotId }) {
         <p></p>
         <StarsRatingInput
           disabled={false}
-          onChange={handleSetRating}
+          onChange={onChange}
           stars={stars}
         />
         <p></p>
