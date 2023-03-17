@@ -56,6 +56,29 @@
   /* box-shadow: -3px -3px 3px 0 rgba(0, 0, 0, 0.1); */
 }
 
+.menu-dropdown.active {
+
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition: 300ms ease
+}
+
+.menu-dropdown.inactive {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: 300ms ease
+}
+
+
+
+
+
+
+
+
+
 .your-profile-button {
   color: red;
   filter: brightness(0.1);

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { NavLink, useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 // import ProfileButton from "./ProfileButton";
@@ -81,8 +81,8 @@ function Navigation({ isLoaded }) {
           style={{ opacity: 0.8 }}
           onClick={handleMenuClick}
         />
-        {openMenu && (
-          <div className="menu-dropdown">
+        
+          <div className={`menu-dropdown ${openMenu? 'active' : "inactive"}`}>
             {sessionUser && (
               <h3 className="menu-hello">{`Hello, ${sessionUser.firstName} ${sessionUser.email}`}</h3>
             )}
@@ -107,7 +107,7 @@ function Navigation({ isLoaded }) {
             )}
             <div>{isLoaded && sessionLinks}</div>
           </div>
-        )}
+        
       </div>
     </div>
   );
