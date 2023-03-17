@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../../context/Modal";
-import "./CreateReview.css";
-import { useState } from "react";
 import StarsRatingInput from "./StarsRating";
-function CreateReviewModal({ review }) {
+import { createReviewThunk } from "../../../store/reviews";
+import "./CreateReview.css";
+
+function CreateReviewModal({ spotId }) {
   const [review, setReview] = useState("");
   const [stars, setStars] = useState(0);
   const [errors, setErrors] = useState({});
@@ -34,7 +35,7 @@ function CreateReviewModal({ review }) {
       review,
       stars,
     };
-    await dispatch(createReviewThunk(reviewInformation, review.spotId));
+    await dispatch(createReviewThunk(reviewInformation, spotId));
     closeModal();
   };
   const handleSetRating = (e) => {
