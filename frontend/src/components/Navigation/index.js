@@ -29,13 +29,13 @@ function Navigation({ isLoaded }) {
   let sessionLinks;
   if (sessionUser) {
     sessionLinks = (
-      <li>
+      <div>
         <ProfileButton user={sessionUser} />
-      </li>
+      </div>
     );
   } else {
     sessionLinks = (
-      <li>
+      <div>
         <OpenModalButton
           buttonText="Log In"
           modalComponent={<LoginFormModal />}
@@ -44,7 +44,7 @@ function Navigation({ isLoaded }) {
           buttonText="Sign Up"
           modalComponent={<SignupFormModal />}
         />
-      </li>
+      </div>
     );
   }
 
@@ -73,14 +73,17 @@ function Navigation({ isLoaded }) {
           onClick={handleMenuClick}
         />
         {openMenu && (
-          <ul className="menu-dropdown">
-            <li>{isLoaded && sessionLinks}</li>
+          <div className="menu-dropdown">
+              <h3>{`Hello, ${sessionUser.firstName} ${sessionUser.email}`}</h3>
+              <button className="your-profile-button">Your Profile</button>
             {sessionUser && (
-            <li className="manage-spot-button"> 
+            <div className="manage-spot-button"> 
               <button onClick={handleManageClick}>Manage Spots</button>
-           </li>
+           </div>
             )}
-          </ul>
+              <button>log out</button>
+            <div>{isLoaded && sessionLinks}</div>
+          </div>
         )}
         </div>
     </div>
