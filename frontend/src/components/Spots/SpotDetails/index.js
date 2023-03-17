@@ -27,7 +27,7 @@ const SpotDetails = () => {
         <div>
           <div>
             {currentSpot.SpotImages.map((e) => (
-              <img alt={`Spot`} src={`${e.url}`} />
+              <img key={e.id} alt={`Spot`} src={`${e.url}`} />
             ))}
           </div>
 

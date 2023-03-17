@@ -16,7 +16,7 @@ const AllSpotDetails = () => {
   return (
     <div className="spotCardsContainer">
       {allSpots.map((spot) => (
-        <SpotCard spot={spot} />
+        <SpotCard key={spot.id} spot={spot} />
       ))}
     </div>
   );

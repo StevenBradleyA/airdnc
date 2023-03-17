@@ -1,6 +1,5 @@
 import "./ManageSpots.css";
 import { useHistory } from "react-router-dom";
-import { useSelector } from "react-redux";
 import DeleteSpotFormModal from "../DeleteSpot";
 import OpenModalButton from "../../OpenModalButton";
 const ManageSpotCard = ({ spot }) => {
@@ -17,7 +16,7 @@ const ManageSpotCard = ({ spot }) => {
 
   return (
     <div>
-      <div  onClick={handleCardClick} className="spotCard">
+      <div onClick={handleCardClick} className="spotCard">
         <img
           src={`${spot.previewImage}`}
           alt={`${spot.name}`}
