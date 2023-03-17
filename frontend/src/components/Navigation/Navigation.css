@@ -20,23 +20,26 @@
 
 .menu {
   position: absolute;
-  top: 2.5rem;
-  right: 5rem;
+  top: 17px;
+  right: 3rem;
   cursor: pointer;
-  font-size: 20px;
+  font-size: 25px;
 }
 
 .menu-dropdown {
   position: absolute;
   z-index: 1;
-  top: 2.5rem;
-  right: 5rem;
+  top: 20px;
+  right: -32px;
   width: 110px;
   padding: 30px;
   height: 110px;
   border-radius: 10px;
   background-color: white;
   border: 1px solid gray;
+
+
+  
 }
 .menu-dropdown::before {
   position: absolute;
@@ -51,20 +54,16 @@
   content: "";
 }
 
-.new-spot-button{
+.new-spot-button {
   color: red;
   position: absolute;
   right: 10rem;
   top: 2.5rem;
-
 }
 
-.manage-spot-button{
-  color: red
+.manage-spot-button {
+  color: red;
 }
-
-
-
 
 /* 
 .log-in-button {
