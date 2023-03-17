@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getSpotByIdThunk } from "../../../store/spots";
 import { useParams } from "react-router-dom";
-import AllReviews from '../../Reviews/AllReviews/index'
+import AllReviews from "../../Reviews/AllReviews/index";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import "./SpotDetails.css";
@@ -45,10 +45,17 @@ const SpotDetails = () => {
                 currentSpot.avgStarRating === "NaN"
                   ? "New"
                   : currentSpot.avgStarRating
-              } ${currentSpot.numReviews} reviews`}
+              } ${currentSpot.numReviews} review${
+                currentSpot.numReviews === 1 ? "" : "s"
+              }`}
             </h2>
           </div>
-          <button>Reserve</button>
+          <button
+            className="reserve-button"
+            onClick={() => window.alert("Feature Coming Soon!")}
+          >
+            Reserve
+          </button>
         </div>
       </div>
       <div>
