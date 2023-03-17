@@ -2,22 +2,22 @@ import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import "./CreateReview.css"
-const StarsRatingInput = ({ rating, disabled, onChange }) => {
-  const [activeRating, setActiveRating] = useState(rating);
+const StarsRatingInput = ({ stars, disabled, handleSetRating }) => {
+  const [currentStarRating, setCurrentStarRating] = useState(stars);
 
   useEffect(() => {
-    setActiveRating(rating);
-  }, [rating]);
+    setCurrentStarRating(stars);
+  }, [stars]);
  
   const starsIcon = (number) => {
     const stars = {};
     if (!disabled) {
-      stars.onMouseEnter = () => setActiveRating(number);
-      stars.onMouseLeave = () => setActiveRating(rating);
-      stars.onClick = () => onChange(number);
+      stars.onMouseEnter = () => setCurrentStarRating(number);
+      stars.onMouseLeave = () => setCurrentStarRating(stars);
+      stars.onClick = () => handleSetRating(number);
     }
     return (
-      <div key={number} className={activeRating >= number ? "filled" : "empty"} {...stars}>
+      <div key={number} className={currentStarRating >= number ? "filled" : "empty"} {...stars}>
         <FontAwesomeIcon icon={faStar} />
       </div>
     );

@@ -34,7 +34,6 @@ export const getAllReviewsBySpotIdThunk = (spotId) => async (dispatch) => {
       normalizedReviewData[e.id] = e;
     });
     dispatch(loadReviews(normalizedReviewData));
-
   }
 };
 // ****** Later profile implementation if a user wants to see all their reviews and edit them *******
@@ -52,23 +51,24 @@ export const getAllReviewsBySpotIdThunk = (spotId) => async (dispatch) => {
 //   }
 // };
 
-export const createReviewThunk = (newReviewData, spotId) => async (dispatch) => {
-  try {
-    const response = await csrfFetch(`/api/spots/${spotId}/reviews`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newReviewData),
-    });
+export const createReviewThunk =
+  (newReviewData, spotId) => async (dispatch) => {
+    try {
+      const response = await csrfFetch(`/api/spots/${spotId}/reviews`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newReviewData),
+      });
 
-    const data = await response.json();
-    const normalizedSpotData = {};
-    normalizedSpotData[data.id] = data;
-    dispatch(createReview(normalizedSpotData));
-    return data;
-  } catch (error) {
-    console.log(error);
-  }
-};
+      const data = await response.json();
+      const normalizedSpotData = {};
+      normalizedSpotData[data.id] = data;
+      dispatch(createReview(normalizedSpotData));
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
 export const deleteReviewThunk = (reviewId) => async (dispatch) => {
   const response = await csrfFetch(`/api/reviews/${reviewId}`, {
@@ -76,7 +76,6 @@ export const deleteReviewThunk = (reviewId) => async (dispatch) => {
   });
 
   if (response.ok) {
-   
     dispatch(deleteReview(reviewId));
   }
 };
@@ -91,7 +90,7 @@ const reviewsReducer = (state = initialState, action) => {
     case CREATE_REVIEW:
       return { ...state, ...action.payload };
     // case UPDATE_REVIEW:
-      // return { ...state, ...action.payload };
+    // return { ...state, ...action.payload };
     case DELETE_REVIEW:
       delete newState[action.payload];
       return newState;
