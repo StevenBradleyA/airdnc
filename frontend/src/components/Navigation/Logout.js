@@ -34,8 +34,8 @@ function LogOutButton({ user, name }) {
 
 
   return (
-      <div className="log-out-button" ref={ulRef}>
-        {user && <button onClick={handleLogoutClick}>{name}</button>}
+      <div  ref={ulRef}>
+        {user && <button className="log-out-button" onClick={handleLogoutClick}>{name}</button>}
       </div>
   );
 }

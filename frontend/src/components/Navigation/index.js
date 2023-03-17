@@ -33,8 +33,7 @@ function Navigation({ isLoaded }) {
   let sessionLinks;
   if (sessionUser) {
     sessionLinks = (
-      <>
-      </>
+      <></>
       // <div>
       //   <ProfileButton user={sessionUser} />
       // </div>
@@ -84,12 +83,20 @@ function Navigation({ isLoaded }) {
               <h3>{`Hello, ${sessionUser.firstName} ${sessionUser.email}`}</h3>
             )}
             {sessionUser && (
-              <button className="your-profile-button" onClick={()=>(window.alert('Coming Soon!'))}>Your Profile</button>
+              <button
+                className="your-profile-button"
+                onClick={() => window.alert("Coming Soon!")}
+              >
+                Your Profile
+              </button>
             )}
             {sessionUser && (
-              <div className="manage-spot-button">
-                <button onClick={handleManageClick}>Manage Spots</button>
-              </div>
+              <button
+                className="manage-spot-button"
+                onClick={handleManageClick}
+              >
+                Manage Spots
+              </button>
             )}
             {sessionUser && (
               <LogOutButton user={sessionUser} name={`Log Out`} />
