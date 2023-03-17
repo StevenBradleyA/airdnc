@@ -2,13 +2,10 @@ import React, { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import * as sessionActions from "../../store/session";
 
-
 function LogOutButton({ user, name }) {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
   const ulRef = useRef();
-
-
 
   useEffect(() => {
     if (!showMenu) return;
@@ -32,11 +29,18 @@ function LogOutButton({ user, name }) {
     closeMenu();
   };
 
-
   return (
-      <div  ref={ulRef}>
-        {user && <button className="log-out-button" onClick={handleLogoutClick}>{name}</button>}
-      </div>
+    <>
+      {user && (
+        <button
+          ref={ulRef}
+          className="log-out-button"
+          onClick={handleLogoutClick}
+        >
+          {name}
+        </button>
+      )}
+    </>
   );
 }
 

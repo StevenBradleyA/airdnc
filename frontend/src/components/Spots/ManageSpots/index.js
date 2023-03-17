@@ -20,7 +20,7 @@ const ManageSpots = () => {
       <button>Create a New Spot</button>
       <div>
         {allSpots.map((spot) => {
-          if (sessionUser.id === spot.ownerId) {
+          if (sessionUser && sessionUser.id === spot.ownerId) {
             return <ManageSpotCards key={spot.id} spot={spot} />;
           } else {
             return null;

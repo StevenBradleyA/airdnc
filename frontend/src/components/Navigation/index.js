@@ -80,7 +80,7 @@ function Navigation({ isLoaded }) {
         {openMenu && (
           <div className="menu-dropdown">
             {sessionUser && (
-              <h3>{`Hello, ${sessionUser.firstName} ${sessionUser.email}`}</h3>
+              <h3 className='menu-hello'>{`Hello, ${sessionUser.firstName} ${sessionUser.email}`}</h3>
             )}
             {sessionUser && (
               <button
