@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { NavLink, useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 // import ProfileButton from "./ProfileButton";
@@ -16,6 +16,19 @@ function Navigation({ isLoaded }) {
   const sessionUser = useSelector((state) => state.session.user);
   const [openMenu, setOpenMenu] = useState(false);
   const history = useHistory();
+  const burgerRef = useRef();
+  useEffect(() => {
+    let handleClickOffMenu = (e) => {
+      if (!burgerRef.current.contains(e.target)) {
+        setOpenMenu(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOffMenu);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOffMenu);
+    };
+  });
 
   const handleMenuClick = (e) => {
     e.preventDefault();
@@ -75,14 +88,15 @@ function Navigation({ isLoaded }) {
           Create a New Spot
         </button>
       )}
-      <div className="menu">
-        <FontAwesomeIcon
-          icon={faBurger}
-          style={{ opacity: 0.8 }}
-          onClick={handleMenuClick}
-        />
-        
-          <div className={`menu-dropdown ${openMenu? 'active' : "inactive"}`}>
+      <div className="menu-container" ref={burgerRef}>
+        <div className="menu">
+          <FontAwesomeIcon
+            icon={faBurger}
+            style={{ opacity: 0.8 }}
+            onClick={handleMenuClick}
+          />
+
+          <div className={`menu-dropdown ${openMenu ? "active" : "inactive"}`}>
             {sessionUser && (
               <h3 className="menu-hello">{`Hello, ${sessionUser.firstName} ${sessionUser.email}`}</h3>
             )}
@@ -107,7 +121,7 @@ function Navigation({ isLoaded }) {
             )}
             <div>{isLoaded && sessionLinks}</div>
           </div>
-        
+        </div>
       </div>
     </div>
   );
