@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getSpotByIdThunk } from "../../../store/spots";
 import { useParams } from "react-router-dom";
-import AllReviews from "../../Reviews/AllReviews";
+import AllReviews from '../../Reviews/AllReviews/index'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import "./SpotDetails.css";

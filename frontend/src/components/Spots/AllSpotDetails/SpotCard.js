@@ -10,6 +10,8 @@ const SpotCard = ({ spot }) => {
     history.push(`/spots/${spot.id}`);
   };
 
+ 
+
   return (
     <div key={spot.id} onClick={handleCardClick} className="spotCard">
       <img

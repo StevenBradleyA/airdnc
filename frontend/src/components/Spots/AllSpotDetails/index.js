@@ -13,6 +13,9 @@ const AllSpotDetails = () => {
   }, [dispatch]);
 
   const allSpots = useSelector((state) => Object.values(state.spots));
+  
+
+  
   return (
     <div className="spotCardsContainer">
       {allSpots.map((spot) => (

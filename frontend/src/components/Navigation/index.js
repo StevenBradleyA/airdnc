@@ -48,7 +48,6 @@ function Navigation({ isLoaded }) {
           />
         </div>
         <div className="sign-up-button">
-          
           <OpenModalButton
             buttonText="Sign Up"
             modalComponent={<SignupFormModal />}
@@ -72,9 +71,9 @@ function Navigation({ isLoaded }) {
         </NavLink>
       </div>
       {sessionUser && (
-        <div className="new-spot-button">
-          <button onClick={handleCreateClick}>Create a New Spot</button>
-        </div>
+        <button className="new-spot-button" onClick={handleCreateClick}>
+          Create a New Spot
+        </button>
       )}
       <div className="menu">
         <FontAwesomeIcon
