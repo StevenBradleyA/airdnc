@@ -2,9 +2,10 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getSpotByIdThunk } from "../../../store/spots";
 import { useParams } from "react-router-dom";
-import "./SpotDetails.css";
 import AllReviews from "../../Reviews/AllReviews";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
+import "./SpotDetails.css";
 const SpotDetails = () => {
   const dispatch = useDispatch();
   const { spotId } = useParams();
@@ -26,7 +27,7 @@ const SpotDetails = () => {
         <div>
           <div>
             {currentSpot.SpotImages.map((e) => (
-              <img alt={`Spot`} src={`${e.url}`}/>
+              <img alt={`Spot`} src={`${e.url}`} />
             ))}
           </div>
 
@@ -38,13 +39,20 @@ const SpotDetails = () => {
         <div>
           <div>
             <h1> {`$${currentSpot.price} night `} </h1>
-            <h2>{`${currentSpot.avgStarRating} ${currentSpot.numReviews} reviews`}</h2>
+            <h2>
+              <FontAwesomeIcon icon={faStar} />
+              {`${
+                currentSpot.avgStarRating === "NaN"
+                  ? "New"
+                  : currentSpot.avgStarRating
+              } ${currentSpot.numReviews} reviews`}
+            </h2>
           </div>
           <button>Reserve</button>
         </div>
       </div>
       <div>
-        <AllReviews spotId={spotId} currentSpot={currentSpot}/>
+        <AllReviews spotId={spotId} currentSpot={currentSpot} />
       </div>
     </div>
   );
