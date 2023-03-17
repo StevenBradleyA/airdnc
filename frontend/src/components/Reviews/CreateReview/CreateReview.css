@@ -1,0 +1,12 @@
+.five-stars {
+  display: flex;
+  margin-right: 4px;
+}
+
+.five-stars .filled {
+  color: rgb(253, 3, 3);
+}
+
+.five-stars .empty {
+  color: rgb(226, 239, 246);
+}

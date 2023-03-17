@@ -53,7 +53,7 @@ function CreateReviewModal({ review }) {
         <input
           type="text"
           value={stars}
-          placeholder="Leave your review here..."
+          // placeholder="Leave your review here..."
           onChange={(e) => setStars(e.target.value)}
         />
         <p></p>
