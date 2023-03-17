@@ -28,20 +28,23 @@ const AllReviews = ({ spotId, currentSpot }) => {
     (e) => sessionUser.id === e.userId
   );
 
-  
   return (
     <div>
-      {currentSpot.numReviews === 0 && <h1>New</h1>}
-      {sessionUser && reviewHistoryCheck.length === 0 && sessionUser.id !== currentSpot.ownerId &&(
-        <OpenModalButton
-        buttonText="Post Your Review"
-        modalComponent={<CreateReviewModal spotId={spotId} />}
-      />
-      )}
+      {currentReviews.length === 0 && <h1>New</h1>}
+      {sessionUser &&
+        reviewHistoryCheck.length === 0 &&
+        sessionUser.id !== currentSpot.ownerId && (
+          <OpenModalButton
+            buttonText="Post Your Review"
+            modalComponent={<CreateReviewModal spotId={spotId} />}
+          />
+        )}
 
-      {currentSpot.numReviews === 0 && <h2>Be the first to post a review!</h2>}
-      {currentSpot.numReviews >= 1 && (
-        <h1>{`${currentSpot.avgStarRating}  ${currentSpot.numReviews} reviews`}</h1>
+      {currentReviews.length === 0 && <h2>Be the first to post a review!</h2>}
+      {currentReviews.length >= 1 && (
+        <h1>{`${currentSpot.avgStarRating}  ${currentReviews.length} review${
+          currentReviews.length === 1 ? "" : "s"
+        }`}</h1>
       )}
 
       <div>
