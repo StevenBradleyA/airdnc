@@ -17,7 +17,7 @@ const ManageSpotCard = ({ spot }) => {
 
   return (
     <div>
-      <div key={spot.id} onClick={handleCardClick} className="spotCard">
+      <div  onClick={handleCardClick} className="spotCard">
         <img
           src={`${spot.previewImage}`}
           alt={`${spot.name}`}

@@ -24,15 +24,16 @@ const AllReviews = ({ spotId, currentSpot }) => {
   // {sessionUser &&}
 
   // how do we know they havent posted a review?
-  const reviewHistoryCheck = currentReviews.filter(
-    (e) => sessionUser.id === e.userId
-  );
+  // const loggedIn = Object.values(sessionUser).length > 1
+ 
 
   return (
     <div>
       {currentReviews.length === 0 && <h1>New</h1>}
       {sessionUser &&
-        reviewHistoryCheck.length === 0 &&
+        currentReviews.filter(
+          (e) => sessionUser.id === e.userId
+        ).length === 0 &&
         sessionUser.id !== currentSpot.ownerId && (
           <OpenModalButton
             buttonText="Post Your Review"
@@ -49,7 +50,7 @@ const AllReviews = ({ spotId, currentSpot }) => {
 
       <div>
         {currentReviews.map((review) => (
-          <SingleReview review={review} />
+          <SingleReview key={review.id} review={review} />
         ))}
       </div>
     </div>

@@ -21,7 +21,7 @@ const ManageSpots = () => {
       <div>
         {allSpots.map((spot) => {
           if (sessionUser.id === spot.ownerId) {
-            return <ManageSpotCards spot={spot} />;
+            return <ManageSpotCards key={spot.id} spot={spot} />;
           } else {
             return null;
           }

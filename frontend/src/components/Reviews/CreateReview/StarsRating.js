@@ -6,7 +6,6 @@ const StarsRatingInput = ({ stars, disabled, onChange }) => {
   const [currentStarRating, setCurrentStarRating] = useState(stars);
 
   useEffect(() => {
-    console.log("Is this the spot");
     setCurrentStarRating(stars);
   }, [stars]);
 

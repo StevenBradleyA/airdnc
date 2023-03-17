@@ -12,8 +12,6 @@ function CreateReviewModal({ spotId }) {
   const dispatch = useDispatch();
   const { closeModal } = useModal();
 
-// console.log(stars, 'This is a star')
-
   const handleInputErrors = () => {
     const errorsObj = {};
     if (review.length < 10) {
@@ -25,16 +23,13 @@ function CreateReviewModal({ spotId }) {
 
     setErrors(errorsObj);
   };
-  // console.log(errors, "hellothere");
 
   useEffect(() => {
     handleInputErrors();
   }, [review, stars]);
 
   const onChange = (e) => {
-    console.log(e, 'yo')
-    // console.log(e.target)
-    setStars(e)
+    setStars(e);
   };
 
   const handleReviewSubmit = async (e) => {
@@ -67,11 +62,7 @@ function CreateReviewModal({ spotId }) {
           onChange={(e) => setStars(e.target.value)}
         /> */}
         <p></p>
-        <StarsRatingInput
-          disabled={false}
-          onChange={onChange}
-          stars={stars}
-        />
+        <StarsRatingInput disabled={false} onChange={onChange} stars={stars} />
         <p></p>
         <input
           type="submit"

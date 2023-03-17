@@ -94,7 +94,7 @@ export const updateSpotThunk = (newSpotData, spotId) => async (dispatch) => {
     dispatch(updateSpot(normalizedSpotData));
     return data;
   } catch (error) {
-    console.log("hello error");
+    console.log(error);
   }
 };
 

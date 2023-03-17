@@ -8,15 +8,14 @@ import months from "../../../utils/nonCringeMonths";
 const SingleReview = ({ review }) => {
   const history = useHistory();
   const sessionUser = useSelector((state) => state.session.user);
-  console.log("yesssssir", review);
   return (
-    <div key={review.id}>
+    <div >
       <h2>{`${review.User.firstName} ${review.User.lastName}`}</h2>
       <h3>{`${months[new Date(review.createdAt).getMonth()]} ${new Date(
         review.createdAt
       ).getFullYear()}`}</h3>
       <p>{review.review}</p>
-      {review.userId === sessionUser.id && (
+      {sessionUser && review.userId === sessionUser.id && (
         <OpenModalButton
           buttonText="Delete"
           modalComponent={<DeleteReviewFormModal review={review} />}
