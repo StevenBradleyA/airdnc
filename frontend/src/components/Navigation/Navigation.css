@@ -101,12 +101,17 @@
   transition: filter 150ms ease-in-out;
 }
 
-/* 
 .log-in-button {
-  background-color: red;
+  /* background-color: red; */
   color: blue;
 }
 
 .sign-up-button {
-  background-color: red;
-} */
+  /* background-color: red; */
+  color: red;
+} 
+
+
+.modal-form-log-in-button{
+  color:blue
+}

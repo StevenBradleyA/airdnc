@@ -14,9 +14,18 @@ function OpenModalButton({
     if (typeof onModalClose === 'function') setOnModalClose(onModalClose);
     setModalContent(modalComponent);
   };
-
+// might need to add a conditional here that says if button text = this than apply this class name????
   return (
-    <button onClick={onClick}>{buttonText}</button>
+    <>
+    {buttonText === 'Log In' &&(<button className='log-in-button'onClick={onClick}>{buttonText}</button>)}
+    {buttonText === 'Sign Up' &&(<button className='sign-up-button'onClick={onClick}>{buttonText}</button>)}
+    {buttonText === 'Delete' &&(<button className='delete-button-modal'onClick={onClick}>{buttonText}</button>)}
+    {buttonText === 'Post Your Review' &&(<button className='post-your-review-button-modal'onClick={onClick}>{buttonText}</button>)}
+
+
+
+    </>
+
   );
 }
 

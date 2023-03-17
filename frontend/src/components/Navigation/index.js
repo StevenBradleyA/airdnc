@@ -41,14 +41,19 @@ function Navigation({ isLoaded }) {
   } else {
     sessionLinks = (
       <div>
-        <OpenModalButton
-          buttonText="Log In"
-          modalComponent={<LoginFormModal />}
-        />
-        <OpenModalButton
-          buttonText="Sign Up"
-          modalComponent={<SignupFormModal />}
-        />
+        <div className="log-in-button">
+          <OpenModalButton
+            buttonText="Log In"
+            modalComponent={<LoginFormModal />}
+          />
+        </div>
+        <div className="sign-up-button">
+          
+          <OpenModalButton
+            buttonText="Sign Up"
+            modalComponent={<SignupFormModal />}
+          />
+        </div>
       </div>
     );
   }
@@ -80,7 +85,7 @@ function Navigation({ isLoaded }) {
         {openMenu && (
           <div className="menu-dropdown">
             {sessionUser && (
-              <h3 className='menu-hello'>{`Hello, ${sessionUser.firstName} ${sessionUser.email}`}</h3>
+              <h3 className="menu-hello">{`Hello, ${sessionUser.firstName} ${sessionUser.email}`}</h3>
             )}
             {sessionUser && (
               <button
