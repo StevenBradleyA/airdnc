@@ -109,10 +109,13 @@
 }
 
 .new-spot-button {
+  padding: 0;
+  border: none;
+  background: none;
   color: red;
   position: absolute;
-  right: 10rem;
-  top: 2.5rem;
+  right: 120px;
+  top: 24px;
 }
 
 .your-profile-button {
