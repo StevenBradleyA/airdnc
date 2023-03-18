@@ -57,31 +57,37 @@
 }
 
 .menu-dropdown.active {
-
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
-  transition: 300ms ease
+  transition: 300ms ease;
 }
 
 .menu-dropdown.inactive {
   opacity: 0;
   visibility: hidden;
   transform: translateY(-10px);
-  transition: 300ms ease
+  transition: 300ms ease;
 }
 
+.logged-out-dropdown-container {
+  position: relative;
+  top: 0rem;
+  row-gap: 80px;
+  /* right: -40px; */
+  width: 90px;
 
+  height: 150px;
+  display: flex;
+  flex: wrap;
+  flex-direction: column;
+}
 
-
-
-
-
-
+/* **************************     Menu Contents   *************************** */
 
 .your-profile-button {
   color: red;
-  filter: brightness(0.1);
+  filter: brightness(0.05);
   transition: filter 150ms ease-in-out;
 }
 
@@ -98,7 +104,7 @@
   border: none;
   background: none;
   color: red;
-  filter: brightness(0.1);
+  filter: brightness(0.05);
   transition: filter 150ms ease-in-out;
 }
 
@@ -120,21 +126,47 @@
   border: none;
   background: none;
   color: red;
-  filter: brightness(0.1);
+  filter: brightness(0.05);
   transition: filter 150ms ease-in-out;
 }
 
+/* ---------------------------------------Signed out User----------------------------- */
 .log-in-button {
-  /* background-color: red; */
-  color: blue;
+  padding: 0;
+  border: none;
+  background: none;
+  color: red;
+  filter: brightness(0.05);
+  transition: filter 150ms ease-in-out;
+}
+.log-in-button:hover {
+  filter: brightness(1);
 }
 
 .sign-up-button {
-  /* background-color: red; */
+  padding: 0;
+  border: none;
+  background: none;
   color: red;
-} 
+  filter: brightness(0.05);
+  transition: filter 150ms ease-in-out;
+}
+.sign-up-button:hover {
+  filter: brightness(1);
+}
 
+.demo-log-in-button {
+  padding: 0;
+  border: none;
+  background: none;
+  color: red;
+  filter: brightness(0.05);
+  transition: filter 150ms ease-in-out;
+}
+.demo-log-in-button:hover {
+  filter: brightness(1);
+}
 
-.modal-form-log-in-button{
-  color:blue
+.modal-form-log-in-button {
+  color: blue;
 }

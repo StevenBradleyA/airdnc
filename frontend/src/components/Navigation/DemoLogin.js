@@ -7,7 +7,7 @@ const DemoLogin = () => {
     dispatch(login({ credential: "demo@user.io", password: "password" }));
   };
 
-  return <button onClick={onClick}>Demo login</button>;
+  return <button onClick={onClick} className="demo-log-in-button">Demo login</button>;
 };
 
 export default DemoLogin;

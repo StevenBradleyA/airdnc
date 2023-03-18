@@ -59,7 +59,7 @@ function Navigation({ isLoaded }) {
           buttonText="Log In"
           modalComponent={<LoginFormModal />}
         />
-
+        <div></div>
         <OpenModalButton
           buttonText="Sign Up"
           modalComponent={<SignupFormModal />}
@@ -118,7 +118,7 @@ function Navigation({ isLoaded }) {
             {sessionUser && (
               <LogOutButton user={sessionUser} name={`Log Out`} />
             )}
-            <div>{isLoaded && sessionLinks}</div>
+            <div className="logged-out-dropdown-container">{isLoaded && sessionLinks}</div>
           </div>
         </div>
       </div>
