@@ -6,7 +6,7 @@
 }
 
 .spotCard:hover {
-  filter: brightness(1.2);
+  filter: brightness(1.1);
 }
 /* need to add name of spot for hover */
 
@@ -49,8 +49,8 @@
 }
 
 #my-tooltip {
-  position: absolute;
-  top: 20px;
-  opacity: 0.5;
+  opacity: 0.1;
   font-size: 5px;
+  background-color: black;
+
 }
