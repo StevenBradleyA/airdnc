@@ -45,10 +45,15 @@ const SpotDetails = () => {
                 currentSpot.avgStarRating === "NaN"
                   ? "New"
                   : currentSpot.avgStarRating
-              } ${currentSpot.numReviews} review${
-                currentSpot.numReviews === 1 ? "" : "s"
               }`}
             </h2>
+            {currentSpot.numReviews > 0 && (
+              <h2>
+                {`${currentSpot.numReviews} review${
+                  currentSpot.numReviews === 1 ? "" : "s"
+                }`}
+              </h2>
+            )}
           </div>
           <button
             className="reserve-button"

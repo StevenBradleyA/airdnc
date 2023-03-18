@@ -30,7 +30,7 @@ const AllReviews = ({ spotId, currentSpot }) => {
 
   return (
     <div>
-      {currentReviews.length === 0 && <h1>New</h1>}
+      {currentReviews.length === 0 && <h1><FontAwesomeIcon icon={faStar} />{`New`}</h1>}
       {sessionUser &&
         currentReviews.filter((e) => sessionUser.id === e.userId).length ===
           0 &&
