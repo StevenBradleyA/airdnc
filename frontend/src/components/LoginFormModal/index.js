@@ -34,27 +34,13 @@ function LoginFormModal() {
     e.preventDefault();
 
     if (!Object.values(errors).length) {
-      await dispatch(sessionActions.login({ credential, password }));
-      closeModal();
-      // closeModal();
-    // } else {
-    //   setBackendErrors([]);
-    //   await dispatch(sessionActions.login({ credential, password })).catch(
-    //     async (res) => {
-    //       const data = await res.json();
-
-    //       if (data && data.errors) setBackendErrors(data.errors);
-    //       console.log(data.errors, "is this showing up at all???");
-    //     }
-      // );
-      // closeModal();
+      dispatch(sessionActions.login({ credential, password }))
+        .then(() => closeModal())
+        .catch(async (res) => {
+          const data = await res.json();
+          if (data && data.errors) setErrors({ credential: data.errors[0] });
+        });
     }
-
-    //   catch(async (res) => {
-    //   const data = await res.json();
-    //   if (data && data.errors) setErrors(data.errors);
-    // });
-
     setHasSubmitted(true);
   };
 
@@ -62,11 +48,11 @@ function LoginFormModal() {
     <>
       <h1>Log In</h1>
       <form onSubmit={handleSubmit}>
-        <ul>
+        <p>
           {backendErrors.map((error, idx) => (
             <li key={idx}>{error}</li>
           ))}
-        </ul>
+        </p>
         <label>
           Username or Email
           <input

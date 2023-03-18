@@ -11,6 +11,7 @@ import { faCouch, faBurger } from "@fortawesome/free-solid-svg-icons";
 
 import "./Navigation.css";
 import LogOutButton from "./Logout";
+import DemoLogin from "./DemoLogin";
 
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector((state) => state.session.user);
@@ -54,18 +55,16 @@ function Navigation({ isLoaded }) {
   } else {
     sessionLinks = (
       <div>
-        <div className="log-in-button">
-          <OpenModalButton
-            buttonText="Log In"
-            modalComponent={<LoginFormModal />}
-          />
-        </div>
-        <div className="sign-up-button">
-          <OpenModalButton
-            buttonText="Sign Up"
-            modalComponent={<SignupFormModal />}
-          />
-        </div>
+        <OpenModalButton
+          buttonText="Log In"
+          modalComponent={<LoginFormModal />}
+        />
+
+        <OpenModalButton
+          buttonText="Sign Up"
+          modalComponent={<SignupFormModal />}
+        />
+        <DemoLogin />
       </div>
     );
   }

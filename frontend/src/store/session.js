@@ -38,7 +38,7 @@ export const signup = (user) => async (dispatch) => {
 
 export const login = (user) => async (dispatch) => {
   const { credential, password } = user;
-  try{
+  // try{
     const response = await csrfFetch("/api/session", {
       method: "POST",
       body: JSON.stringify({
@@ -50,11 +50,11 @@ export const login = (user) => async (dispatch) => {
     dispatch(setUser(data.user));
     return response;
 
-  }
-  catch(error){
-    console.log(error, 'session catch error here')
+  // }
+  // catch(error){
+  //   console.log(error, 'session catch error here')
 
-  }
+  // }
 };
 export const restoreUser = () => async (dispatch) => {
   const response = await csrfFetch("/api/session");
