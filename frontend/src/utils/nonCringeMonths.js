@@ -1,4 +1,4 @@
-export default {
+ const months= {
   0: "Jan",
   1: "Feb",
   2: "Mar",
@@ -13,3 +13,4 @@ export default {
   11: "Dec",
   12: "Dez Monthz",
 };
+export default months

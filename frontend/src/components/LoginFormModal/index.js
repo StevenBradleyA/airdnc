@@ -9,7 +9,7 @@ function LoginFormModal() {
   const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
-  const [backendErrors, setBackendErrors] = useState([]);
+  // const [backendErrors, setBackendErrors] = useState([]);
   const { closeModal } = useModal();
   const [hasSubmitted, setHasSubmitted] = useState(false);
 
@@ -48,11 +48,11 @@ function LoginFormModal() {
     <>
       <h1>Log In</h1>
       <form onSubmit={handleSubmit}>
-        <p>
+        {/* <p>
           {backendErrors.map((error, idx) => (
             <li key={idx}>{error}</li>
           ))}
-        </p>
+        </p> */}
         <label>
           Username or Email
           <input
