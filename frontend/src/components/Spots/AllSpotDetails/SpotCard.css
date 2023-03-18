@@ -16,17 +16,37 @@
   border-radius: 10px 10px;
   
 }
+.location-rating-container {
+  display: flex;
+justify-content: space-between;
+  position: relative;
+  bottom: 3%;
+
+  }
+
 
 .location {
   font-size: 10px;
- 
 }
 
 .avg-rating {
   font-size: 10px;
- 
+  display: flex;
+  justify-content: flex-end;
 }
+
+.price-container{
+  display:flex;
+  position:relative;
+  bottom: 7%
+}
+
 .price {
   font-size: 10px;
-  
+}
+.night {
+  font-size: 10px;
+  opacity: .70;
+  position: relative;
+  left: 2px
 }

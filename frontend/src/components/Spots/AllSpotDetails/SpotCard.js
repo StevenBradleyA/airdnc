@@ -10,8 +10,6 @@ const SpotCard = ({ spot }) => {
     history.push(`/spots/${spot.id}`);
   };
 
- 
-
   return (
     <div key={spot.id} onClick={handleCardClick} className="spotCard">
       <img
@@ -19,14 +17,19 @@ const SpotCard = ({ spot }) => {
         alt={`${spot.name}`}
         className="previewImage"
       ></img>
-      <h2 className="location">{`${spot.city}, ${spot.state} `}</h2>
-      {/* <h2>{spot.state} </h2> */}
-      <h2 className="avg-rating">
-        <FontAwesomeIcon icon={faStar} />
-        {spot.avgRating === "NaN" ? "New" : spot.avgRating}
-      </h2>
-
-      <h2 className="price">{`$${spot.price} night`}</h2>
+      <div className="location-rating-container">
+        <h2 className="location">{`${spot.city}, ${spot.state} `}</h2>
+        {/* <h2>{spot.state} </h2> */}
+        <h2 className="avg-rating">
+          <FontAwesomeIcon icon={faStar} />
+          {spot.avgRating === "NaN" ? "New" : spot.avgRating}
+        </h2>
+      </div>
+      <div className="price-container">
+        <h2 className="price">{`$${spot.price}`}</h2>
+        <p>  </p> 
+        <h2 className="night">night</h2>
+      </div>
       {/* Going to need the spot name on a hover css */}
     </div>
   );
