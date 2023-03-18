@@ -2,7 +2,7 @@
   width: 200px;
   height: 200px;
   margin: 15px 0px;
-  transition: filter 300ms; 
+  transition: filter 300ms;
 }
 
 .spotCard:hover {
@@ -14,16 +14,13 @@
   width: 200px;
   height: 180px;
   border-radius: 10px 10px;
-  
 }
 .location-rating-container {
   display: flex;
-justify-content: space-between;
+  justify-content: space-between;
   position: relative;
   bottom: 3%;
-
-  }
-
+}
 
 .location {
   font-size: 10px;
@@ -35,10 +32,10 @@ justify-content: space-between;
   justify-content: flex-end;
 }
 
-.price-container{
-  display:flex;
-  position:relative;
-  bottom: 7%
+.price-container {
+  display: flex;
+  position: relative;
+  bottom: 7%;
 }
 
 .price {
@@ -46,7 +43,14 @@ justify-content: space-between;
 }
 .night {
   font-size: 10px;
-  opacity: .70;
+  opacity: 0.7;
   position: relative;
-  left: 2px
+  left: 2px;
+}
+
+#my-tooltip {
+  position: absolute;
+  top: 20px;
+  opacity: 0.5;
+  font-size: 5px;
 }

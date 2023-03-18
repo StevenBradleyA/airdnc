@@ -26,8 +26,8 @@ const SpotCard = ({ spot }) => {
         className="previewImage"
         data-tooltip-id="my-tooltip" data-tooltip-content={spot.name} 
       />
-      <Tooltip id="my-tooltip" placement='bottom' />
-      
+      <Tooltip id="my-tooltip"  />
+      {/* position='Bottom' */}
       </div>
       <div className="location-rating-container">
         <h2 className="location">{`${spot.city}, ${spot.state} `}</h2>
