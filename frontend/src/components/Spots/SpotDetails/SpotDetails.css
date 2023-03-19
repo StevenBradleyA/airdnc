@@ -1,0 +1,23 @@
+.spot-detail-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 6%;
+}
+
+.spot-name {
+  font-size: 25px;
+}
+.spot-location {
+  font-size: 15px;
+}
+.spot-image-container {
+    display:grid;
+}
+.preview-image{
+    width: 200px;
+    height: 200px;
+}
+.spot-image{
+    width: 100px;
+    height: 100px;
+}

@@ -20,14 +20,20 @@ const SpotDetails = () => {
     return <h1>LOADING...</h1>;
   }
   return (
-    <div>
-      <h1>{currentSpot.name}</h1>
-      <h2>{`${currentSpot.city}, ${currentSpot.state}, ${currentSpot.country}`}</h2>
+    <div className="spot-detail-container">
+      <h1 className="spot-name">{currentSpot.name}</h1>
+      <h2 className="spot-location">{`${currentSpot.city}, ${currentSpot.state}, ${currentSpot.country}`}</h2>
       {currentSpot.Owner && currentSpot.SpotImages && (
         <div>
-          <div>
+          <div className="spot-images-container">
             {currentSpot.SpotImages.map((e) => (
-              <img key={e.id} alt={`Spot`} src={`${e.url}`} />
+              // console.log(e, 'hey bb')
+              <img
+                key={e.id}
+                alt={`Spot`}
+                src={`${e.url}`}
+                className={e.preview === true ? "preview-image" : "spot-image"}
+              />
             ))}
           </div>
 
