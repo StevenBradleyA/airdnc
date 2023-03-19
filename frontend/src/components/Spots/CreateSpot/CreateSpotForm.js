@@ -145,14 +145,17 @@ const CreateSpotForm = ({ formType, spotId }) => {
   return (
     <div className="create-spot-container">
       <div className="create-spot-heading-container">
-
-      {formType === "create" && <h1 className="create-spot-heading">Create a new Spot</h1>}
-      {formType === "update" && <h1 className="update-spot-heading">Update your Spot</h1>}
-      <h2 className="where-create">Where's your place located?</h2>
-      <h3 className="where-create-info">
-        Guests will only get your exact address once they have booked a
-        reservation.
-      </h3>
+        {formType === "create" && (
+          <h1 className="create-spot-heading">Create a new Spot</h1>
+        )}
+        {formType === "update" && (
+          <h1 className="update-spot-heading">Update your Spot</h1>
+        )}
+        <h2 className="where-create">Where's your place located?</h2>
+        <h3 className="where-create-info">
+          Guests will only get your exact address once they have booked a
+          reservation.
+        </h3>
       </div>
 
       <form onSubmit={handleFormSubmit} className="create-form">
@@ -160,6 +163,7 @@ const CreateSpotForm = ({ formType, spotId }) => {
           Country
           <input
             type="text"
+            className="basic-input"
             value={country}
             placeholder="Country"
             onChange={(e) => setCountry(e.target.value)}
@@ -173,13 +177,13 @@ const CreateSpotForm = ({ formType, spotId }) => {
           Street Address
           <input
             type="text"
+            className="basic-input"
             value={address}
             placeholder="Address"
             onChange={(e) => setAddress(e.target.value)}
           />
         </label>
         <p></p>
-
         {hasSubmitted && errors.address && (
           <p className="errors">{errors.address}</p>
         )}
@@ -187,6 +191,7 @@ const CreateSpotForm = ({ formType, spotId }) => {
           City
           <input
             type="text"
+            className="city-input"
             placeholder="City"
             value={city}
             onChange={(e) => setCity(e.target.value)}
@@ -205,8 +210,7 @@ const CreateSpotForm = ({ formType, spotId }) => {
         {hasSubmitted && errors.state && (
           <p className="errors">{errors.state}</p>
         )}
-     
-        <h1 className='create-form-description'>Describe your place to guests</h1>
+        <h1 className="create-form-header">Describe your place to guests</h1>
         <label>
           Mention the best features of your space, any special amentities like
           fast wifi or parking, and what you love about the neighborhood.
@@ -220,25 +224,27 @@ const CreateSpotForm = ({ formType, spotId }) => {
         {hasSubmitted && errors.description && (
           <p className="errors">{errors.description}</p>
         )}
-        <h1>Create a title for your spot</h1>
+        <h1 className="create-form-header">Create a title for your spot</h1>
         <label>
           Catch guests' attention with a spot title that highlights what makes
           your place special.
           <input
             type="text"
             placeholder="Name of your spot"
+            className="basic-input"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
         </label>
         {hasSubmitted && errors.name && <p className="errors">{errors.name}</p>}
-        <h1>Set a base price for your spot</h1>
+        <h1 className="create-form-header">Set a base price for your spot</h1>
         <label>
           Competitive pricing can help your listing stand out and rank higher in
           search results.
           <input
             type="number"
             placeholder="Price per night (USD)"
+            className="basic-input"
             value={price}
             onChange={(e) => setPrice(e.target.value)}
           />
@@ -246,13 +252,14 @@ const CreateSpotForm = ({ formType, spotId }) => {
         {hasSubmitted && errors.price && (
           <p className="errors">{errors.price}</p>
         )}
-        <h1>Liven up your spot with photos</h1>
+        <h1 className="create-form-header">Liven up your spot with photos</h1>
         <label>
           Submit a link to at least one photo to publish your spot.
           <p></p>
           <input
             type="text"
             placeholder="Preview Image URL"
+            className="basic-input"
             value={previewImage}
             onChange={(e) => setPreviewImage(e.target.value)}
           />
@@ -268,6 +275,7 @@ const CreateSpotForm = ({ formType, spotId }) => {
           <input
             type="text"
             placeholder="Image URL"
+            className="basic-input"
             value={nonPreviewImage1}
             onChange={(e) => setNonPreviewImage1(e.target.value)}
           />
@@ -283,6 +291,7 @@ const CreateSpotForm = ({ formType, spotId }) => {
           <input
             type="text"
             placeholder="Image URL"
+            className="basic-input"
             value={nonPreviewImage2}
             onChange={(e) => setNonPreviewImage2(e.target.value)}
           />
@@ -298,6 +307,7 @@ const CreateSpotForm = ({ formType, spotId }) => {
           <input
             type="text"
             placeholder="Image URL"
+            className="basic-input"
             value={nonPreviewImage3}
             onChange={(e) => setNonPreviewImage3(e.target.value)}
           />
@@ -313,6 +323,7 @@ const CreateSpotForm = ({ formType, spotId }) => {
           <input
             type="text"
             placeholder="Image URL"
+            className="basic-input"
             value={nonPreviewImage4}
             onChange={(e) => setNonPreviewImage4(e.target.value)}
           />
