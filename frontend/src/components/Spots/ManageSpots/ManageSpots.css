@@ -1,0 +1,24 @@
+.manage-spots-heading {
+  margin-top: 2%;
+  padding: 2rem;
+}
+
+.manage-create-button{
+    width: 200px;
+    cursor: pointer;
+    box-shadow: #050303 2px 2px 0 0;
+    border: 2px solid black;
+    background-color: rgb(67, 66, 66);
+    color: white;
+
+
+
+}
+
+/* .manage-spots-container{
+    margin: 30px 30px;
+    padding: 40px 10px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+} */

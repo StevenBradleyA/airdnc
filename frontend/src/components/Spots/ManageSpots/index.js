@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { getOwnedSpotsThunk } from "../../../store/spots";
 import ManageSpotCards from "./ManageSpotCards";
 import "./ManageSpots.css";
@@ -7,17 +8,23 @@ import "./ManageSpots.css";
 const ManageSpots = () => {
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(getOwnedSpotsThunk());
   }, [dispatch]);
 
   const allSpots = useSelector((state) => Object.values(state.spots));
-
+  const handleCreateClick = (e) => {
+    e.preventDefault();
+    history.push("/spots/new");
+  };
   return (
-    <div>
-      <h1>Manage Spots</h1>
-      <button>Create a New Spot</button>
+    <div className="manage-spots-container">
+      <div className="manage-spots-heading">
+        <h1>Manage Spots</h1>
+        <button className='manage-create-button' onClick={handleCreateClick}>Create a New Spot</button>
+      </div>
       <div>
         {allSpots.map((spot) => {
           if (sessionUser && sessionUser.id === spot.ownerId) {
