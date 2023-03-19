@@ -143,7 +143,7 @@ const CreateSpotForm = ({ formType, spotId }) => {
   };
 
   return (
-    <div>
+    <div className="create-spot-container">
       {formType === "create" && <h1>Create a Spot</h1>}
       {formType === "update" && <h1>Update your Spot</h1>}
       <h2>Where's your place located?</h2>
@@ -151,7 +151,7 @@ const CreateSpotForm = ({ formType, spotId }) => {
         Guests will only get your exact address once they have booked a
         reservation.
       </h3>
-      <form onSubmit={handleFormSubmit}>
+      <form onSubmit={handleFormSubmit} className="create-form">
         <label>
           Country
           <input
