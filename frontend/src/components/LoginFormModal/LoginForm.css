@@ -1,10 +1,14 @@
 #modal-content {
   background-color: white;
   border-radius: 10px;
-  padding: 1rem;
-  padding-right: 3%;
-  width: 25%;
-  height: 60%;
+  padding-top:0;
+  padding-right: 10%;
+  padding-left:10%;
+  padding-bottom:3%;
+
+  /* margin-left:40%; */
+  /* width: 30%;
+  height: 50%; */
   display: flex;
   flex-direction: column;
 }
@@ -26,18 +30,12 @@
 }
 
 .modal-form-log-in-button {
-  /* position: relative;
-  left: 60px; */
   background-color: red;
   color: white;
   width: 104%;
   height: 25%;
   padding-top: 5%;
   padding-bottom: 5%;
-  /* padding-left: 50%;
-  padding-right: 50%;
-  /* position: relative; */
-  /* bottom: 5px; */
   cursor: pointer;
   box-shadow: #420000 4px 4px 0 0;
   border: 3px solid black;
