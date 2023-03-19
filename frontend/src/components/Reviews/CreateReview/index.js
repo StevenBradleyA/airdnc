@@ -6,6 +6,7 @@ import { createReviewThunk } from "../../../store/reviews";
 import "./CreateReview.css";
 
 function CreateReviewModal({ spotId }) {
+  const [hasSubmitted, setHasSubmitted] = useState(false);
   const [review, setReview] = useState("");
   const [stars, setStars] = useState(0);
   const [errors, setErrors] = useState({});
@@ -40,15 +41,27 @@ function CreateReviewModal({ spotId }) {
         review,
         stars,
       };
-      await dispatch(createReviewThunk(reviewInformation, spotId));
+      dispatch(createReviewThunk(reviewInformation, spotId))
+        .then(() => closeModal())
+        .catch(async (res) => {
+          const data = await res.json();
+          if (data && data.errors) setErrors({ review: data.errors[0] });
+        });
       closeModal();
     }
+    setHasSubmitted(true);
   };
   return (
     <div>
       <h1>How was your stay?</h1>
       <p></p>
       <form onSubmit={handleReviewSubmit}>
+        {hasSubmitted && errors.review && (
+          <p className="errors">{errors.review}</p>
+        )}
+        {hasSubmitted && errors.stars && (
+          <p className="errors">{errors.stars}</p>
+        )}
         <input
           type="text"
           value={review}
@@ -67,7 +80,7 @@ function CreateReviewModal({ spotId }) {
         <input
           type="submit"
           value="Submit Your Review"
-          disabled={errors.length > 0}
+          disabled={hasSubmitted && Object.values(errors).length > 0}
         />
       </form>
     </div>
