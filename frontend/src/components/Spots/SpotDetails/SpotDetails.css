@@ -80,6 +80,11 @@
   justify-content: space-between;
 }
 
+
+
+.reserve-rating-number{
+    font-size: 12px;
+}
 .reserve-avg-rating{
     position: relative;
     top:10px;
