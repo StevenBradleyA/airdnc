@@ -27,7 +27,6 @@ const SpotDetails = () => {
         <div>
           <div className="spot-images-container">
             {currentSpot.SpotImages.map((e) => (
-              // console.log(e, 'hey bb')
               <img
                 key={e.id}
                 alt={`Spot`}
@@ -45,26 +44,9 @@ const SpotDetails = () => {
         <div className="reserve-container">
           <div className="price-star-container">
             <div className="price-night-container">
-              <h1 className="price-reserve">
-                {`$${currentSpot.price}`}
-              </h1>
+              <h1 className="price-reserve">{`$${currentSpot.price}`}</h1>
               <h1 className="reserve-night">night</h1>
             </div>
-            {/* <h2 className='reserve-avg-rating'>
-              <FontAwesomeIcon icon={faStar} />
-              {`${
-                currentSpot.avgStarRating === "NaN"
-                  ? "New"
-                  : currentSpot.avgStarRating
-              }`}
-            </h2>
-            {currentSpot.numReviews > 0 && (
-              <h2 className='reserve-number-reviews'>
-                {`${currentSpot.numReviews} review${
-                  currentSpot.numReviews === 1 ? "" : "s"
-                }`}
-              </h2>
-            )} */}
 
             {currentSpot.numReviews === 0 && (
               <h1 className="reserve-new">
