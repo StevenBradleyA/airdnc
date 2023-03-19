@@ -52,22 +52,30 @@ bottom: 15px; */
   border-top: 2px solid black;
   font-size: 20px;
   padding-top: 10px;
-
 }
-
 
 .description-input {
   width: 500px;
   height: 100px;
 }
 
-/* -------------- NAME ----------------- */
-
-.create-form-name-heading{
-  font-size: 20px;
-
+.button-border {
+  border-top: 2px solid black;
+  padding-top: 20px;
+  padding-left: 25%;
 }
-
-
-/* --------------- Price ------------------ */
-/* --------------- Photos ------------------ */
+.create-spot-button {
+  position: relative;
+  background-color: red;
+  color: white;
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  position: relative;
+  left: 20px;
+  bottom: 5px;
+  cursor: pointer;
+  box-shadow: #420000 4px 4px 0 0;
+  border: 3px solid black;
+}

@@ -335,7 +335,10 @@ const CreateSpotForm = ({ formType, spotId }) => {
           <p className="errors">{errors.wrongEnding4}</p>
         )}
         <p></p>
-        <input type="submit" value="Create Spot" disabled={errors.length > 0} />
+        <div className="button-border">
+
+        <input className="create-spot-button" type="submit" value="Create Spot" disabled={errors.length > 0} />
+        </div>
       </form>
     </div>
   );
