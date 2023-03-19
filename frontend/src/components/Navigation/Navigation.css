@@ -116,6 +116,8 @@
   position: absolute;
   right: 120px;
   top: 24px;
+  cursor: pointer;
+
 }
 
 .your-profile-button {

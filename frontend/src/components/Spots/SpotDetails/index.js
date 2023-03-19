@@ -37,12 +37,12 @@ const SpotDetails = () => {
             ))}
           </div>
 
-          <h1>{`Hosted by ${currentSpot.Owner.firstName} ${currentSpot.Owner.lastName}`}</h1>
+          <h1 className='owner-title'>{`Hosted by ${currentSpot.Owner.firstName} ${currentSpot.Owner.lastName}`}</h1>
         </div>
       )}
       <div>
-        <p>{currentSpot.description}</p>
-        <div>
+        <p className="description">{currentSpot.description}</p>
+        <div className='reserve-container'>
           <div>
             <h1> {`$${currentSpot.price} night `} </h1>
             <h2>

@@ -1,23 +1,70 @@
 .spot-detail-container {
   display: flex;
   flex-direction: column;
-  margin-top: 6%;
+  margin-top: 4%;
+  padding-left: 9%;
+  padding-right: 9%;
+
+  width: 1000px;
 }
 
 .spot-name {
   font-size: 25px;
+  position: relative;
+  top: 18px;
 }
 .spot-location {
+  font-size: 12px;
+  /* text-decoration-line: underline; */
+  opacity: 0.8;
+}
+.spot-images-container {
+  /* display:grid;
+    grid-template-columns: 100px 100px 100px 100px 100px 100px;
+    grid-template-rows: 100px 100px 100px 100px 100px 100px; */
+  display: flex;
+}
+.preview-image {
+  /* width: 50%;
+    height: 50%; */
+  width: 400px;
+  height: 400px;
+}
+
+.spot-image {
+  width: 200px;
+  height: 200px;
+}
+
+.owner-title {
+  font-size: 20px;
+  position: relative;
+  bottom: 5px;
+  opacity: 0.8;
+}
+
+.description {
   font-size: 15px;
+  width: 50%;
+  position: relative;
+  bottom: 25px;
 }
-.spot-image-container {
-    display:grid;
+
+.reserve-container{
+    background-color: rgb(255, 254, 254);
+    width:400px;
+    height: 150px;
+    position: relative;
+    bottom: 175px;
+    left: 600px;
+    border: 3px solid black;
+    border-radius: 10px;
+    
+    display: flex;
+
+
 }
-.preview-image{
-    width: 200px;
-    height: 200px;
-}
-.spot-image{
-    width: 100px;
-    height: 100px;
-}
+
+
+
+

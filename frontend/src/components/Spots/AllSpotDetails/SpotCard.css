@@ -3,6 +3,7 @@
   height: 200px;
   margin: 15px 0px;
   transition: filter 300ms;
+  cursor: pointer;
 }
 
 .spotCard:hover {
