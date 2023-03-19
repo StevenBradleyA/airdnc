@@ -20,12 +20,12 @@ const ManageSpots = () => {
     history.push("/spots/new");
   };
   return (
-    <div className="manage-spots-container">
+    <div >
       <div className="manage-spots-heading">
         <h1>Manage Spots</h1>
         <button className='manage-create-button' onClick={handleCreateClick}>Create a New Spot</button>
       </div>
-      <div>
+      <div className="manage-spots-container">
         {allSpots.map((spot) => {
           if (sessionUser && sessionUser.id === spot.ownerId) {
             return <ManageSpotCards key={spot.id} spot={spot} />;
