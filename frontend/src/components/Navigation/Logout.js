@@ -1,42 +1,23 @@
-import React, { useState, useEffect, useRef } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
 import * as sessionActions from "../../store/session";
+import { useHistory } from "react-router-dom";
 
-function LogOutButton({ user, name }) {
+function LogOutButton({ user, name, openMenu, setOpenMenu }) {
   const dispatch = useDispatch();
-  const [showMenu, setShowMenu] = useState(false);
-  const ulRef = useRef();
-
-  useEffect(() => {
-    if (!showMenu) return;
-
-    const closeMenu = (e) => {
-      if (!ulRef.current.contains(e.target)) {
-        setShowMenu(false);
-      }
-    };
-
-    document.addEventListener("click", closeMenu);
-
-    return () => document.removeEventListener("click", closeMenu);
-  }, [showMenu]);
-
-  const closeMenu = () => setShowMenu(false);
+  const history = useHistory();
 
   const handleLogoutClick = (e) => {
     e.preventDefault();
     dispatch(sessionActions.logout());
-    closeMenu();
+    history.push(`/`);
+    setOpenMenu(false);
   };
 
   return (
     <>
       {user && (
-        <button
-          ref={ulRef}
-          className="log-out-button"
-          onClick={handleLogoutClick}
-        >
+        <button className="log-out-button" onClick={handleLogoutClick}>
           {name}
         </button>
       )}

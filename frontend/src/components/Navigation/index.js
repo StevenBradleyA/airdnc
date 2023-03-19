@@ -117,7 +117,7 @@ function Navigation({ isLoaded }) {
               </button>
             )}
             {sessionUser && (
-              <LogOutButton user={sessionUser} name={`Log Out`} />
+              <LogOutButton user={sessionUser} name={`Log Out`} openMenu={openMenu} setOpenMenu={setOpenMenu} />
             )}
             <div className="logged-out-dropdown-container">{isLoaded && sessionLinks}</div>
           </div>
