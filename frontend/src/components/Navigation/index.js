@@ -57,6 +57,7 @@ function Navigation({ isLoaded }) {
       <div>
         <OpenModalButton
           buttonText="Log In"
+          
           modalComponent={<LoginFormModal />}
         />
         <div></div>

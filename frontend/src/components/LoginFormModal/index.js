@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import * as sessionActions from "../../store/session";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
+import DemoUser from "../Navigation/DemoUser";
 import "./LoginForm.css";
 
 function LoginFormModal() {
@@ -45,39 +46,41 @@ function LoginFormModal() {
   };
 
   return (
-    <>
-      <h1>Log In</h1>
+    <div className="log-in-modal-container">
+      <h1 className="modal-heading">Log In</h1>
       <form onSubmit={handleSubmit}>
-        {/* <p>
-          {backendErrors.map((error, idx) => (
-            <li key={idx}>{error}</li>
-          ))}
-        </p> */}
+       
+        {hasSubmitted && errors.credential && (
+          <p className="errors">{errors.credential}</p>
+        )}
+        {hasSubmitted && errors.password && (
+          <p className="errors">{errors.password}</p>
+        )}
         <label>
-          Username or Email
+         
           <input
             type="text"
             value={credential}
+            className="input-length-standard"
+            placeholder=" Username or Email"
             onChange={(e) => setCredential(e.target.value)}
             required
           />
         </label>
-        {hasSubmitted && errors.credential && (
-          <p className="errors">{errors.credential}</p>
-        )}
+        
         <p></p>
         <label>
-          Password
+          
           <input
             type="password"
+            placeholder=" Password"
+            className="input-length-standard"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
         </label>
-        {hasSubmitted && errors.password && (
-          <p className="errors">{errors.password}</p>
-        )}
+        
         <p></p>
         <button
           type="submit"
@@ -87,7 +90,12 @@ function LoginFormModal() {
           Log In
         </button>
       </form>
-    </>
+      <p></p>
+      <div className="demo-user-button-container">
+        <DemoUser />
+
+      </div>
+    </div>
   );
 }
 
