@@ -5,7 +5,7 @@
 .create-spot-container {
   /* margin-top: 50px; */
   width: 500px;
-  padding: 10%;
+  padding: 5% 30%;
   display: flex;
   flex-direction: column;
   /* align-items:center; */
@@ -16,3 +16,42 @@
     flex-direction:column;
     align-items:center; 
 } */
+/* ---------------HEADING------------------ */
+
+.create-spot-heading-container {
+}
+.create-spot-heading {
+  font-size: 25px;
+  /* position: relative;
+bottom: 15px; */
+}
+.update-spot-heading {
+  font-size: 25px;
+}
+.where-create {
+  font-size: 20px;
+}
+.where-create-info {
+  font-size: 15px;
+  position: relative;
+  bottom: 15px;
+}
+
+/* ---------------LOCATION------------------ */
+
+/* ---------------DESCRIPTION------------------ */
+.create-form-description {
+  border-top: 2px solid black;
+  font-size: 20px;
+  padding-top: 10px;
+}
+
+.description-input {
+  width: 500px;
+  height: 100px;
+}
+
+/* -------------- NAME ----------------- */
+
+/* --------------- Price ------------------ */
+/* --------------- Photos ------------------ */

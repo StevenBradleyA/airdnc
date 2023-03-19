@@ -144,13 +144,17 @@ const CreateSpotForm = ({ formType, spotId }) => {
 
   return (
     <div className="create-spot-container">
-      {formType === "create" && <h1>Create a Spot</h1>}
-      {formType === "update" && <h1>Update your Spot</h1>}
-      <h2>Where's your place located?</h2>
-      <h3>
+      <div className="create-spot-heading-container">
+
+      {formType === "create" && <h1 className="create-spot-heading">Create a new Spot</h1>}
+      {formType === "update" && <h1 className="update-spot-heading">Update your Spot</h1>}
+      <h2 className="where-create">Where's your place located?</h2>
+      <h3 className="where-create-info">
         Guests will only get your exact address once they have booked a
         reservation.
       </h3>
+      </div>
+
       <form onSubmit={handleFormSubmit} className="create-form">
         <label>
           Country
@@ -161,6 +165,7 @@ const CreateSpotForm = ({ formType, spotId }) => {
             onChange={(e) => setCountry(e.target.value)}
           />
         </label>
+        <p></p>
         {hasSubmitted && errors.country && (
           <p className="errors">{errors.country}</p>
         )}
@@ -173,6 +178,8 @@ const CreateSpotForm = ({ formType, spotId }) => {
             onChange={(e) => setAddress(e.target.value)}
           />
         </label>
+        <p></p>
+
         {hasSubmitted && errors.address && (
           <p className="errors">{errors.address}</p>
         )}
@@ -198,12 +205,14 @@ const CreateSpotForm = ({ formType, spotId }) => {
         {hasSubmitted && errors.state && (
           <p className="errors">{errors.state}</p>
         )}
-        <h1>Describe your place to guests</h1>
+     
+        <h1 className='create-form-description'>Describe your place to guests</h1>
         <label>
           Mention the best features of your space, any special amentities like
           fast wifi or parking, and what you love about the neighborhood.
           <textarea
             placeholder="Description"
+            className="description-input"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
