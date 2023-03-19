@@ -37,14 +37,19 @@ const SpotDetails = () => {
             ))}
           </div>
 
-          <h1 className='owner-title'>{`Hosted by ${currentSpot.Owner.firstName} ${currentSpot.Owner.lastName}`}</h1>
+          <h1 className="owner-title">{`Hosted by ${currentSpot.Owner.firstName} ${currentSpot.Owner.lastName}`}</h1>
         </div>
       )}
       <div>
         <p className="description">{currentSpot.description}</p>
-        <div className='reserve-container'>
-          <div className='price-star-container'>
-            <h1 className="price-reserve"> {`$${currentSpot.price} night `} </h1>
+        <div className="reserve-container">
+          <div className="price-star-container">
+            <div className="price-night-container">
+              <h1 className="price-reserve">
+                {`$${currentSpot.price}`}
+              </h1>
+              <h1 className="reserve-night">night</h1>
+            </div>
             {/* <h2 className='reserve-avg-rating'>
               <FontAwesomeIcon icon={faStar} />
               {`${
@@ -61,21 +66,20 @@ const SpotDetails = () => {
               </h2>
             )} */}
 
-{currentSpot.numReviews === 0 && <h1 className='reserve-new'><FontAwesomeIcon icon={faStar} />{`New`}</h1>}
-      {currentSpot.numReviews >= 1 && (
-        <h1 className="reserve-rating-number">
-          <FontAwesomeIcon icon={faStar} />{" "}
-          {`${currentSpot.avgStarRating} · ${currentSpot.numReviews} review${
-            currentSpot.numReviews === 1 ? "" : "s"
-          }`}
-        </h1>
-      )} 
-
-
-
-
-
-
+            {currentSpot.numReviews === 0 && (
+              <h1 className="reserve-new">
+                <FontAwesomeIcon icon={faStar} />
+                {`New`}
+              </h1>
+            )}
+            {currentSpot.numReviews >= 1 && (
+              <h1 className="reserve-rating-number">
+                <FontAwesomeIcon icon={faStar} />{" "}
+                {`${currentSpot.avgStarRating} · ${
+                  currentSpot.numReviews
+                } review${currentSpot.numReviews === 1 ? "" : "s"}`}
+              </h1>
+            )}
           </div>
           <button
             className="reserve-button"
