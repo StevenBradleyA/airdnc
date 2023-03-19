@@ -1,6 +1,6 @@
 .manage-spots-heading {
   margin-top: 2%;
-  /* padding: 2rem; */
+
   padding-top: 2rem;
   padding-left: 2rem;
   padding-right: 2rem;
@@ -21,7 +21,7 @@
 .manage-spots-container {
   /* margin: 30px 30px; */
   padding-left: 2rem;
-  padding-right:2rem;
+  padding-right: 2rem;
   padding-bottom: 2rem;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -49,8 +49,40 @@
   }
 }
 
-
 /* --------------------------EACH SPOT ------------------------ */
 
+.manage-spot-card-container {
+  /* display: flex;
+    flex-direction: column; */
+  width: 200px;
+  height: 200px;
+  margin: 15px 0px;
+  transition: filter 300ms;
+  cursor: pointer;
+}
+.manage-preview-image:hover {
+  filter: brightness(1.1);
+}
+.manage-preview-image {
+  width: 200px;
+  height: 180px;
+  border-radius: 10px 10px;
+}
 
+.manage-price-container {
+  display: flex;
+  width: 100%;
+  position: relative;
+  bottom: 7%;
+}
 
+.manage-price-card {
+  font-size: 15px;
+}
+.manage-night-card {
+  font-size: 10px;
+  position: relative;
+  top: 8px;
+  left: 2px;
+  opacity: 0.7;
+}

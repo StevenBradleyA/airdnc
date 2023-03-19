@@ -191,7 +191,7 @@ router.get("/current", requireAuth, async (req, res, next) => {
       return sumReview;
     }, 0);
     if (!totalScore) {
-      spot.avgRating = "There are no reviews for this spot yet :O";
+      spot.avgRating = "NaN";
     } else {
       const avgRating = totalScore / allReviews.length;
       spot.avgRating = avgRating.toFixed(1);
