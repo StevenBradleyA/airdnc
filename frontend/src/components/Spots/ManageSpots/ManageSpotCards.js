@@ -39,7 +39,7 @@ const ManageSpotCard = ({ spot }) => {
           <h1 className="manage-night-card">night</h1>
         </div>
       </div>
-      <button onClick={handleUpdateClick}>Update</button>
+      <button className="manage-update-button" onClick={handleUpdateClick}>Update</button>
       <OpenModalButton
         buttonText="Delete"
         modalComponent={<DeleteSpotFormModal spot={spot} />}
