@@ -43,9 +43,9 @@ const SpotDetails = () => {
       <div>
         <p className="description">{currentSpot.description}</p>
         <div className='reserve-container'>
-          <div>
-            <h1> {`$${currentSpot.price} night `} </h1>
-            <h2>
+          <div className='price-star-container'>
+            <h1 className="price-reserve"> {`$${currentSpot.price} night `} </h1>
+            <h2 className='reserve-avg-rating'>
               <FontAwesomeIcon icon={faStar} />
               {`${
                 currentSpot.avgStarRating === "NaN"
@@ -54,12 +54,29 @@ const SpotDetails = () => {
               }`}
             </h2>
             {currentSpot.numReviews > 0 && (
-              <h2>
+              <h2 className='reserve-number-reviews'>
                 {`${currentSpot.numReviews} review${
                   currentSpot.numReviews === 1 ? "" : "s"
                 }`}
               </h2>
             )}
+
+
+{/* {currentReviews.length === 0 && <h2>Be the first to post a review!</h2>}
+      {currentReviews.length >= 1 && (
+        <h1>
+          <FontAwesomeIcon icon={faStar} />{" "}
+          {`${currentSpot.avgStarRating} · ${currentReviews.length} review${
+            currentReviews.length === 1 ? "" : "s"
+          }`}
+        </h1>
+      )} */}
+
+
+
+
+
+
           </div>
           <button
             className="reserve-button"

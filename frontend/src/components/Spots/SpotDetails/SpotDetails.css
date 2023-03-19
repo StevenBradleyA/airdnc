@@ -52,19 +52,71 @@
 
 .reserve-container{
     background-color: rgb(255, 254, 254);
-    width:400px;
-    height: 150px;
+    width:300px;
+    height: 90px;
     position: relative;
     bottom: 175px;
-    left: 600px;
+    left: 550px;
     border: 3px solid black;
     border-radius: 10px;
+    /* padding:20px; */
+    padding:10px;
+    /* padding-left: 25px;
+    padding-right: 25px; */
     
-    display: flex;
+    /* display: flex; */
 
 
 }
 
+.price-reserve{
+    font-size: 20px;
+    position: relative;
+    left: 15px;
+}
+
+.price-star-container{
+    display: flex;
+  justify-content: space-between;
+}
+
+.reserve-avg-rating{
+    position: relative;
+    top:10px;
+    left:20px;
+    font-size: 12px;
+}
+
+.reserve-number-reviews{
+    font-size: 12px;
+    position: relative;
+    top:10px;
+    right:25px;
+
+}
 
 
+.reserve-button{
+    background-color: red;
+    color:white;
+    padding-left: 100px;
+    padding-right: 100px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    position: relative;
+    left: 20px;
+    bottom: 5px;
+    cursor: pointer;
+    box-shadow: #420000 4px 4px 0 0; 
+    border: 3px solid black;
+    
+}
+/* .reserve-button:hover{
+    opacity: .80;
 
+} */
+
+.reserve-new{
+    position: relative;
+    right: 20px;
+}
