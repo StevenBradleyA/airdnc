@@ -114,14 +114,55 @@ module.exports = {
         },
         {
           spotId: 5,
-          url: "https://media.architecturaldigest.com/photos/61b0ce48dccdb75fa170f8f7/16:9/w_2560%2Cc_limit/PurpleCherry_Williams_0012.jpg",
+          url: "https://a0.muscache.com/im/pictures/794e91e5-32f5-4605-932f-0622d65c0cda.jpg?im_w=1200",
+          preview: true,
+        },
+        {
+          spotId: 5,
+          url: "https://a0.muscache.com/im/pictures/02a6b6df-bb89-4721-ba7f-c703d94a99d4.jpg?im_w=720",
+          preview: false,
+        },
+        {
+          spotId: 5,
+          url: "https://a0.muscache.com/im/pictures/f0a81746-5e94-4a9f-a8eb-ce43a21e7370.jpg?im_w=720",
+          preview: false,
+        },
+        {
+          spotId: 5,
+          url: "https://a0.muscache.com/im/pictures/1dce83e9-f659-4947-a074-992c887b7cc6.jpg?im_w=1200",
+          preview: false,
+        },
+        {
+          spotId: 5,
+          url: "https://a0.muscache.com/im/pictures/e4921b8e-a913-4fea-ac21-f22c99833090.jpg?im_w=720",
+          preview: false,
+        },
+        {
+          spotId: 6,
+          url: "https://a0.muscache.com/im/pictures/miso/Hosting-42300535/original/b0276d03-2288-4047-bd25-a7a8ce6c418b.jpeg?im_w=720",
           preview: true,
         },
         {
           spotId: 6,
-          url: "https://media.architecturaldigest.com/photos/61b0ce48dccdb75fa170f8f7/16:9/w_2560%2Cc_limit/PurpleCherry_Williams_0012.jpg",
-          preview: true,
+          url: "https://a0.muscache.com/im/pictures/miso/Hosting-42300535/original/91b4ae82-358e-4188-8943-79b2cc7ea979.jpeg?im_w=1200",
+          preview: false,
         },
+        {
+          spotId: 6,
+          url: "https://a0.muscache.com/im/pictures/miso/Hosting-42300535/original/625734f4-58f8-470b-aa9d-59dd905cac53.jpeg?im_w=1200",
+          preview: false,
+        },
+        {
+          spotId: 6,
+          url: "https://a0.muscache.com/im/pictures/miso/Hosting-42300535/original/34b5bfaa-1255-4228-9001-7b853726c056.jpeg?im_w=1200",
+          preview: false,
+        },
+        {
+          spotId: 6,
+          url: "https://a0.muscache.com/im/pictures/miso/Hosting-42300535/original/d19765c2-59dc-471d-9800-9e9ef869fb89.jpeg?im_w=1200",
+          preview: false,
+        },
+
       ],
       {}
     );
@@ -133,7 +174,7 @@ module.exports = {
     return queryInterface.bulkDelete(
       options,
       {
-        spotId: { [Op.in]: [1, 2, 3, 4, 5] },
+        spotId: { [Op.in]: [1, 2, 3, 4, 5, 6] },
       },
       {}
     );
