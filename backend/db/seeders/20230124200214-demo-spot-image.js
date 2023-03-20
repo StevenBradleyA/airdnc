@@ -64,12 +64,31 @@ module.exports = {
         },
         {
           spotId: 3,
-          url: "https://media.architecturaldigest.com/photos/61b0ce48dccdb75fa170f8f7/16:9/w_2560%2Cc_limit/PurpleCherry_Williams_0012.jpg",
+          url: "https://a0.muscache.com/im/pictures/prohost-api/Hosting-48849852/original/c19c0b90-c70b-44f1-b9be-ba701c226036.jpeg?im_w=1200",
           preview: true,
         },
         {
+          spotId: 3,
+          url: "https://a0.muscache.com/im/pictures/prohost-api/Hosting-48849852/original/de10b645-8980-45f8-b740-a505be3c1323.jpeg?im_w=1200",
+          preview: false,
+        },
+        {
+          spotId: 3,
+          url: "https://a0.muscache.com/im/pictures/prohost-api/Hosting-48849852/original/2428af19-2316-4c54-8516-440b8e931519.jpeg?im_w=720",
+          preview: false,
+        },
+        {
+          spotId: 3,
+          url: "https://a0.muscache.com/im/pictures/prohost-api/Hosting-48849852/original/929a14bf-ed9d-4726-a139-91df120f14fa.jpeg?im_w=1200",
+          preview: false,
+        }, {
+          spotId: 3,
+          url: "https://a0.muscache.com/im/pictures/prohost-api/Hosting-48849852/original/01ab67c1-6702-4a38-add9-36a2083d39e2.jpeg?im_w=720",
+          preview: false,
+        },
+        {
           spotId: 4,
-          url: "https://media.architecturaldigest.com/photos/61b0ce48dccdb75fa170f8f7/16:9/w_2560%2Cc_limit/PurpleCherry_Williams_0012.jpg",
+          url: "https://a0.muscache.com/im/pictures/prohost-api/Hosting-48849852/original/c19c0b90-c70b-44f1-b9be-ba701c226036.jpeg?im_w=1200",
           preview: true,
         },
         {
