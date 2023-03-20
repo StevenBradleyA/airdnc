@@ -29,7 +29,7 @@ const AllReviews = ({ spotId, currentSpot }) => {
 
   // how do we know they havent posted a review?
   // const loggedIn = Object.values(sessionUser).length > 1
-  // console.log(currentReviews, "heyhey");
+  console.log("heyhey",currentReviews );
   return (
     <div className="reviews-container">
       {currentReviews.length === 0 && (
