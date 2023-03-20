@@ -215,7 +215,7 @@ const CreateSpotForm = ({ formType, spotId }) => {
           Mention the best features of your space, any special amentities like
           fast wifi or parking, and what you love about the neighborhood.
           <textarea
-            placeholder="Description"
+            placeholder="Please write at least 30 characters"
             className="description-input"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
@@ -337,7 +337,7 @@ const CreateSpotForm = ({ formType, spotId }) => {
         <p></p>
         <div className="button-border">
 
-        <input className="create-spot-button" type="submit" value="Create Spot" disabled={errors.length > 0} />
+        <input className="create-spot-button" type="submit" value={formType === 'create'? "Create Spot": 'Update Your Spot'} disabled={hasSubmitted && Object.values(errors).length > 0} />
         </div>
       </form>
     </div>

@@ -19,6 +19,10 @@ const SpotDetails = () => {
   if (!currentSpot) {
     return <h1>LOADING...</h1>;
   }
+
+
+
+  console.log(currentSpot, 'yoyo')
   return (
     <div className="spot-detail-container">
       <h1 className="spot-name">{currentSpot.name}</h1>

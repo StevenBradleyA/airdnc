@@ -17,7 +17,9 @@ const AllReviews = ({ spotId, currentSpot }) => {
 
   const allReviews = useSelector((state) => Object.values(state.reviews));
 
-  const currentReviews = allReviews.filter((e) => Number(spotId) === e.spotId);
+  const currentReviews = allReviews
+    .filter((e) => Number(spotId) === e.spotId)
+    .sort((a, b) => b.id - a.id);
 
   // is the user logged in? and if they havent posted a review yet.
 
@@ -27,7 +29,7 @@ const AllReviews = ({ spotId, currentSpot }) => {
 
   // how do we know they havent posted a review?
   // const loggedIn = Object.values(sessionUser).length > 1
-
+  // console.log(currentReviews, "heyhey");
   return (
     <div className="reviews-container">
       {currentReviews.length === 0 && (

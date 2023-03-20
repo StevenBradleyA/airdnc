@@ -11,3 +11,40 @@
   color: rgb(226, 239, 246);
 }
 
+
+
+.stars-rating-parent-container{
+
+  padding-left: 4rem;
+  padding-right: 4rem;
+}
+
+
+.leave-review{
+  width:100%;
+  padding-bottom:20%;
+}
+
+.stars-text-rating{
+  font-size: 12px;
+  position: relative;
+  bottom: 25px;
+  left: 100px;
+}
+
+.submit-review-button-modal{
+
+  background-color: red;
+  color: white;
+  padding-left: 20%;
+  padding-right: 20%;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  position: relative;
+  left: 20px;
+  bottom: 10px;
+  cursor: pointer;
+  box-shadow: #420000 4px 4px 0 0;
+  border: 3px solid black;
+
+}

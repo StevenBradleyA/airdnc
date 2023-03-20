@@ -62,23 +62,27 @@ function CreateReviewModal({ spotId }) {
         {hasSubmitted && errors.stars && (
           <p className="errors">{errors.stars}</p>
         )}
-        <input
-          type="text"
-          value={review}
-          placeholder="Leave your review here..."
-          onChange={(e) => setReview(e.target.value)}
-        />
-        {/* <input
-          type="text"
-          value={stars}
-          // placeholder="Leave your review here..."
-          onChange={(e) => setStars(e.target.value)}
-        /> */}
+        
+          <input
+            type="text"
+            value={review}
+            className='leave-review'
+            placeholder="Leave your review here..."
+            onChange={(e) => setReview(e.target.value)}
+          />
         <p></p>
-        <StarsRatingInput disabled={false} onChange={onChange} stars={stars} />
-        <p></p>
+
+            <div className="stars-rating-parent-container">
+
+        <StarsRatingInput className='stars-rating-container' disabled={false} onChange={onChange} stars={stars} />
+
+        <h2 className="stars-text-rating">Stars</h2>
+
+            </div>
+
         <input
           type="submit"
+          className="submit-review-button-modal"
           value="Submit Your Review"
           disabled={hasSubmitted && Object.values(errors).length > 0}
         />

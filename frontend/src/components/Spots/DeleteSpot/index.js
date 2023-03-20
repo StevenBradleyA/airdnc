@@ -22,9 +22,9 @@ function DeleteSpotFormModal({ spot }) {
     <div>
       <h1>Confirm Delete</h1>
       <h2>Are you sure you want to remove this spot from the listings?</h2>
-      <button onClick={handleDeleteSpot}>{`Yes (Delete Spot)`}</button>
+      <button className='yes-delete-yeet' onClick={handleDeleteSpot}>{`Yes (Delete Spot)`}</button>
 
-      <button onClick={handleKeepSpot}>{`No (Keep Spot)`}</button>
+      <button className='no-delete' onClick={handleKeepSpot}>{`No (Keep Spot)`}</button>
     </div>
   );
 }
