@@ -15,41 +15,40 @@ const SpotDetails = () => {
   useEffect(() => {
     dispatch(getSpotByIdThunk(spotId));
   }, [dispatch, spotId]);
-  
-  const allSpots = useSelector((state) => state.spots);
-  const allReviews = useSelector((state) => Object.values(state.reviews));
-  
-  const currentReviews = allReviews
-  .filter((e) => Number(spotId) === e.spotId)
-  .sort((a, b) => b.id - a.id);
-  
-  
-    useEffect(() => {
-      dispatch(loadSpots(updateReviewAverage()));
-    }, [currentReviews.length]);
 
-    const updateReviewAverage = () => {
-      const totalScore = currentReviews.reduce((sumReview, currentReview) => {
-        sumReview += currentReview.stars;
-        return sumReview;
-      }, 0);
-      const numReviews = currentReviews.length;
-      const avgStarRating = `${(totalScore / numReviews).toFixed(1)}`;
-  
-      const updatedSpot = {
-        [spotId]: { ...currentSpot, totalScore, avgStarRating },
-      };
-  
-      return updatedSpot;
+  const allSpots = useSelector((state) => state.spots);
+
+  // Updating the store to keep track of review changes
+  const allReviews = useSelector((state) => Object.values(state.reviews));
+
+  const currentReviews = allReviews
+    .filter((e) => Number(spotId) === e.spotId)
+    .sort((a, b) => b.id - a.id);
+
+  useEffect(() => {
+    dispatch(loadSpots(updateReviewAverage()));
+  }, [currentReviews.length]);
+
+  const updateReviewAverage = () => {
+    const totalScore = currentReviews.reduce((sumReview, currentReview) => {
+      sumReview += currentReview.stars;
+      return sumReview;
+    }, 0);
+    const numReviews = currentReviews.length;
+    const avgStarRating = `${(totalScore / numReviews).toFixed(1)}`;
+
+    const updatedSpot = {
+      [spotId]: { ...currentSpot, totalScore, avgStarRating },
     };
 
-
+    return updatedSpot;
+  };
+  // --------------------
 
   const currentSpot = allSpots[spotId];
   if (!currentSpot) {
     return <h1>LOADING...</h1>;
   }
-
 
   return (
     <div className="spot-detail-container">
@@ -104,7 +103,11 @@ const SpotDetails = () => {
         </div>
       </div>
       <div>
-        <AllReviews spotId={spotId} currentSpot={currentSpot} currentReviews={currentReviews} />
+        <AllReviews
+          spotId={spotId}
+          currentSpot={currentSpot}
+          currentReviews={currentReviews}
+        />
       </div>
     </div>
   );

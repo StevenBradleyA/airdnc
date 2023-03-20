@@ -16,7 +16,6 @@ const ManageSpotCard = ({ spot }) => {
     e.preventDefault();
     history.push(`/spots/${spot.id}/edit`);
   };
-  console.log("hello there old boy", spot);
   return (
     <div className="manage-spot-card-container">
       <div onClick={handleCardClick}>

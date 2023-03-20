@@ -32,29 +32,22 @@ export const signup = (user) => async (dispatch) => {
     dispatch(setUser(data));
     return response;
   } else {
-    throw Error(response)
+    throw Error(response);
   }
 };
 
 export const login = (user) => async (dispatch) => {
   const { credential, password } = user;
-  // try{
-    const response = await csrfFetch("/api/session", {
-      method: "POST",
-      body: JSON.stringify({
-        credential,
-        password,
-      }),
-    });
-    const data = await response.json();
-    dispatch(setUser(data.user));
-    return response;
-
-  // }
-  // catch(error){
-  //   console.log(error, 'session catch error here')
-
-  // }
+  const response = await csrfFetch("/api/session", {
+    method: "POST",
+    body: JSON.stringify({
+      credential,
+      password,
+    }),
+  });
+  const data = await response.json();
+  dispatch(setUser(data.user));
+  return response;
 };
 export const restoreUser = () => async (dispatch) => {
   const response = await csrfFetch("/api/session");
