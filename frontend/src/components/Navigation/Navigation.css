@@ -1,0 +1,175 @@
+.navigation-bar {
+  display: fixed;
+  z-index: 5;
+  height: 60px;
+  width: 100%;
+  top: 0%;
+  border-bottom: 1px solid rgb(205, 202, 202);
+  /* padding: 0rem 0rem; */
+  position: fixed;
+  background-color: white;
+}
+
+.home-button {
+  color: rgb(254, 2, 2);
+  position: relative;
+  top: 1rem;
+  left: 2rem;
+  font-size: 25px;
+}
+
+.menu {
+  position: absolute;
+  top: 17px;
+  right: 3rem;
+  cursor: pointer;
+  font-size: 25px;
+}
+
+.menu-dropdown {
+  position: absolute;
+  z-index: 4;
+  top: 3rem;
+  right: -32px;
+  width: 110px;
+  padding: 1rem;
+  height: 175px;
+  border-radius: 10px;
+  background-color: white;
+  border: 1px solid gray;
+  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.5);
+  list-style-type: none;
+}
+
+.menu-dropdown::before {
+  position: absolute;
+  transform: rotate(45deg);
+  background-color: white;
+  border-left: 1px solid gray;
+  border-top: 1px solid gray;
+  right: 2rem;
+  height: 25px;
+  width: 25px;
+  top: -0.85rem;
+  content: "";
+  z-index: 1;
+  /* box-shadow: -3px -3px 3px 0 rgba(0, 0, 0, 0.1); */
+}
+
+.menu-dropdown.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition: 300ms ease;
+}
+
+.menu-dropdown.inactive {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: 300ms ease;
+}
+
+.logged-out-dropdown-container {
+  position: relative;
+  top: 0rem;
+  row-gap: 80px;
+  /* right: -40px; */
+  width: 90px;
+
+  height: 150px;
+  display: flex;
+  flex: wrap;
+  flex-direction: column;
+}
+
+/* **************************     Menu Contents   *************************** */
+
+.your-profile-button {
+  color: red;
+  filter: brightness(0.05);
+  transition: filter 150ms ease-in-out;
+}
+
+.menu-dropdown > *:hover {
+  filter: brightness(1);
+}
+
+.menu-hello {
+  font-size: 15px;
+}
+
+.manage-spot-button {
+  padding: 0;
+  border: none;
+  background: none;
+  color: red;
+  filter: brightness(0.05);
+  transition: filter 150ms ease-in-out;
+}
+
+.new-spot-button {
+  padding: 0;
+  border: none;
+  background: none;
+  color: red;
+  position: absolute;
+  right: 120px;
+  top: 24px;
+  cursor: pointer;
+
+}
+
+.your-profile-button {
+  padding: 0;
+  border: none;
+  background: none;
+}
+
+.log-out-button {
+  padding: 0;
+  border: none;
+  background: none;
+  color: red;
+  filter: brightness(0.05);
+  transition: filter 150ms ease-in-out;
+}
+
+/* ---------------------------------------Signed out User----------------------------- */
+.log-in-button {
+  padding: 0;
+  border: none;
+  background: none;
+  color: red;
+  filter: brightness(0.05);
+  transition: filter 150ms ease-in-out;
+}
+.log-in-button:hover {
+  filter: brightness(1);
+}
+
+.sign-up-button {
+  padding: 0;
+  border: none;
+  background: none;
+  color: red;
+  filter: brightness(0.05);
+  transition: filter 150ms ease-in-out;
+}
+.sign-up-button:hover {
+  filter: brightness(1);
+}
+
+.demo-log-in-button {
+  padding: 0;
+  border: none;
+  background: none;
+  color: red;
+  filter: brightness(0.05);
+  transition: filter 150ms ease-in-out;
+}
+.demo-log-in-button:hover {
+  filter: brightness(1);
+}
+
+

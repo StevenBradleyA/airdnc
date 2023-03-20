@@ -1,0 +1,55 @@
+#modal-content {
+  background-color: white;
+  border-radius: 10px;
+  padding-top:0;
+  padding-right: 10%;
+  padding-left:10%;
+  padding-bottom:3%;
+  /* margin-left:40%; */
+  /* width: 30%;
+  height: 50%; */
+  display: flex;
+  flex-direction: column;
+}
+/* .log-in-modal-container{
+ 
+} */
+
+/* --------------------------------- */
+
+.modal-heading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.input-length-standard {
+  width: 100%;
+  border: 3px solid black;
+}
+
+.modal-form-log-in-button {
+  background-color: red;
+  color: white;
+  width: 104%;
+  height: 25%;
+  padding-top: 5%;
+  padding-bottom: 5%;
+  cursor: pointer;
+  box-shadow: #420000 4px 4px 0 0;
+  border: 3px solid black;
+}
+
+.demo-user-button-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.demo-user-button {
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: rgb(16, 110, 101);
+  text-decoration: underline;
+}

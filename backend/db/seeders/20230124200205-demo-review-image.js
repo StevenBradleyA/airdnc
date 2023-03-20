@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 let options = {};
 if (process.env.NODE_ENV === "production") {
@@ -6,7 +6,7 @@ if (process.env.NODE_ENV === "production") {
 }
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up (queryInterface, Sequelize) {
+  async up(queryInterface, Sequelize) {
     options.tableName = "ReviewImages";
     return queryInterface.bulkInsert(
       options,
@@ -31,12 +31,16 @@ module.exports = {
           reviewId: 5,
           url: "https://media.architecturaldigest.com/photos/61b0ce48dccdb75fa170f8f7/16:9/w_2560%2Cc_limit/PurpleCherry_Williams_0012.jpg",
         },
+        {
+          reviewId: 5,
+          url: "https://media.architecturaldigest.com/photos/61b0ce48dccdb75fa170f8f7/16:9/w_2560%2Cc_limit/PurpleCherry_Williams_0012.jpg",
+        },
       ],
       {}
     );
   },
 
-  async down (queryInterface, Sequelize) {
+  async down(queryInterface, Sequelize) {
     options.tableName = "ReviewImages";
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(
@@ -46,5 +50,5 @@ module.exports = {
       },
       {}
     );
-  }
+  },
 };

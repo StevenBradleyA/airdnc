@@ -1,0 +1,13 @@
+
+
+.sign-up-button-modal{
+    background-color: red;
+    color: white;
+    width: 104%;
+    height: 10%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    cursor: pointer;
+    box-shadow: #420000 4px 4px 0 0;
+    border: 3px solid black;
+}

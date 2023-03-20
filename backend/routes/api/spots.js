@@ -136,7 +136,7 @@ router.get("/", async (req, res, next) => {
     }, 0);
     const avgRating = totalScore / allReviews.length;
 
-    spot.avgRating = avgRating.toFixed(2);
+    spot.avgRating = avgRating.toFixed(1);
 
     const spotImage = await SpotImage.findOne({
       attributes: ["url"],
@@ -191,10 +191,10 @@ router.get("/current", requireAuth, async (req, res, next) => {
       return sumReview;
     }, 0);
     if (!totalScore) {
-      spot.avgRating = "There are no reviews for this spot yet :O";
+      spot.avgRating = "NaN";
     } else {
       const avgRating = totalScore / allReviews.length;
-      spot.avgRating = avgRating.toFixed(2);
+      spot.avgRating = avgRating.toFixed(1);
     }
     const spotImage = await SpotImage.findOne({
       attributes: ["url"],
@@ -248,7 +248,7 @@ router.get("/:id", async (req, res) => {
   const avgRating = totalScore / allReviews.length;
   const numReviews = allReviews.length;
   currentSpot.numReviews = numReviews;
-  currentSpot.avgStarRating = avgRating.toFixed(2);
+  currentSpot.avgStarRating = avgRating.toFixed(1);
 
   const spotImages = await SpotImage.findAll({
     attributes: ["id", "url", "preview"],
@@ -272,8 +272,19 @@ router.get("/:id", async (req, res) => {
 //todo POST /
 
 router.post("/", requireAuth, async (req, res, next) => {
-  const { address, city, state, country, lat, lng, name, description, price } =
-    req.body;
+  const {
+    address,
+    city,
+    state,
+    country,
+    lat,
+    lng,
+    name,
+    description,
+    price,
+    previewImage,
+    imageArr,
+  } = req.body;
 
   const errors = {};
 
@@ -289,12 +300,12 @@ router.post("/", requireAuth, async (req, res, next) => {
   if (!country) {
     errors.country = "Country is required";
   }
-  if (!lat) {
-    errors.lat = "Latitude is not valid";
-  }
-  if (!lng) {
-    errors.lng = "Longitude is not valid";
-  }
+  // if (!lat) {
+  //   errors.lat = "Latitude is not valid";
+  // }
+  // if (!lng) {
+  //   errors.lng = "Longitude is not valid";
+  // }
   if (!name) {
     errors.name = "Name must be less than 50 characters";
   }
@@ -310,8 +321,8 @@ router.post("/", requireAuth, async (req, res, next) => {
     errors.city ||
     errors.state ||
     errors.country ||
-    errors.lat ||
-    errors.lng ||
+    // errors.lat ||
+    // errors.lng ||
     errors.name ||
     errors.description ||
     errors.price
@@ -335,8 +346,25 @@ router.post("/", requireAuth, async (req, res, next) => {
     description,
     price,
   });
+  // ----------BACKEND REFACTOR TO ADD ALL IMAGES ---------------------
 
-  // (newSpot);
+  if (previewImage) {
+    const addImage = await SpotImage.create({
+      spotId: newSpot.id,
+      url: previewImage,
+      preview: true,
+    });
+  }
+  if (imageArr) {
+    imageArr.forEach(async (imageUrl) => {
+      await SpotImage.create({
+        spotId: newSpot.id,
+        url: imageUrl,
+        preview: false,
+      });
+    });
+  }
+
   return res.status(201).json(newSpot);
 });
 
@@ -369,14 +397,26 @@ router.post("/:id/images", requireAuth, async (req, res, next) => {
         id: addImage.id,
       },
     });
+
     return res.json(addImageView);
   }
 });
 
 //todo PUT /:spotId
 router.put("/:id", requireAuth, async (req, res, next) => {
-  const { address, city, state, country, lat, lng, name, description, price } =
-    req.body;
+  const {
+    address,
+    city,
+    state,
+    country,
+    lat,
+    lng,
+    name,
+    description,
+    price,
+    previewImage,
+    imageArr,
+  } = req.body;
 
   const errors = {};
 
@@ -392,12 +432,12 @@ router.put("/:id", requireAuth, async (req, res, next) => {
   if (!country) {
     errors.country = "Country is required";
   }
-  if (!lat) {
-    errors.lat = "Latitude is not valid";
-  }
-  if (!lng) {
-    errors.lng = "Longitude is not valid";
-  }
+  // if (!lat) {
+  //   errors.lat = "Latitude is not valid";
+  // }
+  // if (!lng) {
+  //   errors.lng = "Longitude is not valid";
+  // }
   if (!name) {
     errors.name = "Name must be less than 50 characters";
   }
@@ -413,8 +453,8 @@ router.put("/:id", requireAuth, async (req, res, next) => {
     errors.city ||
     errors.state ||
     errors.country ||
-    errors.lat ||
-    errors.lng ||
+    // errors.lat ||
+    // errors.lng ||
     errors.name ||
     errors.description ||
     errors.price
@@ -450,6 +490,35 @@ router.put("/:id", requireAuth, async (req, res, next) => {
       description,
       price,
     });
+
+    const spotImage = await SpotImage.findAll({
+      where: {
+        spotId: spot.id,
+      },
+    });
+
+    if (previewImage) {
+      spotImage.forEach(async (e) => {
+        if (e.dataValues.preview) {
+          e.set({
+            url: previewImage,
+          });
+          await e.save();
+        } else {
+          e.destroy();
+        }
+      });
+    }
+
+    if (imageArr) {
+      imageArr.forEach((imageUrl) => {
+        SpotImage.create({
+          spotId: spot.id,
+          url: imageUrl,
+          preview: false,
+        });
+      });
+    }
 
     await spot.save();
     return res.json(spot);
@@ -570,7 +639,14 @@ router.post("/:id/reviews", requireAuth, async (req, res, next) => {
     stars,
   });
 
-  return res.status(201).json(newReview);
+  const createdReview = await Review.findByPk(newReview.id, {
+    include: {
+      model: User,
+      where: { id: newReview.userId },
+    },
+  });
+
+  return res.status(201).json(createdReview);
 });
 
 //*GET /:spotId/bookings

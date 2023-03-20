@@ -32,7 +32,7 @@ export const signup = (user) => async (dispatch) => {
     dispatch(setUser(data));
     return response;
   } else {
-    throw Error(response)
+    throw Error(response);
   }
 };
 
