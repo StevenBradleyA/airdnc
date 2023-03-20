@@ -23,9 +23,9 @@ function DeleteReviewFormModal({ review }) {
     <div>
       <h1>Confirm Delete</h1>
       <h2>Are you sure you want to delete this review?</h2>
-      <button onClick={handleDeleteReview}>{`Yes (Delete Review)`}</button>
+      <button className="yes-delete-yeet" onClick={handleDeleteReview}>{`Yes (Delete Review)`}</button>
 
-      <button onClick={handleKeepReview}>{`No (Keep Review)`}</button>
+      <button className='no-delete' onClick={handleKeepReview}>{`No (Keep Review)`}</button>
     </div>
   );
 }
