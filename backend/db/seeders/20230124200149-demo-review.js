@@ -36,7 +36,7 @@ module.exports = {
           stars: 5,
         },
         {
-          spotId: 4,
+          spotId: 5,
           userId: 3,
           review: "wow, this place was very nice",
           stars: 5,
@@ -64,7 +64,7 @@ module.exports = {
     return queryInterface.bulkDelete(
       options,
       {
-        spotId: { [Op.in]: [1, 3, 4, 5, 6] },
+        spotId: { [Op.in]: [1, 3, 5, 6] },
       },
       {}
     );
