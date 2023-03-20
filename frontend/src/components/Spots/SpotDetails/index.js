@@ -18,6 +18,7 @@ const SpotDetails = () => {
   
   const allSpots = useSelector((state) => state.spots);
   const allReviews = useSelector((state) => Object.values(state.reviews));
+  
   const currentReviews = allReviews
   .filter((e) => Number(spotId) === e.spotId)
   .sort((a, b) => b.id - a.id);
@@ -48,14 +49,7 @@ const SpotDetails = () => {
   if (!currentSpot) {
     return <h1>LOADING...</h1>;
   }
-//  -------------------------
 
-
-
-
-  
-
-// --------------------------------------------
 
   return (
     <div className="spot-detail-container">
@@ -96,8 +90,8 @@ const SpotDetails = () => {
               <h1 className="reserve-rating-number">
                 <FontAwesomeIcon icon={faStar} />{" "}
                 {`${currentSpot.avgStarRating} · ${
-                  currentSpot.numReviews
-                } review${currentSpot.numReviews === 1 ? "" : "s"}`}
+                  currentReviews.length
+                } review${currentReviews.length === 1 ? "" : "s"}`}
               </h1>
             )}
           </div>
@@ -110,7 +104,7 @@ const SpotDetails = () => {
         </div>
       </div>
       <div>
-        <AllReviews spotId={spotId} currentSpot={currentSpot} />
+        <AllReviews spotId={spotId} currentSpot={currentSpot} currentReviews={currentReviews} />
       </div>
     </div>
   );
