@@ -1,4 +1,6 @@
-# AirBnB Clone
+# Why have Bed in Breakfast when you can have Dinner on a Couch?
+
+## airdnc is a full stack application I built using React and Redux inspired by airbnb
 
 ## Database Schema Design
 
