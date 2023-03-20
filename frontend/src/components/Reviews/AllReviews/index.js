@@ -7,6 +7,7 @@ import CreateReviewModal from "../CreateReview";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import "../../Spots/SpotDetails/SpotDetails.css";
+import { loadSpots } from "../../../store/spots";
 
 const AllReviews = ({ spotId, currentSpot }) => {
   const dispatch = useDispatch();
@@ -21,15 +22,34 @@ const AllReviews = ({ spotId, currentSpot }) => {
     .filter((e) => Number(spotId) === e.spotId)
     .sort((a, b) => b.id - a.id);
 
+  const updateReviewAverage = () => {
+    const totalScore = currentReviews.reduce((sumReview, currentReview) => {
+      sumReview += currentReview.stars;
+      return sumReview;
+    }, 0);
+    const numReviews = currentReviews.length;
+    const avgStarRating = `${(totalScore / numReviews).toFixed(1)}`;
+
+    const updatedSpot = {
+      [spotId]: { ...currentSpot, totalScore, avgStarRating },
+    };
+
+    return updatedSpot;
+  };
+
+  useEffect(() => {
+    dispatch(loadSpots(updateReviewAverage()));
+    // dispatch to update store without backend.
+    // spotid  and give array of all curent spots reviews
+  }, [currentReviews.length]);
   // is the user logged in? and if they havent posted a review yet.
 
   // how do we know they are logged in.
   const sessionUser = useSelector((state) => state.session.user);
-  // {sessionUser &&}
 
-  // how do we know they havent posted a review?
-  // const loggedIn = Object.values(sessionUser).length > 1
-  console.log("heyhey",currentReviews );
+
+
+  
   return (
     <div className="reviews-container">
       {currentReviews.length === 0 && (

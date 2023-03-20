@@ -5,6 +5,8 @@ import { useParams } from "react-router-dom";
 import AllReviews from "../../Reviews/AllReviews/index";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { loadSpots } from "../../../store/spots";
+
 import "./SpotDetails.css";
 const SpotDetails = () => {
   const dispatch = useDispatch();
@@ -13,16 +15,48 @@ const SpotDetails = () => {
   useEffect(() => {
     dispatch(getSpotByIdThunk(spotId));
   }, [dispatch, spotId]);
-
+  
   const allSpots = useSelector((state) => state.spots);
+  const allReviews = useSelector((state) => Object.values(state.reviews));
+  const currentReviews = allReviews
+  .filter((e) => Number(spotId) === e.spotId)
+  .sort((a, b) => b.id - a.id);
+  
+  
+    useEffect(() => {
+      dispatch(loadSpots(updateReviewAverage()));
+    }, [currentReviews.length]);
+
+    const updateReviewAverage = () => {
+      const totalScore = currentReviews.reduce((sumReview, currentReview) => {
+        sumReview += currentReview.stars;
+        return sumReview;
+      }, 0);
+      const numReviews = currentReviews.length;
+      const avgStarRating = `${(totalScore / numReviews).toFixed(1)}`;
+  
+      const updatedSpot = {
+        [spotId]: { ...currentSpot, totalScore, avgStarRating },
+      };
+  
+      return updatedSpot;
+    };
+
+
+
   const currentSpot = allSpots[spotId];
   if (!currentSpot) {
     return <h1>LOADING...</h1>;
   }
+//  -------------------------
 
 
 
-  console.log(currentSpot, 'yoyo')
+
+  
+
+// --------------------------------------------
+
   return (
     <div className="spot-detail-container">
       <h1 className="spot-name">{currentSpot.name}</h1>

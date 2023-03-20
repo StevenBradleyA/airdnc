@@ -5,7 +5,7 @@ const CREATE_SPOT = "spots/CREATE_SPOT";
 const UPDATE_SPOT = "spots/UPDATE_SPOT";
 const DELETE_SPOT = "spots/DELETE_SPOT";
 
-const loadSpots = (allSpotData) => ({
+export const loadSpots = (allSpotData) => ({
   type: LOAD_SPOTS,
   payload: allSpotData,
 });
