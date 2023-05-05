@@ -1,5 +1,6 @@
-<h1 align="center">Airdnc</h1>
-<h2 align="center">Built With</h2>
+# [Airdnc](https://air-dnc.onrender.com)
+
+<!-- <h2 align="center">Built With</h2> -->
 
 <p align="center"> 
   <img src="https://skillicons.dev/icons?i=react,redux,js,express,webpack,github,sqlite,sequelize,nodejs,babel,vscode,git,html,postman&perline=7">
@@ -7,12 +8,10 @@
 
 ## Why have Breakfast in Bed when you can have Dinner on a Couch?
 
-# [Airdnc](https://air-dnc.onrender.com)
+<div align="center">
+  <h1><a href="https://air-dnc.onrender.com">Airdnc</a></h1>
+</div>
 
-
-<p align="center">
-  <a href="https://air-dnc.onrender.com"><h1>Airdnc</h1></a>
-</p>
 
 <h3>Introducing Airdnc, my Airbnb clone! A web application that leverages the power of React, Redux, and Express to offer a seamless and intuitive experience for property owners and travelers alike. 
 <h3>
