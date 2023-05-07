@@ -18,3 +18,26 @@ Built using the latest web technologies and best practices, my application provi
 <h3>
 Redux was utilized to handle state management, providing a predictable and centralized way to manage how data flows within the application. Moreover, Express was used to create a scalable and efficient backend API that seamlessly integrates with the frontend and allows for easy communication with external services. I hope you enjoy Airdnc!
 </h3>
+
+<h2 align="center">Airdnc Core <a href="https://github.com/StevenBradleyA/airdnc/wiki/Feature-List">Features</a></h2>
+
+- Full CRUD Spots
+- Full CRUD Reviews
+- Full CRUD Bookings
+- Google Maps API
+
+<h2 align="center">Future Implementation Goals</h2>
+
+- Spot search feature
+- User wishlists
+
+<h2 align="center">Connect with me <img alt="socials" src="./frontend/src/media/Handshake.gif" height="40" width="80"/></h2>
+
+<p align="center">
+<a align="center" href="https://www.linkedin.com/in/steven-anderson-54416a275/">
+  <img src="https://skillicons.dev/icons?i=linkedin&perline=1" height="40"/>
+  </a>
+<a align="center" href="https://github.com/StevenBradleyA">
+  <img src="https://skillicons.dev/icons?i=github&perline=1" height="40"/>
+  </a>
+</p>
