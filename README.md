@@ -1,5 +1,5 @@
 <div align="center">
-  <h1><a href="https://air-dnc.onrender.com">Airdnc</a></h1>
+  <h1><a href="https://airdnc.onrender.com/">Airdnc</a></h1>
 </div>
 
 <p align="center"> 
