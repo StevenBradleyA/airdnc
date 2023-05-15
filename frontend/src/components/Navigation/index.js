@@ -22,8 +22,9 @@ function Navigation({ isLoaded }) {
   const sessionUser = useSelector((state) => state.session.user);
   const [openMenu, setOpenMenu] = useState(false);
   const [searchClick, setSearchClick] = useState(false);
-
   const [searchValue, setSearchValue] = useState("");
+
+
   const history = useHistory();
   const burgerRef = useRef();
   useEffect(() => {
@@ -44,8 +45,7 @@ function Navigation({ isLoaded }) {
     console.log("Search for: " + searchValue);
   };
 
-  const handleSearchClick = (e) => {
-    e.preventDefault();
+  const handleSearchClick = () => {
     setSearchClick(true);
   };
 
@@ -61,6 +61,15 @@ function Navigation({ isLoaded }) {
     e.preventDefault();
     history.push("/spots/current");
   };
+
+
+
+
+  const handleInputChange = (e) => {
+    setSearchValue(e.target.value);
+    setSearchClick(e.target.value.length > 0);
+  };
+
 
   let sessionLinks;
   if (sessionUser) {
@@ -102,14 +111,14 @@ function Navigation({ isLoaded }) {
       </div>
       {sessionUser && (
         <div className="new-spot-button" onClick={handleCreateClick}>
-          Create a New Spot
+          Airdnc your home
         </div>
       )}
-
+{/*  */}
       <form onSubmit={handleSearch}>
         <div
           className={
-            handleSearch === true ? "search-bar-container" : "search-bar-style"
+            searchValue.length >= 1 ? "search-bar-container" : "search-bar-style"
           }
           onClick={handleSearchClick}
         >
@@ -118,8 +127,8 @@ function Navigation({ isLoaded }) {
 
 
               <div className="search-text-before"> 
-                {`Anywhere   |   Any week   |   Find a Couch`}
-              
+                {`Anywhere   |   Any week   |  `}
+                <span style={{color: "grey"}}>Find a Couch</span>
               </div>
 
 
@@ -135,10 +144,26 @@ function Navigation({ isLoaded }) {
           {searchClick && (
             <input
               type="text"
-              placeholder="Search"
+              placeholder={   <>
+
+
+                <div className="search-text-before"> 
+                  {`Anywhere   |   Any week   |  `}
+                  <span style={{color: "grey"}}>Find a Couch</span>
+                </div>
+  
+  
+  
+                <div className="magnifying-circle">
+                  <FontAwesomeIcon
+                    icon={faMagnifyingGlass}
+                    className="magnifying"
+                  />
+                </div>
+              </>}
               className="search-bar-input"
               value={searchValue}
-              onChange={(event) => setSearchValue(event.target.value)}
+              onChange={handleInputChange}
             />
           )}
         </div>
