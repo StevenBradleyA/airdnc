@@ -25,6 +25,89 @@
   font-size: 25px;
 }
 
+/* ---------           search         ----------------- */
+
+/* before click   */
+.search-bar-style{
+  display: flex;
+  align-items: center;
+  border: 1.5px solid rgb(227, 227, 227);
+  border-radius: 50px;
+  height: 45px;
+  width: 350px;
+  justify-content: space-around;
+}
+
+.search-text-before{
+  font-size: 14px;
+  margin-left: 5px;
+  padding: 10px;
+}
+
+
+.magnifying-circle{
+  background-color: red;
+  height: 35px;
+  width: 35px;
+  z-index: 3;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.magnifying{
+  color: white;
+  width: 15px;
+}
+
+
+
+/* after */
+
+.search-bar-container {
+display: flex;
+align-items: center;
+border: 1.5px solid rgb(227, 227, 227);
+border-radius: 50px;
+height: 25px;
+width: 200px;
+position: relative;
+margin-left: 10px;
+overflow: hidden;
+}
+
+.search-bar-container:focus {
+display: flex;
+align-items: center;
+background-color: #fff;
+border: 1.5px solid rgb(227, 227, 227);
+border-radius: 50px;
+height: 25px;
+width: 200px;
+position: relative;
+margin-left: 10px;
+overflow: hidden;
+}
+
+
+
+
+.search-bar-input {
+flex: 1;
+height: 100%;
+border: none;
+padding: 0 10px;
+font-size: 16px;
+background-color: transparent;
+outline: none;
+}
+
+
+
+
+
+
 /*  -----------          create a spot      ----------------  */
 
 .new-spot-button {

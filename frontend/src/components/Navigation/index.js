@@ -7,7 +7,12 @@ import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCouch, faBurger, faUserCircle, faBars, faB } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCouch,
+  faUserCircle,
+  faBars,
+  faMagnifyingGlass,
+} from "@fortawesome/free-solid-svg-icons";
 
 import "./Navigation.css";
 import LogOutButton from "./Logout";
@@ -16,6 +21,9 @@ import DemoLogin from "./DemoLogin";
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector((state) => state.session.user);
   const [openMenu, setOpenMenu] = useState(false);
+  const [searchClick, setSearchClick] = useState(false);
+
+  const [searchValue, setSearchValue] = useState("");
   const history = useHistory();
   const burgerRef = useRef();
   useEffect(() => {
@@ -30,6 +38,16 @@ function Navigation({ isLoaded }) {
       document.removeEventListener("mousedown", handleClickOffMenu);
     };
   });
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    console.log("Search for: " + searchValue);
+  };
+
+  const handleSearchClick = (e) => {
+    e.preventDefault();
+    setSearchClick(true);
+  };
 
   const handleMenuClick = (e) => {
     e.preventDefault();
@@ -57,7 +75,6 @@ function Navigation({ isLoaded }) {
       <div>
         <OpenModalButton
           buttonText="Log In"
-          
           modalComponent={<LoginFormModal />}
         />
         <div></div>
@@ -88,14 +105,56 @@ function Navigation({ isLoaded }) {
           Create a New Spot
         </div>
       )}
-        <div className="nav-bar-menu-icon" onClick={handleMenuClick} ref={burgerRef}>
-          <FontAwesomeIcon icon={faBars} className="menu-bars"/>
-          <FontAwesomeIcon icon={faUserCircle} className="menu-circle-user"/>
+
+      <form onSubmit={handleSearch}>
+        <div
+          className={
+            handleSearch === true ? "search-bar-container" : "search-bar-style"
+          }
+          onClick={handleSearchClick}
+        >
+          {!searchClick && (
+            <>
+
+
+              <div className="search-text-before"> 
+                {`Anywhere   |   Any week   |   Find a Couch`}
+              
+              </div>
+
+
+
+              <div className="magnifying-circle">
+                <FontAwesomeIcon
+                  icon={faMagnifyingGlass}
+                  className="magnifying"
+                />
+              </div>
+            </>
+          )}
+          {searchClick && (
+            <input
+              type="text"
+              placeholder="Search"
+              className="search-bar-input"
+              value={searchValue}
+              onChange={(event) => setSearchValue(event.target.value)}
+            />
+          )}
         </div>
+      </form>
+
+      <div
+        className="nav-bar-menu-icon"
+        onClick={handleMenuClick}
+        ref={burgerRef}
+      >
+        <FontAwesomeIcon icon={faBars} className="menu-bars" />
+        <FontAwesomeIcon icon={faUserCircle} className="menu-circle-user" />
+      </div>
       <div className="menu-container" ref={burgerRef}>
         <div className="menu">
-
-{/* 
+          {/* 
           <FontAwesomeIcon
             icon={faBurger}
             style={{ opacity: 0.8 }}
@@ -123,9 +182,16 @@ function Navigation({ isLoaded }) {
               </button>
             )}
             {sessionUser && (
-              <LogOutButton user={sessionUser} name={`Log Out`} openMenu={openMenu} setOpenMenu={setOpenMenu} />
+              <LogOutButton
+                user={sessionUser}
+                name={`Log Out`}
+                openMenu={openMenu}
+                setOpenMenu={setOpenMenu}
+              />
             )}
-            <div className="logged-out-dropdown-container">{isLoaded && sessionLinks}</div>
+            <div className="logged-out-dropdown-container">
+              {isLoaded && sessionLinks}
+            </div>
           </div>
         </div>
       </div>
