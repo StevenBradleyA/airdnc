@@ -1,22 +1,82 @@
-.navigation-bar {
-  display: fixed;
-  z-index: 5;
-  height: 60px;
-  width: 100%;
-  top: 0%;
-  border-bottom: 1px solid rgb(205, 202, 202);
-  /* padding: 0rem 0rem; */
-  position: fixed;
-  background-color: white;
-}
+/* -----------          Nav Bar        ----------------- */
 
+.navigation-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  z-index: 5;
+  background-color: white;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid rgb(227, 227, 227);
+}
+/* ------------         home         -------------- */
 .home-button {
   color: rgb(254, 2, 2);
-  position: relative;
-  top: 1rem;
-  left: 2rem;
+  position: absolute;
+
+  left: 5%;
+  top: 50%;
+  transform: translateY(-50%);
   font-size: 25px;
 }
+
+/*  -----------          create a spot      ----------------  */
+
+.new-spot-button {
+  position: absolute;
+  left: 75%;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+/* -------------               Menu Icon Button         ---------------- */
+
+.nav-bar-menu-icon {
+display: flex;
+justify-content: center;
+align-items: center;
+padding: 10px;
+border: 1.5px solid rgb(227, 227, 227);
+border-radius: 50px;
+height: 25px;
+width: 70px;
+position: absolute;
+top: 50%;
+left: 89%;
+transform: translateY(-50%);
+gap: 15px;
+cursor: pointer;
+transition: box-shadow 0.3s ease-in-out;
+} 
+
+.nav-bar-menu-icon:hover {
+box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+
+.menu-bars {
+  height: 20px;
+  color: grey;
+}
+
+.menu-circle-user {
+  height: 32px;
+  color: grey;
+}
+
+
+
+/* ----------        drop down         ------------- */
+
+
+
+
 
 .menu {
   position: absolute;
@@ -108,18 +168,6 @@
   transition: filter 150ms ease-in-out;
 }
 
-.new-spot-button {
-  padding: 0;
-  border: none;
-  background: none;
-  color: red;
-  position: absolute;
-  right: 120px;
-  top: 24px;
-  cursor: pointer;
-
-}
-
 .your-profile-button {
   padding: 0;
   border: none;
@@ -171,5 +219,3 @@
 .demo-log-in-button:hover {
   filter: brightness(1);
 }
-
-

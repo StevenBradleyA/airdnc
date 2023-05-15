@@ -7,7 +7,7 @@ import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCouch, faBurger } from "@fortawesome/free-solid-svg-icons";
+import { faCouch, faBurger, faUserCircle, faBars, faB } from "@fortawesome/free-solid-svg-icons";
 
 import "./Navigation.css";
 import LogOutButton from "./Logout";
@@ -84,17 +84,23 @@ function Navigation({ isLoaded }) {
         </NavLink>
       </div>
       {sessionUser && (
-        <button className="new-spot-button" onClick={handleCreateClick}>
+        <div className="new-spot-button" onClick={handleCreateClick}>
           Create a New Spot
-        </button>
+        </div>
       )}
+        <div className="nav-bar-menu-icon" onClick={handleMenuClick} ref={burgerRef}>
+          <FontAwesomeIcon icon={faBars} className="menu-bars"/>
+          <FontAwesomeIcon icon={faUserCircle} className="menu-circle-user"/>
+        </div>
       <div className="menu-container" ref={burgerRef}>
         <div className="menu">
+
+{/* 
           <FontAwesomeIcon
             icon={faBurger}
             style={{ opacity: 0.8 }}
             onClick={handleMenuClick}
-          />
+          /> */}
 
           <div className={`menu-dropdown ${openMenu ? "active" : "inactive"}`}>
             {sessionUser && (
