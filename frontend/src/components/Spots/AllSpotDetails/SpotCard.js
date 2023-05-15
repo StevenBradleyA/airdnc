@@ -12,16 +12,16 @@ const SpotCard = ({ spot }) => {
   };
 
   return (
-    <div key={spot.id} onClick={handleCardClick} className="spotCard">
+    <div onClick={handleCardClick} className="spot-card-container">
       <div className="preview-container">
         <img
           src={`${spot.previewImage}`}
           alt={`${spot.name}`}
           className="previewImage"
-          data-tooltip-id="my-tooltip"
-          data-tooltip-content={spot.name}
+          // data-tooltip-id="my-tooltip"
+          // data-tooltip-content={spot.name}
         />
-        <Tooltip id="my-tooltip" place="bottom" delayShow="200"  />
+        {/* <Tooltip id="my-tooltip" place="bottom" delayShow="200"  /> */}
 {/* noArrow="true" */}
       </div>
       <div className="location-rating-container">
