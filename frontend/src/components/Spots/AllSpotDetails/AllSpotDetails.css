@@ -3,7 +3,7 @@
   margin-top: 80px;
   margin-left: 3%;
   margin-right: 3%;
-  /* padding: 20px; */
+  padding: 20px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 20px;

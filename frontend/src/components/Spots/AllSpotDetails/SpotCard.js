@@ -22,20 +22,31 @@ const SpotCard = ({ spot }) => {
           // data-tooltip-content={spot.name}
         />
         {/* <Tooltip id="my-tooltip" place="bottom" delayShow="200"  /> */}
-{/* noArrow="true" */}
+        {/* noArrow="true" */}
       </div>
-      <div className="location-rating-container">
-        <h2 className="location">{`${spot.city}, ${spot.state} `}</h2>
-        {/* <h2>{spot.state} </h2> */}
-        <h2 className="avg-rating">
-          <FontAwesomeIcon icon={faStar} />
-          {spot.avgRating === "NaN" ? "New" : spot.avgRating}
-        </h2>
-      </div>
-      <div className="price-container">
-        <h2 className="price">{`$${spot.price}`}</h2>
-        <p> </p>
-        <h2 className="night">night</h2>
+
+      <div className="home-text-container">
+        <div className="location-rating-container">
+          <div className="location">{`${spot.city}, ${spot.state} `}</div>
+          <div className="avg-rating-container">
+            <FontAwesomeIcon icon={faStar} className="home-star" />
+            <div className="home-rating-text">
+              {spot.avgRating === "NaN" ? "New" : spot.avgRating}
+            </div>
+          </div>
+        </div>
+        <div className="home-country-container">
+        {`Stay in ${spot.country === "United States"? "the United States" : spot.country }!`}
+
+
+        </div>
+
+
+
+        <div className="price-container">
+          <div className="price">{`$${spot.price}`}</div>
+          <div className="night">night</div>
+        </div>
       </div>
       {/* Going to need the spot name on a hover css */}
     </div>
