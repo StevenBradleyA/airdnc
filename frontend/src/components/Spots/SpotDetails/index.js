@@ -50,26 +50,66 @@ const SpotDetails = () => {
     return <h1>LOADING...</h1>;
   }
 
+  let previewArr;
+  let otherImagesArr;
+  if (currentSpot.Owner && currentSpot.SpotImages) {
+    previewArr = currentSpot.SpotImages.filter((e) => e.preview === true);
+    otherImagesArr = currentSpot.SpotImages.filter((e) => e.preview === false);
+  }
+
   return (
     <div className="spot-detail-container">
       <h1 className="spot-name">{currentSpot.name}</h1>
       <h2 className="spot-location">{`${currentSpot.city}, ${currentSpot.state}, ${currentSpot.country}`}</h2>
-      {currentSpot.Owner && currentSpot.SpotImages && (
-        <div>
-          <div className="spot-images-container">
-            {currentSpot.SpotImages.map((e) => (
+      {currentSpot.Owner &&
+        currentSpot.SpotImages &&
+        previewArr.length &&
+        otherImagesArr.length && (
+          <div>
+            <div className="spot-images-container">
+              <div className="detail-preview-container">
+                <img
+                  className="detail-preview-image"
+                  src={previewArr[0].url}
+                  alt="preview"
+                />
+              </div>
+              <div className="detail-images-container">
+                <img
+                  className="detail-image-one"
+                  src={otherImagesArr[0].url}
+                  alt="preview"
+                />
+                <img
+                  className="detail-image-two"
+                  src={otherImagesArr[1].url}
+                  alt="preview"
+                />
+                <img
+                  className="detail-image-three"
+                  src={otherImagesArr[2].url}
+                  alt="preview"
+                />
+                <img
+                  className="detail-image-four"
+                  src={otherImagesArr[3].url}
+                  alt="preview"
+                />
+              </div>
+
+              {/* {currentSpot.SpotImages.map((e) => (
               <img
                 key={e.id}
                 alt={`Spot`}
                 src={`${e.url}`}
                 className={e.preview === true ? "preview-image" : "spot-image"}
               />
-            ))}
-          </div>
+            ))} */}
+            </div>
 
-          <h1 className="owner-title">{`Hosted by ${currentSpot.Owner.firstName} ${currentSpot.Owner.lastName}`}</h1>
-        </div>
-      )}
+            <h1 className="owner-title">{`Hosted by ${currentSpot.Owner.firstName} ${currentSpot.Owner.lastName}`}</h1>
+          </div>
+        )}
       <div>
         <p className="description">{currentSpot.description}</p>
         <div className="reserve-container">

@@ -18,22 +18,58 @@
   /* text-decoration-line: underline; */
   opacity: 0.8;
 }
-.spot-images-container {
-  /* display:grid;
-    grid-template-columns: 100px 100px 100px 100px 100px 100px;
-    grid-template-rows: 100px 100px 100px 100px 100px 100px; */
+
+/* -------         Images          -------- */
+
+/* .spot-images-container {
+  width: 100%;
+  height: 800px;
   display: flex;
+  flex-wrap: wrap;
 }
 .preview-image {
-  /* width: 50%;
-    height: 50%; */
+  
   width: 400px;
   height: 400px;
+  object-fit: cover;
 }
 
 .spot-image {
   width: 200px;
+  height: 150px;
+  object-fit: cover;
+} */
+
+.spot-images-container {
+  display: flex;
+  width: 100%;
+}
+
+.detail-preview-image {
+  width: 600px;
+  height: 400px;
+  object-fit: cover;
+}
+
+.detail-image-one {
+  width: 200px;
   height: 200px;
+  object-fit: cover;
+}
+.detail-image-two {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+}
+.detail-image-three {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
+}
+.detail-image-four {
+  width: 200px;
+  height: 200px;
+  object-fit: cover;
 }
 
 .owner-title {
@@ -158,10 +194,10 @@
 
 /* ------------------------  EACH REVIEW  ------------------------------------ */
 .each-review-container {
-   display:flex;
-   justify-content: flex-start;
-   flex-direction: column;
-  align-content: flex-start; 
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-content: flex-start;
   position: relative;
   margin-bottom: 15px;
 }
