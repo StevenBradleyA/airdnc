@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getSpotByIdThunk } from "../../../store/spots";
 import { useParams } from "react-router-dom";
@@ -6,20 +6,60 @@ import AllReviews from "../../Reviews/AllReviews/index";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { loadSpots } from "../../../store/spots";
+import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
 
 import "./SpotDetails.css";
 const SpotDetails = () => {
   const dispatch = useDispatch();
   const { spotId } = useParams();
   const reserveButtonRef = useRef(null);
+  const [map, setMap] = useState(null);
+  const mapsSecret = process.env.REACT_APP_MAPS_API;
+
+
+  //  -------      maps      ---------
+  const { isLoaded } = useJsApiLoader({
+    id: "google-map-script",
+    googleMapsApiKey: mapsSecret,
+  });
+
+  const containerStyle = {
+    width: '100%',
+    height: '450px'
+  };
+  
+  const center = {
+    lat: -3.745,
+    lng: -38.523
+  };
+
+
+
+  const onLoad = React.useCallback(function callback(map) {
+    // This is just an example of getting and using the map instance!!! don't just blindly copy!
+    const bounds = new window.google.maps.LatLngBounds(center);
+    map.fitBounds(bounds);
+
+    setMap(map)
+  }, [])
+
+  const onUnmount = React.useCallback(function callback(map) {
+    setMap(null)
+  }, [])
+
+
+
+
+//  -------          - -----------
+
 
   const handleMouseMove = (e) => {
     const button = reserveButtonRef.current;
     const outline = button.getBoundingClientRect();
     const x = e.clientX - outline.left;
     const y = e.clientY - outline.top;
-    button.style.setProperty('--x', `${x}px`);
-    button.style.setProperty('--y', `${y}px`);
+    button.style.setProperty("--x", `${x}px`);
+    button.style.setProperty("--y", `${y}px`);
   };
 
   useEffect(() => {
@@ -161,8 +201,8 @@ const SpotDetails = () => {
             ref={reserveButtonRef}
             onMouseMove={handleMouseMove}
             onMouseLeave={() => {
-              reserveButtonRef.current.style.setProperty('--x', '0px');
-              reserveButtonRef.current.style.setProperty('--y', '0px');
+              reserveButtonRef.current.style.setProperty("--x", "0px");
+              reserveButtonRef.current.style.setProperty("--y", "0px");
             }}
             onClick={() => window.alert("Feature Coming Soon!")}
           >
@@ -173,6 +213,23 @@ const SpotDetails = () => {
       </div>
 
       {/* Google maps API here */}
+
+      <div className="google-maps-container">
+        <div className="google-maps-header">Find your couch</div>
+        {isLoaded ? (
+      <GoogleMap
+        mapContainerStyle={containerStyle}
+        center={center}
+        zoom={10}
+        onLoad={onLoad}
+        onUnmount={onUnmount}
+      >
+        { /* Child components, such as markers, info windows, etc. */ }
+        <></>
+      </GoogleMap>
+  ) : <></>}
+      </div>
+
       {/* Big Calendar here */}
 
       <div className="details-description-container">

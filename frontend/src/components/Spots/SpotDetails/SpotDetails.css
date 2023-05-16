@@ -208,10 +208,35 @@
   --size: 200px;
 }
 
+/* --------       GOOGLE MAPS       -------- */
+
+
+.google-maps-container{
+  width: 50%;
+  margin-bottom: 20px;
+
+
+}
+
+.google-maps-header{
+  font-size: 20px;
+
+}
+
+
+
+
+
+
+
+
+
+
 
 /* --------       description       -------- */
 .details-description-container {
   width: 50%;
+  word-wrap: break-word;
 }
 
 .description-title {
@@ -221,6 +246,11 @@
 
 .description {
   font-size: 15px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  overflow: hidden;
+  width: 100%;
 }
 
 /* ------------------------  REVIEWS  ------------------------------------ */
