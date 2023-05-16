@@ -59,8 +59,27 @@ const SpotDetails = () => {
 
   return (
     <div className="spot-detail-container">
-      <h1 className="spot-name">{currentSpot.name}</h1>
-      <h2 className="spot-location">{`${currentSpot.city}, ${currentSpot.state}, ${currentSpot.country}`}</h2>
+      <div className="spot-name">{currentSpot.name}</div>
+      <div className="details-header-container">
+        {currentSpot.numReviews === 0 && (
+          <div className="details-header-new">
+            <FontAwesomeIcon icon={faStar} id="details-heading-star" />
+            {` New `}
+          </div>
+        )}
+        {currentSpot.numReviews >= 1 && (
+          <div className="details-header-reviews">
+            <FontAwesomeIcon icon={faStar} id="details-heading-star" />
+            {` ${currentSpot.avgStarRating} ·  `}
+            <span className="details-num-reviews">
+            {`${currentReviews.length} review${
+              currentReviews.length === 1 ? "" : "s"
+            }`}
+              </span>
+          </div>
+        )}
+        <div className="spot-location">{`·  ${currentSpot.state}, ${currentSpot.country}`}</div>
+      </div>
       {currentSpot.Owner &&
         currentSpot.SpotImages &&
         previewArr.length &&
@@ -96,19 +115,16 @@ const SpotDetails = () => {
                   alt="preview"
                 />
               </div>
-
-              {/* {currentSpot.SpotImages.map((e) => (
-              <img
-                key={e.id}
-                alt={`Spot`}
-                src={`${e.url}`}
-                className={e.preview === true ? "preview-image" : "spot-image"}
-              />
-            ))} */}
             </div>
 
-            <h1 className="owner-title">{`Hosted by ${currentSpot.Owner.firstName} ${currentSpot.Owner.lastName}`}</h1>
           </>
+        )}
+      {currentSpot.Owner &&
+        currentSpot.SpotImages && (
+          <div className="owner-title">{`Crash on a couch hosted by ${currentSpot.Owner.firstName}`}</div>
+        
+
+
         )}
       <div className="detail-description-review-container">
         <p className="description">{currentSpot.description}</p>
