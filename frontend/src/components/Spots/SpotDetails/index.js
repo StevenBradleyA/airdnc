@@ -110,7 +110,7 @@ const SpotDetails = () => {
             <h1 className="owner-title">{`Hosted by ${currentSpot.Owner.firstName} ${currentSpot.Owner.lastName}`}</h1>
           </>
         )}
-      <div>
+      <div className="detail-description-review-container">
         <p className="description">{currentSpot.description}</p>
         <div className="reserve-container">
           <div className="price-star-container">
