@@ -119,25 +119,39 @@
 
 /* --------------              Booking container          ---------------------- */
 .reserve-container {
-  background-color: rgb(255, 254, 254);
-  width: 28%;
-  height: 90px;
+  background-color: white;
+  width: 23%;
+  height: 300px;
   border: 1.5px solid rgb(227, 227, 227);
-
   border-radius: 10px;
   padding: 10px;
+  position: absolute;
+  right: 10.3%;
 }
 
 .price-star-container {
   display: flex;
   justify-content: space-between;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.price-night-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.detail-booking-rating-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
 }
 
 .reserve-rating-number {
   font-size: 12px;
-  position: relative;
-  top: 15px;
-  right: 30px;
 }
 .reserve-avg-rating {
   font-size: 12px;
@@ -145,54 +159,55 @@
 
 .reserve-number-reviews {
   font-size: 12px;
-  position: relative;
-  top: 10px;
-  right: 25px;
 }
 
 .reserve-new {
-  position: relative;
-  right: 40px;
-  top: 10px;
   font-size: 15px;
-}
-
-.price-night-container {
-  display: flex;
-  justify-content: space-between;
 }
 
 .price-reserve {
   font-size: 20px;
-  position: relative;
-  left: 15px;
 }
 
 .reserve-night {
   font-size: 12px;
-  position: relative;
-  left: 18px;
-  top: 13px;
   opacity: 0.8;
 }
-.reserve-button {
-  background-color: red;
-  color: white;
-  padding-left: 100px;
-  padding-right: 100px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  position: relative;
-  left: 20px;
-  bottom: 5px;
-  cursor: pointer;
-  box-shadow: #420000 4px 4px 0 0;
-  border: 3px solid black;
-}
-/* .reserve-button:hover{
-    opacity: .80;
 
-} */
+
+
+.reserve-button {
+  font-size: 15px;
+  margin-left: 10px;
+  width: 93%;
+  height: 45px;
+  background: linear-gradient(-45deg, #833ab4, #fd1d1d);
+  background-size: 160% 150%;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden; 
+}
+
+.reserve-button::before {
+  --size: 0;
+  content: '';
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: var(--size);
+  height: var(--size);
+  background: radial-gradient(circle closest-side, #ffec705a,rgba(255, 204, 112, 0));
+  transform: translate(-50%, -50%);
+  transition: width 0.2s ease, height 0.2s ease;
+}
+
+.reserve-button:hover::before {
+  --size: 200px;
+}
+
 
 /* --------       description       -------- */
 .details-description-container {

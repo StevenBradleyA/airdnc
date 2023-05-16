@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getSpotByIdThunk } from "../../../store/spots";
 import { useParams } from "react-router-dom";
@@ -11,6 +11,16 @@ import "./SpotDetails.css";
 const SpotDetails = () => {
   const dispatch = useDispatch();
   const { spotId } = useParams();
+  const reserveButtonRef = useRef(null);
+
+  const handleMouseMove = (e) => {
+    const button = reserveButtonRef.current;
+    const outline = button.getBoundingClientRect();
+    const x = e.clientX - outline.left;
+    const y = e.clientY - outline.top;
+    button.style.setProperty('--x', `${x}px`);
+    button.style.setProperty('--y', `${y}px`);
+  };
 
   useEffect(() => {
     dispatch(getSpotByIdThunk(spotId));
@@ -72,10 +82,10 @@ const SpotDetails = () => {
             <FontAwesomeIcon icon={faStar} id="details-heading-star" />
             {` ${currentSpot.avgStarRating} ·  `}
             <span className="details-num-reviews">
-            {`${currentReviews.length} review${
-              currentReviews.length === 1 ? "" : "s"
-            }`}
-              </span>
+              {`${currentReviews.length} review${
+                currentReviews.length === 1 ? "" : "s"
+              }`}
+            </span>
           </div>
         )}
         <div className="spot-location">{`·  ${currentSpot.state}, ${currentSpot.country}`}</div>
@@ -116,15 +126,12 @@ const SpotDetails = () => {
                 />
               </div>
             </div>
-
           </>
         )}
       <div className="detail-title-reserve-container">
-      {currentSpot.Owner &&
-        currentSpot.SpotImages && (
+        {currentSpot.Owner && currentSpot.SpotImages && (
           <div className="owner-title">{`Crash on a couch hosted by ${currentSpot.Owner.firstName}`}</div>
         )}
-
 
         <div className="reserve-container">
           <div className="price-star-container">
@@ -132,62 +139,55 @@ const SpotDetails = () => {
               <h1 className="price-reserve">{`$${currentSpot.price}`}</h1>
               <h1 className="reserve-night">night</h1>
             </div>
-
-            {currentSpot.numReviews === 0 && (
-              <h1 className="reserve-new">
-                <FontAwesomeIcon icon={faStar} />
-                {`New`}
-              </h1>
-            )}
-            {currentSpot.numReviews >= 1 && (
-              <h1 className="reserve-rating-number">
-                <FontAwesomeIcon icon={faStar} />{" "}
-                {`${currentSpot.avgStarRating} · ${
-                  currentReviews.length
-                } review${currentReviews.length === 1 ? "" : "s"}`}
-              </h1>
-            )}
+            <div className="detail-booking-rating-container">
+              {currentSpot.numReviews === 0 && (
+                <h1 className="reserve-new">
+                  <FontAwesomeIcon icon={faStar} />
+                  {`New`}
+                </h1>
+              )}
+              {currentSpot.numReviews >= 1 && (
+                <h1 className="reserve-rating-number">
+                  <FontAwesomeIcon icon={faStar} />{" "}
+                  {`${currentSpot.avgStarRating} · ${
+                    currentReviews.length
+                  } review${currentReviews.length === 1 ? "" : "s"}`}
+                </h1>
+              )}
+            </div>
           </div>
           <button
             className="reserve-button"
+            ref={reserveButtonRef}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={() => {
+              reserveButtonRef.current.style.setProperty('--x', '0px');
+              reserveButtonRef.current.style.setProperty('--y', '0px');
+            }}
             onClick={() => window.alert("Feature Coming Soon!")}
           >
+            <span></span>
             Reserve
           </button>
         </div>
-
-
-
-
       </div>
 
-          {/* Google maps API here */}
-          {/* Big Calendar here */}
+      {/* Google maps API here */}
+      {/* Big Calendar here */}
 
-
-        <div className="details-description-container">
-         <div className="description-title">
-            {`About this place`}
-          </div> 
+      <div className="details-description-container">
+        <div className="description-title">{`About this place`}</div>
         <div className="description">{currentSpot.description}</div>
-        </div>
-
-
-
-
-
-
-
-
+      </div>
 
       <div className="detail-review-container">
-      <div>
-        <AllReviews
-          spotId={spotId}
-          currentSpot={currentSpot}
-          currentReviews={currentReviews}
-        />
-      </div>
+        <div>
+          <AllReviews
+            spotId={spotId}
+            currentSpot={currentSpot}
+            currentReviews={currentReviews}
+          />
+        </div>
       </div>
     </div>
   );
