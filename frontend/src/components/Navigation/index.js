@@ -18,12 +18,13 @@ import "./Navigation.css";
 import LogOutButton from "./Logout";
 import DemoLogin from "./DemoLogin";
 
-function Navigation({ isLoaded }) {
+function Navigation() {
   const sessionUser = useSelector((state) => state.session.user);
   const [openMenu, setOpenMenu] = useState(false);
+
+
   const [searchClick, setSearchClick] = useState(false);
   const [searchValue, setSearchValue] = useState("");
-
 
   const history = useHistory();
   const burgerRef = useRef();
@@ -62,40 +63,22 @@ function Navigation({ isLoaded }) {
     history.push("/spots/current");
   };
 
-
-
-
   const handleInputChange = (e) => {
     setSearchValue(e.target.value);
     setSearchClick(e.target.value.length > 0);
   };
 
 
-  let sessionLinks;
-  if (sessionUser) {
-    sessionLinks = (
-      <></>
-      // <div>
-      //   <ProfileButton user={sessionUser} />
-      // </div>
-    );
-  } else {
-    sessionLinks = (
-      <div>
-        <OpenModalButton
-          buttonText="Log In"
-          modalComponent={<LoginFormModal />}
-        />
-        <div></div>
-        <OpenModalButton
-          buttonText="Sign Up"
-          modalComponent={<SignupFormModal />}
-        />
-        <DemoLogin />
-      </div>
-    );
-  }
+  // Might make more sense to just make the search a drop down with all listings with the name
+  // because you want to be able to search for a place on every page... 
 
+  // refactor once the backend is written 
+  // clicking the search button just opens a modal that displays listings ez pz
+
+
+
+
+  
   return (
     <div className="navigation-bar">
       <div className="home-button">
@@ -114,24 +97,17 @@ function Navigation({ isLoaded }) {
           Airdnc your home
         </div>
       )}
-{/*  */}
       <form onSubmit={handleSearch}>
         <div
-          className={
-            searchValue.length >= 1 ? "search-bar-container" : "search-bar-style"
-          }
+          className={searchClick === false ? "search-bar-container" : "search-bar-style"}
           onClick={handleSearchClick}
         >
           {!searchClick && (
             <>
-
-
-              <div className="search-text-before"> 
+              <div className="search-text-before">
                 {`Anywhere   |   Any week   |  `}
-                <span style={{color: "grey"}}>Find a Couch</span>
+                <span style={{ color: "grey" }}>Find a Couch</span>
               </div>
-
-
 
               <div className="magnifying-circle">
                 <FontAwesomeIcon
@@ -144,23 +120,7 @@ function Navigation({ isLoaded }) {
           {searchClick && (
             <input
               type="text"
-              placeholder={   <>
-
-
-                <div className="search-text-before"> 
-                  {`Anywhere   |   Any week   |  `}
-                  <span style={{color: "grey"}}>Find a Couch</span>
-                </div>
-  
-  
-  
-                <div className="magnifying-circle">
-                  <FontAwesomeIcon
-                    icon={faMagnifyingGlass}
-                    className="magnifying"
-                  />
-                </div>
-              </>}
+              placeholder="Search..."
               className="search-bar-input"
               value={searchValue}
               onChange={handleInputChange}
@@ -214,9 +174,20 @@ function Navigation({ isLoaded }) {
                 setOpenMenu={setOpenMenu}
               />
             )}
-            <div className="logged-out-dropdown-container">
-              {isLoaded && sessionLinks}
-            </div>
+            {!sessionUser &&(<div className="logged-out-dropdown-container">
+            <div>
+        <OpenModalButton
+          buttonText="Log In"
+          modalComponent={<LoginFormModal />}
+        />
+        <div></div>
+        <OpenModalButton
+          buttonText="Sign Up"
+          modalComponent={<SignupFormModal />}
+        />
+        <DemoLogin />
+      </div>
+            </div>)}
           </div>
         </div>
       </div>
