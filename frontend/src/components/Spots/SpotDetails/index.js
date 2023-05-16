@@ -119,15 +119,13 @@ const SpotDetails = () => {
 
           </>
         )}
+      <div className="detail-title-reserve-container">
       {currentSpot.Owner &&
         currentSpot.SpotImages && (
           <div className="owner-title">{`Crash on a couch hosted by ${currentSpot.Owner.firstName}`}</div>
-        
-
-
         )}
-      <div className="detail-description-review-container">
-        <p className="description">{currentSpot.description}</p>
+
+
         <div className="reserve-container">
           <div className="price-star-container">
             <div className="price-night-container">
@@ -157,13 +155,39 @@ const SpotDetails = () => {
             Reserve
           </button>
         </div>
+
+
+
+
       </div>
+
+          {/* Google maps API here */}
+          {/* Big Calendar here */}
+
+
+        <div className="details-description-container">
+         <div className="description-title">
+            {`About this place`}
+          </div> 
+        <div className="description">{currentSpot.description}</div>
+        </div>
+
+
+
+
+
+
+
+
+
+      <div className="detail-review-container">
       <div>
         <AllReviews
           spotId={spotId}
           currentSpot={currentSpot}
           currentReviews={currentReviews}
         />
+      </div>
       </div>
     </div>
   );
