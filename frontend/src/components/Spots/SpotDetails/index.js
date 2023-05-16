@@ -65,7 +65,7 @@ const SpotDetails = () => {
         currentSpot.SpotImages &&
         previewArr.length &&
         otherImagesArr.length && (
-          <div>
+          <>
             <div className="spot-images-container">
               <div className="detail-preview-container">
                 <img
@@ -108,7 +108,7 @@ const SpotDetails = () => {
             </div>
 
             <h1 className="owner-title">{`Hosted by ${currentSpot.Owner.firstName} ${currentSpot.Owner.lastName}`}</h1>
-          </div>
+          </>
         )}
       <div>
         <p className="description">{currentSpot.description}</p>

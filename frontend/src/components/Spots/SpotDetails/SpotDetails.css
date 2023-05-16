@@ -1,11 +1,11 @@
 .spot-detail-container {
   display: flex;
   flex-direction: column;
+  margin-left: 10%;
+  margin-right: 10%;
   margin-top: 4%;
-  padding-left: 9%;
-  padding-right: 9%;
 
-  width: 1000px;
+  width: 90%;
 }
 
 .spot-name {
@@ -21,55 +21,63 @@
 
 /* -------         Images          -------- */
 
-/* .spot-images-container {
-  width: 100%;
-  height: 800px;
-  display: flex;
-  flex-wrap: wrap;
-}
-.preview-image {
-  
-  width: 400px;
-  height: 400px;
-  object-fit: cover;
-}
-
-.spot-image {
-  width: 200px;
-  height: 150px;
-  object-fit: cover;
-} */
-
 .spot-images-container {
   display: flex;
   width: 100%;
+  height: 40%;
+}
+
+.detail-preview-container {
+  width: 45%;
+  height: 100%;
+}
+
+.detail-images-container {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .detail-preview-image {
-  width: 600px;
-  height: 400px;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
 }
 
 .detail-image-one {
-  width: 200px;
-  height: 200px;
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  width: 45%;
+  height: 187px;
   object-fit: cover;
 }
 .detail-image-two {
-  width: 200px;
-  height: 200px;
+  margin-right: 5px;
+  margin-bottom: 10px;
+  width: 45%;
+  height: 187px;
   object-fit: cover;
+  border-top-right-radius: 10px;
 }
 .detail-image-three {
-  width: 200px;
-  height: 200px;
+  margin-left: 10px;
+  margin-right: 5px;
+  width: 45%;
+  height: 187px;
+
   object-fit: cover;
 }
 .detail-image-four {
-  width: 200px;
-  height: 200px;
+  margin-left: 5px;
+  margin-right: 5px;
+  width: 45%;
+  height: 187px;
   object-fit: cover;
+  border-bottom-right-radius: 10px;
 }
 
 .owner-title {
