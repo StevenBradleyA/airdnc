@@ -99,35 +99,34 @@
   border-bottom-right-radius: 12px;
 }
 
-/* -----------         under image title      ------------ */
-
-.detail-title-reserve-container {
-  display: flex;
-  width: 100%;
-  margin-top: 20px;
-  justify-content: space-between;
-}
-
-.owner-title {
-  width: 50%;
-  padding-bottom: 20px;
-  border-bottom: 1.5px solid rgb(227, 227, 227);
-  margin-bottom: 20px;
-  font-size: 20px;
-  opacity: 0.8;
-}
 
 /* --------------              Booking container          ---------------------- */
+
+.detail-sticky-container{
+display: flex;
+width: 100%;
+justify-content: space-between;
+}
+
+.container-left{
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+}
+
 .reserve-container {
+  margin-top: 20px;
+  margin-bottom: 40px;
   background-color: white;
-  width: 23%;
+  width: 28%;
   height: 300px;
   border: 1.5px solid rgb(227, 227, 227);
   border-radius: 10px;
   padding: 10px;
-  position: absolute;
-  right: 10.3%;
+  position: sticky;
+  top: 120px;
 }
+
 
 .price-star-container {
   display: flex;
@@ -208,11 +207,34 @@
   --size: 200px;
 }
 
+
+/* -----------         under image title      ------------ */
+
+.detail-title-reserve-container {
+  display: flex;
+  width: 100%;
+  margin-top: 20px;
+  justify-content: space-between;
+}
+
+.owner-title {
+  width: 100%;
+  padding-bottom: 20px;
+  border-bottom: 1.5px solid rgb(227, 227, 227);
+  margin-bottom: 20px;
+  font-size: 20px;
+  opacity: 0.8;
+}
+
+
+
+
+
 /* --------       GOOGLE MAPS       -------- */
 
 
 .google-maps-container{
-  width: 50%;
+  width: 100%;
   margin-bottom: 20px;
   border-bottom: 1.5px solid rgb(227, 227, 227);
 
@@ -228,7 +250,7 @@
 /* --------       CALENDAR       -------- */
 
 .calendar-date-range-container {
-  width: 50%;
+  width: 100%;
   margin-bottom: 20px;
 
 
@@ -244,7 +266,7 @@
 
 /* --------       description       -------- */
 .details-description-container {
-  width: 50%;
+  width: 100%;
   word-wrap: break-word;
   border-bottom: 1.5px solid rgb(227, 227, 227);
   margin-bottom: 20px;

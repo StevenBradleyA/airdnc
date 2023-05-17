@@ -18,10 +18,7 @@ import CalendarDateRange from "./calendar";
 
 // ! npm install --save react date-fns
 
-
 // ! npm install react-date-picker
-
-
 
 const SpotDetails = () => {
   const dispatch = useDispatch();
@@ -140,11 +137,31 @@ const SpotDetails = () => {
             </div>
           </>
         )}
-      <div className="detail-title-reserve-container">
-        {currentSpot.Owner && currentSpot.SpotImages && (
-          <div className="owner-title">{`Crash on a couch hosted by ${currentSpot.Owner.firstName}`}</div>
-        )}
 
+      <div className="detail-sticky-container">
+        <div className="container-left">
+          <div className="detail-title-reserve-container">
+            {currentSpot.Owner && currentSpot.SpotImages && (
+              <div className="owner-title">{`Crash on a couch hosted by ${currentSpot.Owner.firstName}`}</div>
+            )}
+          </div>
+
+          <div className="google-maps-container">
+            <div className="google-maps-header">Find your couch</div>
+
+            <GoogleMaps currentSpot={currentSpot} />
+          </div>
+
+          <div className="details-description-container">
+            <div className="description-title">{`About this place`}</div>
+            <div className="description">{currentSpot.description}</div>
+          </div>
+
+          <div className="calendar-date-range-container">
+            <div className="calendar-header">Plan your nights</div>
+            <CalendarDateRange currentSpot={currentSpot} />
+          </div>
+        </div>
         <div className="reserve-container">
           <div className="price-star-container">
             <div className="price-night-container">
@@ -184,22 +201,6 @@ const SpotDetails = () => {
         </div>
       </div>
 
-      <div className="google-maps-container">
-        <div className="google-maps-header">Find your couch</div>
-
-        <GoogleMaps currentSpot={currentSpot} />
-      </div>
-
-      <div className="details-description-container">
-        <div className="description-title">{`About this place`}</div>
-        <div className="description">{currentSpot.description}</div>
-      </div>
-
-      <div className="calendar-date-range-container">
-        <div className="calendar-header">Plan your nights</div>
-        <CalendarDateRange currentSpot={currentSpot} />
-      </div>
-
       <div className="detail-review-container">
         <div>
           <AllReviews
@@ -209,6 +210,71 @@ const SpotDetails = () => {
           />
         </div>
       </div>
+      <p>
+        jjlkajsdlfkj asldkfj lksaj d lfkj asldkfj laskj dflkj asldkjf lkasjd f
+        lkjas dfl kj asldkfj laksjd f lkajs dfkl j alskdjf lkasjdfl kjasldk f
+        jlkasj dfl kjas dlfk j aslkjdf laskdjf lkasjdf lkasjd f lkjas dlkf j
+        laskdjf k lkasdjf ;alskdjf l;askdjf l;kasjd fl; kjasd ;lfkj saldkjf
+        l;kasdjf l;askdfj l;askdjf lkasdjf asdlfk j asd;lfkj asl;kdjf l;askdjf
+        l;kasdjf ;lksdajf l;faskjdf l;aksjdf ;lkasjdfl;k sadlfk;j asldk;jf
+        lk;sadjf lkasjdf l jasdlfk; j l;kasdfj lkasdj f l; kasfdjlk; asfd
+        jjlkajsdlfkj asldkfj lksaj d lfkj asldkfj laskj dflkj asldkjf lkasjd f
+        lkjas dfl kj asldkfj laksjd f lkajs dfkl j alskdjf lkasjdfl kjasldk f
+        jlkasj dfl kjas dlfk j aslkjdf laskdjf lkasjdf lkasjd f lkjas dlkf j
+        laskdjf k lkasdjf ;alskdjf l;askdjf l;kasjd fl; kjasd ;lfkj saldkjf
+        l;kasdjf l;askdfj l;askdjf lkasdjf asdlfk j asd;lfkj asl;kdjf l;askdjf
+        l;kasdjf ;lksdajf l;faskjdf l;aksjdf ;lkasjdfl;k sadlfk;j asldk;jf
+        lk;sadjf lkasjdf l jasdlfk; j l;kasdfj lkasdj f l; kasfdjlk; asfd
+        jjlkajsdlfkj asldkfj lksaj d lfkj asldkfj laskj dflkj asldkjf lkasjd f
+        lkjas dfl kj asldkfj laksjd f lkajs dfkl j alskdjf lkasjdfl kjasldk f
+        jlkasj dfl kjas dlfk j aslkjdf laskdjf lkasjdf lkasjd f lkjas dlkf j
+        laskdjf k lkasdjf ;alskdjf l;askdjf l;kasjd fl; kjasd ;lfkj saldkjf
+        l;kasdjf l;askdfj l;askdjf lkasdjf asdlfk j asd;lfkj asl;kdjf l;askdjf
+        l;kasdjf ;lksdajf l;faskjdf l;aksjdf ;lkasjdfl;k sadlfk;j asldk;jf
+        lk;sadjf lkasjdf l jasdlfk; j l;kasdfj lkasdj f l; kasfdjlk; asfd
+        jjlkajsdlfkj asldkfj lksaj d lfkj asldkfj laskj dflkj asldkjf lkasjd f
+        lkjas dfl kj asldkfj laksjd f lkajs dfkl j alskdjf lkasjdfl kjasldk f
+        jlkasj dfl kjas dlfk j aslkjdf laskdjf lkasjdf lkasjd f lkjas dlkf j
+        laskdjf k lkasdjf ;alskdjf l;askdjf l;kasjd fl; kjasd ;lfkj saldkjf
+        l;kasdjf l;askdfj l;askdjf lkasdjf asdlfk j asd;lfkj asl;kdjf l;askdjf
+        l;kasdjf ;lksdajf l;faskjdf l;aksjdf ;lkasjdfl;k sadlfk;j asldk;jf
+        lk;sadjf lkasjdf l jasdlfk; j l;kasdfj lkasdj f l; kasfdjlk; asfd
+        jjlkajsdlfkj asldkfj lksaj d lfkj asldkfj laskj dflkj asldkjf lkasjd f
+        lkjas dfl kj asldkfj laksjd f lkajs dfkl j alskdjf lkasjdfl kjasldk f
+        jlkasj dfl kjas dlfk j aslkjdf laskdjf lkasjdf lkasjd f lkjas dlkf j
+        laskdjf k lkasdjf ;alskdjf l;askdjf l;kasjd fl; kjasd ;lfkj saldkjf
+        l;kasdjf l;askdfj l;askdjf lkasdjf asdlfk j asd;lfkj asl;kdjf l;askdjf
+        l;kasdjf ;lksdajf l;faskjdf l;aksjdf ;lkasjdfl;k sadlfk;j asldk;jf
+        lk;sadjf lkasjdf l jasdlfk; j l;kasdfj lkasdj f l; kasfdjlk; asfd
+        jjlkajsdlfkj asldkfj lksaj d lfkj asldkfj laskj dflkj asldkjf lkasjd f
+        lkjas dfl kj asldkfj laksjd f lkajs dfkl j alskdjf lkasjdfl kjasldk f
+        jlkasj dfl kjas dlfk j aslkjdf laskdjf lkasjdf lkasjd f lkjas dlkf j
+        laskdjf k lkasdjf ;alskdjf l;askdjf l;kasjd fl; kjasd ;lfkj saldkjf
+        l;kasdjf l;askdfj l;askdjf lkasdjf asdlfk j asd;lfkj asl;kdjf l;askdjf
+        l;kasdjf ;lksdajf l;faskjdf l;aksjdf ;lkasjdfl;k sadlfk;j asldk;jf
+        lk;sadjf lkasjdf l jasdlfk; j l;kasdfj lkasdj f l; kasfdjlk; asfd
+        jjlkajsdlfkj asldkfj lksaj d lfkj asldkfj laskj dflkj asldkjf lkasjd f
+        lkjas dfl kj asldkfj laksjd f lkajs dfkl j alskdjf lkasjdfl kjasldk f
+        jlkasj dfl kjas dlfk j aslkjdf laskdjf lkasjdf lkasjd f lkjas dlkf j
+        laskdjf k lkasdjf ;alskdjf l;askdjf l;kasjd fl; kjasd ;lfkj saldkjf
+        l;kasdjf l;askdfj l;askdjf lkasdjf asdlfk j asd;lfkj asl;kdjf l;askdjf
+        l;kasdjf ;lksdajf l;faskjdf l;aksjdf ;lkasjdfl;k sadlfk;j asldk;jf
+        lk;sadjf lkasjdf l jasdlfk; j l;kasdfj lkasdj f l; kasfdjlk; asfd
+        jjlkajsdlfkj asldkfj lksaj d lfkj asldkfj laskj dflkj asldkjf lkasjd f
+        lkjas dfl kj asldkfj laksjd f lkajs dfkl j alskdjf lkasjdfl kjasldk f
+        jlkasj dfl kjas dlfk j aslkjdf laskdjf lkasjdf lkasjd f lkjas dlkf j
+        laskdjf k lkasdjf ;alskdjf l;askdjf l;kasjd fl; kjasd ;lfkj saldkjf
+        l;kasdjf l;askdfj l;askdjf lkasdjf asdlfk j asd;lfkj asl;kdjf l;askdjf
+        l;kasdjf ;lksdajf l;faskjdf l;aksjdf ;lkasjdfl;k sadlfk;j asldk;jf
+        lk;sadjf lkasjdf l jasdlfk; j l;kasdfj lkasdj f l; kasfdjlk; asfd
+        jjlkajsdlfkj asldkfj lksaj d lfkj asldkfj laskj dflkj asldkjf lkasjd f
+        lkjas dfl kj asldkfj laksjd f lkajs dfkl j alskdjf lkasjdfl kjasldk f
+        jlkasj dfl kjas dlfk j aslkjdf laskdjf lkasjdf lkasjd f lkjas dlkf j
+        laskdjf k lkasdjf ;alskdjf l;askdjf l;kasjd fl; kjasd ;lfkj saldkjf
+        l;kasdjf l;askdfj l;askdjf lkasdjf asdlfk j asd;lfkj asl;kdjf l;askdjf
+        l;kasdjf ;lksdajf l;faskjdf l;aksjdf ;lkasjdfl;k sadlfk;j asldk;jf
+        lk;sadjf lkasjdf l jasdlfk; j l;kasdfj lkasdj f l; kasfdjlk; asfd
+      </p>
     </div>
   );
 };
