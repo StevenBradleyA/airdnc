@@ -8,6 +8,7 @@ import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { loadSpots } from "../../../store/spots";
 import GoogleMaps from "./googleMaps";
 import "./SpotDetails.css";
+import CalendarDateRange from "./calendar";
 
 // ! Update Build command
 
@@ -184,11 +185,14 @@ const SpotDetails = () => {
         <GoogleMaps currentSpot={currentSpot} />
       </div>
 
-      {/* Big Calendar here */}
-
       <div className="details-description-container">
         <div className="description-title">{`About this place`}</div>
         <div className="description">{currentSpot.description}</div>
+      </div>
+
+      <div className="calendar-date-range-container">
+        <div className="calendar-header">Plan your nights</div>
+        <CalendarDateRange currentSpot={currentSpot} />
       </div>
 
       <div className="detail-review-container">

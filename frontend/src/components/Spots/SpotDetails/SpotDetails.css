@@ -227,10 +227,18 @@
 
 /* --------       CALENDAR       -------- */
 
+.calendar-date-range-container {
+  width: 50%;
+  margin-bottom: 20px;
 
 
+}
 
 
+.calendar-header{
+  font-size: 20px;
+  margin-bottom: 20px;
+}
 
 
 
@@ -238,6 +246,9 @@
 .details-description-container {
   width: 50%;
   word-wrap: break-word;
+  border-bottom: 1.5px solid rgb(227, 227, 227);
+  margin-bottom: 20px;
+  padding-bottom: 20px;
 }
 
 .description-title {
