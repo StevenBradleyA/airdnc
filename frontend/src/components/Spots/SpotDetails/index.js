@@ -9,6 +9,11 @@ import { loadSpots } from "../../../store/spots";
 import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
 
 import "./SpotDetails.css";
+
+// ! Update Build command
+
+// ! npm i -S @react-google-maps/api
+
 const SpotDetails = () => {
   const dispatch = useDispatch();
   const { spotId } = useParams();
@@ -16,42 +21,45 @@ const SpotDetails = () => {
   const [map, setMap] = useState(null);
   const mapsSecret = process.env.REACT_APP_MAPS_API;
 
+  const allSpots = useSelector((state) => state.spots);
+  const currentSpot = allSpots[spotId];
+  const allReviews = useSelector((state) => Object.values(state.reviews));
+
+
+
+
+
+  useEffect(() => {
+    dispatch(getSpotByIdThunk(spotId));
+  }, [dispatch, spotId]);
+  
 
   //  -------      maps      ---------
-  const { isLoaded } = useJsApiLoader({
+  const { isLoaded, loadError } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: mapsSecret,
   });
 
   const containerStyle = {
-    width: '100%',
-    height: '450px'
-  };
-  
-  const center = {
-    lat: -3.745,
-    lng: -38.523
+    width: "100%",
+    height: "450px",
   };
 
-
+  let center = {
+    lat: 47.6062,
+    lng: -122.3321,
+  };
 
   const onLoad = React.useCallback(function callback(map) {
-    // This is just an example of getting and using the map instance!!! don't just blindly copy!
-    const bounds = new window.google.maps.LatLngBounds(center);
-    map.fitBounds(bounds);
+    setMap(map);
+  }, []);
 
-    setMap(map)
-  }, [])
-
-  const onUnmount = React.useCallback(function callback(map) {
-    setMap(null)
-  }, [])
+  const onUnmount = React.useCallback(function callback() {
+    setMap(null);
+  }, []);
 
 
-
-
-//  -------          - -----------
-
+  //  -------      end maps        -----------
 
   const handleMouseMove = (e) => {
     const button = reserveButtonRef.current;
@@ -62,14 +70,7 @@ const SpotDetails = () => {
     button.style.setProperty("--y", `${y}px`);
   };
 
-  useEffect(() => {
-    dispatch(getSpotByIdThunk(spotId));
-  }, [dispatch, spotId]);
 
-  const allSpots = useSelector((state) => state.spots);
-
-  // Updating the store to keep track of review changes
-  const allReviews = useSelector((state) => Object.values(state.reviews));
 
   const currentReviews = allReviews
     .filter((e) => Number(spotId) === e.spotId)
@@ -77,13 +78,14 @@ const SpotDetails = () => {
 
   useEffect(() => {
     dispatch(loadSpots(updateReviewAverage()));
-  }, [currentReviews.length]);
+  }, [dispatch, currentReviews.length]);
 
   const updateReviewAverage = () => {
     const totalScore = currentReviews.reduce((sumReview, currentReview) => {
       sumReview += currentReview.stars;
       return sumReview;
     }, 0);
+
     const numReviews = currentReviews.length;
     const avgStarRating = `${(totalScore / numReviews).toFixed(1)}`;
 
@@ -93,13 +95,46 @@ const SpotDetails = () => {
 
     return updatedSpot;
   };
-  // --------------------
+  
+  useEffect(() => {
+    if (
+      currentSpot &&
+      typeof currentSpot.lat === "number" &&
+      typeof currentSpot.lng === "number"
+      ) {
+        const newCenter = {
+          lat: currentSpot.lat,
+          lng: currentSpot.lng,
+        };
+        if (map) {
+          // Check if the 'maps' object is available
+          if (typeof window.google !== 'undefined' && window.google.maps) {
+            const bounds = new window.google.maps.LatLngBounds(newCenter);
+            // Add a conditional check for 'map' variable
+            if (map.fitBounds) {
+              map.fitBounds(bounds);
+            } else {
+              console.error("fitBounds function not available");
+            }
+          } else {
+            console.error("Google Maps API not loaded");
+          }
+        }
+      }
+    }, [currentSpot, map]);
+    
 
-  const currentSpot = allSpots[spotId];
-  if (!currentSpot) {
-    return <h1>LOADING...</h1>;
+  if (!isLoaded) {
+    return <div>Loading...</div>;
   }
-
+  if (loadError) {
+    return <div>Error loading Google Maps</div>;
+  }
+  
+    
+    if (!currentSpot) {
+      return <h1>LOADING...</h1>;
+    }
   let previewArr;
   let otherImagesArr;
   if (currentSpot.Owner && currentSpot.SpotImages) {
@@ -107,6 +142,8 @@ const SpotDetails = () => {
     otherImagesArr = currentSpot.SpotImages.filter((e) => e.preview === false);
   }
 
+
+  
   return (
     <div className="spot-detail-container">
       <div className="spot-name">{currentSpot.name}</div>
@@ -217,17 +254,19 @@ const SpotDetails = () => {
       <div className="google-maps-container">
         <div className="google-maps-header">Find your couch</div>
         {isLoaded ? (
-      <GoogleMap
-        mapContainerStyle={containerStyle}
-        center={center}
-        zoom={10}
-        onLoad={onLoad}
-        onUnmount={onUnmount}
-      >
-        { /* Child components, such as markers, info windows, etc. */ }
-        <></>
-      </GoogleMap>
-  ) : <></>}
+          <GoogleMap
+            mapContainerStyle={containerStyle}
+            center={center}
+            zoom={10}
+            onLoad={onLoad}
+            onUnmount={onUnmount}
+          >
+            {/* Child components, such as markers, info windows, etc. */}
+            <></>
+          </GoogleMap>
+        ) : (
+          <></>
+        )}
       </div>
 
       {/* Big Calendar here */}
