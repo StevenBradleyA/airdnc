@@ -18,6 +18,11 @@ import CalendarDateRange from "./calendar";
 
 // ! npm install --save react date-fns
 
+
+// ! npm install react-date-picker
+
+
+
 const SpotDetails = () => {
   const dispatch = useDispatch();
   const { spotId } = useParams();
