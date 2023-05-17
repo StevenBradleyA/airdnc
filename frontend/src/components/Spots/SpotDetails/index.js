@@ -6,9 +6,9 @@ import AllReviews from "../../Reviews/AllReviews/index";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { loadSpots } from "../../../store/spots";
-import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
-
+import GoogleMaps from "./googleMaps";
 import "./SpotDetails.css";
+
 
 // ! Update Build command
 
@@ -18,48 +18,14 @@ const SpotDetails = () => {
   const dispatch = useDispatch();
   const { spotId } = useParams();
   const reserveButtonRef = useRef(null);
-  const [map, setMap] = useState(null);
-  const mapsSecret = process.env.REACT_APP_MAPS_API;
 
   const allSpots = useSelector((state) => state.spots);
   const currentSpot = allSpots[spotId];
   const allReviews = useSelector((state) => Object.values(state.reviews));
 
-
-
-
-
   useEffect(() => {
     dispatch(getSpotByIdThunk(spotId));
   }, [dispatch, spotId]);
-  
-
-  //  -------      maps      ---------
-  const { isLoaded, loadError } = useJsApiLoader({
-    id: "google-map-script",
-    googleMapsApiKey: mapsSecret,
-  });
-
-  const containerStyle = {
-    width: "100%",
-    height: "450px",
-  };
-
-  let center = {
-    lat: 47.6062,
-    lng: -122.3321,
-  };
-
-  const onLoad = React.useCallback(function callback(map) {
-    setMap(map);
-  }, []);
-
-  const onUnmount = React.useCallback(function callback() {
-    setMap(null);
-  }, []);
-
-
-  //  -------      end maps        -----------
 
   const handleMouseMove = (e) => {
     const button = reserveButtonRef.current;
@@ -69,8 +35,6 @@ const SpotDetails = () => {
     button.style.setProperty("--x", `${x}px`);
     button.style.setProperty("--y", `${y}px`);
   };
-
-
 
   const currentReviews = allReviews
     .filter((e) => Number(spotId) === e.spotId)
@@ -95,46 +59,10 @@ const SpotDetails = () => {
 
     return updatedSpot;
   };
-  
-  useEffect(() => {
-    if (
-      currentSpot &&
-      typeof currentSpot.lat === "number" &&
-      typeof currentSpot.lng === "number"
-      ) {
-        const newCenter = {
-          lat: currentSpot.lat,
-          lng: currentSpot.lng,
-        };
-        if (map) {
-          // Check if the 'maps' object is available
-          if (typeof window.google !== 'undefined' && window.google.maps) {
-            const bounds = new window.google.maps.LatLngBounds(newCenter);
-            // Add a conditional check for 'map' variable
-            if (map.fitBounds) {
-              map.fitBounds(bounds);
-            } else {
-              console.error("fitBounds function not available");
-            }
-          } else {
-            console.error("Google Maps API not loaded");
-          }
-        }
-      }
-    }, [currentSpot, map]);
-    
 
-  if (!isLoaded) {
-    return <div>Loading...</div>;
+  if (!currentSpot) {
+    return <h1>LOADING...</h1>;
   }
-  if (loadError) {
-    return <div>Error loading Google Maps</div>;
-  }
-  
-    
-    if (!currentSpot) {
-      return <h1>LOADING...</h1>;
-    }
   let previewArr;
   let otherImagesArr;
   if (currentSpot.Owner && currentSpot.SpotImages) {
@@ -142,8 +70,6 @@ const SpotDetails = () => {
     otherImagesArr = currentSpot.SpotImages.filter((e) => e.preview === false);
   }
 
-
-  
   return (
     <div className="spot-detail-container">
       <div className="spot-name">{currentSpot.name}</div>
@@ -249,24 +175,10 @@ const SpotDetails = () => {
         </div>
       </div>
 
-      {/* Google maps API here */}
-
       <div className="google-maps-container">
         <div className="google-maps-header">Find your couch</div>
-        {isLoaded ? (
-          <GoogleMap
-            mapContainerStyle={containerStyle}
-            center={center}
-            zoom={10}
-            onLoad={onLoad}
-            onUnmount={onUnmount}
-          >
-            {/* Child components, such as markers, info windows, etc. */}
-            <></>
-          </GoogleMap>
-        ) : (
-          <></>
-        )}
+
+        <GoogleMaps currentSpot={currentSpot} />
       </div>
 
       {/* Big Calendar here */}
