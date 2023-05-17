@@ -14,6 +14,8 @@ const CreateSpotForm = ({ formType, spotId }) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
+  const [lat, setLat] = useState("");
+  const [lng, setLng] = useState("");
   const [previewImage, setPreviewImage] = useState("");
   const [nonPreviewImage1, setNonPreviewImage1] = useState("");
   const [nonPreviewImage2, setNonPreviewImage2] = useState("");
@@ -46,6 +48,13 @@ const CreateSpotForm = ({ formType, spotId }) => {
     }
     if (!price) {
       errorsObj.price = "Price is required";
+    }
+    if (!lat || isNaN(lat) || lat < -90 || lat > 90) {
+      errorsObj.lat = "Latitude is invalid";
+    }
+
+    if (!lng || isNaN(lng) || lng < -180 || lng > 180) {
+      errorsObj.lng = "Longitude is invalid";
     }
     if (previewImage.length === 0) {
       errorsObj.previewImage = "Preview image is required";
@@ -98,6 +107,8 @@ const CreateSpotForm = ({ formType, spotId }) => {
     description,
     name,
     price,
+    lat,
+    lng,
     previewImage,
     nonPreviewImage1,
     nonPreviewImage2,
@@ -123,6 +134,7 @@ const CreateSpotForm = ({ formType, spotId }) => {
         country,
         name,
         description,
+        lat,
         price,
         previewImage,
         imageArr,
@@ -210,6 +222,26 @@ const CreateSpotForm = ({ formType, spotId }) => {
         {hasSubmitted && errors.state && (
           <p className="errors">{errors.state}</p>
         )}
+        <h1 className="create-form-header">Provide coordinates of your spot</h1>
+        <label>
+          Coordinates will help users plan with google maps.
+          <input
+            type="text"
+            placeholder="lat"
+            className="basic-input"
+            value={lat}
+            onChange={(e) => setLat(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="lng"
+            className="basic-input"
+            value={lng}
+            onChange={(e) => setLng(e.target.value)}
+          />
+        </label>
+        {hasSubmitted && errors.lng && <p className="errors">{errors.lat}</p>}
+        {hasSubmitted && errors.lng && <p className="errors">{errors.lng}</p>}
         <h1 className="create-form-header">Describe your place to guests</h1>
         <label>
           Mention the best features of your space, any special amentities like
@@ -336,8 +368,12 @@ const CreateSpotForm = ({ formType, spotId }) => {
         )}
         <p></p>
         <div className="button-border">
-
-        <input className="create-spot-button" type="submit" value={formType === 'create'? "Create Spot": 'Update Your Spot'} disabled={hasSubmitted && Object.values(errors).length > 0} />
+          <input
+            className="create-spot-button"
+            type="submit"
+            value={formType === "create" ? "Create Spot" : "Update Your Spot"}
+            disabled={hasSubmitted && Object.values(errors).length > 0}
+          />
         </div>
       </form>
     </div>
