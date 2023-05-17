@@ -9,10 +9,13 @@ import { loadSpots } from "../../../store/spots";
 import GoogleMaps from "./googleMaps";
 import "./SpotDetails.css";
 
-
 // ! Update Build command
 
 // ! npm i -S @react-google-maps/api
+
+// ! npm install --save react-date-range
+
+// ! npm install --save react date-fns
 
 const SpotDetails = () => {
   const dispatch = useDispatch();

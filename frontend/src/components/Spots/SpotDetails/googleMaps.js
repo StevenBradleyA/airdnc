@@ -13,6 +13,7 @@ const GoogleMaps = ({ currentSpot }) => {
   const containerStyle = {
     width: "100%",
     height: "450px",
+    marginBottom: "20px",
   };
 
   let center = {

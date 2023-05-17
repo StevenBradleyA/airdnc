@@ -135,13 +135,11 @@ const CreateSpotForm = ({ formType, spotId }) => {
         name,
         description,
         lat,
+        lng,
         price,
         previewImage,
         imageArr,
       };
-
-      // let newSpot = await dispatch(createSpotThunk(spotInformation));
-      // history.push(`/spots/${newSpot.id}`);
       let newSpot;
       if (formType === "create") {
         newSpot = await dispatch(createSpotThunk(spotInformation));

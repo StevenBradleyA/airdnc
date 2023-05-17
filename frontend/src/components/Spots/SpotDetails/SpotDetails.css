@@ -214,6 +214,7 @@
 .google-maps-container{
   width: 50%;
   margin-bottom: 20px;
+  border-bottom: 1.5px solid rgb(227, 227, 227);
 
 }
 
@@ -224,6 +225,7 @@
 
 
 
+/* --------       CALENDAR       -------- */
 
 
 
