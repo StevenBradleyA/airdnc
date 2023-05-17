@@ -26,7 +26,7 @@ import CalendarDateRange from "./calendar";
 const SpotDetails = () => {
   const dispatch = useDispatch();
   const { spotId } = useParams();
-  const reserveButtonRef = useRef(null);
+  const reserveButtonRef = useRef("pog");
 
   const allSpots = useSelector((state) => state.spots);
   const currentSpot = allSpots[spotId];

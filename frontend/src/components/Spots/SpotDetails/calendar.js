@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
-import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
+import "./calendar.css";
 
 import { DateRangePicker } from "react-date-range";
+// import { DateRangePicker } from "react-date-range";
+
 
 const CalendarDateRange = ({ currentSpot }) => {
   const handleSelect = (ranges) => {
@@ -22,7 +24,14 @@ const CalendarDateRange = ({ currentSpot }) => {
     // rangeColors: "black",
   };
   return (
-    <DateRangePicker ranges={[selectionRange]} onChange={handleSelect} months={2}  direction="horizontal" showDefinedRanges={false}/>
+    <DateRangePicker
+      ranges={[selectionRange]}
+      onChange={handleSelect}
+      months={2}
+      direction="horizontal"
+    //   showDefinedRanges={false}
+    //   showSelectionPreview={false}
+    />
   );
 };
 
