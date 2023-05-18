@@ -21,18 +21,18 @@ const AllReviews = ({ spotId, currentSpot, currentReviews }) => {
   return (
     <div className="detail-review-container">
       {currentReviews.length === 0 && (
-        <h1 className="review-heading">
+        <div className="review-heading">
           <FontAwesomeIcon icon={faStar} />
           {`New`}
-        </h1>
+        </div>
       )}
       {currentReviews.length >= 1 && (
-        <h1 className="review-heading">
-          <FontAwesomeIcon icon={faStar} />{" "}
+        <div className="review-heading">
+          <FontAwesomeIcon icon={faStar} className="star-review-header" />
           {`${currentSpot.avgStarRating} · ${currentReviews.length} review${
             currentReviews.length === 1 ? "" : "s"
           }`}
-        </h1>
+        </div>
       )}
       {sessionUser &&
         currentReviews.filter((e) => sessionUser.id === e.userId).length ===

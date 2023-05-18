@@ -287,7 +287,7 @@ justify-content: space-between;
   width: 100%;
 }
 
-/* ------------------------  REVIEWS  ------------------------------------ */
+/* ---------------             reviews              ----------------------- */
 
 .detail-review-container {
   width: 100%;
@@ -306,9 +306,16 @@ justify-content: space-between;
 }
 
 .review-heading {
-  font-size: 25px;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 20px;
+  margin-bottom: 30px;
 }
-
+.star-review-header{
+  font-size: 14px;
+}
 .post-your-review-button-modal {
   width: 200px;
   cursor: pointer;
@@ -318,32 +325,81 @@ justify-content: space-between;
   color: white;
 }
 
+
+/* ------        each review        --------- */
+
 .each-review-container {
-  /* display: flex;
-  justify-content: flex-start;
+  display: flex;
   flex-direction: column;
-  align-content: flex-start; */
+  width: 40%;
+  word-wrap: break-word;
+
 }
+
+
+.each-review-top{
+  display:flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.each-review-circle-container{
+  width: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.each-review-circle{
+  background-color: rgb(0, 46, 124);
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 22px ;
+  color: white;
+}
+
+
+
+.each-review-name-date{
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin-left: 5px;
+  gap: 2px;
+}
+
+
+
 
 .first-last-review {
   font-size: 15px;
 }
 
 .review-date {
-  font-size: 12px;
+  font-size: 14px;
   opacity: 0.4;
 }
 
 .review-text {
-  font-size: 14px;
+  font-size: 15px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  overflow: hidden;
+  width: 100%;
+
+
 }
 
-/* score bar containersssss */
+/* ----------             score bar/ text containersss        ----------- */
 
 .all-score-bars-container{
   width: 100%;
   display: flex;
   justify-content: space-between;
+  margin-bottom: 30px;
 }
 .score-bars-left{
   display: flex;
@@ -373,7 +429,7 @@ justify-content: space-between;
 
 
 
-/* Review score bar */
+/* ------------            Score Bar         --------------- */
 
 .score-bar {
   height: 5px;
@@ -414,9 +470,8 @@ justify-content: space-between;
   width: 8px;
   height: 8px;
   background-color: #f1f1f1;
-  border-radius: 50%;
+  /* border-radius: 50%; */
   border-radius: 5px;
-/*  */
   box-shadow: 0px 0px 20px 5px rgba(255, 255, 255);
   animation: light-ball-animation 2.5s infinite alternate;
 }
@@ -438,11 +493,11 @@ justify-content: space-between;
 
 
 
-.score-bar:hover .score-bar-fill {
+.bar-pair:hover .score-bar-fill {
   background: linear-gradient(-45deg, #833ab4, #fd1d1d);
   background-size: 160% 150%;
 }
 
-.score-bar:hover .glow {
+.bar-pair:hover .glow {
   background: linear-gradient(to right, rgba(102, 0, 255, 0.297) 0%, rgb(140, 0, 255) 100%);
 }
