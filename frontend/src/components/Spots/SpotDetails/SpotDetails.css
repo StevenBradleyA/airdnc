@@ -176,7 +176,7 @@
   margin-left: 10px;
   width: 93%;
   height: 45px;
-  background: linear-gradient(-45deg, #833ab4, #fd1d1d);
+  background: linear-gradient(-45deg, #833ab4, #339fde);
   background-size: 160% 150%;
   color: white;
   border: none;
@@ -196,7 +196,8 @@
   height: var(--size);
   background: radial-gradient(
     circle closest-side,
-    #ffec705a,
+    #70fff35a,
+    /* #ffec705a, */
     rgba(255, 204, 112, 0)
   );
   transform: translate(-50%, -50%);
@@ -325,7 +326,7 @@
 }
 
 .each-review-circle {
-  background-color: rgb(0, 46, 124);
+  background-color: rgba(2, 104, 187, 0.811);
   height: 35px;
   width: 35px;
   border-radius: 50%;
@@ -501,7 +502,8 @@
 }
 
 .bar-pair:hover .score-bar-fill {
-  background: linear-gradient(-45deg, #833ab4, #fd1d1d);
+  background: linear-gradient(-45deg, #833ab4, #339fde);
+
   background-size: 160% 150%;
 }
 
