@@ -1,11 +1,30 @@
-import { useSelector } from "react-redux";
-import DeleteReviewFormModal from "../DeleteReview";
-import OpenModalButton from "../../OpenModalButton";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import months from "../../../utils/nonCringeMonths";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faPenToSquare,
+  faDeleteLeft,
+  faCheck,
+  faXmark,
+  faC,
+} from "@fortawesome/free-solid-svg-icons";
 import "../../Spots/SpotDetails/SpotDetails.css";
+import { deleteReviewThunk } from "../../../store/reviews";
 
 const SingleReview = ({ review }) => {
+  const [deleteClick, setDeleteClick] = useState(false);
+  const dispatch = useDispatch();
+
+
   const sessionUser = useSelector((state) => state.session.user);
+
+  const handleDeleteReview = async (e) => {
+    e.preventDefault();
+    await dispatch(deleteReviewThunk(review.id));
+    setDeleteClick(false)
+  };
+
   return (
     <div className="each-review-container">
       <div className="each-review-top">
@@ -28,10 +47,28 @@ const SingleReview = ({ review }) => {
       <div className="review-text">{review.review}</div>
 
       {sessionUser && review.userId === sessionUser.id && (
-        <OpenModalButton
-          buttonText="Delete"
-          modalComponent={<DeleteReviewFormModal review={review} />}
-        />
+        <div className="edit-delete-review-conatiner">
+          <FontAwesomeIcon icon={faPenToSquare} />
+          {!deleteClick && (
+            <FontAwesomeIcon
+              icon={faDeleteLeft}
+              onClick={() => setDeleteClick(true)}
+            />
+          )}
+          {deleteClick && (
+            <div>
+              <FontAwesomeIcon icon={faCheck} onClick={handleDeleteReview} />
+              <FontAwesomeIcon
+                icon={faXmark}
+                onClick={() => setDeleteClick(false)}
+              />
+            </div>
+          )}
+          {/* <OpenModalButton
+      buttonText="Delete"
+      modalComponent={<DeleteReviewFormModal review={review} />}
+    /> */}
+        </div>
       )}
     </div>
   );
