@@ -7,22 +7,27 @@ import {
   faDeleteLeft,
   faCheck,
   faXmark,
-  faC,
 } from "@fortawesome/free-solid-svg-icons";
-import "../../Spots/SpotDetails/SpotDetails.css";
 import { deleteReviewThunk } from "../../../store/reviews";
+import { useModal } from "../../../context/Modal";
+import "../../Spots/SpotDetails/SpotDetails.css";
+import UpdateReviewModal from "../UpdateReview";
 
 const SingleReview = ({ review }) => {
   const [deleteClick, setDeleteClick] = useState(false);
   const dispatch = useDispatch();
-
+  const { setModalContent } = useModal();
 
   const sessionUser = useSelector((state) => state.session.user);
 
   const handleDeleteReview = async (e) => {
     e.preventDefault();
     await dispatch(deleteReviewThunk(review.id));
-    setDeleteClick(false)
+    setDeleteClick(false);
+  };
+
+  const handleUpdateReview = () => {
+    setModalContent(<UpdateReviewModal />);
   };
 
   return (
@@ -40,36 +45,43 @@ const SingleReview = ({ review }) => {
             {`${months[new Date(review.createdAt).getMonth()]} ${new Date(
               review.createdAt
             ).getFullYear()}`}
+
+            {sessionUser && review.userId === sessionUser.id && (
+              <div className="edit-delete-review-conatiner">
+                <FontAwesomeIcon
+                  icon={faPenToSquare}
+                  onClick={handleUpdateReview}
+                  className="edit-review-button-icon"
+                />
+                {!deleteClick && (
+                  <FontAwesomeIcon
+                    icon={faDeleteLeft}
+                    onClick={() => setDeleteClick(true)}
+                  className="delete-review-button-icon"
+
+                  />
+                )}
+                {deleteClick && (
+                  <div className="delete-review-buttons-container">
+                    <FontAwesomeIcon
+                      icon={faCheck}
+                      onClick={handleDeleteReview}
+                      className="confirm-delete-review"
+                    />
+                    <FontAwesomeIcon
+                      icon={faXmark}
+                      onClick={() => setDeleteClick(false)}
+                      className="cancel-delete-review"
+                    />
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         </div>
       </div>
 
       <div className="review-text">{review.review}</div>
-
-      {sessionUser && review.userId === sessionUser.id && (
-        <div className="edit-delete-review-conatiner">
-          <FontAwesomeIcon icon={faPenToSquare} />
-          {!deleteClick && (
-            <FontAwesomeIcon
-              icon={faDeleteLeft}
-              onClick={() => setDeleteClick(true)}
-            />
-          )}
-          {deleteClick && (
-            <div>
-              <FontAwesomeIcon icon={faCheck} onClick={handleDeleteReview} />
-              <FontAwesomeIcon
-                icon={faXmark}
-                onClick={() => setDeleteClick(false)}
-              />
-            </div>
-          )}
-          {/* <OpenModalButton
-      buttonText="Delete"
-      modalComponent={<DeleteReviewFormModal review={review} />}
-    /> */}
-        </div>
-      )}
     </div>
   );
 };

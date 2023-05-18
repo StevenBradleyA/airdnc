@@ -99,16 +99,15 @@
   border-bottom-right-radius: 12px;
 }
 
-
 /* --------------              Booking container          ---------------------- */
 
-.detail-sticky-container{
-display: flex;
-width: 100%;
-justify-content: space-between;
+.detail-sticky-container {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
 }
 
-.container-left{
+.container-left {
   display: flex;
   flex-direction: column;
   width: 60%;
@@ -126,7 +125,6 @@ justify-content: space-between;
   position: sticky;
   top: 120px;
 }
-
 
 .price-star-container {
   display: flex;
@@ -173,8 +171,6 @@ justify-content: space-between;
   opacity: 0.8;
 }
 
-
-
 .reserve-button {
   font-size: 15px;
   margin-left: 10px;
@@ -187,18 +183,22 @@ justify-content: space-between;
   border-radius: 10px;
   cursor: pointer;
   position: relative;
-  overflow: hidden; 
+  overflow: hidden;
 }
 
 .reserve-button::before {
   --size: 0;
-  content: '';
+  content: "";
   position: absolute;
   left: var(--x);
   top: var(--y);
   width: var(--size);
   height: var(--size);
-  background: radial-gradient(circle closest-side, #ffec705a,rgba(255, 204, 112, 0));
+  background: radial-gradient(
+    circle closest-side,
+    #ffec705a,
+    rgba(255, 204, 112, 0)
+  );
   transform: translate(-50%, -50%);
   transition: width 0.2s ease, height 0.2s ease;
 }
@@ -206,7 +206,6 @@ justify-content: space-between;
 .reserve-button:hover::before {
   --size: 200px;
 }
-
 
 /* -----------         under image title      ------------ */
 
@@ -226,43 +225,30 @@ justify-content: space-between;
   opacity: 0.8;
 }
 
-
-
-
-
 /* --------       GOOGLE MAPS       -------- */
 
-
-.google-maps-container{
+.google-maps-container {
   width: 100%;
   margin-bottom: 20px;
   border-bottom: 1.5px solid rgb(227, 227, 227);
-
 }
 
-.google-maps-header{
+.google-maps-header {
   font-size: 20px;
   margin-bottom: 20px;
 }
-
-
 
 /* --------       CALENDAR       -------- */
 
 .calendar-date-range-container {
   width: 100%;
   margin-bottom: 20px;
-
-
 }
 
-
-.calendar-header{
+.calendar-header {
   font-size: 20px;
   margin-bottom: 20px;
 }
-
-
 
 /* --------       description       -------- */
 .details-description-container {
@@ -303,7 +289,6 @@ justify-content: space-between;
   flex-wrap: wrap;
   justify-content: space-between;
   width: 100%;
-
 }
 
 .review-heading {
@@ -314,10 +299,9 @@ justify-content: space-between;
   margin-top: 20px;
   margin-bottom: 30px;
 }
-.star-review-header{
+.star-review-header {
   font-size: 14px;
 }
-
 
 /* ------        each review        --------- */
 
@@ -327,22 +311,20 @@ justify-content: space-between;
   width: 40%;
   word-wrap: break-word;
   margin-bottom: 20px;
-
 }
 
-
-.each-review-top{
-  display:flex;
+.each-review-top {
+  display: flex;
   align-items: center;
   margin-bottom: 20px;
 }
-.each-review-circle-container{
+.each-review-circle-container {
   width: 40px;
   display: flex;
   align-items: center;
 }
 
-.each-review-circle{
+.each-review-circle {
   background-color: rgb(0, 46, 124);
   height: 35px;
   width: 35px;
@@ -350,22 +332,17 @@ justify-content: space-between;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 22px ;
+  font-size: 20px;
   color: white;
 }
 
-
-
-.each-review-name-date{
+.each-review-name-date {
   display: flex;
   flex-direction: column;
   width: 80%;
   margin-left: 5px;
   gap: 2px;
 }
-
-
-
 
 .first-last-review {
   font-size: 15px;
@@ -374,6 +351,8 @@ justify-content: space-between;
 .review-date {
   font-size: 14px;
   opacity: 0.4;
+  display: flex;
+  justify-content: space-between;
 }
 
 .review-text {
@@ -383,45 +362,76 @@ justify-content: space-between;
   flex-wrap: wrap;
   overflow: hidden;
   width: 100%;
+}
+/* ------    delete/edit review   --------- */
 
+.edit-delete-review-conatiner {
+  gap: 15px;
+}
 
+.edit-review-button-icon,
+.delete-review-button-icon,
+.cancel-delete-review {
+  transition: transform 0.2s ease-in-out;
+}
+
+.delete-review-buttons-container {
+  display: flex;
+  gap: 15px;
+}
+
+.confirm-delete-review {
+  color: red;
+  transition: transform 0.2s ease-in-out;
+}
+
+.cancel-delete-review:hover {
+  transform: scale(1.4);
+}
+.confirm-delete-review:hover {
+  transform: scale(1.4);
+}
+
+.edit-review-button-icon:hover {
+  transform: scale(1.4);
+  color: blue;
+}
+.delete-review-button-icon:hover {
+  color: red;
+  transform: scale(1.4);
 }
 
 /* ----------             score bar/ text containersss        ----------- */
 
-.all-score-bars-container{
+.all-score-bars-container {
   width: 100%;
   display: flex;
   justify-content: space-between;
   margin-bottom: 50px;
 }
-.score-bars-left{
+.score-bars-left {
   display: flex;
   flex-direction: column;
   gap: 15px;
   width: 40%;
 }
 
-.score-bars-right{
+.score-bars-right {
   display: flex;
   flex-direction: column;
   gap: 15px;
   width: 40%;
 }
 
-.bar-pair{
+.bar-pair {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.score-text{
+.score-text {
   font-size: 14px;
 }
-
-
-
-
 
 /* ------------            Score Bar         --------------- */
 
@@ -451,7 +461,11 @@ justify-content: space-between;
   width: 60px;
   max-width: 100%;
   z-index: -1;
-  background: linear-gradient(to left, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.1) 100%);
+  background: linear-gradient(
+    to left,
+    rgba(255, 255, 255, 0.3) 0%,
+    rgba(255, 255, 255, 0.1) 100%
+  );
   border-radius: 5px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
 }
@@ -471,7 +485,7 @@ justify-content: space-between;
 }
 
 @keyframes light-ball-animation {
-   0% {
+  0% {
     transform: translate(50%, -50%) scale(1);
     opacity: 1;
   }
@@ -485,18 +499,18 @@ justify-content: space-between;
   }
 }
 
-
-
 .bar-pair:hover .score-bar-fill {
   background: linear-gradient(-45deg, #833ab4, #fd1d1d);
   background-size: 160% 150%;
 }
 
 .bar-pair:hover .glow {
-  background: linear-gradient(to right, rgba(102, 0, 255, 0.297) 0%, rgb(140, 0, 255) 100%);
+  background: linear-gradient(
+    to right,
+    rgba(102, 0, 255, 0.297) 0%,
+    rgb(140, 0, 255) 100%
+  );
 }
-
-
 
 /* -------           Post a review       ---------- */
 
@@ -516,13 +530,8 @@ justify-content: space-between;
   box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
 }
 
-
-
 /* ----------        edit and delete a review     ----------- */
 
-.edit-delete-review-conatiner{
-
-display: flex;
-
-
+.edit-delete-review-conatiner {
+  display: flex;
 }
