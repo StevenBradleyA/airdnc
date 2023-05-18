@@ -201,15 +201,11 @@ const SpotDetails = () => {
         </div>
       </div>
 
-      <div className="detail-review-container">
-        <div>
-          <AllReviews
-            spotId={spotId}
-            currentSpot={currentSpot}
-            currentReviews={currentReviews}
-          />
-        </div>
-      </div>
+      <AllReviews
+        spotId={spotId}
+        currentSpot={currentSpot}
+        currentReviews={currentReviews}
+      />
       <p>
         jjlkajsdlfkj asldkfj lksaj d lfkj asldkfj laskj dflkj asldkjf lkasjd f
         lkjas dfl kj asldkfj laksjd f lkajs dfkl j alskdjf lkasjdfl kjasldk f

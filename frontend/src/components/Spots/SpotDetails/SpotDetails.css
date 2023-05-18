@@ -291,13 +291,18 @@ justify-content: space-between;
 
 .detail-review-container {
   width: 100%;
-  border: 1.5px solid rgb(227, 227, 227);
+  border-top: 1.5px solid rgb(227, 227, 227);
   margin-top: 20px;
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
 .reviews-container {
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+
 }
 
 .review-heading {
@@ -313,7 +318,6 @@ justify-content: space-between;
   color: white;
 }
 
-/* ------------------------  EACH REVIEW  ------------------------------------ */
 .each-review-container {
   /* display: flex;
   justify-content: flex-start;

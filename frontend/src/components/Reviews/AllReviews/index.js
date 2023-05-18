@@ -18,7 +18,7 @@ const AllReviews = ({ spotId, currentSpot, currentReviews }) => {
   const sessionUser = useSelector((state) => state.session.user);
 
   return (
-    <div className="reviews-container">
+    <div className="detail-review-container">
       {currentReviews.length === 0 && (
         <h1 className="review-heading">
           <FontAwesomeIcon icon={faStar} />
@@ -44,7 +44,7 @@ const AllReviews = ({ spotId, currentSpot, currentReviews }) => {
         )}
       {currentReviews.length === 0 && <h2>Be the first to post a review!</h2>}
 
-      <div>
+      <div className="reviews-container">
         {currentReviews.map((review) => (
           <SingleReview key={review.id} review={review} />
         ))}
