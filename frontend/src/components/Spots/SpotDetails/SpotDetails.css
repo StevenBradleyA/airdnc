@@ -99,6 +99,12 @@
   border-bottom-right-radius: 12px;
 }
 
+/* .detail-preview-image:hover{
+  
+} */
+
+
+
 /* --------------              Booking container          ---------------------- */
 
 .detail-sticky-container {
@@ -531,4 +537,41 @@
 .post-your-review-button-modal:hover {
   transform: scale(1.03);
   box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
+}
+
+
+
+/* -------        footer      --------- */
+
+.footer-container{
+  border-top: 1.5px solid rgb(227, 227, 227);
+
+  margin-top: 150px;
+  /* background-color: rgb(212, 212, 212); */
+  height: 80px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.footer-sticky-container{
+  
+  position: sticky;
+  bottom: 10px;
+  display: flex;
+  gap: 10px;
+
+}
+
+
+.footer-text{
+  font-size: 15px;
+opacity: 0.6;
+}
+
+.footer-icons{
+  width: 20px;
+  opacity: 0.4;
+  cursor: pointer;
+  
 }

@@ -1,15 +1,20 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getSpotByIdThunk } from "../../../store/spots";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import AllReviews from "../../Reviews/AllReviews/index";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
+import {
+  faStar,
+  faGithub,
+  faLinkedIn,
+} from "@fortawesome/free-solid-svg-icons";
 import { loadSpots } from "../../../store/spots";
 import GoogleMaps from "./googleMaps";
 import "./SpotDetails.css";
 import CalendarDateRange from "./calendar";
-
+import githubIcon from "../../../media/square-github.svg";
+import linkedIn from "../../../media/linkedin.svg";
 // ! Update Build command
 
 // ! npm i -S @react-google-maps/api
@@ -206,71 +211,32 @@ const SpotDetails = () => {
         currentSpot={currentSpot}
         currentReviews={currentReviews}
       />
-      <p>
-        jjlkajsdlfkj asldkfj lksaj d lfkj asldkfj laskj dflkj asldkjf lkasjd f
-        lkjas dfl kj asldkfj laksjd f lkajs dfkl j alskdjf lkasjdfl kjasldk f
-        jlkasj dfl kjas dlfk j aslkjdf laskdjf lkasjdf lkasjd f lkjas dlkf j
-        laskdjf k lkasdjf ;alskdjf l;askdjf l;kasjd fl; kjasd ;lfkj saldkjf
-        l;kasdjf l;askdfj l;askdjf lkasdjf asdlfk j asd;lfkj asl;kdjf l;askdjf
-        l;kasdjf ;lksdajf l;faskjdf l;aksjdf ;lkasjdfl;k sadlfk;j asldk;jf
-        lk;sadjf lkasjdf l jasdlfk; j l;kasdfj lkasdj f l; kasfdjlk; asfd
-        jjlkajsdlfkj asldkfj lksaj d lfkj asldkfj laskj dflkj asldkjf lkasjd f
-        lkjas dfl kj asldkfj laksjd f lkajs dfkl j alskdjf lkasjdfl kjasldk f
-        jlkasj dfl kjas dlfk j aslkjdf laskdjf lkasjdf lkasjd f lkjas dlkf j
-        laskdjf k lkasdjf ;alskdjf l;askdjf l;kasjd fl; kjasd ;lfkj saldkjf
-        l;kasdjf l;askdfj l;askdjf lkasdjf asdlfk j asd;lfkj asl;kdjf l;askdjf
-        l;kasdjf ;lksdajf l;faskjdf l;aksjdf ;lkasjdfl;k sadlfk;j asldk;jf
-        lk;sadjf lkasjdf l jasdlfk; j l;kasdfj lkasdj f l; kasfdjlk; asfd
-        jjlkajsdlfkj asldkfj lksaj d lfkj asldkfj laskj dflkj asldkjf lkasjd f
-        lkjas dfl kj asldkfj laksjd f lkajs dfkl j alskdjf lkasjdfl kjasldk f
-        jlkasj dfl kjas dlfk j aslkjdf laskdjf lkasjdf lkasjd f lkjas dlkf j
-        laskdjf k lkasdjf ;alskdjf l;askdjf l;kasjd fl; kjasd ;lfkj saldkjf
-        l;kasdjf l;askdfj l;askdjf lkasdjf asdlfk j asd;lfkj asl;kdjf l;askdjf
-        l;kasdjf ;lksdajf l;faskjdf l;aksjdf ;lkasjdfl;k sadlfk;j asldk;jf
-        lk;sadjf lkasjdf l jasdlfk; j l;kasdfj lkasdj f l; kasfdjlk; asfd
-        jjlkajsdlfkj asldkfj lksaj d lfkj asldkfj laskj dflkj asldkjf lkasjd f
-        lkjas dfl kj asldkfj laksjd f lkajs dfkl j alskdjf lkasjdfl kjasldk f
-        jlkasj dfl kjas dlfk j aslkjdf laskdjf lkasjdf lkasjd f lkjas dlkf j
-        laskdjf k lkasdjf ;alskdjf l;askdjf l;kasjd fl; kjasd ;lfkj saldkjf
-        l;kasdjf l;askdfj l;askdjf lkasdjf asdlfk j asd;lfkj asl;kdjf l;askdjf
-        l;kasdjf ;lksdajf l;faskjdf l;aksjdf ;lkasjdfl;k sadlfk;j asldk;jf
-        lk;sadjf lkasjdf l jasdlfk; j l;kasdfj lkasdj f l; kasfdjlk; asfd
-        jjlkajsdlfkj asldkfj lksaj d lfkj asldkfj laskj dflkj asldkjf lkasjd f
-        lkjas dfl kj asldkfj laksjd f lkajs dfkl j alskdjf lkasjdfl kjasldk f
-        jlkasj dfl kjas dlfk j aslkjdf laskdjf lkasjdf lkasjd f lkjas dlkf j
-        laskdjf k lkasdjf ;alskdjf l;askdjf l;kasjd fl; kjasd ;lfkj saldkjf
-        l;kasdjf l;askdfj l;askdjf lkasdjf asdlfk j asd;lfkj asl;kdjf l;askdjf
-        l;kasdjf ;lksdajf l;faskjdf l;aksjdf ;lkasjdfl;k sadlfk;j asldk;jf
-        lk;sadjf lkasjdf l jasdlfk; j l;kasdfj lkasdj f l; kasfdjlk; asfd
-        jjlkajsdlfkj asldkfj lksaj d lfkj asldkfj laskj dflkj asldkjf lkasjd f
-        lkjas dfl kj asldkfj laksjd f lkajs dfkl j alskdjf lkasjdfl kjasldk f
-        jlkasj dfl kjas dlfk j aslkjdf laskdjf lkasjdf lkasjd f lkjas dlkf j
-        laskdjf k lkasdjf ;alskdjf l;askdjf l;kasjd fl; kjasd ;lfkj saldkjf
-        l;kasdjf l;askdfj l;askdjf lkasdjf asdlfk j asd;lfkj asl;kdjf l;askdjf
-        l;kasdjf ;lksdajf l;faskjdf l;aksjdf ;lkasjdfl;k sadlfk;j asldk;jf
-        lk;sadjf lkasjdf l jasdlfk; j l;kasdfj lkasdj f l; kasfdjlk; asfd
-        jjlkajsdlfkj asldkfj lksaj d lfkj asldkfj laskj dflkj asldkjf lkasjd f
-        lkjas dfl kj asldkfj laksjd f lkajs dfkl j alskdjf lkasjdfl kjasldk f
-        jlkasj dfl kjas dlfk j aslkjdf laskdjf lkasjdf lkasjd f lkjas dlkf j
-        laskdjf k lkasdjf ;alskdjf l;askdjf l;kasjd fl; kjasd ;lfkj saldkjf
-        l;kasdjf l;askdfj l;askdjf lkasdjf asdlfk j asd;lfkj asl;kdjf l;askdjf
-        l;kasdjf ;lksdajf l;faskjdf l;aksjdf ;lkasjdfl;k sadlfk;j asldk;jf
-        lk;sadjf lkasjdf l jasdlfk; j l;kasdfj lkasdj f l; kasfdjlk; asfd
-        jjlkajsdlfkj asldkfj lksaj d lfkj asldkfj laskj dflkj asldkjf lkasjd f
-        lkjas dfl kj asldkfj laksjd f lkajs dfkl j alskdjf lkasjdfl kjasldk f
-        jlkasj dfl kjas dlfk j aslkjdf laskdjf lkasjdf lkasjd f lkjas dlkf j
-        laskdjf k lkasdjf ;alskdjf l;askdjf l;kasjd fl; kjasd ;lfkj saldkjf
-        l;kasdjf l;askdfj l;askdjf lkasdjf asdlfk j asd;lfkj asl;kdjf l;askdjf
-        l;kasdjf ;lksdajf l;faskjdf l;aksjdf ;lkasjdfl;k sadlfk;j asldk;jf
-        lk;sadjf lkasjdf l jasdlfk; j l;kasdfj lkasdj f l; kasfdjlk; asfd
-        jjlkajsdlfkj asldkfj lksaj d lfkj asldkfj laskj dflkj asldkjf lkasjd f
-        lkjas dfl kj asldkfj laksjd f lkajs dfkl j alskdjf lkasjdfl kjasldk f
-        jlkasj dfl kjas dlfk j aslkjdf laskdjf lkasjdf lkasjd f lkjas dlkf j
-        laskdjf k lkasdjf ;alskdjf l;askdjf l;kasjd fl; kjasd ;lfkj saldkjf
-        l;kasdjf l;askdfj l;askdjf lkasdjf asdlfk j asd;lfkj asl;kdjf l;askdjf
-        l;kasdjf ;lksdajf l;faskjdf l;aksjdf ;lkasjdfl;k sadlfk;j asldk;jf
-        lk;sadjf lkasjdf l jasdlfk; j l;kasdfj lkasdj f l; kasfdjlk; asfd
-      </p>
+      <div className="footer-container">
+        <div className="footer-sticky-container">
+          <div className="footer-text">@ 2023 Steven Anderson</div>
+          {`·`}
+          <img
+            alt="github"
+            src={githubIcon}
+            className="footer-icons"
+            onClick={() =>
+              window.open("https://github.com/StevenBradleyA", "_blank")
+            }
+          />
+          {`·`}
+          <img
+            alt="linkedIn"
+            src={linkedIn}
+            className="footer-icons"
+            onClick={() =>
+              window.open(
+                "https://www.linkedin.com/in/stevenanderson-dev/",
+                "_blank"
+              )
+            }
+          />
+        </div>
+      </div>
     </div>
   );
 };

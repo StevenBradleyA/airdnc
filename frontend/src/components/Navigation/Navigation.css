@@ -26,7 +26,6 @@
   align-items: center;
   gap: 5px;
   cursor: pointer;
-
 }
 
 .logo-main {
@@ -36,7 +35,7 @@
 .home-button-text {
   font-size: 25px;
   font-weight: 450;
-  color: rgb(2, 104, 187);
+  color: rgba(2, 104, 187, 0.811);
 }
 
 /* ---------           search         ----------------- */
@@ -51,7 +50,6 @@
   width: 350px;
   justify-content: space-around;
   cursor: pointer;
-
 }
 
 .search-bar-style:hover {
