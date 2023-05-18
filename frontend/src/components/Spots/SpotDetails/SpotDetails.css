@@ -366,6 +366,7 @@
 /* ------    delete/edit review   --------- */
 
 .edit-delete-review-conatiner {
+  display: flex;
   gap: 15px;
 }
 
@@ -528,10 +529,4 @@
 .post-your-review-button-modal:hover {
   transform: scale(1.03);
   box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
-}
-
-/* ----------        edit and delete a review     ----------- */
-
-.edit-delete-review-conatiner {
-  display: flex;
 }

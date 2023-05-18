@@ -70,8 +70,6 @@ export const updateReviewThunk =
     }
   };
 
-
-
 export const createReviewThunk =
   (newReviewData, spotId) => async (dispatch) => {
     try {
@@ -111,7 +109,7 @@ const reviewsReducer = (state = initialState, action) => {
     case CREATE_REVIEW:
       return { ...state, ...action.payload };
     case UPDATE_REVIEW:
-    return { ...state, ...action.payload };
+      return { ...state, ...action.payload };
     case DELETE_REVIEW:
       delete newState[action.payload];
       return newState;
