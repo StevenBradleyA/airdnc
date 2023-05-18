@@ -15,20 +15,34 @@
   border-bottom: 1px solid rgb(227, 227, 227);
 }
 /* ------------         home         -------------- */
-.home-button {
-  color: rgb(254, 2, 2);
-  position: absolute;
 
+.home-button {
+  position: absolute;
   left: 5%;
   top: 50%;
   transform: translateY(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+
+}
+
+.logo-main {
+  width: 50px;
+}
+
+.home-button-text {
   font-size: 25px;
+  font-weight: 450;
+  color: rgb(2, 104, 187);
 }
 
 /* ---------           search         ----------------- */
 
 /* before click   */
-.search-bar-style{
+.search-bar-style {
   display: flex;
   align-items: center;
   border: 1.5px solid rgb(227, 227, 227);
@@ -36,22 +50,23 @@
   height: 45px;
   width: 350px;
   justify-content: space-around;
+  cursor: pointer;
+
 }
 
 .search-bar-style:hover {
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
-  }
+}
 
-
-.search-text-before{
+.search-text-before {
   font-size: 14px;
   margin-left: 5px;
   padding: 10px;
 }
 
+.magnifying-circle {
+  background-color: rgba(2, 104, 187, 0.811);
 
-.magnifying-circle{
-  background-color: red;
   height: 35px;
   width: 35px;
   z-index: 3;
@@ -61,66 +76,54 @@
   align-items: center;
 }
 
-.magnifying{
+.magnifying {
   color: white;
   width: 15px;
 }
 
-
-
 /* ---------            after click            --------------*/
 
 .search-bar-container {
-display: flex;
-align-items: center;
-justify-content: space-around;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 
-border: 1.5px solid rgb(227, 227, 227);
-border-radius: 50px;
-height: 45px;
-width: 350px;
-position: relative;
-margin-left: 10px;
-overflow: hidden;
+  border: 1.5px solid rgb(227, 227, 227);
+  border-radius: 50px;
+  height: 45px;
+  width: 350px;
+  position: relative;
+  margin-left: 10px;
+  overflow: hidden;
 }
 
 .search-bar-container:hover {
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
-  }
-  
+}
 
 .search-bar-container:focus {
-display: flex;
-align-items: center;
-background-color: #fff;
-border: 1.5px solid rgb(227, 227, 227);
-border-radius: 50px;
-height: 45px;
-width: 350px;
-position: relative;
-margin-left: 10px;
-overflow: hidden;
-box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
-
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  border: 1.5px solid rgb(227, 227, 227);
+  border-radius: 50px;
+  height: 45px;
+  width: 350px;
+  position: relative;
+  margin-left: 10px;
+  overflow: hidden;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
 }
-
-
-
 
 .search-bar-input {
-flex: 1;
-height: 100%;
-border: none;
-padding: 0 10px;
-font-size: 16px;
-background-color: transparent;
-outline: none;
+  flex: 1;
+  height: 100%;
+  border: none;
+  padding: 0 10px;
+  font-size: 16px;
+  background-color: transparent;
+  outline: none;
 }
-
-
-
-
-
 
 /*  -----------          create a spot      ----------------  */
 
@@ -135,27 +138,26 @@ outline: none;
 /* -------------               Menu Icon Button         ---------------- */
 
 .nav-bar-menu-icon {
-display: flex;
-justify-content: center;
-align-items: center;
-padding: 10px;
-border: 1.5px solid rgb(227, 227, 227);
-border-radius: 50px;
-height: 20px;
-width: 55px;
-position: absolute;
-top: 50%;
-left: 89%;
-transform: translateY(-50%);
-gap: 15px;
-cursor: pointer;
-transition: box-shadow 0.3s ease-in-out;
-} 
-
-.nav-bar-menu-icon:hover {
-box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  border: 1.5px solid rgb(227, 227, 227);
+  border-radius: 50px;
+  height: 20px;
+  width: 55px;
+  position: absolute;
+  top: 50%;
+  left: 89%;
+  transform: translateY(-50%);
+  gap: 15px;
+  cursor: pointer;
+  transition: box-shadow 0.3s ease-in-out;
 }
 
+.nav-bar-menu-icon:hover {
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
+}
 
 .menu-bars {
   height: 15px;
@@ -167,13 +169,7 @@ box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.2);
   color: grey;
 }
 
-
-
 /* ----------        drop down         ------------- */
-
-
-
-
 
 .menu {
   position: absolute;

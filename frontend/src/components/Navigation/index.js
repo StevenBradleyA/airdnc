@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import OpenModalButton from "../OpenModalButton";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
+import logoMain from "../../media/logo-main.svg" 
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -75,22 +76,15 @@ function Navigation() {
   // refactor once the backend is written 
   // clicking the search button just opens a modal that displays listings ez pz
 
-
-
-
+  const handleHomeClick = () => {
+    history.push(`/`);
+  };
   
   return (
     <div className="navigation-bar">
-      <div className="home-button">
-        <NavLink
-          exact
-          to="/"
-          style={{ color: "inherit", textDecoration: "inherit" }}
-        >
-          <FontAwesomeIcon icon={faCouch} />
-          <> </>
-          airdnc
-        </NavLink>
+      <div className="home-button" onClick={handleHomeClick}>
+          <img src={logoMain} alt="home" className="logo-main"/>
+          <div className="home-button-text">airdnc</div>
       </div>
       {sessionUser && (
         <div className="new-spot-button" onClick={handleCreateClick}>
