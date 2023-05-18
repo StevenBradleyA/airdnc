@@ -52,33 +52,37 @@ function CreateReviewModal({ spotId }) {
     setHasSubmitted(true);
   };
   return (
-    <div>
-      <h1>How was your stay?</h1>
-      <p></p>
-      <form onSubmit={handleReviewSubmit}>
+    <div className="create-review-container-modal">
+      <div className="create-review-heading">How was your stay?</div>
+
+      <form
+        onSubmit={handleReviewSubmit}
+        className="create-review-form-container"
+      >
         {hasSubmitted && errors.review && (
           <p className="errors">{errors.review}</p>
         )}
         {hasSubmitted && errors.stars && (
           <p className="errors">{errors.stars}</p>
         )}
-        
-          <input
-            type="text"
-            value={review}
-            className='leave-review'
-            placeholder="Leave your review here..."
-            onChange={(e) => setReview(e.target.value)}
+
+        <textarea
+          type="text"
+          value={review}
+          className="leave-review"
+          placeholder="Leave your review here..."
+          onChange={(e) => setReview(e.target.value)}
+        />
+
+        <div className="stars-rating-container">
+          <StarsRatingInput
+            disabled={false}
+            onChange={onChange}
+            stars={stars}
           />
-        <p></p>
 
-            <div className="stars-rating-parent-container">
-
-        <StarsRatingInput className='stars-rating-container' disabled={false} onChange={onChange} stars={stars} />
-
-        <h2 className="stars-text-rating">Stars</h2>
-
-            </div>
+          <div className="stars-text-rating">Stars</div>
+        </div>
 
         <input
           type="submit"

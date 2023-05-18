@@ -1,50 +1,83 @@
+/* ------       containers     ---------- */
+
+.create-review-container-modal {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  width: 500px;
+  height: 500px;
+}
+
+.create-review-form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.create-review-heading {
+  display: flex;
+  font-size: 40px;
+}
+
+.leave-review {
+  width: 450px;
+  height: 150px;
+  background-color: #f2f2f2;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  padding: 0.25rem;
+  margin-bottom: 1rem;
+  word-wrap: break-word;
+  flex-wrap: wrap;
+}
+
+.leave-review:focus {
+  outline: none;
+  box-shadow: 0 0 8px rgb(161, 161, 161);
+}
+
 .five-stars {
   display: flex;
   margin-right: 4px;
 }
 
 .five-stars .filled {
-  color: rgb(253, 3, 3);
+  color: rgb(3, 86, 253);
 }
 
 .five-stars .empty {
   color: rgb(226, 239, 246);
 }
 
-
-
-.stars-rating-parent-container{
-
-  padding-left: 4rem;
-  padding-right: 4rem;
+.stars-rating-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
 }
 
-
-.leave-review{
-  width:100%;
-  padding-bottom:20%;
-}
-
-.stars-text-rating{
+.stars-text-rating {
   font-size: 12px;
-  position: relative;
-  bottom: 25px;
-  left: 100px;
 }
 
-.submit-review-button-modal{
-
-  background-color: red;
-  color: white;
-  padding-left: 20%;
-  padding-right: 20%;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  position: relative;
-  left: 20px;
-  bottom: 10px;
+.submit-review-button-modal {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  height: 40px;
+  width: 50%;
+  border-radius: 10px;
   cursor: pointer;
-  box-shadow: #420000 4px 4px 0 0;
-  border: 3px solid black;
+  border: 1px solid black;
+  background-color: rgb(190, 199, 241);
+  transition: background-color 0.3s ease;
+}
 
+.submit-review-button-modal:hover {
+  transform: scale(1.03);
+  box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
 }
