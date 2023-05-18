@@ -34,15 +34,7 @@ const AllReviews = ({ spotId, currentSpot, currentReviews }) => {
           }`}
         </div>
       )}
-      {sessionUser &&
-        currentReviews.filter((e) => sessionUser.id === e.userId).length ===
-          0 &&
-        sessionUser.id !== currentSpot.ownerId && (
-          <OpenModalButton
-            buttonText="Post Your Review"
-            modalComponent={<CreateReviewModal spotId={spotId} />}
-          />
-        )}
+      
       {currentReviews.length === 0 && <h2>Be the first to post a review!</h2>}
 
       {currentReviews.length >= 1 && (
@@ -86,6 +78,15 @@ const AllReviews = ({ spotId, currentSpot, currentReviews }) => {
           <SingleReview key={review.id} review={review} />
         ))}
       </div>
+      {sessionUser &&
+        currentReviews.filter((e) => sessionUser.id === e.userId).length ===
+          0 &&
+        sessionUser.id !== currentSpot.ownerId && (
+          <OpenModalButton
+            buttonText="Post Your Review"
+            modalComponent={<CreateReviewModal spotId={spotId} />}
+          />
+        )}
     </div>
   );
 };
