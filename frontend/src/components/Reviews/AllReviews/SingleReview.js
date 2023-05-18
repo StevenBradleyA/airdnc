@@ -27,8 +27,9 @@ const SingleReview = ({ review }) => {
   };
 
   const handleUpdateReview = () => {
-    setModalContent(<UpdateReviewModal />);
+    setModalContent(<UpdateReviewModal review={review}/>);
   };
+
 
   return (
     <div className="each-review-container">

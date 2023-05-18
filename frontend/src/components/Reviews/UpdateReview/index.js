@@ -2,21 +2,21 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../../context/Modal";
 import StarsRatingInput from "../CreateReview/StarsRating";
-import { createReviewThunk } from "../../../store/reviews";
+import { createReviewThunk, getAllReviewsBySpotIdThunk, updateReviewThunk } from "../../../store/reviews";
 import "../CreateReview/CreateReview.css";
 
-function UpdateReviewModal({ spotId }) {
+function UpdateReviewModal({ review }) {
     const [hasSubmitted, setHasSubmitted] = useState(false);
-    const [review, setReview] = useState("");
-    const [stars, setStars] = useState(0);
+    const [reviewText, setReviewText] = useState(review.review);
+    const [stars, setStars] = useState(review.stars);
     const [errors, setErrors] = useState({});
     const dispatch = useDispatch();
     const { closeModal } = useModal();
   
     const handleInputErrors = () => {
       const errorsObj = {};
-      if (review.length < 10) {
-        errorsObj.review = "Review needs a minimum of 10 characters";
+      if (reviewText.length < 10) {
+        errorsObj.reviewText = "Review needs a minimum of 10 characters";
       }
       if (stars < 1) {
         errorsObj.stars = "Star rating must be between 1 and 5";
@@ -27,7 +27,7 @@ function UpdateReviewModal({ spotId }) {
   
     useEffect(() => {
       handleInputErrors();
-    }, [review, stars]);
+    }, [reviewText, stars]);
   
     const onChange = (e) => {
       setStars(e);
@@ -38,15 +38,18 @@ function UpdateReviewModal({ spotId }) {
   
       if (!Object.values(errors).length) {
         const reviewInformation = {
-          review,
+          review: reviewText,
           stars,
         };
-        dispatch(createReviewThunk(reviewInformation, spotId))
+        dispatch(updateReviewThunk(reviewInformation, review.id))
           .then(() => closeModal())
           .catch(async (res) => {
             const data = await res.json();
             if (data && data.errors) setErrors({ review: data.errors[0] });
           });
+
+
+
         closeModal();
       }
       setHasSubmitted(true);
@@ -68,10 +71,10 @@ function UpdateReviewModal({ spotId }) {
   
           <textarea
             type="text"
-            value={review}
+            value={reviewText}
             className="leave-review"
             placeholder="Leave your review here..."
-            onChange={(e) => setReview(e.target.value)}
+            onChange={(e) => setReviewText(e.target.value)}
           />
   
           <div className="stars-rating-container">
@@ -87,7 +90,7 @@ function UpdateReviewModal({ spotId }) {
           <input
             type="submit"
             className="submit-review-button-modal"
-            value="Submit Your Review"
+            value="Update Your Review"
             disabled={hasSubmitted && Object.values(errors).length > 0}
           />
         </form>

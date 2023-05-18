@@ -62,15 +62,13 @@ router.get("/current", requireAuth, async (req, res, next) => {
         preview: true,
       },
     });
-    if(spotImage){
+    if (spotImage) {
       const url = spotImage.toJSON();
       const previewImage = url.url;
       spotObj.previewImage = previewImage;
-
-    }else{
-      spotObj.previewImage = "No preview image found"
+    } else {
+      spotObj.previewImage = "No preview image found";
     }
-    
 
     // const allCheck = await ReviewImage.findAll()
 
@@ -87,7 +85,8 @@ router.get("/current", requireAuth, async (req, res, next) => {
   }
 
   return res.json({
-    Reviews:reviewData});
+    Reviews: reviewData,
+  });
 });
 
 //todo POST /:reviewId/images
@@ -140,7 +139,8 @@ router.post("/:id/images", requireAuth, async (req, res, next) => {
 router.put("/:id", requireAuth, async (req, res, next) => {
   const { review, stars } = req.body;
   const errors = {};
-
+  console.log(review);
+  console.log(stars);
   if (!review) {
     errors.review = "Review text is required";
   }
@@ -177,7 +177,14 @@ router.put("/:id", requireAuth, async (req, res, next) => {
 
     await editReview.save();
 
-    return res.json(editReview);
+    const updatedReview = await Review.findByPk(editReview.id, {
+      include: {
+        model: User,
+        where: { id: editReview.userId },
+      },
+    });
+
+    return res.json(updatedReview);
   }
 });
 
