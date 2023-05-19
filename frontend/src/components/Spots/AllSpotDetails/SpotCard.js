@@ -48,7 +48,6 @@ const SpotCard = ({ spot }) => {
           <div className="night">night</div>
         </div>
       </div>
-      {/* Going to need the spot name on a hover css */}
     </div>
   );
 };

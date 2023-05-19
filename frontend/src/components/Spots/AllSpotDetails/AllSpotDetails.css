@@ -1,4 +1,5 @@
-/* grid attempt */
+
+
 .spotCardsContainer {
   margin-top: 80px;
   margin-left: 3%;
@@ -9,7 +10,6 @@
   gap: 20px;
 }
 
-/* --- */
 @media screen and (max-width: 549px) {
   .spotCardsContainer {
     grid-template-columns: 1fr;

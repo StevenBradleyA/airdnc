@@ -46,7 +46,8 @@
 }
 
 .five-stars .filled {
-  color: rgb(3, 86, 253);
+  color: rgba(2, 104, 187, 0.811);
+
 }
 
 .five-stars .empty {
@@ -72,8 +73,9 @@
   width: 50%;
   border-radius: 10px;
   cursor: pointer;
-  border: 1px solid black;
-  background-color: rgb(190, 199, 241);
+  border: none;
+  background-color: rgba(2, 104, 187, 0.511);
+
   transition: background-color 0.3s ease;
 }
 

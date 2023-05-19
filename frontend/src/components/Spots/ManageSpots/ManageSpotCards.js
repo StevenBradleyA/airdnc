@@ -18,31 +18,51 @@ const ManageSpotCard = ({ spot }) => {
   };
   return (
     <div className="manage-spot-card-container">
-      <div onClick={handleCardClick}>
+      <div className="manage-preview-container">
         <img
           src={`${spot.previewImage}`}
           alt={`${spot.name}`}
-          className="manage-preview-image"
-        ></img>
+          className="manage-previewImage"
+        />
+      </div>
+      <div className="home-text-container" onClick={handleCardClick}>
         <div className="location-rating-container">
-          <h2 className="location">{`${spot.city}, ${spot.state} `}</h2>
-          {/* <h2>{spot.state} </h2> */}
-          <h2 className="avg-rating">
-            <FontAwesomeIcon icon={faStar} />
-            {spot.avgRating === "NaN" ? "New" : spot.avgRating}
-          </h2>
+          <div className="location">{`${spot.city}, ${spot.state} `}</div>
+          <div className="avg-rating-container">
+            <FontAwesomeIcon icon={faStar} className="home-star" />
+            <div className="home-rating-text">
+              {spot.avgRating === "NaN" ? "New" : spot.avgRating}
+            </div>
+          </div>
         </div>
-        {/* <h2 className="price">{`$${spot.price} night`}</h2> */}
-        <div className="manage-price-container">
-          <h1 className="manage-price-card">{`$${spot.price}`}</h1>
-          <h1 className="manage-night-card">night</h1>
+        <div className="home-country-container">
+          {`Stay in ${
+            spot.country === "United States"
+              ? "the United States"
+              : spot.country
+          }!`}
+        </div>
+
+        <div className="price-container">
+          <div className="price">{`$${spot.price}`}</div>
+          <div className="night">night</div>
         </div>
       </div>
-      <button className="manage-update-button" onClick={handleUpdateClick}>Update</button>
+      <div className="manage-buttons-container">
+
+      <button className="manage-update-button" onClick={handleUpdateClick}>
+        Update
+      </button>
       <OpenModalButton
         buttonText="Delete"
         modalComponent={<DeleteSpotFormModal spot={spot} />}
       />
+
+
+
+
+
+      </div>
     </div>
   );
 };
