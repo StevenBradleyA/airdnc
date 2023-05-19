@@ -14,10 +14,24 @@ const AllSpotDetails = () => {
 
   const allSpots = useSelector((state) => Object.values(state.spots));
 
+  // my idea is that I could make a react store for filtered spots
+  // if a spot if filtered based on price, country, and state, then I could map through it
+  // if there is no filter than just map through all spots.
+
+
+// once the store is update we will jsut check it code will look something like this 
+
+// {(filteredSpots.length > 0 ? filteredSpots : allSpots).map((spot, index) => (
+//   <SpotCard key={spot.id} spot={spot} index={index} />
+// ))}
+
+// should probable try filtering server side instead. because this would be more efficient
+
+
   return (
     <div className="spotCardsContainer">
       {allSpots.map((spot, index) => (
-        <SpotCard key={spot.id} spot={spot} index={index}/>
+        <SpotCard key={spot.id} spot={spot} index={index} />
       ))}
     </div>
   );

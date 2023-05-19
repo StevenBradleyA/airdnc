@@ -165,6 +165,90 @@ router.get("/", async (req, res, next) => {
   return res.json({ Spots: spotData, page, size });
 });
 
+//* GET /spots/filter
+// Filter spots by country, state, and price
+router.get("/filter", async (req, res, next) => {
+  const { country, state, minPrice, maxPrice } = req.query;
+
+  const query = {
+    where: {},
+    include: [],
+  };
+
+  if (country) {
+    query.where.country = country;
+  }
+
+  if (state) {
+    query.where.state = state;
+  }
+
+  if (minPrice) {
+    query.where.price = {
+      [Op.gte]: minPrice,
+    };
+  }
+
+  if (maxPrice) {
+    query.where.price = {
+      ...query.where.price,
+      [Op.lte]: maxPrice,
+    };
+  }
+
+  try {
+    const spots = await Spot.findAll(query);
+    // return res.json(spots);
+    const spotData = [];
+    for (const currentSpot of spots) {
+      const spot = currentSpot.toJSON();
+      const allReviews = await Review.findAll({
+        attributes: ["stars"],
+        where: {
+          spotId: spot.id,
+        },
+      });
+
+      const totalScore = allReviews.reduce((sumReview, currentReview) => {
+        currentReview = currentReview.toJSON();
+        sumReview += currentReview.stars;
+        return sumReview;
+      }, 0);
+      const avgRating = totalScore / allReviews.length;
+
+      spot.avgRating = avgRating.toFixed(1);
+
+      const spotImage = await SpotImage.findOne({
+        attributes: ["url"],
+        where: {
+          spotId: spot.id,
+          preview: true,
+        },
+      });
+      if (spotImage) {
+        const url = spotImage.toJSON();
+
+        const previewImage = url.url;
+        spot.previewImage = previewImage;
+      } else {
+        spot.previewImage = "No preview image found";
+      }
+
+      spotData.push(spot);
+    }
+
+    return res.json({ Spots: spotData });
+
+  
+  } catch (error) {
+    return res.status(500).json({
+      message: "Internal Server Error",
+      statusCode: 500,
+      error: error.message,
+    });
+  }
+});
+
 //* GET /current
 // requires auth
 // returns all the spots owned by the current user aka via owner id.
