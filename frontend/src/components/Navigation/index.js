@@ -55,10 +55,12 @@ function Navigation() {
   };
   const handleCreateClick = (e) => {
     e.preventDefault();
+    setOpenMenu(false)
     history.push("/spots/new");
   };
   const handleManageClick = (e) => {
     e.preventDefault();
+    setOpenMenu(false)
     history.push("/spots/current");
   };
 
@@ -152,6 +154,7 @@ function Navigation() {
                 <div
                   className="logged-in-menu-buttons"
                   onClick={handleCreateClick}
+                  
                 >
                   Airdnc your home
                 </div>
