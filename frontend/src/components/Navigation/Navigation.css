@@ -171,10 +171,8 @@
 
 .menu {
   position: absolute;
-  top: 17px;
-  right: 3rem;
-  cursor: pointer;
-  font-size: 25px;
+  left: 90%;
+  top: 14px;
 }
 
 .menu-dropdown {
@@ -182,43 +180,31 @@
   z-index: 4;
   top: 3rem;
   right: -32px;
-  width: 110px;
+  width: 200px;
   padding: 1rem;
   height: 175px;
   border-radius: 10px;
-  background-color: white;
-  border: 1px solid gray;
-  box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.5);
+  background-color: rgb(255, 255, 255);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
   list-style-type: none;
-}
 
-.menu-dropdown::before {
-  position: absolute;
-  transform: rotate(45deg);
-  background-color: white;
-  border-left: 1px solid gray;
-  border-top: 1px solid gray;
-  right: 2rem;
-  height: 25px;
-  width: 25px;
-  top: -0.85rem;
-  content: "";
-  z-index: 1;
-  /* box-shadow: -3px -3px 3px 0 rgba(0, 0, 0, 0.1); */
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
 .menu-dropdown.active {
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
-  transition: 300ms ease;
+  transition: opacity 300ms ease, visibility 300ms ease, transform 300ms ease;
 }
 
 .menu-dropdown.inactive {
   opacity: 0;
   visibility: hidden;
   transform: translateY(-10px);
-  transition: 300ms ease;
+  transition: opacity 300ms ease, visibility 300ms ease, transform 300ms ease;
 }
 
 .logged-out-dropdown-container {
@@ -234,7 +220,7 @@
   flex-direction: column;
 }
 
-/* **************************     Menu Contents   *************************** */
+/* -------------       Menu Contents  ------------- */
 
 .your-profile-button {
   color: red;
@@ -242,36 +228,45 @@
   transition: filter 150ms ease-in-out;
 }
 
-.menu-dropdown > *:hover {
-  filter: brightness(1);
+.menu-drop-heading-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
-
 .menu-hello {
-  font-size: 15px;
+  display: flex;
+  justify-content: center;
+  font-size: 20px;
 }
 
-.manage-spot-button {
-  padding: 0;
-  border: none;
-  background: none;
-  color: red;
-  filter: brightness(0.05);
-  transition: filter 150ms ease-in-out;
+.menu-email {
+  display: flex;
+  justify-content: center;
+  font-size: 14px;
+  opacity: 0.6;
 }
 
-.your-profile-button {
-  padding: 0;
-  border: none;
-  background: none;
+.drop-down-logged-in-buttons {
+  display: flex;
+  flex-direction: column;
 }
 
-.log-out-button {
-  padding: 0;
-  border: none;
-  background: none;
-  color: red;
-  filter: brightness(0.05);
-  transition: filter 150ms ease-in-out;
+.logged-in-menu-buttons {
+  cursor: pointer;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  transition: background-color 300ms ease;
+}
+
+.log-out-button-container {
+  margin-top: 5px;
+  border-top: 1.5px solid rgb(227, 227, 227);
+  padding-top: 5px;
+}
+
+.logged-in-menu-buttons:hover {
+  background-color: rgb(239, 239, 239);
 }
 
 /* ---------------------------------------Signed out User----------------------------- */

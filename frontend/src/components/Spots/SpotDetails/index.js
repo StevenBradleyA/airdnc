@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getSpotByIdThunk } from "../../../store/spots";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import AllReviews from "../../Reviews/AllReviews/index";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {

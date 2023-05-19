@@ -17,9 +17,13 @@ function LogOutButton({ user, name, openMenu, setOpenMenu }) {
   return (
     <>
       {user && (
-        <button className="log-out-button" onClick={handleLogoutClick}>
+        <div className="log-out-button-container">
+        <div className="logged-in-menu-buttons" onClick={handleLogoutClick}>
           {name}
-        </button>
+        </div>
+
+
+        </div>
       )}
     </>
   );
