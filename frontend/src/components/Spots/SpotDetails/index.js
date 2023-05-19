@@ -15,6 +15,7 @@ import "./SpotDetails.css";
 import CalendarDateRange from "./calendar";
 import githubIcon from "../../../media/square-github.svg";
 import linkedIn from "../../../media/linkedin.svg";
+import mapsLogo from "../../../media/logo-location.svg"
 // ! Update Build command
 
 // ! npm i -S @react-google-maps/api
@@ -152,7 +153,7 @@ const SpotDetails = () => {
           </div>
 
           <div className="google-maps-container">
-            <div className="google-maps-header">Find your couch</div>
+            <div className="google-maps-header">Find your couch <img alt="logo" src={mapsLogo} className="maps-logo"/></div>
 
             <GoogleMaps currentSpot={currentSpot} />
           </div>

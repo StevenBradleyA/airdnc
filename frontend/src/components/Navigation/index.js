@@ -132,12 +132,6 @@ function Navigation() {
           <FontAwesomeIcon icon={faUserCircle} className="menu-circle-user" />
         </div>
         <div className="menu">
-          {/* 
-          <FontAwesomeIcon
-            icon={faBurger}
-            style={{ opacity: 0.8 }}
-            onClick={handleMenuClick}
-          /> */}
 
           <div className={`menu-dropdown ${openMenu ? "active" : "inactive"}`}>
             {sessionUser && (
@@ -172,18 +166,19 @@ function Navigation() {
             )}
             {!sessionUser && (
               <div className="logged-out-dropdown-container">
-                <div>
-                  <OpenModalButton
-                    buttonText="Log In"
-                    modalComponent={<LoginFormModal />}
-                  />
-                  <div></div>
                   <OpenModalButton
                     buttonText="Sign Up"
                     modalComponent={<SignupFormModal />}
                   />
+                  <OpenModalButton
+                    buttonText="Log In"
+                    modalComponent={<LoginFormModal />}
+                  />
+                  <div className="demo-log-container">
                   <DemoLogin />
-                </div>
+
+
+                  </div>
               </div>
             )}
           </div>
