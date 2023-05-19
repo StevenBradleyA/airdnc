@@ -40,7 +40,6 @@
 
 /* ---------           search         ----------------- */
 
-/* before click   */
 .search-bar-style {
   display: flex;
   align-items: center;
@@ -80,7 +79,7 @@
 }
 
 /* ---------            after click            --------------*/
-
+/* 
 .search-bar-container {
   display: flex;
   align-items: center;
@@ -121,7 +120,7 @@
   font-size: 16px;
   background-color: transparent;
   outline: none;
-}
+} */
 
 /*  -----------          create a spot      ----------------  */
 
