@@ -19,9 +19,9 @@ function DeleteSpotFormModal({ spot }) {
   };
 
   return (
-    <div>
-      <h1>Confirm Delete</h1>
-      <h2>Are you sure you want to remove this spot from the listings?</h2>
+    <div className="delete-spot-modal-container">
+      <div className="delete-spot-modal-header">Confirm Delete</div>
+      <div className="delete-spot-modal-text">Are you sure you want to remove this spot from the listings?</div>
       <button className='yes-delete-yeet' onClick={handleDeleteSpot}>{`Yes (Delete Spot)`}</button>
 
       <button className='no-delete' onClick={handleKeepSpot}>{`No (Keep Spot)`}</button>
