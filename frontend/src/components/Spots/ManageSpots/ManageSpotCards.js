@@ -42,7 +42,6 @@ const ManageSpotCard = ({ spot }) => {
               : spot.country
           }!`}
         </div>
-
         <div className="price-container">
           <div className="price">{`$${spot.price}`}</div>
           <div className="night">night</div>
@@ -57,11 +56,6 @@ const ManageSpotCard = ({ spot }) => {
         buttonText="Delete"
         modalComponent={<DeleteSpotFormModal spot={spot} />}
       />
-
-
-
-
-
       </div>
     </div>
   );

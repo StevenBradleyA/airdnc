@@ -26,7 +26,7 @@ const AllSpotDetails = () => {
 // ))}
 
 // should probable try filtering server side instead. because this would be more efficient
-
+// when a spot is clicked on prob need to empty the filter state
 
   return (
     <div className="spotCardsContainer">

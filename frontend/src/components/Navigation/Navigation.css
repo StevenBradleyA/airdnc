@@ -340,3 +340,9 @@
   display: flex;
   flex-direction: column;
 }
+
+.filter-modal-form-container{
+  display: flex;
+  flex-direction: column;
+
+}
