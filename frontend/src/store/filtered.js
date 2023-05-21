@@ -1,9 +1,9 @@
 import { csrfFetch } from "./csrf";
 
-const LOAD_SPOTS = "spots/LOAD_SPOTS";
+const LOAD_FILTERED_SPOTS = "spots/LOAD_FILTERED_SPOTS";
 
 export const loadFilteredSpots = (allSpotData) => ({
-  type: LOAD_SPOTS,
+  type: LOAD_FILTERED_SPOTS,
   payload: allSpotData,
 });
 
@@ -50,7 +50,7 @@ const initialState = {};
 const filteredSpotsReducer = (state = initialState, action) => {
   let newState = { ...state };
   switch (action.type) {
-    case LOAD_SPOTS:
+    case LOAD_FILTERED_SPOTS:
       return { ...state, ...action.payload };
     default:
       return state;
