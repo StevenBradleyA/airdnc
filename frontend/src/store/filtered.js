@@ -7,10 +7,30 @@ export const loadFilteredSpots = (allSpotData) => ({
   payload: allSpotData,
 });
 
-export const getAllFilteredSpotsThunk = () => async (dispatch) => {
-  const response = await csrfFetch("/api/spots/filter");
+// export const getAllFilteredSpotsThunk = () => async (dispatch) => {
+//   const response = await csrfFetch("/api/spots/filter");
 
-  if (response.ok) {
+//   if (response.ok) {
+//     const allSpotData = await response.json();
+//     const normalizedAllSpotData = {};
+//     allSpotData.Spots.forEach((e) => {
+//       normalizedAllSpotData[e.id] = e;
+//     });
+
+//     dispatch(loadFilteredSpots(normalizedAllSpotData));
+//   }
+// };
+
+export const getAllFilteredSpots = (filterParams) => async (dispatch) => {
+  const queryParams = new URLSearchParams(filterParams).toString();
+  const url = `/api/spots/filter?${queryParams}`;
+
+  try {
+    const response = await csrfFetch(url);
+    if (!response.ok) {
+      throw new Error("Failed to fetch filtered spots.");
+    }
+
     const allSpotData = await response.json();
     const normalizedAllSpotData = {};
     allSpotData.Spots.forEach((e) => {
@@ -18,19 +38,12 @@ export const getAllFilteredSpotsThunk = () => async (dispatch) => {
     });
 
     dispatch(loadFilteredSpots(normalizedAllSpotData));
+
+    //   dispatch(loadFilteredSpots(allSpotData.Spots));
+  } catch (error) {
+    console.error(error);
   }
 };
-
-// export const getFilteredSpotByIdThunk = (spotId) => async (dispatch) => {
-//   const response = await csrfFetch(`/api/spots/${spotId}`);
-
-//   if (response.ok) {
-//     const singleSpotData = await response.json();
-//     const normalizedSpotData = {};
-//     normalizedSpotData[singleSpotData.id] = singleSpotData;
-//     dispatch(loadFilteredSpots(normalizedSpotData));
-//   }
-// };
 
 const initialState = {};
 

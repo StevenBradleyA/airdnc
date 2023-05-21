@@ -9,6 +9,7 @@ import map3 from "../../media/map3.png";
 import map4 from "../../media/map4.png";
 import map5 from "../../media/map5.png";
 import map6 from "../../media/map6.png";
+import { getAllFilteredSpots } from "../../store/filtered";
 
 function FilterModal() {
   const history = useHistory();
@@ -25,28 +26,22 @@ function FilterModal() {
   const [state, setState] = useState("");
   const { closeModal } = useModal();
 
-  const handleShowSpotsClick = (e) => {
-    e.preventDefault();
-    history.push(`/`);
-    closeModal();
-  };
 
   const handleFilterSubmit = async (e) => {
     e.preventDefault();
+    if (
+      unitedStates ||
+      unitedStatesWest ||
+      unitedStatesMid ||
+      unitedStatesEast ||
+      unitedStatesSouth
+    ) {
+      setCountry("United States");
+    }
 
-    //   const reviewInformation = {
-    //     review,
-    //     stars,
-    //   };
-
-    //   dispatch(createReviewThunk(reviewInformation, spotId))
-    //     .then(() => closeModal())
-    //     .catch(async (res) => {
-    //       const data = await res.json();
-    //       if (data && data.errors) setErrors({ review: data.errors[0] });
-    //     });
-
-    //   closeModal();
+    await dispatch(getAllFilteredSpots({ country, state, minPrice, maxPrice }));
+    history.push("");
+    closeModal();
   };
 
   //
@@ -350,10 +345,6 @@ function FilterModal() {
           <div className="total-filtered">Available listings:</div>
         </div>
       </form>
-
-      <div></div>
-      <div></div>
-      <div></div>
     </div>
   );
 }
