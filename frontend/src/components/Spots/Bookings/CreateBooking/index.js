@@ -57,6 +57,8 @@ function CreateBookingForm({ spotId }) {
     setHasSubmitted(true);
   };
 
+  //   !Need to be able to check booking conflicts!.
+
   return (
     <div>
       <form onSubmit={handleReserve} className="create-review-form-container">
@@ -67,35 +69,29 @@ function CreateBookingForm({ spotId }) {
           <p className="errors">{errors.stars}</p>
         )}
         <div className="create-booking-input-container">
-            <div className="left-booking-start">
-        <div className="booking-input-subtext">CHECK-IN</div>
-        <input
-          type="text"
-          value={startDate}
-          className="booking-date-input"
-          placeholder="Start date"
-          onChange={(e) => setStartDate(e.target.value)}
-        />
-
-
-            </div>
-            <div className="right-booking-end">
+          <div className="left-booking-start">
+            <div className="booking-input-subtext">CHECK-IN</div>
+            <input
+              type="text"
+              value={startDate}
+              className="booking-date-input"
+              placeholder="Start date"
+              onChange={(e) => setStartDate(e.target.value)}
+            />
+          </div>
+          <div className="right-booking-end">
             <div className="booking-input-subtext">CHECKOUT</div>
 
-
-        <input
-          type="text"
-          value={endDate}
-          className="booking-date-input"
-          placeholder="End date"
-          onChange={(e) => setEndDate(e.target.value)}
-        />
-
-
-
-            </div>
-
+            <input
+              type="text"
+              value={endDate}
+              className="booking-date-input"
+              placeholder="End date"
+              onChange={(e) => setEndDate(e.target.value)}
+            />
+          </div>
         </div>
+        <div className="booking-date-input-lower"><span className="lower-calendar-text">Use the Calendar to select a Date</span></div>
         <button
           ref={reserveButtonRef}
           onMouseMove={handleMouseMove}
