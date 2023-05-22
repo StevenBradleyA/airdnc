@@ -11,7 +11,7 @@ import { DateRangePicker } from "react-date-range";
 
 
 
-const CalendarDateRange = ({ currentSpot, allBookings }) => {
+const CalendarDateRange = ({ currentSpot, allBookings, onDateRangeSelect }) => {
   const [selectedRange, setSelectedRange] = useState({
     startDate: new Date(),
     endDate: new Date(),
@@ -19,11 +19,16 @@ const CalendarDateRange = ({ currentSpot, allBookings }) => {
     color: "black",
   });
 
-  const handleSelect = (ranges) => {
-    setSelectedRange(ranges.selection);
-  };
+  // const handleSelect = (ranges) => {
+  //   setSelectedRange(ranges.selection);
+  // };
 
-
+  
+    const handleSelect = (ranges) => {
+      setSelectedRange(ranges.selection);
+      const { selection } = ranges;
+      onDateRangeSelect(selection.startDate, selection.endDate);
+    };
 
   // ! old
   // const handleSelect = (ranges) => {
@@ -64,10 +69,10 @@ const CalendarDateRange = ({ currentSpot, allBookings }) => {
       direction="horizontal"
       disabledDates={disabledDates}
     />
-    <div>
+    {/* <div>
     Selected Start Date: {selectedRange.startDate.toDateString()}
   </div>
-  <div>Selected End Date: {selectedRange.endDate.toDateString()}</div>
+  <div>Selected End Date: {selectedRange.endDate.toDateString()}</div> */}
 </div>
   );
 };

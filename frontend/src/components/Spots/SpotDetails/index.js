@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getSpotByIdThunk } from "../../../store/spots";
 import { useParams } from "react-router-dom";
@@ -31,6 +31,8 @@ import CreateBookingForm from "../Bookings/CreateBooking";
 const SpotDetails = () => {
   const dispatch = useDispatch();
   const { spotId } = useParams();
+  const [selectedStartDate, setSelectedStartDate] = useState(null);
+  const [selectedEndDate, setSelectedEndDate] = useState(null);
   // const reserveButtonRef = useRef("pog");
 
   const allSpots = useSelector((state) => state.spots);
@@ -93,6 +95,14 @@ const SpotDetails = () => {
     previewArr = currentSpot.SpotImages.filter((e) => e.preview === true);
     otherImagesArr = currentSpot.SpotImages.filter((e) => e.preview === false);
   }
+
+
+
+  const handleDateRangeSelect = (startDate, endDate) => {
+    setSelectedStartDate(startDate);
+    setSelectedEndDate(endDate);
+  };
+
 
   return (
     <div className="spot-detail-container">
@@ -177,7 +187,7 @@ const SpotDetails = () => {
 
           <div className="calendar-date-range-container">
             <div className="calendar-header">Plan your nights</div>
-            <CalendarDateRange currentSpot={currentSpot} allBookings={allBookings} />
+            <CalendarDateRange currentSpot={currentSpot} allBookings={allBookings} onDateRangeSelect={handleDateRangeSelect} />
           </div>
         </div>
         <div className="reserve-container">
@@ -203,7 +213,7 @@ const SpotDetails = () => {
               )}
             </div>
           </div>
-          <CreateBookingForm   spotId={Number(spotId)}   />
+          <CreateBookingForm   spotId={Number(spotId)}  start={selectedStartDate && selectedStartDate.toDateString()} end={selectedEndDate && selectedEndDate.toDateString()} />
           {/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */}
           {/* <button
             className="reserve-button"

@@ -3,11 +3,25 @@ import { useDispatch, useSelector } from "react-redux";
 import "../../SpotDetails/SpotDetails.css";
 import { createBookingThunk } from "../../../../store/booking";
 
-function CreateBookingForm({ spotId }) {
+function CreateBookingForm({ spotId, start, end }) {
   const [hasSubmitted, setHasSubmitted] = useState(false);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const reserveButtonRef = useRef("pog");
+
+  console.log("test1", start);
+  console.log("test2", end);
+
+  useEffect(() => {
+    if (start) {
+      setStartDate(start);
+    }
+    if (end) {
+      setEndDate(end);
+    }
+  }, [start, end]);
+
+// not sure if this is the correct date info I need to send. lets check our seeders... 
 
   const sessionUser = useSelector((state) => state.session.user);
 
@@ -91,7 +105,11 @@ function CreateBookingForm({ spotId }) {
             />
           </div>
         </div>
-        <div className="booking-date-input-lower"><span className="lower-calendar-text">Use the Calendar to select a Date</span></div>
+        <div className="booking-date-input-lower">
+          <span className="lower-calendar-text">
+            Use the Calendar to select a Date
+          </span>
+        </div>
         <button
           ref={reserveButtonRef}
           onMouseMove={handleMouseMove}
