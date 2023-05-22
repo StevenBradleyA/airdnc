@@ -16,6 +16,7 @@ import CalendarDateRange from "./calendar";
 import githubIcon from "../../../media/square-github.svg";
 import linkedIn from "../../../media/linkedin.svg";
 import mapsLogo from "../../../media/logo-location.svg"
+import { getAllBookingsBySpotIdThunk } from "../../../store/booking";
 // ! Update Build command
 
 // ! npm i -S @react-google-maps/api
@@ -35,9 +36,19 @@ const SpotDetails = () => {
   const currentSpot = allSpots[spotId];
   const allReviews = useSelector((state) => Object.values(state.reviews));
 
+
+
+
   useEffect(() => {
     dispatch(getSpotByIdThunk(spotId));
   }, [dispatch, spotId]);
+
+  useEffect(() => {
+    dispatch(getAllBookingsBySpotIdThunk(spotId));
+  }, [dispatch, spotId]);
+
+
+
 
   const handleMouseMove = (e) => {
     const button = reserveButtonRef.current;

@@ -13,34 +13,47 @@ module.exports = {
       [
         {
           spotId: 1,
-          userId: 1,
-          startDate:new Date ("2021-11-19"),
-          endDate:new Date ("2021-11-20"),
+          userId: 2,
+          startDate:new Date ("2023-6-5"),
+          endDate:new Date ("2023-6-7"),
         },
         {
-          spotId: 2,
-          userId: 2,
-          startDate:new Date ("2021-11-19"),
-          endDate:new Date ("2021-11-20"),
+          spotId: 1,
+          userId: 3,
+          startDate:new Date ("2023-6-12"),
+          endDate:new Date ("2023-6-15"),
         },
         {
           spotId: 3,
-          userId: 3,
-          startDate:new Date ("2021-11-19"),
-          endDate:new Date ("2021-11-20"),
+          userId: 4,
+          startDate:new Date ("2023-6-18"),
+          endDate:new Date ("2023-6-19"),
+        },
+        {
+          spotId: 3,
+          userId: 5,
+          startDate:new Date ("2023-6-5"),
+          endDate:new Date ("2023-6-7"),
+        },
+        {
+          spotId: 4,
+          userId: 1,
+          startDate:new Date ("2023-6-12"),
+          endDate:new Date ("2023-6-15"),
         },
         {
           spotId: 4,
           userId: 4,
-          startDate:new Date ("2021-11-19"),
-          endDate:new Date ("2021-11-20"),
+          startDate:new Date ("2023-6-18"),
+          endDate:new Date ("2023-6-19"),
         },
         {
-          spotId: 5,
-          userId: 5,
-          startDate:new Date ("2021-11-19"),
-          endDate:new Date ("2021-11-20"),
+          spotId: 4,
+          userId: 2,
+          startDate:new Date ("2023-6-19"),
+          endDate:new Date ("2023-6-20"),
         },
+
       ],
       {}
     );

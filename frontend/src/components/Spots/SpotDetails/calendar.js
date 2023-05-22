@@ -6,6 +6,11 @@ import { DateRangePicker } from "react-date-range";
 // import { DateRangePicker } from "react-date-range";
 
 
+
+
+
+
+
 const CalendarDateRange = ({ currentSpot }) => {
   const handleSelect = (ranges) => {
     console.log(ranges);
