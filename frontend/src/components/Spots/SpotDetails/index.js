@@ -213,7 +213,7 @@ const SpotDetails = () => {
               )}
             </div>
           </div>
-          <CreateBookingForm   spotId={Number(spotId)}  start={selectedStartDate && selectedStartDate.toDateString()} end={selectedEndDate && selectedEndDate.toDateString()} />
+          <CreateBookingForm   spotId={Number(spotId)} allBookings={allBookings} start={selectedStartDate && selectedStartDate.toDateString()} end={selectedEndDate && selectedEndDate.toDateString()} />
           {/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */}
           {/* <button
             className="reserve-button"

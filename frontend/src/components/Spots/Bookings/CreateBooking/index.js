@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import "../../SpotDetails/SpotDetails.css";
 import { createBookingThunk } from "../../../../store/booking";
 
-function CreateBookingForm({ spotId, start, end }) {
+function CreateBookingForm({ spotId, allBookings, start, end }) {
   const [hasSubmitted, setHasSubmitted] = useState(false);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
@@ -25,17 +25,13 @@ function CreateBookingForm({ spotId, start, end }) {
   useEffect(() => {
     if (start) {
       const formattedStartDate = displayDate(start);
-
       setStartDate(formattedStartDate);
     }
     if (end) {
       const formattedEndDate = displayDate(end);
-
       setEndDate(formattedEndDate);
     }
   }, [start, end]);
-
-  // not sure if this is the correct date info I need to send. lets check our seeders...
 
   const sessionUser = useSelector((state) => state.session.user);
 
@@ -51,15 +47,59 @@ function CreateBookingForm({ spotId, start, end }) {
   const [errors, setErrors] = useState({});
   const dispatch = useDispatch();
 
+  const disabledDates = allBookings.map((booking) => {
+    return {
+      startDate: new Date(booking.startDate),
+      endDate: new Date(booking.endDate),
+    };
+  });
+
   const handleInputErrors = () => {
     const errorsObj = {};
-    if (startDate.length === 0) {
-      errorsObj.startDate = "Must Select a Start Date";
+  
+    if (!startDate) {
+      errorsObj.startDate = "Must select a start date";
     }
-    if (endDate.length === 0) {
-      errorsObj.endDate = "Must Select a Start Date";
+  
+    if (!endDate) {
+      errorsObj.endDate = "Must select an end date";
     }
-
+  
+    if (startDate && endDate) {
+      const selectedStartDate = new Date(startDate);
+      const selectedEndDate = new Date(endDate);
+  
+      for (const booking of disabledDates) {
+        const { startDate: bookingStartDate, endDate: bookingEndDate } = booking;
+  
+        if (
+          (selectedStartDate >= bookingStartDate && selectedStartDate <= bookingEndDate) ||
+          (selectedEndDate >= bookingStartDate && selectedEndDate <= bookingEndDate) ||
+          (selectedStartDate <= bookingStartDate && selectedEndDate >= bookingEndDate) ||
+          (selectedStartDate >= bookingStartDate && selectedEndDate <= bookingEndDate)
+        ) {
+          errorsObj.startDate = "Start date conflicts with an existing booking";
+          errorsObj.endDate = "End date conflicts with an existing booking";
+          break;
+        }
+      }
+      
+      if (!errorsObj.startDate && !errorsObj.endDate) {
+        for (const booking of disabledDates) {
+          const { startDate: bookingStartDate, endDate: bookingEndDate } = booking;
+  
+          if (
+            selectedStartDate <= bookingStartDate &&
+            selectedEndDate >= bookingEndDate
+          ) {
+            errorsObj.startDate = "Booking falls within an existing booking's range";
+            errorsObj.endDate = "Booking falls within an existing booking's range";
+            break;
+          }
+        }
+      }
+    }
+  
     setErrors(errorsObj);
   };
 
@@ -71,9 +111,11 @@ function CreateBookingForm({ spotId, start, end }) {
     e.preventDefault();
 
     if (!Object.values(errors).length) {
+      const formattedStart = backendDate(startDate);
+      const formattedEnd = backendDate(endDate);
       const newBookingData = {
-        startDate: backendDate(startDate),
-        endDate: backendDate(endDate),
+        startDate: formattedStart,
+        endDate: formattedEnd,
       };
 
       dispatch(createBookingThunk(newBookingData, spotId)).catch(
@@ -87,15 +129,17 @@ function CreateBookingForm({ spotId, start, end }) {
   };
 
   //   !Need to be able to check booking conflicts!.
+  //   get all them bookings create an error if the date already exsists
+  // I want to history push to manage bookings on submit so that they can see it!.
 
   return (
     <div>
       <form onSubmit={handleReserve} className="create-review-form-container">
-        {hasSubmitted && errors.review && (
-          <p className="errors">{errors.review}</p>
+        {hasSubmitted && errors.startDate && (
+          <p className="errors">{errors.startDate}</p>
         )}
-        {hasSubmitted && errors.stars && (
-          <p className="errors">{errors.stars}</p>
+        {hasSubmitted && errors.endDate && (
+          <p className="errors">{errors.endDate}</p>
         )}
         <div className="create-booking-input-container">
           <div className="left-booking-start">
