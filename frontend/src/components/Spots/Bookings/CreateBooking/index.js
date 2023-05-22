@@ -124,16 +124,12 @@ function CreateBookingForm({ spotId, allBookings, start, end }) {
       const formattedStart = backendDate(startDate);
       const formattedEnd = backendDate(endDate);
       const newBookingData = {
+        spotId,
         startDate: formattedStart,
         endDate: formattedEnd,
       };
 
-      dispatch(createBookingThunk(newBookingData, spotId)).catch(
-        async (res) => {
-          const data = await res.json();
-          if (data && data.errors) setErrors({ booking: data.errors[0] });
-        }
-      );
+      dispatch(createBookingThunk(spotId, newBookingData))
     }
     setHasSubmitted(true);
   };
