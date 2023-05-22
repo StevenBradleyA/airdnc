@@ -17,6 +17,7 @@ import githubIcon from "../../../media/square-github.svg";
 import linkedIn from "../../../media/linkedin.svg";
 import mapsLogo from "../../../media/logo-location.svg"
 import { getAllBookingsBySpotIdThunk } from "../../../store/booking";
+import CreateBookingForm from "../Bookings/CreateBooking";
 // ! Update Build command
 
 // ! npm i -S @react-google-maps/api
@@ -30,7 +31,7 @@ import { getAllBookingsBySpotIdThunk } from "../../../store/booking";
 const SpotDetails = () => {
   const dispatch = useDispatch();
   const { spotId } = useParams();
-  const reserveButtonRef = useRef("pog");
+  // const reserveButtonRef = useRef("pog");
 
   const allSpots = useSelector((state) => state.spots);
   const currentSpot = allSpots[spotId];
@@ -50,14 +51,14 @@ const SpotDetails = () => {
   const allBookings = useSelector((state) => Object.values(state.bookings));
 
 
-  const handleMouseMove = (e) => {
-    const button = reserveButtonRef.current;
-    const outline = button.getBoundingClientRect();
-    const x = e.clientX - outline.left;
-    const y = e.clientY - outline.top;
-    button.style.setProperty("--x", `${x}px`);
-    button.style.setProperty("--y", `${y}px`);
-  };
+  // const handleMouseMove = (e) => {
+  //   const button = reserveButtonRef.current;
+  //   const outline = button.getBoundingClientRect();
+  //   const x = e.clientX - outline.left;
+  //   const y = e.clientY - outline.top;
+  //   button.style.setProperty("--x", `${x}px`);
+  //   button.style.setProperty("--y", `${y}px`);
+  // };
 
   const currentReviews = allReviews
     .filter((e) => Number(spotId) === e.spotId)
@@ -202,7 +203,9 @@ const SpotDetails = () => {
               )}
             </div>
           </div>
-          <button
+          <CreateBookingForm   spotId={Number(spotId)}   />
+          {/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */}
+          {/* <button
             className="reserve-button"
             ref={reserveButtonRef}
             onMouseMove={handleMouseMove}
@@ -214,7 +217,7 @@ const SpotDetails = () => {
           >
             <span></span>
             Reserve
-          </button>
+          </button> */}
         </div>
       </div>
 

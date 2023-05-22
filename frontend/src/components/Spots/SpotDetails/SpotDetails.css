@@ -192,6 +192,47 @@
   font-size: 12px;
   opacity: 0.8;
 }
+/* -------        create booking form        -------- */
+
+
+.create-booking-input-container{
+  display: flex;
+  margin-bottom: 20px;
+}
+.booking-input-subtext{
+font-size: 10px;
+margin-bottom: 5px;
+font-weight: 500;
+
+
+}
+
+
+.left-booking-start{
+  padding: 5px;
+  border: 1.5px solid rgb(193, 193, 193);
+  border-top-left-radius: 10px;
+  
+}
+
+
+.right-booking-end{
+  border-top-right-radius: 10px;
+  padding: 5px;
+  border-top: 1.5px solid rgb(193, 193, 193);
+  border-bottom: 1.5px solid rgb(193, 193, 193);
+  border-right: 1.5px solid rgb(193, 193, 193);
+}
+
+.booking-date-input{
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  outline: none;
+
+}
+
+
 
 .reserve-button {
   font-size: 15px;
@@ -228,6 +269,10 @@
 .reserve-button:hover::before {
   --size: 200px;
 }
+
+/* .reserve-button:disabled{
+
+} */
 
 /* -----------         under image title      ------------ */
 
