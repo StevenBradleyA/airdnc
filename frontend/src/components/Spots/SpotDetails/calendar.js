@@ -1,15 +1,8 @@
 import React, { useEffect, useState } from "react";
-import "react-date-range/dist/theme/default.css"; // theme css file
+import "react-date-range/dist/theme/default.css";
 import "./calendar.css";
 
 import { DateRangePicker } from "react-date-range";
-// import { DateRangePicker } from "react-date-range";
-
-
-
-
-
-
 
 const CalendarDateRange = ({ currentSpot, allBookings, onDateRangeSelect }) => {
   const [selectedRange, setSelectedRange] = useState({
@@ -19,61 +12,36 @@ const CalendarDateRange = ({ currentSpot, allBookings, onDateRangeSelect }) => {
     color: "black",
   });
 
-  // const handleSelect = (ranges) => {
-  //   setSelectedRange(ranges.selection);
-  // };
+  const handleSelect = (ranges) => {
+    setSelectedRange(ranges.selection);
+    const { selection } = ranges;
+    onDateRangeSelect(selection.startDate, selection.endDate);
+  };
 
-  
-    const handleSelect = (ranges) => {
-      setSelectedRange(ranges.selection);
-      const { selection } = ranges;
-      onDateRangeSelect(selection.startDate, selection.endDate);
-    };
+  const disabledDates = allBookings.flatMap((booking) => {
+    const startDate = new Date(booking.startDate);
+    const endDate = new Date(booking.endDate);
+    const disabledDatesInRange = [];
+    let currentDate = startDate;
 
-  // ! old
-  // const handleSelect = (ranges) => {
-  //   console.log(ranges);
-    // {
-    //   selection: {
-    //     startDate: [native Date Object],
-    //     endDate: [native Date Object],
-    //   }
-    // }
-  // };
+    while (currentDate <= endDate) {
+      disabledDatesInRange.push(new Date(currentDate));
+      currentDate.setDate(currentDate.getDate() + 1);
+    }
 
-  // const selectionRange = {
-  //   startDate: new Date(),
-  //   endDate: new Date(),
-  //   key: "selection",
-  //   color: "black",
-  // }
-  // !old 
-
-
-  const disabledDates = allBookings.map((booking) => {
-    return {
-      startDate: new Date(booking.startDate),
-      endDate: new Date(booking.endDate),
-      key: booking.id,
-      color: "red",
-    };
+    return disabledDatesInRange;
   });
-
 
   return (
     <div>
-    <DateRangePicker
-      ranges={[selectedRange]}
-      onChange={handleSelect}
-      months={2}
-      direction="horizontal"
-      disabledDates={disabledDates}
-    />
-    {/* <div>
-    Selected Start Date: {selectedRange.startDate.toDateString()}
-  </div>
-  <div>Selected End Date: {selectedRange.endDate.toDateString()}</div> */}
-</div>
+      <DateRangePicker
+        ranges={[selectedRange]}
+        onChange={handleSelect}
+        months={2}
+        direction="horizontal"
+        disabledDates={disabledDates}
+      />
+    </div>
   );
 };
 
