@@ -9,19 +9,33 @@ function CreateBookingForm({ spotId, start, end }) {
   const [endDate, setEndDate] = useState("");
   const reserveButtonRef = useRef("pog");
 
-  console.log("test1", start);
-  console.log("test2", end);
+  const displayDate = (date) => {
+    const dateObject = new Date(date);
+    const month = String(dateObject.getMonth() + 1).padStart(2, "0");
+    const day = String(dateObject.getDate()).padStart(2, "0");
+    const year = dateObject.getFullYear();
+    return `${month}/${day}/${year}`;
+  };
+
+  const backendDate = (date) => {
+    const [month, day, year] = date.split("/");
+    return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
+  };
 
   useEffect(() => {
     if (start) {
-      setStartDate(start);
+      const formattedStartDate = displayDate(start);
+
+      setStartDate(formattedStartDate);
     }
     if (end) {
-      setEndDate(end);
+      const formattedEndDate = displayDate(end);
+
+      setEndDate(formattedEndDate);
     }
   }, [start, end]);
 
-// not sure if this is the correct date info I need to send. lets check our seeders... 
+  // not sure if this is the correct date info I need to send. lets check our seeders...
 
   const sessionUser = useSelector((state) => state.session.user);
 
@@ -58,9 +72,10 @@ function CreateBookingForm({ spotId, start, end }) {
 
     if (!Object.values(errors).length) {
       const newBookingData = {
-        startDate,
-        endDate,
+        startDate: backendDate(startDate),
+        endDate: backendDate(endDate),
       };
+
       dispatch(createBookingThunk(newBookingData, spotId)).catch(
         async (res) => {
           const data = await res.json();
