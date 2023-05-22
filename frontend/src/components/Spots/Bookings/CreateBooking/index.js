@@ -9,6 +9,10 @@ function CreateBookingForm({ spotId, allBookings, start, end }) {
   const [endDate, setEndDate] = useState("");
   const reserveButtonRef = useRef("pog");
 
+// console.log(allBookings)
+//  for each .endDate and .startDate "2023-6-8"
+// my all bookings is not working correctly
+
   const displayDate = (date) => {
     const dateObject = new Date(date);
     const month = String(dateObject.getMonth() + 1).padStart(2, "0");
@@ -54,9 +58,15 @@ function CreateBookingForm({ spotId, allBookings, start, end }) {
     };
   });
 
+  console.log('checking', disabledDates)
+
   const handleInputErrors = () => {
     const errorsObj = {};
   
+
+    if (!sessionUser) {
+        errorsObj.user = "Sign in to make a booking";
+      }
     if (!startDate) {
       errorsObj.startDate = "Must select a start date";
     }
@@ -136,10 +146,13 @@ function CreateBookingForm({ spotId, allBookings, start, end }) {
     <div>
       <form onSubmit={handleReserve} className="create-review-form-container">
         {hasSubmitted && errors.startDate && (
-          <p className="errors">{errors.startDate}</p>
+          <div className="errors">{errors.startDate}</div>
         )}
         {hasSubmitted && errors.endDate && (
-          <p className="errors">{errors.endDate}</p>
+          <div className="errors">{errors.endDate}</div>
+        )}
+        {hasSubmitted && errors.user && (
+          <div className="errors">{errors.user}</div>
         )}
         <div className="create-booking-input-container">
           <div className="left-booking-start">
@@ -178,7 +191,7 @@ function CreateBookingForm({ spotId, allBookings, start, end }) {
           }}
           className="reserve-button"
           type="submit"
-          disabled={hasSubmitted && Object.values(errors).length > 0}
+          disabled={hasSubmitted && !sessionUser && Object.values(errors).length > 0}
         >
           <span></span>
           Reserve

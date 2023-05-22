@@ -52,7 +52,7 @@ const SpotDetails = () => {
 
   const allBookings = useSelector((state) => Object.values(state.bookings));
 
-
+  console.log('testing', allBookings)
   // const handleMouseMove = (e) => {
   //   const button = reserveButtonRef.current;
   //   const outline = button.getBoundingClientRect();

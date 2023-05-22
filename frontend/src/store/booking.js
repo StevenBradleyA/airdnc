@@ -30,49 +30,45 @@ export const getAllBookingsBySpotIdThunk = (spotId) => async (dispatch) => {
   if (response.ok) {
     const data = await response.json();
     const normalizedBookingData = {};
-    data.Bookings.forEach((e) => {
+    data.Bookings.forEach((e, index) => {
+      normalizedBookingData[index] = e;
+    });
+
+    dispatch(loadBookings(normalizedBookingData));
+  }
+};
+
+export const getAllOwnedBookingsThunk = () => async (dispatch) => {
+  const response = await csrfFetch(`/api/bookings/current`);
+
+  if (response.ok) {
+    const allBookingData = await response.json();
+    const normalizedBookingData = {};
+    allBookingData.Bookings.forEach((e) => {
       normalizedBookingData[e.id] = e;
     });
     dispatch(loadBookings(normalizedBookingData));
   }
 };
 
-
-export const getAllOwnedBookingsThunk = () => async (dispatch) => {
-    const response = await csrfFetch(`/api/bookings/current`);
-  
-    if (response.ok) {
-      const allBookingData = await response.json();
-      const normalizedBookingData = {};
-      allBookingData.Bookings.forEach((e) => {
-        normalizedBookingData[e.id] = e;
+export const createBookingThunk =
+  (spotId, newBookingData) => async (dispatch) => {
+    try {
+      const response = await csrfFetch(`/api/spots/${spotId}/bookings`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newBookingData),
       });
-      dispatch(loadBookings(normalizedBookingData));
+
+      const data = await response.json();
+      const normalizedBookingData = {};
+      normalizedBookingData[data.id] = data;
+      dispatch(createBooking(normalizedBookingData));
+      return data;
+    } catch (error) {
+      console.log(error);
     }
   };
-
-
-export const createBookingThunk = (spotId, newBookingData) => async (dispatch) => {
-  try {
-    const response = await csrfFetch(`/api/spots/${spotId}/bookings`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(newBookingData),
-    });
-
-    const data = await response.json();
-    const normalizedBookingData = {};
-    normalizedBookingData[data.id] = data;
-    dispatch(createBooking(normalizedBookingData));
-    return data;
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-
-
-
 
 export const updateBookingThunk =
   (newBookingData, bookingId) => async (dispatch) => {
