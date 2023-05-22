@@ -14,10 +14,22 @@ function LogOutButton({ user, name, openMenu, setOpenMenu }) {
     setOpenMenu(false);
   };
 
+  const handleCreateClick = (e) => {
+    e.preventDefault();
+    setOpenMenu(false);
+    history.push("/spots/new");
+  };
+
   return (
     <>
       {user && (
         <div className="log-out-button-container">
+          <div
+                  className="logged-in-menu-buttons"
+                  onClick={handleCreateClick}
+                >
+                  Airdnc your home
+                </div>
         <div className="logged-in-menu-buttons" onClick={handleLogoutClick}>
           {name}
         </div>

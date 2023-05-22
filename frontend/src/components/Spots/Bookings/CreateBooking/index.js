@@ -9,10 +9,6 @@ function CreateBookingForm({ spotId, allBookings, start, end }) {
   const [endDate, setEndDate] = useState("");
   const reserveButtonRef = useRef("pog");
 
-// console.log(allBookings)
-//  for each .endDate and .startDate "2023-6-8"
-// my all bookings is not working correctly
-
   const displayDate = (date) => {
     const dateObject = new Date(date);
     const month = String(dateObject.getMonth() + 1).padStart(2, "0");
@@ -58,58 +54,65 @@ function CreateBookingForm({ spotId, allBookings, start, end }) {
     };
   });
 
-  console.log('checking', disabledDates)
+  console.log("checking", disabledDates);
 
   const handleInputErrors = () => {
     const errorsObj = {};
-  
 
     if (!sessionUser) {
-        errorsObj.user = "Sign in to make a booking";
-      }
+      errorsObj.user = "Sign in to make a booking";
+    }
     if (!startDate) {
       errorsObj.startDate = "Must select a start date";
     }
-  
+
     if (!endDate) {
       errorsObj.endDate = "Must select an end date";
     }
-  
+
     if (startDate && endDate) {
       const selectedStartDate = new Date(startDate);
       const selectedEndDate = new Date(endDate);
-  
+
       for (const booking of disabledDates) {
-        const { startDate: bookingStartDate, endDate: bookingEndDate } = booking;
-  
+        const { startDate: bookingStartDate, endDate: bookingEndDate } =
+          booking;
+
         if (
-          (selectedStartDate >= bookingStartDate && selectedStartDate <= bookingEndDate) ||
-          (selectedEndDate >= bookingStartDate && selectedEndDate <= bookingEndDate) ||
-          (selectedStartDate <= bookingStartDate && selectedEndDate >= bookingEndDate) ||
-          (selectedStartDate >= bookingStartDate && selectedEndDate <= bookingEndDate)
+          (selectedStartDate >= bookingStartDate &&
+            selectedStartDate <= bookingEndDate) ||
+          (selectedEndDate >= bookingStartDate &&
+            selectedEndDate <= bookingEndDate) ||
+          (selectedStartDate <= bookingStartDate &&
+            selectedEndDate >= bookingEndDate) ||
+          (selectedStartDate >= bookingStartDate &&
+            selectedEndDate <= bookingEndDate)
         ) {
           errorsObj.startDate = "Start date conflicts with an existing booking";
           errorsObj.endDate = "End date conflicts with an existing booking";
           break;
         }
       }
-      
+
       if (!errorsObj.startDate && !errorsObj.endDate) {
         for (const booking of disabledDates) {
-          const { startDate: bookingStartDate, endDate: bookingEndDate } = booking;
-  
+          const { startDate: bookingStartDate, endDate: bookingEndDate } =
+            booking;
+
           if (
             selectedStartDate <= bookingStartDate &&
             selectedEndDate >= bookingEndDate
           ) {
-            errorsObj.startDate = "Booking falls within an existing booking's range";
-            errorsObj.endDate = "Booking falls within an existing booking's range";
+            errorsObj.startDate =
+              "Booking falls within an existing booking's range";
+            errorsObj.endDate =
+              "Booking falls within an existing booking's range";
             break;
           }
         }
       }
     }
-  
+
     setErrors(errorsObj);
   };
 
@@ -129,14 +132,10 @@ function CreateBookingForm({ spotId, allBookings, start, end }) {
         endDate: formattedEnd,
       };
 
-      dispatch(createBookingThunk(spotId, newBookingData))
+      dispatch(createBookingThunk(spotId, newBookingData));
     }
     setHasSubmitted(true);
   };
-
-  //   !Need to be able to check booking conflicts!.
-  //   get all them bookings create an error if the date already exsists
-  // I want to history push to manage bookings on submit so that they can see it!.
 
   return (
     <div>
@@ -187,7 +186,9 @@ function CreateBookingForm({ spotId, allBookings, start, end }) {
           }}
           className="reserve-button"
           type="submit"
-          disabled={hasSubmitted && !sessionUser && Object.values(errors).length > 0}
+          disabled={
+            hasSubmitted && !sessionUser && Object.values(errors).length > 0
+          }
         >
           <span></span>
           Reserve

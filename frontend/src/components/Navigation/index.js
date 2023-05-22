@@ -56,6 +56,11 @@ function Navigation() {
     setOpenMenu(false);
     history.push("/spots/current");
   };
+  const handleManageBookingsClick = (e) => {
+    e.preventDefault();
+    setOpenMenu(false);
+    history.push("/bookings/current");
+  };
 
   // Might make more sense to just make the search a drop down with all listings with the name
   // because you want to be able to search for a place on every page...
@@ -115,13 +120,14 @@ function Navigation() {
                 >
                   Manage Listings
                 </div>
-
                 <div
                   className="logged-in-menu-buttons"
-                  onClick={handleCreateClick}
+                  onClick={handleManageBookingsClick}
                 >
-                  Airdnc your home
+                  Manage Bookings
                 </div>
+
+                
 
                 <LogOutButton
                   user={sessionUser}
