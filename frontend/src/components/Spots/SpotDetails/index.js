@@ -47,7 +47,7 @@ const SpotDetails = () => {
     dispatch(getAllBookingsBySpotIdThunk(spotId));
   }, [dispatch, spotId]);
 
-
+  const allBookings = useSelector((state) => Object.values(state.bookings));
 
 
   const handleMouseMove = (e) => {
@@ -176,7 +176,7 @@ const SpotDetails = () => {
 
           <div className="calendar-date-range-container">
             <div className="calendar-header">Plan your nights</div>
-            <CalendarDateRange currentSpot={currentSpot} />
+            <CalendarDateRange currentSpot={currentSpot} allBookings={allBookings} />
           </div>
         </div>
         <div className="reserve-container">
