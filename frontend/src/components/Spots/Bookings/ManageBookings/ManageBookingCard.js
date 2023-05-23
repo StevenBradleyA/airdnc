@@ -1,12 +1,11 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
 import "./ManageBookings.css";
-import { getAllSpotsThunk, getSpotByIdThunk } from "../../../../store/spots";
+import { getAllSpotsThunk } from "../../../../store/spots";
 import { useModal } from "../../../../context/Modal";
 import DeleteBookingModal from "../DeleteBooking";
+import UpdateBookingModal from "../UpdateBooking";
 
 const ManageBookingCard = ({ booking }) => {
   const history = useHistory();
@@ -16,7 +15,8 @@ const ManageBookingCard = ({ booking }) => {
 
   const handleUpdateClick = (e) => {
     e.preventDefault();
-    // history.push(`/spots/${spot.id}/edit`);
+    setModalContent(<UpdateBookingModal booking={booking} currentSpot={currentSpot} />);
+
   };
 
   const handleDeleteClick = () => {

@@ -1,51 +1,73 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import "../../SpotDetails/SpotDetails.css";
-import { createBookingThunk } from "../../../../store/booking";
+import { useModal } from "../../../../context/Modal";
+import "./UpdateBooking.css";
+import { getAllBookingsBySpotIdThunk } from "../../../../store/booking";
+import CalendarDateRange from "../../SpotDetails/calendar";
 
-function CreateBookingForm({ spotId, allBookings, start, end, currentSpot }) {
+function UpdateBookingModal({ booking }) {
+  const spotId = booking.spotId;
+  const dispatch = useDispatch();
+  const { closeModal } = useModal();
   const [hasSubmitted, setHasSubmitted] = useState(false);
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
-  const reserveButtonRef = useRef("pog");
-
-  const displayDate = (date) => {
-    const dateObject = new Date(date);
-    const month = String(dateObject.getMonth() + 1).padStart(2, "0");
-    const day = String(dateObject.getDate()).padStart(2, "0");
-    const year = dateObject.getFullYear();
-    return `${month}/${day}/${year}`;
-  };
-
-  const backendDate = (date) => {
-    const [month, day, year] = date.split("/");
-    return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
-  };
+  const [errors, setErrors] = useState({});
+  const [startDate, setStartDate] = useState(booking.startDate);
+  const [endDate, setEndDate] = useState(booking.endDate);
+  const [selectedStartDate, setSelectedStartDate] = useState(null);
+  const [selectedEndDate, setSelectedEndDate] = useState(null);
 
   useEffect(() => {
-    if (start) {
-      const formattedStartDate = displayDate(start);
-      setStartDate(formattedStartDate);
-    }
-    if (end) {
-      const formattedEndDate = displayDate(end);
-      setEndDate(formattedEndDate);
-    }
-  }, [start, end]);
+    dispatch(getAllBookingsBySpotIdThunk(spotId));
+  }, [dispatch, spotId]);
 
+  const allBookings = useSelector((state) => Object.values(state.bookings));
+
+  const allSpots = useSelector((state) => state.spots);
+  const currentSpot = allSpots[spotId];
   const sessionUser = useSelector((state) => state.session.user);
 
-  const handleMouseMove = (e) => {
-    const button = reserveButtonRef.current;
-    const outline = button.getBoundingClientRect();
-    const x = e.clientX - outline.left;
-    const y = e.clientY - outline.top;
-    button.style.setProperty("--x", `${x}px`);
-    button.style.setProperty("--y", `${y}px`);
-  };
+  let start;
+  let end; 
+    if(selectedStartDate){
+        start = selectedStartDate.toDateString()
 
-  const [errors, setErrors] = useState({});
-  const dispatch = useDispatch();
+    }
+    if(selectedEndDate){
+        end = selectedEndDate.toDateString()
+
+    }
+
+  
+  const displayDate = (date) => {
+      const dateObject = new Date(date);
+      const month = String(dateObject.getMonth() + 1).padStart(2, "0");
+      const day = String(dateObject.getDate()).padStart(2, "0");
+      const year = dateObject.getFullYear();
+      return `${month}/${day}/${year}`;
+    };
+    
+    const backendDate = (date) => {
+        const [month, day, year] = date.split("/");
+        return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
+    };
+    
+    
+    useEffect(() => {
+        if (start) {
+            const formattedStartDate = displayDate(start);
+            setStartDate(formattedStartDate);
+        }
+        if (end) {
+            const formattedEndDate = displayDate(end);
+            setEndDate(formattedEndDate);
+        }
+    }, [start, end]);
+    
+    const handleDateRangeSelect = (startDate, endDate) => {
+        setSelectedStartDate(startDate);
+        setSelectedEndDate(endDate);
+    };
+
 
   const disabledDates = allBookings.map((booking) => {
     return {
@@ -133,7 +155,9 @@ function CreateBookingForm({ spotId, allBookings, start, end, currentSpot }) {
     handleInputErrors();
   }, [startDate, endDate]);
 
-  const handleReserve = async (e) => {
+
+
+  const handleUpdateBooking = async (e) => {
     e.preventDefault();
 
     if (!Object.values(errors).length) {
@@ -145,14 +169,30 @@ function CreateBookingForm({ spotId, allBookings, start, end, currentSpot }) {
         endDate: formattedEnd,
       };
 
-      dispatch(createBookingThunk(spotId, newBookingData));
+    //   dispatch(createBookingThunk(spotId, newBookingData));
     }
     setHasSubmitted(true);
   };
 
+
+
+
+
+
+    if (!currentSpot) {
+      return <h1>LOADING...</h1>;
+    }
+    
   return (
-    <div>
-      <form onSubmit={handleReserve} className="create-review-form-container">
+    <div className="create-review-container-modal">
+      <div className="create-review-heading">Update your booking</div>
+      <CalendarDateRange
+        currentSpot={currentSpot}
+        allBookings={allBookings}
+        onDateRangeSelect={handleDateRangeSelect}
+      />
+
+<form onSubmit={handleUpdateBooking} className="create-review-form-container">
         {hasSubmitted && errors.startDate && (
           <div className="errors">{errors.startDate}</div>
         )}
@@ -191,24 +231,53 @@ function CreateBookingForm({ spotId, allBookings, start, end, currentSpot }) {
           </span>
         </div>
         <button
-          ref={reserveButtonRef}
-          onMouseMove={handleMouseMove}
-          onMouseLeave={() => {
-            reserveButtonRef.current.style.setProperty("--x", "0px");
-            reserveButtonRef.current.style.setProperty("--y", "0px");
-          }}
-          className="reserve-button"
           type="submit"
+          className="update-booking-button"
           disabled={
             hasSubmitted && !sessionUser && Object.values(errors).length > 0
           }
         >
-          <span></span>
-          Reserve
+          Update
         </button>
       </form>
+
+      {/* <form
+        onSubmit={handleReviewSubmit}
+        className="create-review-form-container"
+      >
+        {hasSubmitted && errors.review && (
+          <p className="errors">{errors.review}</p>
+        )}
+        {hasSubmitted && errors.stars && (
+          <p className="errors">{errors.stars}</p>
+        )}
+
+        <textarea
+          type="text"
+          value={reviewText}
+          className="leave-review"
+          placeholder="Leave your review here..."
+          onChange={(e) => setReviewText(e.target.value)}
+        />
+
+        <div className="stars-rating-container">
+          <StarsRatingInput
+            disabled={false}
+            onChange={onChange}
+            stars={stars}
+          />
+
+          <div className="stars-text-rating">Stars</div>
+        </div>
+
+        <input
+          type="submit"
+          className="submit-review-button-modal"
+          value="Update Your Review"
+          disabled={hasSubmitted && Object.values(errors).length > 0}
+        />
+      </form> */}
     </div>
   );
 }
-
-export default CreateBookingForm;
+export default UpdateBookingModal;
