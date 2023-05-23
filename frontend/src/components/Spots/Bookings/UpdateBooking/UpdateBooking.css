@@ -1,0 +1,86 @@
+.update-booking-container-modal {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    width: 900px;
+    height: 700px;
+    border-radius: 15px;
+  }
+
+
+
+.update-booking-form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.update-booking-heading {
+  display: flex;
+  font-size: 40px;
+}
+
+
+
+
+
+.update-booking-input-container{
+    display: flex;
+    justify-content: center;
+    width: 750px;
+  }
+
+  .booking-input-subtext{
+    font-size: 10px;
+    margin-bottom: 5px;
+    font-weight: 500;
+  }
+
+  
+  
+  
+  .left-update-booking-start{
+    padding: 5px;
+    border: 1.5px solid rgb(193, 193, 193);
+    width: 45%;
+    height: 45px;  
+  
+  }
+  
+  
+  .right-update-booking-end{
+    padding: 5px;
+    border-top: 1.5px solid rgb(193, 193, 193);
+    border-bottom: 1.5px solid rgb(193, 193, 193);
+    border-right: 1.5px solid rgb(193, 193, 193);
+    width: 45%;
+  
+  }
+  
+  .booking-date-input{
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    outline: none;
+  }
+  
+  
+  .booking-date-input-lower{
+    display: flex;
+    align-items: center;
+    height: 45px;  
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom: 1.5px solid rgb(193, 193, 193);
+    border-right: 1.5px solid rgb(193, 193, 193);
+    border-left: 1.5px solid rgb(193, 193, 193);
+    padding: 5px;
+    width: 94%;
+    margin-bottom: 20px;
+  
+  
+  }
+  

@@ -184,15 +184,11 @@ function UpdateBookingModal({ booking }) {
     }
     
   return (
-    <div className="create-review-container-modal">
-      <div className="create-review-heading">Update your booking</div>
-      <CalendarDateRange
-        currentSpot={currentSpot}
-        allBookings={allBookings}
-        onDateRangeSelect={handleDateRangeSelect}
-      />
+    <div className="update-booking-container-modal">
+      <div className="update-booking-heading">Update your booking</div>
+     
 
-<form onSubmit={handleUpdateBooking} className="create-review-form-container">
+<form onSubmit={handleUpdateBooking} className="update-booking-form-container">
         {hasSubmitted && errors.startDate && (
           <div className="errors">{errors.startDate}</div>
         )}
@@ -202,9 +198,9 @@ function UpdateBookingModal({ booking }) {
         {hasSubmitted && errors.user && (
           <div className="errors">{errors.user}</div>
         )}
-        <div className="create-booking-input-container">
-          <div className="left-booking-start">
-            <div className="booking-input-subtext">CHECK-IN</div>
+        <div className="update-booking-input-container">
+          <div className="left-update-booking-start">
+            <div className="booking-input-subtext"> CURRENT CHECK-IN</div>
             <input
               type="text"
               value={startDate}
@@ -213,8 +209,8 @@ function UpdateBookingModal({ booking }) {
               onChange={(e) => setStartDate(e.target.value)}
             />
           </div>
-          <div className="right-booking-end">
-            <div className="booking-input-subtext">CHECKOUT</div>
+          <div className="right-update-booking-end">
+            <div className="booking-input-subtext"> CURRENT CHECKOUT</div>
 
             <input
               type="text"
@@ -225,11 +221,12 @@ function UpdateBookingModal({ booking }) {
             />
           </div>
         </div>
-        <div className="booking-date-input-lower">
-          <span className="lower-calendar-text">
-            Use the Calendar to select a Date
-          </span>
-        </div>
+        <div>Select a new date on the calendar</div>
+        <CalendarDateRange
+        currentSpot={currentSpot}
+        allBookings={allBookings}
+        onDateRangeSelect={handleDateRangeSelect}
+      />
         <button
           type="submit"
           className="update-booking-button"
