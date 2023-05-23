@@ -32,7 +32,7 @@ const ManageBookings = () => {
           if (sessionUser && sessionUser.id === booking.userId) {
             return <ManageBookingCard key={booking.id} booking={booking} />;
           } else {
-            return <div>You don't have any Bookings yet!</div>;
+            return null;
           }
         })}
       </div>

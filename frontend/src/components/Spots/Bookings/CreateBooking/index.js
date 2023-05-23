@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import "../../SpotDetails/SpotDetails.css";
 import { createBookingThunk } from "../../../../store/booking";
 
-function CreateBookingForm({ spotId, allBookings, start, end }) {
+function CreateBookingForm({ spotId, allBookings, start, end, currentSpot }) {
   const [hasSubmitted, setHasSubmitted] = useState(false);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
@@ -34,6 +34,9 @@ function CreateBookingForm({ spotId, allBookings, start, end }) {
   }, [start, end]);
 
   const sessionUser = useSelector((state) => state.session.user);
+  console.log('hey, steven here', currentSpot)
+  console.log('hey, steven here', sessionUser)
+
 
   const handleMouseMove = (e) => {
     const button = reserveButtonRef.current;
@@ -67,6 +70,21 @@ function CreateBookingForm({ spotId, allBookings, start, end }) {
     if (!endDate) {
       errorsObj.endDate = "Must select an end date";
     }
+    if(sessionUser.id === currentSpot.ownerId){
+
+        errorsObj.endDate = "Cannot Book a place you own";
+
+    }
+
+    const dateRegex = /^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/\d{4}$/;
+    if (!dateRegex.test(startDate)) {
+        errorsObj.startDate = "Invalid start date";
+      }
+      
+      if (!dateRegex.test(endDate)) {
+        errorsObj.endDate = "Invalid end date";
+      }
+
 
     if (startDate && endDate) {
       const selectedStartDate = new Date(startDate);

@@ -1,13 +1,11 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getSpotByIdThunk } from "../../../store/spots";
 import { useParams } from "react-router-dom";
 import AllReviews from "../../Reviews/AllReviews/index";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faStar,
-  faGithub,
-  faLinkedIn,
+  faStar
 } from "@fortawesome/free-solid-svg-icons";
 import { loadSpots } from "../../../store/spots";
 import GoogleMaps from "./googleMaps";
@@ -33,7 +31,6 @@ const SpotDetails = () => {
   const { spotId } = useParams();
   const [selectedStartDate, setSelectedStartDate] = useState(null);
   const [selectedEndDate, setSelectedEndDate] = useState(null);
-  // const reserveButtonRef = useRef("pog");
 
   const allSpots = useSelector((state) => state.spots);
   const currentSpot = allSpots[spotId];
@@ -52,15 +49,6 @@ const SpotDetails = () => {
 
   const allBookings = useSelector((state) => Object.values(state.bookings));
 
-  console.log('testing', allBookings)
-  // const handleMouseMove = (e) => {
-  //   const button = reserveButtonRef.current;
-  //   const outline = button.getBoundingClientRect();
-  //   const x = e.clientX - outline.left;
-  //   const y = e.clientY - outline.top;
-  //   button.style.setProperty("--x", `${x}px`);
-  //   button.style.setProperty("--y", `${y}px`);
-  // };
 
   const currentReviews = allReviews
     .filter((e) => Number(spotId) === e.spotId)
@@ -213,7 +201,7 @@ const SpotDetails = () => {
               )}
             </div>
           </div>
-          <CreateBookingForm   spotId={Number(spotId)} allBookings={allBookings} start={selectedStartDate && selectedStartDate.toDateString()} end={selectedEndDate && selectedEndDate.toDateString()} />
+          <CreateBookingForm  currentSpot={currentSpot} spotId={Number(spotId)} allBookings={allBookings} start={selectedStartDate && selectedStartDate.toDateString()} end={selectedEndDate && selectedEndDate.toDateString()} />
           {/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */}
           {/* <button
             className="reserve-button"
