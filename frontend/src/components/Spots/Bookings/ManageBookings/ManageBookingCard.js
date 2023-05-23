@@ -6,6 +6,7 @@ import { faStar } from "@fortawesome/free-solid-svg-icons";
 import "./ManageBookings.css";
 import { getAllSpotsThunk, getSpotByIdThunk } from "../../../../store/spots";
 import { useModal } from "../../../../context/Modal";
+import DeleteBookingModal from "../DeleteBooking";
 
 const ManageBookingCard = ({ booking }) => {
   const history = useHistory();
@@ -19,7 +20,12 @@ const ManageBookingCard = ({ booking }) => {
   };
 
   const handleDeleteClick = () => {
-    // setModalContent(<LoginFormModal />);
+    setModalContent(<DeleteBookingModal booking={booking} />);
+  };
+
+  const handleCardClick = (e) => {
+    e.preventDefault();
+    history.push(`/spots/${spotId}`);
   };
 
   useEffect(() => {
@@ -50,50 +56,42 @@ const ManageBookingCard = ({ booking }) => {
     return `${month} ${day}`;
   };
 
-
-
-
-// ! REMEMBER TO CHANGE CLASSNAMES TO NOT EFFECT OTHER PAGE YO
-
+  // ! REMEMBER TO CHANGE CLASSNAMES TO NOT EFFECT OTHER PAGE YO
 
   return (
-    <div className="manage-spot-card-container">
+    <div className="manage-booking-card-container">
       <div className="manage-preview-container">
         <img
           src={currentSpot.previewImage}
           alt={`${booking}`}
-          className="manage-previewImage"
+          className="manage-booking-preview-image"
         />
       </div>
-      <div className="booking-date-info-container">
+      <div className="booking-date-info-container" onClick={handleCardClick}>
         <div className="manage-booking-card-text">{`${currentSpot.city}, ${currentSpot.state} `}</div>
         <div className="manage-booking-card-text">{`${cardDateDisplay(
           booking.startDate
         )} - ${cardDateDisplay(booking.endDate)}`}</div>
       </div>
-      <div className="manage-buttons-container">
-        <button
-          className="manage-booking-update-button"
-          onClick={handleUpdateClick}
-        >
-          Update
-        </button>
-        <button
-          className="manage-booking-delete-button"
-          onClick={handleDeleteClick}
-        >
-          Delete
-        </button>
-       <div>
-            <div> You are booked for:</div>
-            <div>
-
-            {`${booking.startDate} ${booking.endDate} `}
-
-            </div>
-
-
-       </div>
+      <div className="manage-hover-container">
+        <div className="manage-hover-buttons">
+          <button
+            className="manage-booking-update-button"
+            onClick={handleUpdateClick}
+          >
+            Update
+          </button>
+          <button
+            className="manage-booking-delete-button"
+            onClick={handleDeleteClick}
+          >
+            Delete
+          </button>
+        </div>
+        <div className="booking-date-card-display">
+          <div className="booking-hover-text-head"> You are booked for</div>
+          <div className="booking-hover-text">{`${booking.startDate} · ${booking.endDate} `}</div>
+        </div>
       </div>
     </div>
   );

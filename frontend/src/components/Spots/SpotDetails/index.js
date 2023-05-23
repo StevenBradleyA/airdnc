@@ -202,20 +202,6 @@ const SpotDetails = () => {
             </div>
           </div>
           <CreateBookingForm  currentSpot={currentSpot} spotId={Number(spotId)} allBookings={allBookings} start={selectedStartDate && selectedStartDate.toDateString()} end={selectedEndDate && selectedEndDate.toDateString()} />
-          {/* !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */}
-          {/* <button
-            className="reserve-button"
-            ref={reserveButtonRef}
-            onMouseMove={handleMouseMove}
-            onMouseLeave={() => {
-              reserveButtonRef.current.style.setProperty("--x", "0px");
-              reserveButtonRef.current.style.setProperty("--y", "0px");
-            }}
-            onClick={() => window.alert("Feature Coming Soon!")}
-          >
-            <span></span>
-            Reserve
-          </button> */}
         </div>
       </div>
 
