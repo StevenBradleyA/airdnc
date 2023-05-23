@@ -139,8 +139,6 @@ router.post("/:id/images", requireAuth, async (req, res, next) => {
 router.put("/:id", requireAuth, async (req, res, next) => {
   const { review, stars } = req.body;
   const errors = {};
-  console.log(review);
-  console.log(stars);
   if (!review) {
     errors.review = "Review text is required";
   }

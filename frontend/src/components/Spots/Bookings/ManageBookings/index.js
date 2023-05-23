@@ -20,7 +20,6 @@ const ManageBookings = () => {
   const allOwnedBookings = useSelector((state) => Object.values(state.bookings));
 
 
-  console.log(allOwnedBookings)
 
 
 
@@ -30,10 +29,10 @@ const ManageBookings = () => {
         </div>
       <div className="manage-spots-container">
         {allOwnedBookings.map((booking) => {
-          if (sessionUser && sessionUser.id === booking.ownerId) {
+          if (sessionUser && sessionUser.id === booking.userId) {
             return <ManageBookingCard key={booking.id} booking={booking} />;
           } else {
-            return null;
+            return <div>You don't have any Bookings yet!</div>;
           }
         })}
       </div>

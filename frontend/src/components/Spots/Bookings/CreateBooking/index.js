@@ -54,8 +54,6 @@ function CreateBookingForm({ spotId, allBookings, start, end }) {
     };
   });
 
-  console.log("checking", disabledDates);
-
   const handleInputErrors = () => {
     const errorsObj = {};
 
