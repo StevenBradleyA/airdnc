@@ -151,6 +151,8 @@
   visibility: visible;
   transform: translateY(0);
   transition: opacity 300ms ease, visibility 300ms ease, transform 300ms ease;
+  display: flex;
+  flex-direction: column;
 }
 
 .menu-dropdown.inactive {
@@ -163,10 +165,7 @@
 .logged-out-dropdown-container {
   position: relative;
   top: 0rem;
-  row-gap: 80px;
-  /* right: -40px; */
-  width: 90px;
-
+  width: 100%;
   height: 150px;
   display: flex;
   flex-direction: column;

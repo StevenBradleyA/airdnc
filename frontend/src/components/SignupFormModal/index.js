@@ -46,24 +46,6 @@ function SignupFormModal() {
     handleInputErrors();
   }, [email, username, firstName, lastName, password, confirmPassword]);
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   if (password === confirmPassword) {
-  //     setErrors([]);
-  //     return
-  //       .then(closeModal)
-  //       .catch(async (res) => {
-  //         const data = await res.json();
-  //         if (data && data.errors) {
-  //           setErrors(Object.values(data.errors));
-  //         }
-  //       });
-  //   }
-  //   return setErrors([
-  //     "Confirm Password field must be the same as the Password field",
-  //   ]);
-  // };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
