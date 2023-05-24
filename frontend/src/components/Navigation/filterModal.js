@@ -27,7 +27,8 @@ function FilterModal() {
   const { closeModal } = useModal();
 
 
-  const handleFilter = () => {
+  const handleFilter = async (e) => {
+    e.preventdefault()
     dispatch(setMinPrice(minPrice));
     dispatch(setMaxPrice(maxPrice));
     dispatch(setCountry(country));
@@ -37,34 +38,6 @@ function FilterModal() {
 
 
   };
-
-
-
-  // const handleFilterSubmit = async (e) => {
-  //   e.preventDefault();
-  //   if (
-  //     unitedStates ||
-  //     unitedStatesWest ||
-  //     unitedStatesMid ||
-  //     unitedStatesEast ||
-  //     unitedStatesSouth
-  //   ) {
-  //     setCountry("United States");
-  //   }
-
-  //   await dispatch(getAllFilteredSpots({ country, state, minPrice, maxPrice }));
-  //   history.push("");
-  //   closeModal();
-  // };
-
-  //
-  // we need to create a new store that tracks filtered results....
-  // lets show the total number of results
-  // if zero don't let them filter
-
-  // going to display a few regions
-  // for Europe just create a drop down input for country name
-  // for other counties just set State to a particular name
 
   const handleFlexibleClick = () => {
     setCountry("");
@@ -355,7 +328,6 @@ function FilterModal() {
             value="Filter Search Results"
             //   disabled={}
           />
-          <div className="total-filtered">Available listings:</div>
         </div>
       </form>
     </div>
