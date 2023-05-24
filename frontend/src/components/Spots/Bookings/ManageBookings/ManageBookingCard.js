@@ -38,11 +38,9 @@ const ManageBookingCard = ({ booking }) => {
     return <h1>LOADING...</h1>;
   }
 
-  console.log(allSpots);
 
   const currentSpot = allSpots.filter((e) => e.id === spotId)[0];
 
-  console.log(currentSpot);
 
   if (!currentSpot) {
     return <h1>LOADING...</h1>;
