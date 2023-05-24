@@ -21,7 +21,6 @@
   width: 100%;
 }
 
-
 /* --------------------            EACH SPOT               ----------------- */
 .manage-spot-card-container {
   width: 60%;
@@ -61,7 +60,7 @@
 
 .manage-buttons-container {
   display: none;
-  position: absolute; 
+  position: absolute;
   bottom: 200px;
   left: 100px;
 }
@@ -69,7 +68,6 @@
   display: flex;
   flex-direction: column;
   gap: 40px;
-
 }
 
 /* --------             manage buttons         ----------- */
@@ -84,10 +82,9 @@
   color: white;
   cursor: pointer;
   transition: background-color 0.3s ease;
-
 }
 
-.manage-update-button:hover{
+.manage-update-button:hover {
   transform: scale(1.03);
   box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
 }
@@ -110,10 +107,9 @@
   box-shadow: 0 4px 5px rgba(0, 0, 0, 0.2);
 }
 
-
 /* -------------------- delete spot modal ------------------------- */
 
-.delete-spot-modal-container{
+.delete-spot-modal-container {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -121,19 +117,14 @@
   height: 300px;
   padding: 10px;
   gap: 15px;
-
 }
-.delete-spot-modal-header{
+.delete-spot-modal-header {
   font-size: 30px;
   margin-bottom: 20px;
-
 }
-.delete-spot-modal-text{
+.delete-spot-modal-text {
   font-size: 20px;
-
-
 }
-
 
 .yes-delete-yeet {
   background-color: rgba(2, 104, 187, 0.411);
@@ -141,17 +132,14 @@
   width: 250px;
   border-radius: 15px;
   padding: 15px;
-  border: 1px solid #ccc; 
+  border: 1px solid #ccc;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-.yes-delete-yeet:hover{
+.yes-delete-yeet:hover {
   background-color: rgba(2, 104, 187, 0.811);
-
   transform: scale(1.05);
-
-
 }
 
 .no-delete {
@@ -159,14 +147,12 @@
   width: 250px;
   border-radius: 15px;
   padding: 15px;
-  border: 1px solid #ccc; 
+  border: 1px solid #ccc;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-.no-delete:hover{
+.no-delete:hover {
   background-color: rgba(200, 200, 200, 0.811);
-
   transform: scale(1.05);
-  
 }

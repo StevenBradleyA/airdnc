@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../../../context/Modal";
 import "./UpdateBooking.css";
-import { getAllBookingsBySpotIdThunk } from "../../../../store/booking";
+import { getAllBookingsBySpotIdThunk, updateBookingThunk } from "../../../../store/booking";
 import CalendarDateRange from "../../SpotDetails/calendar";
 
 function UpdateBookingModal({ booking }) {
@@ -169,7 +169,8 @@ function UpdateBookingModal({ booking }) {
         endDate: formattedEnd,
       };
 
-    //   dispatch(createBookingThunk(spotId, newBookingData));
+      await dispatch(updateBookingThunk(newBookingData, booking.id));
+      closeModal()
     }
     setHasSubmitted(true);
   };
@@ -200,28 +201,28 @@ function UpdateBookingModal({ booking }) {
         )}
         <div className="update-booking-input-container">
           <div className="left-update-booking-start">
-            <div className="booking-input-subtext"> CURRENT CHECK-IN</div>
+            <div className="update-booking-input-subtext"> CURRENT CHECK-IN</div>
             <input
               type="text"
               value={startDate}
-              className="booking-date-input"
+              className="update-booking-date-input"
               placeholder="Start date"
               onChange={(e) => setStartDate(e.target.value)}
             />
           </div>
           <div className="right-update-booking-end">
-            <div className="booking-input-subtext"> CURRENT CHECKOUT</div>
+            <div className="update-booking-input-subtext"> CURRENT CHECKOUT</div>
 
             <input
               type="text"
               value={endDate}
-              className="booking-date-input"
+              className="update-booking-date-input"
               placeholder="End date"
               onChange={(e) => setEndDate(e.target.value)}
             />
           </div>
         </div>
-        <div>Select a new date on the calendar</div>
+        <div className="update-booking-select">Select a new date on the calendar</div>
         <CalendarDateRange
         currentSpot={currentSpot}
         allBookings={allBookings}
