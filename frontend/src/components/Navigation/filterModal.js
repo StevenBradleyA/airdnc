@@ -9,7 +9,7 @@ import map3 from "../../media/map3.png";
 import map4 from "../../media/map4.png";
 import map5 from "../../media/map5.png";
 import map6 from "../../media/map6.png";
-import { getAllFilteredSpots } from "../../store/filtered";
+import { setMinPrice, setMaxPrice, setCountry, setState } from "../../store/filtered";
 
 function FilterModal() {
   const history = useHistory();
@@ -20,29 +20,42 @@ function FilterModal() {
   const [unitedStatesMid, setUnitedStatesMid] = useState(false);
   const [unitedStatesSouth, setUnitedStatesSouth] = useState(false);
 
-  const [minPrice, setMinPrice] = useState("");
-  const [maxPrice, setMaxPrice] = useState("");
-  const [country, setCountry] = useState("United States");
-  const [state, setState] = useState("");
+  const [minPrice, setMinPriceLocal] = useState("");
+  const [maxPrice, setMaxPriceLocal] = useState("");
+  const [country, setCountryLocal] = useState("United States");
+  const [state, setStateLocal] = useState("");
   const { closeModal } = useModal();
 
 
-  const handleFilterSubmit = async (e) => {
-    e.preventDefault();
-    if (
-      unitedStates ||
-      unitedStatesWest ||
-      unitedStatesMid ||
-      unitedStatesEast ||
-      unitedStatesSouth
-    ) {
-      setCountry("United States");
-    }
-
-    await dispatch(getAllFilteredSpots({ country, state, minPrice, maxPrice }));
-    history.push("");
+  const handleFilter = () => {
+    dispatch(setMinPrice(minPrice));
+    dispatch(setMaxPrice(maxPrice));
+    dispatch(setCountry(country));
+    dispatch(setState(state));
+    history.push("")
     closeModal();
+
+
   };
+
+
+
+  // const handleFilterSubmit = async (e) => {
+  //   e.preventDefault();
+  //   if (
+  //     unitedStates ||
+  //     unitedStatesWest ||
+  //     unitedStatesMid ||
+  //     unitedStatesEast ||
+  //     unitedStatesSouth
+  //   ) {
+  //     setCountry("United States");
+  //   }
+
+  //   await dispatch(getAllFilteredSpots({ country, state, minPrice, maxPrice }));
+  //   history.push("");
+  //   closeModal();
+  // };
 
   //
   // we need to create a new store that tracks filtered results....
@@ -102,7 +115,7 @@ function FilterModal() {
     <div className="filter-modal-container">
       <div className="price-header-text">Price range</div>
       <form
-        onSubmit={handleFilterSubmit}
+        onSubmit={handleFilter}
         className="filter-modal-form-container"
       >
         <div className="price-range-container">
@@ -111,7 +124,7 @@ function FilterModal() {
             className="price-input"
             value={minPrice}
             placeholder="Minimum"
-            onChange={(e) => setMinPrice(e.target.value)}
+            onChange={(e) => setMinPriceLocal(e.target.value)}
           />
           {` - `}
           <input
@@ -119,7 +132,7 @@ function FilterModal() {
             value={maxPrice}
             className="price-input"
             placeholder="Maximum"
-            onChange={(e) => setMaxPrice(e.target.value)}
+            onChange={(e) => setMaxPriceLocal(e.target.value)}
           />
         </div>
         {/* lets just make a set of cards like airbnb */}
@@ -182,7 +195,7 @@ function FilterModal() {
                 value={country}
                 className="country-filter-input"
                 placeholder="Country"
-                onChange={(e) => setCountry(e.target.value)}
+                onChange={(e) => setCountryLocal(e.target.value)}
               />
             )}
 
@@ -190,7 +203,7 @@ function FilterModal() {
             <select
               value={state}
               className="state-filter-input"
-              onChange={(e) => setState(e.target.value)}
+              onChange={(e) => setStateLocal(e.target.value)}
             >
               <option value="">Select a state</option>
               <option value="Alabama">Alabama</option>
@@ -250,7 +263,7 @@ function FilterModal() {
             <select
               value={state}
               className="state-filter-input"
-              onChange={(e) => setState(e.target.value)}
+              onChange={(e) => setStateLocal(e.target.value)}
             >
               <option value="">Select a state in the West</option>
               <option value="Alaska">Alaska</option>
@@ -273,7 +286,7 @@ function FilterModal() {
             <select
               value={state}
               className="state-filter-input"
-              onChange={(e) => setState(e.target.value)}
+              onChange={(e) => setStateLocal(e.target.value)}
             >
               <option value="">Select a state in the Midwest</option>
               <option value="Illinois">Illinois</option>
@@ -295,7 +308,7 @@ function FilterModal() {
             <select
               value={state}
               className="state-filter-input"
-              onChange={(e) => setState(e.target.value)}
+              onChange={(e) => setStateLocal(e.target.value)}
             >
               <option value="">Select a state in the South</option>
               <option value="Alabama">Alabama</option>
@@ -318,7 +331,7 @@ function FilterModal() {
             <select
               value={state}
               className="state-filter-input"
-              onChange={(e) => setState(e.target.value)}
+              onChange={(e) => setStateLocal(e.target.value)}
             >
               <option value="">Select a state in the East</option>
               <option value="Connecticut">Connecticut</option>

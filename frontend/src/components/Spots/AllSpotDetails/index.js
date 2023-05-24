@@ -17,7 +17,7 @@ const AllSpotDetails = () => {
 
   const allFilteredSpots = useSelector((state) => Object.values(state.filteredSpots));
 
-
+  console.log('hello there', allFilteredSpots)
   // my idea is that I could make a react store for filtered spots
   // if a spot if filtered based on price, country, and state, then I could map through it
   // if there is no filter than just map through all spots.

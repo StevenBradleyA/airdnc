@@ -16,6 +16,8 @@ import linkedIn from "../../../media/linkedin.svg";
 import mapsLogo from "../../../media/logo-location.svg"
 import { getAllBookingsBySpotIdThunk } from "../../../store/booking";
 import CreateBookingForm from "../Bookings/CreateBooking";
+
+
 // ! Update Build command
 
 // ! npm i -S @react-google-maps/api

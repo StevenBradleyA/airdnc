@@ -2,7 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useModal } from "../../../../context/Modal";
 import "./UpdateBooking.css";
-import { getAllBookingsBySpotIdThunk, updateBookingThunk } from "../../../../store/booking";
+import {
+  getAllBookingsBySpotIdThunk,
+  updateBookingThunk,
+} from "../../../../store/booking";
 import CalendarDateRange from "../../SpotDetails/calendar";
 
 function UpdateBookingModal({ booking }) {
@@ -27,47 +30,42 @@ function UpdateBookingModal({ booking }) {
   const sessionUser = useSelector((state) => state.session.user);
 
   let start;
-  let end; 
-    if(selectedStartDate){
-        start = selectedStartDate.toDateString()
+  let end;
+  if (selectedStartDate) {
+    start = selectedStartDate.toDateString();
+  }
+  if (selectedEndDate) {
+    end = selectedEndDate.toDateString();
+  }
 
-    }
-    if(selectedEndDate){
-        end = selectedEndDate.toDateString()
-
-    }
-
-  
   const displayDate = (date) => {
-      const dateObject = new Date(date);
-      const month = String(dateObject.getMonth() + 1).padStart(2, "0");
-      const day = String(dateObject.getDate()).padStart(2, "0");
-      const year = dateObject.getFullYear();
-      return `${month}/${day}/${year}`;
-    };
-    
-    const backendDate = (date) => {
-        const [month, day, year] = date.split("/");
-        return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
-    };
-    
-    
-    useEffect(() => {
-        if (start) {
-            const formattedStartDate = displayDate(start);
-            setStartDate(formattedStartDate);
-        }
-        if (end) {
-            const formattedEndDate = displayDate(end);
-            setEndDate(formattedEndDate);
-        }
-    }, [start, end]);
-    
-    const handleDateRangeSelect = (startDate, endDate) => {
-        setSelectedStartDate(startDate);
-        setSelectedEndDate(endDate);
-    };
+    const dateObject = new Date(date);
+    const month = String(dateObject.getMonth() + 1).padStart(2, "0");
+    const day = String(dateObject.getDate()).padStart(2, "0");
+    const year = dateObject.getFullYear();
+    return `${month}/${day}/${year}`;
+  };
 
+  const backendDate = (date) => {
+    const [month, day, year] = date.split("/");
+    return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
+  };
+
+  useEffect(() => {
+    if (start) {
+      const formattedStartDate = displayDate(start);
+      setStartDate(formattedStartDate);
+    }
+    if (end) {
+      const formattedEndDate = displayDate(end);
+      setEndDate(formattedEndDate);
+    }
+  }, [start, end]);
+
+  const handleDateRangeSelect = (startDate, endDate) => {
+    setSelectedStartDate(startDate);
+    setSelectedEndDate(endDate);
+  };
 
   const disabledDates = allBookings.map((booking) => {
     return {
@@ -75,13 +73,13 @@ function UpdateBookingModal({ booking }) {
       endDate: new Date(booking.endDate),
     };
   });
-
   const handleInputErrors = () => {
     const errorsObj = {};
 
     if (!sessionUser) {
       errorsObj.user = "Sign in to make a booking";
     }
+
     if (!startDate) {
       errorsObj.startDate = "Must select a start date";
     }
@@ -89,60 +87,65 @@ function UpdateBookingModal({ booking }) {
     if (!endDate) {
       errorsObj.endDate = "Must select an end date";
     }
-    if(sessionUser.id === currentSpot.ownerId){
 
-        errorsObj.endDate = "Cannot Book a place you own";
-
+    if (sessionUser.id === currentSpot.ownerId) {
+      errorsObj.endDate = "Cannot book a place you own";
     }
 
     const dateRegex = /^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/\d{4}$/;
     if (!dateRegex.test(startDate)) {
-        errorsObj.startDate = "Invalid start date";
-      }
-      
-      if (!dateRegex.test(endDate)) {
-        errorsObj.endDate = "Invalid end date";
-      }
+      errorsObj.startDate = "Invalid start date";
+    }
 
+    if (!dateRegex.test(endDate)) {
+      errorsObj.endDate = "Invalid end date";
+    }
 
     if (startDate && endDate) {
       const selectedStartDate = new Date(startDate);
       const selectedEndDate = new Date(endDate);
+      const currentDate = new Date();
 
-      for (const booking of disabledDates) {
-        const { startDate: bookingStartDate, endDate: bookingEndDate } =
-          booking;
-
-        if (
-          (selectedStartDate >= bookingStartDate &&
-            selectedStartDate <= bookingEndDate) ||
-          (selectedEndDate >= bookingStartDate &&
-            selectedEndDate <= bookingEndDate) ||
-          (selectedStartDate <= bookingStartDate &&
-            selectedEndDate >= bookingEndDate) ||
-          (selectedStartDate >= bookingStartDate &&
-            selectedEndDate <= bookingEndDate)
-        ) {
-          errorsObj.startDate = "Start date conflicts with an existing booking";
-          errorsObj.endDate = "End date conflicts with an existing booking";
-          break;
-        }
-      }
-
-      if (!errorsObj.startDate && !errorsObj.endDate) {
+      if (selectedStartDate < currentDate || selectedEndDate < currentDate) {
+        errorsObj.startDate = "Cannot modify bookings in the past";
+        errorsObj.endDate = "Cannot modify bookings in the past";
+      } else {
         for (const booking of disabledDates) {
           const { startDate: bookingStartDate, endDate: bookingEndDate } =
             booking;
 
           if (
-            selectedStartDate <= bookingStartDate &&
-            selectedEndDate >= bookingEndDate
+            (selectedStartDate >= bookingStartDate &&
+              selectedStartDate <= bookingEndDate) ||
+            (selectedEndDate >= bookingStartDate &&
+              selectedEndDate <= bookingEndDate) ||
+            (selectedStartDate <= bookingStartDate &&
+              selectedEndDate >= bookingEndDate) ||
+            (selectedStartDate >= bookingStartDate &&
+              selectedEndDate <= bookingEndDate)
           ) {
             errorsObj.startDate =
-              "Booking falls within an existing booking's range";
-            errorsObj.endDate =
-              "Booking falls within an existing booking's range";
+              "Start date conflicts with an existing booking";
+            errorsObj.endDate = "End date conflicts with an existing booking";
             break;
+          }
+        }
+
+        if (!errorsObj.startDate && !errorsObj.endDate) {
+          for (const booking of disabledDates) {
+            const { startDate: bookingStartDate, endDate: bookingEndDate } =
+              booking;
+
+            if (
+              selectedStartDate <= bookingStartDate &&
+              selectedEndDate >= bookingEndDate
+            ) {
+              errorsObj.startDate =
+                "Booking falls within an existing booking's range";
+              errorsObj.endDate =
+                "Booking falls within an existing booking's range";
+              break;
+            }
           }
         }
       }
@@ -154,8 +157,6 @@ function UpdateBookingModal({ booking }) {
   useEffect(() => {
     handleInputErrors();
   }, [startDate, endDate]);
-
-
 
   const handleUpdateBooking = async (e) => {
     e.preventDefault();
@@ -170,26 +171,23 @@ function UpdateBookingModal({ booking }) {
       };
 
       await dispatch(updateBookingThunk(newBookingData, booking.id));
-      closeModal()
+      closeModal();
     }
     setHasSubmitted(true);
   };
 
+  if (!currentSpot) {
+    return <h1>LOADING...</h1>;
+  }
 
-
-
-
-
-    if (!currentSpot) {
-      return <h1>LOADING...</h1>;
-    }
-    
   return (
     <div className="update-booking-container-modal">
       <div className="update-booking-heading">Update your booking</div>
-     
 
-<form onSubmit={handleUpdateBooking} className="update-booking-form-container">
+      <form
+        onSubmit={handleUpdateBooking}
+        className="update-booking-form-container"
+      >
         {hasSubmitted && errors.startDate && (
           <div className="errors">{errors.startDate}</div>
         )}
@@ -201,7 +199,10 @@ function UpdateBookingModal({ booking }) {
         )}
         <div className="update-booking-input-container">
           <div className="left-update-booking-start">
-            <div className="update-booking-input-subtext"> CURRENT CHECK-IN</div>
+            <div className="update-booking-input-subtext">
+              {" "}
+              CURRENT CHECK-IN
+            </div>
             <input
               type="text"
               value={startDate}
@@ -211,7 +212,10 @@ function UpdateBookingModal({ booking }) {
             />
           </div>
           <div className="right-update-booking-end">
-            <div className="update-booking-input-subtext"> CURRENT CHECKOUT</div>
+            <div className="update-booking-input-subtext">
+              {" "}
+              CURRENT CHECKOUT
+            </div>
 
             <input
               type="text"
@@ -222,12 +226,14 @@ function UpdateBookingModal({ booking }) {
             />
           </div>
         </div>
-        <div className="update-booking-select">Select a new date on the calendar</div>
+        <div className="update-booking-select">
+          Select a new date on the calendar
+        </div>
         <CalendarDateRange
-        currentSpot={currentSpot}
-        allBookings={allBookings}
-        onDateRangeSelect={handleDateRangeSelect}
-      />
+          currentSpot={currentSpot}
+          allBookings={allBookings}
+          onDateRangeSelect={handleDateRangeSelect}
+        />
         <button
           type="submit"
           className="update-booking-button"
@@ -238,43 +244,6 @@ function UpdateBookingModal({ booking }) {
           Update
         </button>
       </form>
-
-      {/* <form
-        onSubmit={handleReviewSubmit}
-        className="create-review-form-container"
-      >
-        {hasSubmitted && errors.review && (
-          <p className="errors">{errors.review}</p>
-        )}
-        {hasSubmitted && errors.stars && (
-          <p className="errors">{errors.stars}</p>
-        )}
-
-        <textarea
-          type="text"
-          value={reviewText}
-          className="leave-review"
-          placeholder="Leave your review here..."
-          onChange={(e) => setReviewText(e.target.value)}
-        />
-
-        <div className="stars-rating-container">
-          <StarsRatingInput
-            disabled={false}
-            onChange={onChange}
-            stars={stars}
-          />
-
-          <div className="stars-text-rating">Stars</div>
-        </div>
-
-        <input
-          type="submit"
-          className="submit-review-button-modal"
-          value="Update Your Review"
-          disabled={hasSubmitted && Object.values(errors).length > 0}
-        />
-      </form> */}
     </div>
   );
 }

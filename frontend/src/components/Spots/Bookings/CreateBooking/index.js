@@ -2,13 +2,14 @@ import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "../../SpotDetails/SpotDetails.css";
 import { createBookingThunk } from "../../../../store/booking";
+import { useHistory } from "react-router-dom";
 
 function CreateBookingForm({ spotId, allBookings, start, end, currentSpot }) {
   const [hasSubmitted, setHasSubmitted] = useState(false);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const reserveButtonRef = useRef("pog");
-
+    const history = useHistory()
   const displayDate = (date) => {
     const dateObject = new Date(date);
     const month = String(dateObject.getMonth() + 1).padStart(2, "0");
@@ -145,7 +146,8 @@ function CreateBookingForm({ spotId, allBookings, start, end, currentSpot }) {
         endDate: formattedEnd,
       };
 
-      dispatch(createBookingThunk(spotId, newBookingData));
+      await dispatch(createBookingThunk(spotId, newBookingData));
+      history.push('/bookings/current')
     }
     setHasSubmitted(true);
   };

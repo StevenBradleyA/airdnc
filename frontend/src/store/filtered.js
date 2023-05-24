@@ -1,57 +1,59 @@
 import { csrfFetch } from "./csrf";
 
-const LOAD_FILTERED_SPOTS = "spots/LOAD_FILTERED_SPOTS";
+const SET_MIN_PRICE = "SET_MIN_PRICE";
+const SET_MAX_PRICE = "SET_MAX_PRICE";
+const SET_COUNTRY = "SET_COUNTRY";
+const SET_STATE = "SET_STATE";
 
-export const loadFilteredSpots = (allSpotData) => ({
-  type: LOAD_FILTERED_SPOTS,
-  payload: allSpotData,
+export const setMinPrice = (minPrice) => ({
+  type: SET_MIN_PRICE,
+  payload: minPrice,
 });
 
-// export const getAllFilteredSpotsThunk = () => async (dispatch) => {
-//   const response = await csrfFetch("/api/spots/filter");
+export const setMaxPrice = (maxPrice) => ({
+  type: SET_MAX_PRICE,
+  payload: maxPrice,
+});
 
-//   if (response.ok) {
-//     const allSpotData = await response.json();
-//     const normalizedAllSpotData = {};
-//     allSpotData.Spots.forEach((e) => {
-//       normalizedAllSpotData[e.id] = e;
-//     });
+export const setCountry = (country) => ({
+  type: SET_COUNTRY,
+  payload: country,
+});
 
-//     dispatch(loadFilteredSpots(normalizedAllSpotData));
-//   }
-// };
+export const setState = (state) => ({
+  type: SET_STATE,
+  payload: state,
+});
 
-export const getAllFilteredSpots = (filterParams) => async (dispatch) => {
-  const queryParams = new URLSearchParams(filterParams).toString();
-  const url = `/api/spots/filter?${queryParams}`;
-
-  try {
-    const response = await csrfFetch(url);
-    if (!response.ok) {
-      throw new Error("Failed to fetch filtered spots.");
-    }
-
-    const allSpotData = await response.json();
-    const normalizedAllSpotData = {};
-    allSpotData.Spots.forEach((e) => {
-      normalizedAllSpotData[e.id] = e;
-    });
-
-    dispatch(loadFilteredSpots(normalizedAllSpotData));
-
-    //   dispatch(loadFilteredSpots(allSpotData.Spots));
-  } catch (error) {
-    console.error(error);
-  }
+const initialState = {
+  minPrice: "",
+  maxPrice: "",
+  country: "",
+  state: "",
 };
 
-const initialState = {};
-
 const filteredSpotsReducer = (state = initialState, action) => {
-  let newState = { ...state };
   switch (action.type) {
-    case LOAD_FILTERED_SPOTS:
-      return { ...state, ...action.payload };
+    case SET_MIN_PRICE:
+      return {
+        ...state,
+        minPrice: action.payload,
+      };
+    case SET_MAX_PRICE:
+      return {
+        ...state,
+        maxPrice: action.payload,
+      };
+    case SET_COUNTRY:
+      return {
+        ...state,
+        country: action.payload,
+      };
+    case SET_STATE:
+      return {
+        ...state,
+        state: action.payload,
+      };
     default:
       return state;
   }

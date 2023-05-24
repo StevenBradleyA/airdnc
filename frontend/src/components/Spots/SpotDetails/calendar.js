@@ -4,7 +4,7 @@ import "./calendar.css";
 
 import { DateRangePicker } from "react-date-range";
 
-const CalendarDateRange = ({ currentSpot, allBookings, onDateRangeSelect }) => {
+const CalendarDateRange = ({ allBookings, onDateRangeSelect }) => {
   const [selectedRange, setSelectedRange] = useState({
     startDate: new Date(),
     endDate: new Date(),
