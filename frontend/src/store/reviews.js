@@ -2,7 +2,7 @@ import { csrfFetch } from "./csrf";
 
 const LOAD_REVIEWS = "reviews/LOAD_REVIEWS";
 const CREATE_REVIEW = "reviews/CREATE_REVIEW";
-// const UPDATE_REVIEW = "reviews/UPDATE_REVIEW";
+const UPDATE_REVIEW = "reviews/UPDATE_REVIEW";
 const DELETE_REVIEW = "reviews/DELETE_REVIEW";
 
 const loadReviews = (allReviewData) => ({
@@ -15,10 +15,10 @@ const createReview = (newReviewData) => ({
   payload: newReviewData,
 });
 
-// const updateReview = (updatedReviewData) => ({
-//   type: UPDATE_REVIEW,
-//   payload: updatedReviewData,
-// });
+const updateReview = (updatedReviewData) => ({
+  type: UPDATE_REVIEW,
+  payload: updatedReviewData,
+});
 const deleteReview = (reviewId) => ({
   type: DELETE_REVIEW,
   payload: reviewId,
@@ -50,6 +50,25 @@ export const getAllReviewsBySpotIdThunk = (spotId) => async (dispatch) => {
 //     dispatch(loadReviews(normalizedReviewData));
 //   }
 // };
+
+export const updateReviewThunk =
+  (newReviewData, reviewId) => async (dispatch) => {
+    try {
+      const response = await csrfFetch(`/api/reviews/${reviewId}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newReviewData),
+      });
+      const data = await response.json();
+      const normalizedReviewData = {
+        [data.id]: data,
+      };
+      dispatch(updateReview(normalizedReviewData));
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
 export const createReviewThunk =
   (newReviewData, spotId) => async (dispatch) => {
@@ -89,8 +108,8 @@ const reviewsReducer = (state = initialState, action) => {
       return { ...state, ...action.payload };
     case CREATE_REVIEW:
       return { ...state, ...action.payload };
-    // case UPDATE_REVIEW:
-    // return { ...state, ...action.payload };
+    case UPDATE_REVIEW:
+      return { ...state, ...action.payload };
     case DELETE_REVIEW:
       delete newState[action.payload];
       return newState;

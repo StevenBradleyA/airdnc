@@ -1,4 +1,17 @@
-/* TODO Add site wide styles */
+
+@import url('https://fonts.googleapis.com/css?family=DM+Sans:400,400i,500,500i,700,700i&display=swap');
+
+
+
+
+
+
+body {
+  font-family: 'DM Sans', sans-serif;
+}
+
+
+
 .image {
   border: 2px solid black;
 }
@@ -8,5 +21,3 @@
 .modal {
   border: 2px solid rgb(0, 13, 255);
 }
-
-

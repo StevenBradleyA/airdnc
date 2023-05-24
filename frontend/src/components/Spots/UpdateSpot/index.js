@@ -12,7 +12,8 @@ const UpdateSpot = () => {
   }
 
   return (
-    <div className="update-container">
+    <div className="create-container">
+
       <CreateSpotForm formType="update" spotId={spotId}/>
     </div>
   );

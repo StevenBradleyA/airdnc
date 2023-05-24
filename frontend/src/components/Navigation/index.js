@@ -1,21 +1,28 @@
 import React, { useState, useEffect, useRef } from "react";
 import { NavLink, useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
-// import ProfileButton from "./ProfileButton";
 import OpenModalButton from "../OpenModalButton";
 import LoginFormModal from "../LoginFormModal";
 import SignupFormModal from "../SignupFormModal";
-
+import logoMain from "../../media/logo-main.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCouch, faBurger } from "@fortawesome/free-solid-svg-icons";
+import {
+  faUserCircle,
+  faBars,
+  faMagnifyingGlass,
+} from "@fortawesome/free-solid-svg-icons";
 
 import "./Navigation.css";
 import LogOutButton from "./Logout";
 import DemoLogin from "./DemoLogin";
+import { useModal } from "../../context/Modal";
+import FilterModal from "./filterModal";
 
-function Navigation({ isLoaded }) {
+function Navigation() {
   const sessionUser = useSelector((state) => state.session.user);
   const [openMenu, setOpenMenu] = useState(false);
+  const { setModalContent } = useModal();
+
   const history = useHistory();
   const burgerRef = useRef();
   useEffect(() => {
@@ -31,95 +38,120 @@ function Navigation({ isLoaded }) {
     };
   });
 
+  const handleSearchClick = () => {
+    setModalContent(<FilterModal />);
+  };
+
   const handleMenuClick = (e) => {
     e.preventDefault();
     setOpenMenu((open) => !open);
   };
   const handleCreateClick = (e) => {
     e.preventDefault();
+    setOpenMenu(false);
     history.push("/spots/new");
   };
   const handleManageClick = (e) => {
     e.preventDefault();
+    setOpenMenu(false);
     history.push("/spots/current");
   };
+  const handleManageBookingsClick = (e) => {
+    e.preventDefault();
+    setOpenMenu(false);
+    history.push("/bookings/current");
+  };
 
-  let sessionLinks;
-  if (sessionUser) {
-    sessionLinks = (
-      <></>
-      // <div>
-      //   <ProfileButton user={sessionUser} />
-      // </div>
-    );
-  } else {
-    sessionLinks = (
-      <div>
-        <OpenModalButton
-          buttonText="Log In"
-          
-          modalComponent={<LoginFormModal />}
-        />
-        <div></div>
-        <OpenModalButton
-          buttonText="Sign Up"
-          modalComponent={<SignupFormModal />}
-        />
-        <DemoLogin />
-      </div>
-    );
-  }
+  // Might make more sense to just make the search a drop down with all listings with the name
+  // because you want to be able to search for a place on every page...
+
+  // refactor once the backend is written
+  // clicking the search button just opens a modal that displays listings ez pz
+
+  const handleHomeClick = () => {
+    history.push(`/`);
+  };
 
   return (
     <div className="navigation-bar">
-      <div className="home-button">
-        <NavLink
-          exact
-          to="/"
-          style={{ color: "inherit", textDecoration: "inherit" }}
-        >
-          <FontAwesomeIcon icon={faCouch} />
-          <> </>
-          airdnc
-        </NavLink>
+      <div className="home-button" onClick={handleHomeClick}>
+        <img src={logoMain} alt="home" className="logo-main" />
+        <div className="home-button-text">airdnc</div>
       </div>
       {sessionUser && (
-        <button className="new-spot-button" onClick={handleCreateClick}>
-          Create a New Spot
-        </button>
+        <div className="new-spot-button" onClick={handleCreateClick}>
+          Airdnc your home
+        </div>
       )}
-      <div className="menu-container" ref={burgerRef}>
-        <div className="menu">
-          <FontAwesomeIcon
-            icon={faBurger}
-            style={{ opacity: 0.8 }}
-            onClick={handleMenuClick}
-          />
 
+      <div className="search-bar-style" onClick={handleSearchClick}>
+        <div className="search-text-before">
+          {`Anywhere   |   Any week   |  `}
+          <span style={{ color: "grey" }}>Find a Couch</span>
+        </div>
+
+        <div className="magnifying-circle">
+          <FontAwesomeIcon icon={faMagnifyingGlass} className="magnifying" />
+        </div>
+      </div>
+
+      <div className="menu-container" ref={burgerRef}>
+        <div
+          className="nav-bar-menu-icon"
+          onClick={handleMenuClick}
+          ref={burgerRef}
+        >
+          <FontAwesomeIcon icon={faBars} className="menu-bars" />
+          <FontAwesomeIcon icon={faUserCircle} className="menu-circle-user" />
+        </div>
+        <div className="menu">
           <div className={`menu-dropdown ${openMenu ? "active" : "inactive"}`}>
             {sessionUser && (
-              <h3 className="menu-hello">{`Hello, ${sessionUser.firstName} ${sessionUser.email}`}</h3>
+              <div className="menu-drop-heading-container">
+                <div className="menu-hello">{`Hello, ${sessionUser.firstName}`}</div>
+                <div className="menu-email">{sessionUser.email}</div>
+              </div>
             )}
             {sessionUser && (
-              <button
-                className="your-profile-button"
-                onClick={() => window.alert("Coming Soon!")}
-              >
-                Your Profile
-              </button>
+              <div className="drop-down-logged-in-buttons">
+                <div
+                  className="logged-in-menu-buttons"
+                  onClick={handleManageClick}
+                >
+                  Manage Listings
+                </div>
+                <div
+                  className="logged-in-menu-buttons"
+                  onClick={handleManageBookingsClick}
+                >
+                  Manage Bookings
+                </div>
+
+                
+
+                <LogOutButton
+                  user={sessionUser}
+                  name={`Log Out`}
+                  openMenu={openMenu}
+                  setOpenMenu={setOpenMenu}
+                />
+              </div>
             )}
-            {sessionUser && (
-              <button
-                className="manage-spot-button"
-                onClick={handleManageClick}
-              >
-                Manage Spots
-              </button>
+            {!sessionUser && (
+              <div className="logged-out-dropdown-container">
+                <OpenModalButton
+                  buttonText="Sign Up"
+                  modalComponent={<SignupFormModal />}
+                />
+                <OpenModalButton
+                  buttonText="Log In"
+                  modalComponent={<LoginFormModal />}
+                />
+                <div className="demo-log-container">
+                  <DemoLogin />
+                </div>
+              </div>
             )}
-            {sessionUser && (
-              <LogOutButton user={sessionUser} name={`Log Out`} openMenu={openMenu} setOpenMenu={setOpenMenu} />
-            )}
-            <div className="logged-out-dropdown-container">{isLoaded && sessionLinks}</div>
           </div>
         </div>
       </div>

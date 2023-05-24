@@ -1,13 +1,52 @@
+.sign-up-modal-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 600px;
+    height: 600px;
+}
+
+.sign-up-modal-form-container{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 20px;
+}
+
+.sign-up-input {
+    width: 300px;
+    height: 25px;
+    padding: 8px 12px;
+    border-radius: 5px;
+    border: 1px solid #ccc; 
+    font-size: 16px;
+  }
+  
+  .sign-up-input:hover,
+  .sign-up-input:focus {
+    outline: none; 
+    border-color: #d4d4d4;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); 
+  }
 
 
 .sign-up-button-modal{
-    background-color: red;
+    background-color: rgba(2, 104, 187, 0.411);
     color: white;
-    width: 104%;
-    height: 10%;
-    padding-top: 1%;
-    padding-bottom: 1%;
+    width: 200px;
+    border-radius: 15px;
+    padding: 12px;
+    border: 1px solid #ccc; 
     cursor: pointer;
-    box-shadow: #420000 4px 4px 0 0;
-    border: 3px solid black;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.sign-up-button-modal:hover{
+
+    background-color: rgba(2, 104, 187, 0.811);
+
+    transform: scale(1.05);
+
 }

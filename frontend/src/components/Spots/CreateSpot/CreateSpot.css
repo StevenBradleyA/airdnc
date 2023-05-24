@@ -1,81 +1,131 @@
-.errors {
-  color: red;
+.create-container{
+  width: 100%;
+  margin-top: 90px;
+  display: flex;
+  justify-content: center;
 }
+
 
 .create-spot-container {
-  /* margin-top: 50px; */
-  width: 500px;
-  padding: 5% 30%;
+  width: 60%;
   display: flex;
   flex-direction: column;
-  /* align-items:center; */
 }
 
-/* .create-form{
-    display:flex;
-    flex-direction:column;
-    align-items:center; 
-} */
-/* ---------------HEADING------------------ */
-
-.create-spot-heading-container {
+.create-form-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
+/* ---------------       HEADING     ------------------ */
+
 .create-spot-heading {
-  font-size: 25px;
-  /* position: relative;
-bottom: 15px; */
+  display: flex;
+  justify-content: center;
+  font-size: 30px;
+  font-weight: bold;
+  gap: 10px;
+  margin-bottom: 30px;
 }
-.update-spot-heading {
-  font-size: 25px;
+.header-logo-create {
+  width: 35px;
 }
-.where-create {
+
+.sub-title-text {
+  margin-bottom: 15px;
   font-size: 20px;
 }
-.where-create-info {
-  font-size: 15px;
-  position: relative;
-  bottom: 15px;
+.sub-title-info {
+  font-size: 16px;
+  margin-bottom: 20px;
 }
 
-/* ---------------LOCATION------------------ */
+/* ---------------        form     ------------------ */
 
 .basic-input {
   width: 100%;
+  height: 25px;
+  padding: 8px 12px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  margin-bottom: 10px;
 }
 
-.city-input {
-  width: 55%;
+.basic-input:hover,
+.basic-input:focus {
+  outline: none;
+  border-color: #d4d4d4;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
 
-/* ---------------DESCRIPTION------------------ */
-.create-form-header {
-  border-top: 2px solid black;
-  font-size: 20px;
-  padding-top: 10px;
+.form-spacer {
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border-top: 1.5px solid rgb(227, 227, 227);
 }
+
+
+.create-spot-label{
+  margin-bottom: 10px;
+}
+
+
 
 .description-input {
-  width: 500px;
+  width: 100%;
   height: 100px;
+  padding: 8px 12px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  margin-bottom: 10px;
 }
 
-.button-border {
-  border-top: 2px solid black;
-  padding-top: 20px;
-  padding-left: 25%;
+.description-input:hover,
+.description-input:focus {
+  outline: none;
+  border-color: #d4d4d4;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
+
+
+
+.create-spot-button-container {
+
+  display: flex;
+  justify-content: center;
+}
+
+
 .create-spot-button {
-  position: relative;
-  background-color: red;
+
+  margin-top: 15px;
+  margin-bottom: 30px;
+  background-color: rgba(2, 104, 187, 0.411);
   color: white;
-  padding-left: 50px;
-  padding-right: 50px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  position: relative;
-  left: 20px;
-  bottom: 5px;
+  width: 200px;
+  border-radius: 15px;
+  padding: 12px;
+  border: 1px solid #ccc; 
   cursor: pointer;
-  box-shadow: #420000 4px 4px 0 0;
-  border: 3px solid black;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+
+.create-spot-button:hover{
+
+  background-color: rgba(2, 104, 187, 0.811);
+
+  transform: scale(1.05);
+
+
+}
+
+
+
+
+.errors {
+  color: red;
 }

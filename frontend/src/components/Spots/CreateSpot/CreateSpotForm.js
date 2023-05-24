@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import React, { useState, useEffect } from "react";
 import { createSpotThunk, updateSpotThunk } from "../../../store/spots";
 import "./CreateSpot.css";
+import logo from "../../../media/logo-location.svg"
 
 const CreateSpotForm = ({ formType, spotId }) => {
   const dispatch = useDispatch();
@@ -14,6 +15,8 @@ const CreateSpotForm = ({ formType, spotId }) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
+  const [lat, setLat] = useState("");
+  const [lng, setLng] = useState("");
   const [previewImage, setPreviewImage] = useState("");
   const [nonPreviewImage1, setNonPreviewImage1] = useState("");
   const [nonPreviewImage2, setNonPreviewImage2] = useState("");
@@ -46,6 +49,13 @@ const CreateSpotForm = ({ formType, spotId }) => {
     }
     if (!price) {
       errorsObj.price = "Price is required";
+    }
+    if (!lat || isNaN(lat) || lat < -90 || lat > 90) {
+      errorsObj.lat = "Latitude is invalid";
+    }
+
+    if (!lng || isNaN(lng) || lng < -180 || lng > 180) {
+      errorsObj.lng = "Longitude is invalid";
     }
     if (previewImage.length === 0) {
       errorsObj.previewImage = "Preview image is required";
@@ -98,6 +108,8 @@ const CreateSpotForm = ({ formType, spotId }) => {
     description,
     name,
     price,
+    lat,
+    lng,
     previewImage,
     nonPreviewImage1,
     nonPreviewImage2,
@@ -123,13 +135,12 @@ const CreateSpotForm = ({ formType, spotId }) => {
         country,
         name,
         description,
+        lat,
+        lng,
         price,
         previewImage,
         imageArr,
       };
-
-      // let newSpot = await dispatch(createSpotThunk(spotInformation));
-      // history.push(`/spots/${newSpot.id}`);
       let newSpot;
       if (formType === "create") {
         newSpot = await dispatch(createSpotThunk(spotInformation));
@@ -144,23 +155,23 @@ const CreateSpotForm = ({ formType, spotId }) => {
 
   return (
     <div className="create-spot-container">
-      <div className="create-spot-heading-container">
         {formType === "create" && (
-          <h1 className="create-spot-heading">Create a new Spot</h1>
+          <div className="create-spot-heading">List your couch <img alt="couch" src={logo} className="header-logo-create"/></div>
         )}
         {formType === "update" && (
-          <h1 className="update-spot-heading">Update your Spot</h1>
+          <div className="create-spot-heading">Update your listing <img alt="couch" src={logo} className="header-logo-create"/></div>
         )}
-        <h2 className="where-create">Where's your place located?</h2>
-        <h3 className="where-create-info">
+        <div className="sub-title-text">Where's your place located?</div>
+        <div className="sub-title-info">
           Guests will only get your exact address once they have booked a
           reservation.
-        </h3>
-      </div>
+        </div>
 
-      <form onSubmit={handleFormSubmit} className="create-form">
-        <label>
+      <form onSubmit={handleFormSubmit} className="create-form-container">
+      <label className="create-spot-label">
+
           Country
+          </label>
           <input
             type="text"
             className="basic-input"
@@ -168,13 +179,14 @@ const CreateSpotForm = ({ formType, spotId }) => {
             placeholder="Country"
             onChange={(e) => setCountry(e.target.value)}
           />
-        </label>
-        <p></p>
         {hasSubmitted && errors.country && (
           <p className="errors">{errors.country}</p>
         )}
-        <label>
+        <label className="create-spot-label">
+
+
           Street Address
+          </label>
           <input
             type="text"
             className="basic-input"
@@ -182,65 +194,103 @@ const CreateSpotForm = ({ formType, spotId }) => {
             placeholder="Address"
             onChange={(e) => setAddress(e.target.value)}
           />
-        </label>
-        <p></p>
         {hasSubmitted && errors.address && (
           <p className="errors">{errors.address}</p>
         )}
-        <label>
+        <label className="create-spot-label">
+
+
           City
+          </label>
           <input
             type="text"
-            className="city-input"
+            className="basic-input"
+
             placeholder="City"
             value={city}
             onChange={(e) => setCity(e.target.value)}
           />
-        </label>
         {hasSubmitted && errors.city && <p className="errors">{errors.city}</p>}
-        <label>
+        <label className="create-spot-label">
+
+
           State
+          </label>
           <input
             type="text"
             placeholder="State"
+            className="basic-input"
+
             value={state}
             onChange={(e) => setState(e.target.value)}
           />
-        </label>
         {hasSubmitted && errors.state && (
           <p className="errors">{errors.state}</p>
         )}
-        <h1 className="create-form-header">Describe your place to guests</h1>
-        <label>
+        <div className="form-spacer"></div>
+
+        <div className="sub-title-text">Provide coordinates of your place</div>
+        <label className="create-spot-label">
+
+          Coordinates will help users plan with google maps.
+          </label>
+          <input
+            type="text"
+            placeholder="lat"
+            className="basic-input"
+            value={lat}
+            onChange={(e) => setLat(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="lng"
+            className="basic-input"
+            value={lng}
+            onChange={(e) => setLng(e.target.value)}
+          />
+        {hasSubmitted && errors.lng && <p className="errors">{errors.lat}</p>}
+        {hasSubmitted && errors.lng && <p className="errors">{errors.lng}</p>}
+        <div className="form-spacer"></div>
+
+        <div className="sub-title-text">Describe your place to guests</div>
+        <label className="create-spot-label">
+
           Mention the best features of your space, any special amentities like
           fast wifi or parking, and what you love about the neighborhood.
+          </label>
           <textarea
             placeholder="Please write at least 30 characters"
             className="description-input"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
-        </label>
         {hasSubmitted && errors.description && (
           <p className="errors">{errors.description}</p>
         )}
-        <h1 className="create-form-header">Create a title for your spot</h1>
-        <label>
+        <div className="form-spacer"></div>
+
+        <div className="sub-title-text">Create a title for your place</div>
+        <label className="create-spot-label">
+
           Catch guests' attention with a spot title that highlights what makes
           your place special.
+          </label>
           <input
             type="text"
-            placeholder="Name of your spot"
+            placeholder="Name of your place"
             className="basic-input"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
-        </label>
         {hasSubmitted && errors.name && <p className="errors">{errors.name}</p>}
-        <h1 className="create-form-header">Set a base price for your spot</h1>
-        <label>
+        <div className="form-spacer"></div>
+
+        <div className="sub-title-text">Set a base price for your guests</div>
+        <label className="create-spot-label">
+
           Competitive pricing can help your listing stand out and rank higher in
           search results.
+          </label>
           <input
             type="number"
             placeholder="Price per night (USD)"
@@ -248,14 +298,16 @@ const CreateSpotForm = ({ formType, spotId }) => {
             value={price}
             onChange={(e) => setPrice(e.target.value)}
           />
-        </label>
         {hasSubmitted && errors.price && (
           <p className="errors">{errors.price}</p>
         )}
-        <h1 className="create-form-header">Liven up your spot with photos</h1>
-        <label>
-          Submit a link to at least one photo to publish your spot.
-          <p></p>
+        <div className="form-spacer"></div>
+
+        <div className="sub-title-text">Liven up your listing with photos</div>
+        <label className="create-spot-label">
+
+          Submit a link to at least one photo to publish your place.
+          </label>
           <input
             type="text"
             placeholder="Preview Image URL"
@@ -263,15 +315,15 @@ const CreateSpotForm = ({ formType, spotId }) => {
             value={previewImage}
             onChange={(e) => setPreviewImage(e.target.value)}
           />
-        </label>
         {hasSubmitted && errors.previewImage && (
           <p className="errors">{errors.previewImage}</p>
         )}
         {hasSubmitted && errors.wrongEnding && (
           <p className="errors">{errors.wrongEnding}</p>
         )}
-        <p></p>
-        <label>
+        <label className="create-spot-label">
+
+          </label>
           <input
             type="text"
             placeholder="Image URL"
@@ -279,15 +331,12 @@ const CreateSpotForm = ({ formType, spotId }) => {
             value={nonPreviewImage1}
             onChange={(e) => setNonPreviewImage1(e.target.value)}
           />
-        </label>
         {hasSubmitted && errors.nonPreviewImage1 && (
           <p className="errors">{errors.nonPreviewImage1}</p>
         )}
         {hasSubmitted && errors.wrongEnding1 && (
           <p className="errors">{errors.wrongEnding1}</p>
         )}
-        <p></p>
-        <label>
           <input
             type="text"
             placeholder="Image URL"
@@ -295,15 +344,12 @@ const CreateSpotForm = ({ formType, spotId }) => {
             value={nonPreviewImage2}
             onChange={(e) => setNonPreviewImage2(e.target.value)}
           />
-        </label>
         {hasSubmitted && errors.nonPreviewImage2 && (
           <p className="errors">{errors.nonPreviewImage2}</p>
         )}
         {hasSubmitted && errors.wrongEnding2 && (
           <p className="errors">{errors.wrongEnding2}</p>
         )}
-        <p></p>{" "}
-        <label>
           <input
             type="text"
             placeholder="Image URL"
@@ -311,15 +357,12 @@ const CreateSpotForm = ({ formType, spotId }) => {
             value={nonPreviewImage3}
             onChange={(e) => setNonPreviewImage3(e.target.value)}
           />
-        </label>
         {hasSubmitted && errors.nonPreviewImage3 && (
           <p className="errors">{errors.nonPreviewImage3}</p>
         )}
         {hasSubmitted && errors.wrongEnding3 && (
           <p className="errors">{errors.wrongEnding3}</p>
         )}
-        <p></p>{" "}
-        <label>
           <input
             type="text"
             placeholder="Image URL"
@@ -327,18 +370,21 @@ const CreateSpotForm = ({ formType, spotId }) => {
             value={nonPreviewImage4}
             onChange={(e) => setNonPreviewImage4(e.target.value)}
           />
-        </label>
         {hasSubmitted && errors.nonPreviewImage4 && (
           <p className="errors">{errors.nonPreviewImage4}</p>
         )}
         {hasSubmitted && errors.wrongEnding4 && (
           <p className="errors">{errors.wrongEnding4}</p>
         )}
-        <p></p>
-        <div className="button-border">
+          <div className="create-spot-button-container">
 
-        <input className="create-spot-button" type="submit" value={formType === 'create'? "Create Spot": 'Update Your Spot'} disabled={hasSubmitted && Object.values(errors).length > 0} />
-        </div>
+          <input
+            className="create-spot-button"
+            type="submit"
+            value={formType === "create" ? "Create Spot" : "Update Your Spot"}
+            disabled={hasSubmitted && Object.values(errors).length > 0}
+            />
+            </div>
       </form>
     </div>
   );

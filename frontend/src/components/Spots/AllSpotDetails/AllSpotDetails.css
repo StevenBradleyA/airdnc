@@ -1,33 +1,59 @@
 
-/* grid attempt */
 .spotCardsContainer {
-  margin: 30px 30px;
-  padding: 40px 10px;
+  margin-top: 80px;
+  margin-left: 3%;
+  margin-right: 3%;
+  padding: 20px;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 20px;
 }
 
-/* tried this 50 times still not working  maybe it has to have an event 
-listener or something...*/
 @media screen and (max-width: 549px) {
   .spotCardsContainer {
-    grid-template-columns: repeat(1, 1fr);
-  }
-}
-@media screen and (min-width: 550px) and (max-width: 750px) {
-  .spotCardsContainer {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
   }
 }
 
-@media screen and (min-width: 751px) and (max-width: 949px) {
+@media screen and (min-width: 550px) {
   .spotCardsContainer {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, minmax(150px, 1fr));
   }
 }
-@media screen and (min-width: 950px) {
+
+@media screen and (min-width: 850px) {
   .spotCardsContainer {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, minmax(150px, 1fr));
   }
 }
+
+@media screen and (min-width: 1150px) {
+  .spotCardsContainer {
+    grid-template-columns: repeat(4, minmax(150px, 1fr));
+  }
+}
+
+@media screen and (min-width: 1450px) {
+  .spotCardsContainer {
+    grid-template-columns: repeat(5, minmax(150px, 1fr));
+  }
+}
+
+@media screen and (min-width: 1750px) {
+  .spotCardsContainer {
+    grid-template-columns: repeat(6, minmax(150px, 1fr));
+  }
+}
+
+/* this is an autofill instead of stopping at 6 */
+/* @media (max-width: 1199px) {
+  .spotCardsContainer {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+}
+
+@media (min-width: 1200px) {
+  .spotCardsContainer {
+    grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+  }
+} */

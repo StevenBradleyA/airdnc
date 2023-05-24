@@ -1,19 +1,12 @@
-#modal-content {
-  background-color: white;
-  border-radius: 10px;
-  padding-top:0;
-  padding-right: 10%;
-  padding-left:10%;
-  padding-bottom:3%;
-  /* margin-left:40%; */
-  /* width: 30%;
-  height: 50%; */
+
+.log-in-modal-container{
   display: flex;
   flex-direction: column;
+  align-items: center;
+  width: 600px;
+  height: 400px;
+
 }
-/* .log-in-modal-container{
- 
-} */
 
 /* --------------------------------- */
 
@@ -23,23 +16,6 @@
   justify-content: center;
 }
 
-.input-length-standard {
-  width: 100%;
-  border: 3px solid black;
-}
-
-.modal-form-log-in-button {
-  background-color: red;
-  color: white;
-  width: 104%;
-  height: 25%;
-  padding-top: 5%;
-  padding-bottom: 5%;
-  cursor: pointer;
-  box-shadow: #420000 4px 4px 0 0;
-  border: 3px solid black;
-}
-
 .demo-user-button-container {
   display: flex;
   align-items: center;
@@ -47,9 +23,11 @@
 }
 .demo-user-button {
   padding: 0;
+  font-size: 16px;
   border: none;
   background: none;
   cursor: pointer;
-  color: rgb(16, 110, 101);
+  color: rgba(2, 104, 187, 0.411);
+
   text-decoration: underline;
 }

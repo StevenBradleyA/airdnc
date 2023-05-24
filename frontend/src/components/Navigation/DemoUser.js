@@ -6,7 +6,7 @@ const DemoUser = () => {
     const { closeModal } = useModal();
     const dispatch = useDispatch();
   const onClick = () => {
-    dispatch(login({ credential: "demo@user.io", password: "password" }))
+    dispatch(login({ credential: "demo@aa.io", password: "password" }))
     .then(() => closeModal())
 
   };

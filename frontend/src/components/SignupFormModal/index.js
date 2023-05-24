@@ -87,7 +87,7 @@ function SignupFormModal() {
   };
 
   return (
-    <>
+    <div className="sign-up-modal-container">
       <h1 className="modal-heading">Sign Up</h1>
       {hasSubmitted && errors.email && (
         <div className="errors">{errors.email}</div>
@@ -110,77 +110,71 @@ function SignupFormModal() {
       {hasSubmitted && errors.match && (
         <div className="errors">{errors.match}</div>
       )}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="sign-up-modal-form-container">
         <label>
           <input
             type="text"
             placeholder="Email"
-            className="input-length-standard"
+            className="sign-up-input"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
         </label>
-        <p></p>
         <label>
           <input
             type="text"
             placeholder=" Username"
-            className="input-length-standard"
+            className="sign-up-input"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             required
           />
         </label>
-        <p></p>
 
         <label>
           <input
             type="text"
             placeholder="First Name"
             value={firstName}
-            className="input-length-standard"
+            className="sign-up-input"
             onChange={(e) => setFirstName(e.target.value)}
             required
           />
         </label>
-        <p></p>
 
         <label>
           <input
             type="text"
-            className="input-length-standard"
+            className="sign-up-input"
             placeholder="Last Name"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
             required
           />
         </label>
-        <p></p>
 
         <label>
           <input
             type="password"
-            className="input-length-standard"
+            className="sign-up-input"
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
         </label>
-        <p></p>
 
         <label>
           <input
             type="password"
-            className="input-length-standard"
+            className="sign-up-input"
             placeholder="Confirm Password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             required
           />
         </label>
-        <p></p>
         <button
           className="sign-up-button-modal"
           type="submit"
@@ -189,7 +183,7 @@ function SignupFormModal() {
           Sign Up
         </button>
       </form>
-    </>
+    </div>
   );
 }
 
