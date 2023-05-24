@@ -68,7 +68,8 @@ function CreateBookingForm({ spotId, allBookings, start, end, currentSpot }) {
     if (!endDate) {
       errorsObj.endDate = "Must select an end date";
     }
-    if(sessionUser.id === currentSpot.ownerId){
+
+    if(sessionUser && sessionUser.id === currentSpot.ownerId){
 
         errorsObj.endDate = "Cannot Book a place you own";
 

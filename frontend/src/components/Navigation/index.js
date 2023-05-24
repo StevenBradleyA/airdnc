@@ -127,8 +127,6 @@ function Navigation() {
                   Manage Bookings
                 </div>
 
-                
-
                 <LogOutButton
                   user={sessionUser}
                   name={`Log Out`}
