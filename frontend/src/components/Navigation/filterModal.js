@@ -28,15 +28,13 @@ function FilterModal() {
 
 
   const handleFilter = async (e) => {
-    e.preventdefault()
+    e.preventDefault();
     dispatch(setMinPrice(minPrice));
     dispatch(setMaxPrice(maxPrice));
     dispatch(setCountry(country));
     dispatch(setState(state));
     history.push("")
     closeModal();
-
-
   };
 
   const handleFlexibleClick = () => {
