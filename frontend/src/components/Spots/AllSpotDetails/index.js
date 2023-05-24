@@ -14,34 +14,43 @@ const AllSpotDetails = () => {
 
   const allSpots = useSelector((state) => Object.values(state.spots));
 
+  const allFilters = useSelector((state) => Object.values(state.filteredSpots));
 
-  const allFilteredSpots = useSelector((state) => Object.values(state.filteredSpots));
+  const filters = allFilters.filter((e) => e !== "");
 
-  console.log('hello there', allFilteredSpots)
-  // my idea is that I could make a react store for filtered spots
-  // if a spot if filtered based on price, country, and state, then I could map through it
-  // if there is no filter than just map through all spots.
+  let filteredSpots;
+  if (filters.length > 0) {
+    filteredSpots = allSpots.filter((spot) => {
+      const { minPrice, maxPrice, country, state } = allFilters;
 
+      if (minPrice && spot.price <= Number(minPrice)) {
+        return false;
+      }
+      if (maxPrice && spot.price >= Number(maxPrice)) {
+        return false;
+      }
+      if (country && spot.country !== country) {
+        return false;
+      }
+      if (state && spot.state !== state) {
+        return false;
+      }
 
-// once the store is update we will jsut check it code will look something like this 
+      return true; // Return true if spot passes all filters
+    });
+  } else {
+    filteredSpots = allSpots; // No filters applied, return all spots
+  }
 
-// {(filteredSpots.length > 0 ? filteredSpots : allSpots).map((spot, index) => (
-//   <SpotCard key={spot.id} spot={spot} index={index} />
-// ))}
-
-// should probable try filtering server side instead. because this would be more efficient
-// when a spot is clicked on prob need to empty the filter state
-
-
-
-
-
+  console.log("ayo bb", filteredSpots);
 
   return (
     <div className="spotCardsContainer">
-      {allSpots.map((spot, index) => (
-        <SpotCard key={spot.id} spot={spot} index={index} />
-      ))}
+      {filters.length > 0
+        ? filteredSpots
+        : allSpots.map((spot, index) => (
+            <SpotCard key={spot.id} spot={spot} index={index} />
+          ))}
     </div>
   );
 };

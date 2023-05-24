@@ -22,7 +22,7 @@ function FilterModal() {
 
   const [minPrice, setMinPriceLocal] = useState("");
   const [maxPrice, setMaxPriceLocal] = useState("");
-  const [country, setCountryLocal] = useState("United States");
+  const [country, setCountryLocal] = useState("");
   const [state, setStateLocal] = useState("");
   const { closeModal } = useModal();
 
