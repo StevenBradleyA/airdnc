@@ -67,8 +67,6 @@ const SpotDetails = () => {
     fetchData();
   }, [mapsSecret]);
 
-  console.log("uh hello", mapsSecret);
-
   const updateReviewAverage = () => {
     const totalScore = currentReviews.reduce((sumReview, currentReview) => {
       sumReview += currentReview.stars;

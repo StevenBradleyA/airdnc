@@ -4,11 +4,6 @@ import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
 const GoogleMaps = ({ currentSpot, mapsSecret }) => {
   const [map, setMap] = useState(null);
 
-  
-  // const mapsSecret = process.env.REACT_APP_MAPS_API;
-
-
-
   const { isLoaded, loadError } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: mapsSecret,
@@ -71,7 +66,7 @@ const GoogleMaps = ({ currentSpot, mapsSecret }) => {
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={center}
-          zoom={10}
+          zoom={8}
           onLoad={onLoad}
           onUnmount={onUnmount}
         >
