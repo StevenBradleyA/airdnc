@@ -4,19 +4,16 @@ import { getSpotByIdThunk } from "../../../store/spots";
 import { useParams } from "react-router-dom";
 import AllReviews from "../../Reviews/AllReviews/index";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faStar
-} from "@fortawesome/free-solid-svg-icons";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { loadSpots } from "../../../store/spots";
 import GoogleMaps from "./googleMaps";
 import "./SpotDetails.css";
 import CalendarDateRange from "./calendar";
 import githubIcon from "../../../media/square-github.svg";
 import linkedIn from "../../../media/linkedin.svg";
-import mapsLogo from "../../../media/logo-location.svg"
+import mapsLogo from "../../../media/logo-location.svg";
 import { getAllBookingsBySpotIdThunk } from "../../../store/booking";
 import CreateBookingForm from "../Bookings/CreateBooking";
-
 
 // ! Update Build command
 
@@ -38,9 +35,6 @@ const SpotDetails = () => {
   const currentSpot = allSpots[spotId];
   const allReviews = useSelector((state) => Object.values(state.reviews));
 
-
-
-
   useEffect(() => {
     dispatch(getSpotByIdThunk(spotId));
   }, [dispatch, spotId]);
@@ -50,7 +44,6 @@ const SpotDetails = () => {
   }, [dispatch, spotId]);
 
   const allBookings = useSelector((state) => Object.values(state.bookings));
-
 
   const currentReviews = allReviews
     .filter((e) => Number(spotId) === e.spotId)
@@ -86,13 +79,10 @@ const SpotDetails = () => {
     otherImagesArr = currentSpot.SpotImages.filter((e) => e.preview === false);
   }
 
-
-
   const handleDateRangeSelect = (startDate, endDate) => {
     setSelectedStartDate(startDate);
     setSelectedEndDate(endDate);
   };
-
 
   return (
     <div className="spot-detail-container">
@@ -137,13 +127,13 @@ const SpotDetails = () => {
                   alt="preview"
                 />
                 <img
-                  className="detail-image-two"
-                  src={otherImagesArr[1].url}
+                  className="detail-image-three"
+                  src={otherImagesArr[2].url}
                   alt="preview"
                 />
                 <img
-                  className="detail-image-three"
-                  src={otherImagesArr[2].url}
+                  className="detail-image-two"
+                  src={otherImagesArr[1].url}
                   alt="preview"
                 />
                 <img
@@ -165,7 +155,10 @@ const SpotDetails = () => {
           </div>
 
           <div className="google-maps-container">
-            <div className="google-maps-header">Find your couch <img alt="logo" src={mapsLogo} className="maps-logo"/></div>
+            <div className="google-maps-header">
+              Find your couch{" "}
+              <img alt="logo" src={mapsLogo} className="maps-logo" />
+            </div>
 
             <GoogleMaps currentSpot={currentSpot} />
           </div>
@@ -177,7 +170,11 @@ const SpotDetails = () => {
 
           <div className="calendar-date-range-container">
             <div className="calendar-header">Plan your nights</div>
-            <CalendarDateRange currentSpot={currentSpot} allBookings={allBookings} onDateRangeSelect={handleDateRangeSelect} />
+            <CalendarDateRange
+              currentSpot={currentSpot}
+              allBookings={allBookings}
+              onDateRangeSelect={handleDateRangeSelect}
+            />
           </div>
         </div>
         <div className="reserve-container">
@@ -203,7 +200,13 @@ const SpotDetails = () => {
               )}
             </div>
           </div>
-          <CreateBookingForm  currentSpot={currentSpot} spotId={Number(spotId)} allBookings={allBookings} start={selectedStartDate && selectedStartDate.toDateString()} end={selectedEndDate && selectedEndDate.toDateString()} />
+          <CreateBookingForm
+            currentSpot={currentSpot}
+            spotId={Number(spotId)}
+            allBookings={allBookings}
+            start={selectedStartDate && selectedStartDate.toDateString()}
+            end={selectedEndDate && selectedEndDate.toDateString()}
+          />
         </div>
       </div>
 
