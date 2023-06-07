@@ -45,6 +45,7 @@
 
 .spot-images-container {
   display: flex;
+  flex-wrap: wrap;
   width: 100%;
   height: 420px;
 }
@@ -55,10 +56,11 @@
 }
 
 .detail-images-container {
-  width: 50%;
+  flex-basis: 50%;
   height: 100%;
   display: flex;
   flex-wrap: wrap;
+  flex-direction: column;
 }
 
 .detail-preview-image {
@@ -70,53 +72,38 @@
   transition: filter 200ms ease;
 }
 
-.detail-image-one {
-  margin-left: 10px;
-  margin-right: 10px;
-  margin-bottom: 10px;
+.detail-image-one,
+.detail-image-two,
+.detail-image-three,
+.detail-image-four {
   width: 48%;
   height: 205px;
   object-fit: cover;
   transition: filter 200ms ease;
 }
-.detail-image-two {
-  margin-bottom: 10px;
-  width: 48%;
-  height: 205px;
-  object-fit: cover;
-  border-top-right-radius: 12px;
-  transition: filter 200ms ease;
-}
+
+.detail-image-one,
 .detail-image-three {
   margin-left: 10px;
-  width: 48%;
-  height: 205px;
-
-  object-fit: cover;
-  transition: filter 200ms ease;
+  margin-right: 10px;
 }
+.detail-image-one,
+.detail-image-two {
+  margin-bottom: 10px;
+}
+
+.detail-image-two {
+  border-top-right-radius: 12px;
+}
+
 .detail-image-four {
-  margin-left: 10px;
-  width: 48%;
-  height: 205px;
-  object-fit: cover;
   border-bottom-right-radius: 12px;
-  transition: filter 200ms ease;
 }
 
-.detail-preview-image:hover {
-  filter: brightness(90%);
-}
-
-.detail-image-one:hover {
-  filter: brightness(90%);
-}
-.detail-image-two:hover {
-  filter: brightness(90%);
-}
-.detail-image-three:hover {
-  filter: brightness(90%);
-}
+.detail-preview-image:hover,
+.detail-image-one:hover,
+.detail-image-two:hover,
+.detail-image-three:hover,
 .detail-image-four:hover {
   filter: brightness(90%);
 }
@@ -194,52 +181,46 @@
 }
 /* -------        create booking form        -------- */
 
-
-.create-booking-input-container{
+.create-booking-input-container {
   display: flex;
   justify-content: center;
   width: 100%;
   margin-top: 20px;
 }
-.booking-input-subtext{
+.booking-input-subtext {
   font-size: 10px;
   margin-bottom: 5px;
   font-weight: 500;
 }
 
-
-.left-booking-start{
+.left-booking-start {
   padding: 5px;
   border: 1.5px solid rgb(193, 193, 193);
   border-top-left-radius: 10px;
   width: 45%;
-  height: 45px;  
-
+  height: 45px;
 }
 
-
-.right-booking-end{
+.right-booking-end {
   border-top-right-radius: 10px;
   padding: 5px;
   border-top: 1.5px solid rgb(193, 193, 193);
   border-bottom: 1.5px solid rgb(193, 193, 193);
   border-right: 1.5px solid rgb(193, 193, 193);
   width: 45%;
-
 }
 
-.booking-date-input{
+.booking-date-input {
   padding: 0;
   border: none;
   background-color: transparent;
   outline: none;
 }
 
-
-.booking-date-input-lower{
+.booking-date-input-lower {
   display: flex;
   align-items: center;
-  height: 45px;  
+  height: 45px;
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
   border-bottom: 1.5px solid rgb(193, 193, 193);
@@ -248,18 +229,12 @@
   padding: 5px;
   width: 94%;
   margin-bottom: 20px;
-
-
 }
 
-
-.lower-calendar-text{
+.lower-calendar-text {
   font-size: 12px;
   opacity: 0.8;
 }
-
-
-
 
 .reserve-button {
   font-size: 15px;
@@ -334,7 +309,7 @@
   gap: 10px;
 }
 
-.maps-logo{
+.maps-logo {
   width: 25px;
 }
 

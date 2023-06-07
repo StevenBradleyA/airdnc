@@ -238,8 +238,6 @@ router.get("/filter", async (req, res, next) => {
     }
 
     return res.json({ Spots: spotData });
-
-  
   } catch (error) {
     return res.status(500).json({
       message: "Internal Server Error",
@@ -352,6 +350,7 @@ router.get("/:id", async (req, res) => {
 
   return res.json(currentSpot);
 });
+
 
 //todo POST /
 
