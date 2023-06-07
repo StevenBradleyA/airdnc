@@ -4,6 +4,11 @@ import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
 const GoogleMaps = ({ currentSpot, mapsSecret }) => {
   const [map, setMap] = useState(null);
 
+  const [newCenter, setNewCenter] = useState({
+    lat: 47.6062,
+    lng: -122.3321,
+  });
+
   const { isLoaded, loadError } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: mapsSecret,
@@ -15,10 +20,10 @@ const GoogleMaps = ({ currentSpot, mapsSecret }) => {
     marginBottom: "20px",
   };
 
-  let center = {
-    lat: 47.6062,
-    lng: -122.3321,
-  };
+  // let center = {
+  //   lat: 47.6062,
+  //   lng: -122.3321,
+  // };
 
   const onLoad = React.useCallback(function callback(map) {
     setMap(map);
@@ -34,24 +39,52 @@ const GoogleMaps = ({ currentSpot, mapsSecret }) => {
       typeof currentSpot.lat === "number" &&
       typeof currentSpot.lng === "number"
     ) {
-      const newCenter = {
+      setNewCenter({
         lat: currentSpot.lat,
         lng: currentSpot.lng,
-      };
-      if (map) {
-        if (typeof window.google !== "undefined" && window.google.maps) {
-          const bounds = new window.google.maps.LatLngBounds(newCenter);
-          if (map.fitBounds) {
-            map.fitBounds(bounds);
-          } else {
-            console.error("fitBounds function not available");
-          }
+      });
+    }
+  }, [currentSpot]);
+
+  useEffect(() => {
+    if (map) {
+      if (typeof window.google !== "undefined" && window.google.maps) {
+        const bounds = new window.google.maps.LatLngBounds(newCenter);
+        if (map.fitBounds) {
+          map.fitBounds(bounds);
         } else {
-          console.error("Google Maps API not loaded");
+          console.error("fitBounds function not available");
         }
+      } else {
+        console.error("Google Maps API not loaded");
       }
     }
-  }, [currentSpot, map]);
+  }, [newCenter, map]);
+
+  // useEffect(() => {
+  //   if (
+  //     currentSpot &&
+  //     typeof currentSpot.lat === "number" &&
+  //     typeof currentSpot.lng === "number"
+  //   ) {
+  //     const newCenter = {
+  //       lat: currentSpot.lat,
+  //       lng: currentSpot.lng,
+  //     };
+  //     if (map) {
+  //       if (typeof window.google !== "undefined" && window.google.maps) {
+  //         const bounds = new window.google.maps.LatLngBounds(newCenter);
+  //         if (map.fitBounds) {
+  //           map.fitBounds(bounds);
+  //         } else {
+  //           console.error("fitBounds function not available");
+  //         }
+  //       } else {
+  //         console.error("Google Maps API not loaded");
+  //       }
+  //     }
+  //   }
+  // }, [currentSpot, map]);
 
   if (!isLoaded) {
     return <div>Loading...</div>;
@@ -65,8 +98,8 @@ const GoogleMaps = ({ currentSpot, mapsSecret }) => {
       {isLoaded ? (
         <GoogleMap
           mapContainerStyle={containerStyle}
-          center={center}
-          zoom={8}
+          center={newCenter}
+          zoom={5}
           onLoad={onLoad}
           onUnmount={onUnmount}
         >
