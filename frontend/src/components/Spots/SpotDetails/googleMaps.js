@@ -10,8 +10,8 @@ const GoogleMaps = ({ currentSpot, mapsSecret }) => {
   // });
 
   const [newCenter, setNewCenter] = useState({
-    lat: currentSpot.lat,
-    lng: currentSpot.lng,
+    lat: Number(currentSpot.lat),
+    lng: Number(currentSpot.lng),
   });
 
   const { isLoaded, loadError } = useJsApiLoader({
