@@ -61,30 +61,6 @@ const GoogleMaps = ({ currentSpot, mapsSecret }) => {
     }
   }, [newCenter, map]);
 
-  // useEffect(() => {
-  //   if (
-  //     currentSpot &&
-  //     typeof currentSpot.lat === "number" &&
-  //     typeof currentSpot.lng === "number"
-  //   ) {
-  //     const newCenter = {
-  //       lat: currentSpot.lat,
-  //       lng: currentSpot.lng,
-  //     };
-  //     if (map) {
-  //       if (typeof window.google !== "undefined" && window.google.maps) {
-  //         const bounds = new window.google.maps.LatLngBounds(newCenter);
-  //         if (map.fitBounds) {
-  //           map.fitBounds(bounds);
-  //         } else {
-  //           console.error("fitBounds function not available");
-  //         }
-  //       } else {
-  //         console.error("Google Maps API not loaded");
-  //       }
-  //     }
-  //   }
-  // }, [currentSpot, map]);
 
   if (!isLoaded) {
     return <div>Loading...</div>;
@@ -93,13 +69,16 @@ const GoogleMaps = ({ currentSpot, mapsSecret }) => {
     return <div>Error loading Google Maps</div>;
   }
 
+  console.log("uhhhhhh helllloooo", newCenter)
+
+  
   return (
     <>
       {isLoaded ? (
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={newCenter}
-          zoom={5}
+          zoom={3}
           onLoad={onLoad}
           onUnmount={onUnmount}
         >
