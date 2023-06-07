@@ -4,9 +4,14 @@ import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
 const GoogleMaps = ({ currentSpot, mapsSecret }) => {
   const [map, setMap] = useState(null);
 
+  // const [newCenter, setNewCenter] = useState({
+  //   lat: 47.6062,
+  //   lng: -122.3321,
+  // });
+
   const [newCenter, setNewCenter] = useState({
-    lat: 47.6062,
-    lng: -122.3321,
+    lat: currentSpot.lat,
+    lng: currentSpot.lng,
   });
 
   const { isLoaded, loadError } = useJsApiLoader({
@@ -20,10 +25,6 @@ const GoogleMaps = ({ currentSpot, mapsSecret }) => {
     marginBottom: "20px",
   };
 
-  // let center = {
-  //   lat: 47.6062,
-  //   lng: -122.3321,
-  // };
 
   const onLoad = React.useCallback(function callback(map) {
     setMap(map);
@@ -70,8 +71,10 @@ const GoogleMaps = ({ currentSpot, mapsSecret }) => {
   }
 
   console.log("uhhhhhh helllloooo", newCenter)
+  console.log('lat', currentSpot.lat)
+  console.log('lng', currentSpot.lng)
 
-  
+
   return (
     <>
       {isLoaded ? (
