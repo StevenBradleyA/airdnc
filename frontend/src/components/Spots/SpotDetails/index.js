@@ -53,6 +53,22 @@ const SpotDetails = () => {
     dispatch(loadSpots(updateReviewAverage()));
   }, [dispatch, currentReviews.length]);
 
+  const [mapsSecret, setMapsSecret] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (mapsSecret === null) {
+        const response = await fetch("/api/maps");
+        const data = await response.json();
+        setMapsSecret(data.mapsSecret);
+      }
+    };
+
+    fetchData();
+  }, [mapsSecret]);
+
+  console.log("uh hello", mapsSecret);
+
   const updateReviewAverage = () => {
     const totalScore = currentReviews.reduce((sumReview, currentReview) => {
       sumReview += currentReview.stars;
@@ -159,8 +175,9 @@ const SpotDetails = () => {
               Find your couch{" "}
               <img alt="logo" src={mapsLogo} className="maps-logo" />
             </div>
-
-            <GoogleMaps currentSpot={currentSpot} />
+            {mapsSecret && (
+              <GoogleMaps currentSpot={currentSpot} mapsSecret={mapsSecret} />
+            )}
           </div>
 
           <div className="details-description-container">

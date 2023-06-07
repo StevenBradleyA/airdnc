@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
 
-const GoogleMaps = ({ currentSpot }) => {
+const GoogleMaps = ({ currentSpot, mapsSecret }) => {
   const [map, setMap] = useState(null);
-  const mapsSecret = process.env.REACT_APP_MAPS_API;
+
+  
+  // const mapsSecret = process.env.REACT_APP_MAPS_API;
+
+
 
   const { isLoaded, loadError } = useJsApiLoader({
     id: "google-map-script",
