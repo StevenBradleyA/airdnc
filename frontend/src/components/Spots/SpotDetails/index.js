@@ -15,16 +15,6 @@ import mapsLogo from "../../../media/logo-location.svg";
 import { getAllBookingsBySpotIdThunk } from "../../../store/booking";
 import CreateBookingForm from "../Bookings/CreateBooking";
 
-// ! Update Build command
-
-// ! npm i -S @react-google-maps/api
-
-// ! npm install --save react-date-range
-
-// ! npm install --save react date-fns
-
-// ! npm install react-date-picker
-
 const SpotDetails = () => {
   const dispatch = useDispatch();
   const { spotId } = useParams();
