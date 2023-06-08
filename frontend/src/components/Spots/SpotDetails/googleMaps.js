@@ -4,11 +4,6 @@ import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
 const GoogleMaps = ({ currentSpot, mapsSecret }) => {
   const [map, setMap] = useState(null);
 
-  // const [newCenter, setNewCenter] = useState({
-  //   lat: 47.6062,
-  //   lng: -122.3321,
-  // });
-
   const [newCenter, setNewCenter] = useState({
     lat: Number(currentSpot.lat),
     lng: Number(currentSpot.lng),
@@ -69,12 +64,6 @@ const GoogleMaps = ({ currentSpot, mapsSecret }) => {
   if (loadError) {
     return <div>Error loading Google Maps</div>;
   }
-
-  console.log("uhhhhhh helllloooo", newCenter)
-  console.log('lat', currentSpot.lat)
-  console.log('lng', currentSpot.lng)
-
-
   return (
     <>
       {isLoaded ? (
