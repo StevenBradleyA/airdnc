@@ -23,6 +23,35 @@
 
 - Redux was utilized to handle state management, providing a predictable and centralized way to manage how data flows within the application. Moreover, Express was used to create a scalable and efficient backend API that seamlessly integrates with the frontend and allows for easy communication with external services. I hope you enjoy Airdnc!
 
+<br></br>
+
+<div align="center">
+<img src="./frontend/src/media/homepage.png" width="90%"/>
+</div>
+
+<br>
+</br>
+<div style="display:flex">
+  <img src="./frontend/src/media/homepage-load.gif" align="right" alt="binarygif" height="180" width="320" style="object-fit: cover"/>
+
+- The Home page displays all available properties.
+
+- Each card features a preview image and information about the spot.
+
+- The homepage has a staggered loading animation and preview image zoom animations on hover. 
+
+- Clicking a display card directs to the full listing page.
+
+</div>
+
+<br>
+
+<div align="center">
+<img src="./frontend/src/media/listing-page.png" width="90%"/>
+</div>
+
+
+
 
 
 
