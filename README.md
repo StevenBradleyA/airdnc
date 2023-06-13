@@ -73,7 +73,7 @@ Clicking the search bar allows users to filter listings based on price or locati
 
 - The listing page features reviews and bookings
 
-- A calendar shows all booked out dates and allows the user to select a date to book. 
+- A calendar shows all booked out dates and allows the user to select a date to book.
 
 </div>
 
@@ -82,9 +82,14 @@ Clicking the search bar allows users to filter listings based on price or locati
 <div align="center">
 <img src="./frontend/src/media/logo-location.svg" width="90px"/>
 </div>
+<br></br>
 
+<div align="center">
+<img src="./frontend/src/media/edit-review.gif" width="90%"/>
+</div>
 
 <br></br>
+
 <p align="center">
 
 The Manage Listing and Booking pages present users with a comprehensive overview of their listings and bookings, streamlining the process of updating or deleting them. To enable easy identification, these pages incorporate a convenient blurring hover effect, enabling users to easily identify and maintain their desired listings or bookings with utmost ease.
