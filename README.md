@@ -36,7 +36,7 @@
 
 - The Home page displays all available properties.
 
-- Each card features a preview image and information about the spot.
+- Every Spot shows a preview image and basic information.
 
 - The homepage has a staggered loading animation and preview image zoom animations on hover.
 
@@ -88,13 +88,14 @@ Clicking the search bar allows users to filter listings based on price or locati
 <img src="./frontend/src/media/edit-review.gif" width="90%"/>
 </div>
 
-<br></br>
+<br>
 
 <p align="center">
 
 The Manage Listing and Booking pages present users with a comprehensive overview of their listings and bookings, streamlining the process of updating or deleting them. To enable easy identification, these pages incorporate a convenient blurring hover effect, enabling users to easily identify and maintain their desired listings or bookings with utmost ease.
 
 </p>
+<br>
 
 <div align="center">
 <img src="./frontend/src/media/manage-listings.png" width="45%"/>
