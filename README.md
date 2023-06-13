@@ -1,12 +1,7 @@
 <div align="center">
   <h1>
-  <a href="https://airdnc.onrender.com/">Airdnc <img src="./frontend/src/media/logo-main.png" width="10%" height="10%" /></a>
-
-  
-  
+  <a href="https://airdnc.onrender.com/">Airdnc  <img src="./frontend/src/media/logo-main.svg" width="33px"/></a>
   </h1>
-
-
 
 </div>
 
@@ -25,7 +20,8 @@ Built using the latest web technologies and best practices, my application provi
 
 <h3>
 
-I had the pleasure of collaborating with <a href="https://www.linkedin.com/in/mario-menitra/">Mario Menitra</a>, a skilled UI/UX designer who designed logos and curated a color scheme that captured my vision for the site. The culmination of our collaborative efforts resulted in a unique playful twist of Airbnb's aesthetics. 
+I had the pleasure of collaborating with <a href="https://www.linkedin.com/in/mario-menitra/">Mario Menitra</a>, a skilled UI/UX designer who designed logos and curated a color scheme that captured my vision for the site. The culmination of our collaborative efforts resulted in a unique playful twist of Airbnb's aesthetics.
+
 </h3>
 
 <h3>
